@@ -6,8 +6,13 @@
             <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-gray-700 underline">
                 Dashboard
             </Link>
+            
 
             <template v-else>
+                <Link :href="route('shopHome')" class="text-sm text-gray-700 underline">
+                    Shop Page
+                </Link>
+                
                 <Link :href="route('login')" class="text-sm text-gray-700 underline">
                     Log in
                 </Link>
