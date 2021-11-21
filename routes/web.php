@@ -16,7 +16,13 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    return Inertia::render('Mainshop/Home');
+});
+Route::get('/restaurants', function () {
+    return Inertia::render('Mainshop/restaurantList');
+});
+Route::get('/restaurants/name', function () {
+    return Inertia::render('Mainshop/singleRestaurant');
 });
 Route::get('/login');
 Route::get('/dashboard', function () {
