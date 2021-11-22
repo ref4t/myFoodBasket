@@ -112,7 +112,7 @@
         </div>
         <div id="sang_menu" class="ybc_menu_custom wide_menu_full">
           <div class="ets_main_content">
-            <div class="home_menu close_shop">
+            <div class="home_menu ">
               <!----------------------------------Menu------------------------------------------>
 
               <LowerShopNav/>
@@ -188,7 +188,7 @@
                           </div>
                           <div id="wrapper">
                             <div id="content">
-                              <h1>Account Login</h1>
+                              <h1 style="color: #000;font-size: 30px;font-weight: 400;margin-bottom: 20px;margin-top: 20px;text-transform: uppercase;">Account Login</h1>
                               <!-- route : account/login -->
                               <div class="box list_category_style_1">
                                 <p id="toggle_category_home">Menu</p>

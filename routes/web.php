@@ -73,8 +73,11 @@ Route::prefix('shop')->group(function(){
     })->name('shopcontactus');
     
     Route::get('/cart',function(){
-        $openBanner = true;
-        return Inertia::render('ShopPages/Cart',['openBanner' => $openBanner]);
+        $theme = 2;
+        if ($theme == 1){
+            return Inertia::render('ShopPages/Cart',['theme' => $theme]);
+        }else
+            return Inertia::render('ShopPages/Theme_2/Cart',['theme' => $theme]);
     })->name('shopcart');
 
     

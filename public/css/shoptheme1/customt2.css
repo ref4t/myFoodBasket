@@ -457,7 +457,8 @@ h2.ybcgeneral.title-toggle::before,
 }
 
 .menuResp>li:hover>a {
-    color: #ab0000;
+    background-color: #ab0000;
+    color: #ffffff;
 }
 
 .menuResp>li:hover,

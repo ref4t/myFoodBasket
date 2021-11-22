@@ -178,7 +178,7 @@
                 <!----------------------------------Cart------------------------------------------>
                 <div id="cart" class="ybccart">
                   <!-- <a href="http://www.123.the-public.co.uk/index.php?route=checkout/cart"> -->
-                  <Link :href="route('shopcheckout')" >
+                  <Link :href="route('shopcart')" >
                   
                     <h4>My Basket</h4>
                     <span>My Basket</span>
@@ -353,3 +353,10 @@ export default {
   
 };
 </script>
+
+<style >
+.menuResp > li > a {
+    background-color: #2575C7;
+    color: #FFFFFF;
+}
+</style>

@@ -112,7 +112,7 @@
         </div>
         <div id="sang_menu" class="ybc_menu_custom wide_menu_full">
           <div class="ets_main_content">
-            <div class="home_menu close_shop">
+            <div class="home_menu ">
               <!----------------------------------Menu------------------------------------------>
 
               <LowerShopNav/>

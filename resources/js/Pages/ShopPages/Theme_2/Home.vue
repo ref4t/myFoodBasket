@@ -13,19 +13,16 @@
     <link rel="stylesheet" href="/css/shoptheme1/ybc-testimonials.css" />
     <link rel="stylesheet" href="/css/shoptheme1/ets_green.css" />
     <link rel="stylesheet" href="/css/shoptheme1/customt2.css" />
+    
   </Head>
 
-  <body class="close_shop home lang_en ets_green">
+  <body class="home lang_en ets_green">
     <UpperShopNav/>
+
     <!-- end conteinner header -->
 
     <div class="shopStatus shopStatusMobile" style="display: none">
-      <div class="shop_close_ets">
-        <h2 class="title-close-ets">Sorry we are closed now!</h2>
-        <span class="lable-close-ets"
-          >We will be opening back at 14:40 Today</span
-        >
-      </div>
+      <div class="shop_open_msg"><h2>We are open now!</h2></div>
     </div>
 
     <div class="body_ets">
@@ -74,35 +71,27 @@
 
                       <div class="timeStore shop_closed">
                         <img
-                          src="https://www.stationkebabs.co.uk/image/data/open_close/new_closed.png"
-                          width="235"
-                          height="145"
+                          src="https://www.stationkebabs.co.uk/image/data/open_close/new_open.png"
                         />
-                        <div class="shop_closed_ets">
-                          <p class="ybc_open_back">
-                            <span>We will be opening back at 14:40 Today</span>
-                          </p>
-                        </div>
                       </div>
                     </div>
                   </div>
-
                   <!-- <script type="text/javascript">
-                    $(document).ready(function () {
-                      if ($(".right .cart input.button").length > 0) {
-                        $(".right .cart input.button").remove();
-                      }
-                      if ($(".right > .cart > div .links").length > 0) {
-                        $(".right > .cart > div:first-child").html(
-                          $(".right > .cart > div .links").html()
-                        );
-                      }
-                      if ($(".box-product div .cart input.button").length > 0) {
-                        $(".box-product div .cart input.button").remove();
-                      }
-                    });
-                  </script> -->
-
+    $(document).ready(function(){
+        if($('.right .cart input.button').length > 0)
+        {
+            $('.right .cart input.button').remove();
+        }
+        if($('.right > .cart > div .links').length > 0)
+        {
+            $('.right > .cart > div:first-child').html($('.right > .cart > div .links').html());
+        }    
+        if($('.box-product div .cart input.button').length > 0)
+        {
+            $('.box-product div .cart input.button').remove();
+        }
+    });
+</script> -->
                   <div class="ctr"></div>
                 </div>
               </div>
@@ -112,7 +101,9 @@
         </div>
         <div id="sang_menu" class="ybc_menu_custom wide_menu_full">
           <div class="ets_main_content">
-            <div class="home_menu close_shop">
+
+              <!-- closed shop will add  close_shop class -->
+            <div class="home_menu">
               <!----------------------------------Menu------------------------------------------>
 
               <LowerShopNav/>
@@ -131,21 +122,23 @@
       <!-- bg_option_header -->
 
       <!-- <script type="text/javascript">
-        $(document).ready(function () {
-          $(".menu_responsive .btn-navbar").click(function () {
-            $(this).parent().parent().find(".mobilemenu ").toggle();
-          });
-          $(".top_res_click").click(function () {
-            $(this).parent().parent().find(".top_res_menu ").toggle();
-          });
-          $("#res_btlogin2").click(function () {
-            $(".login_pop").click();
-          });
-          $("#toggle-menu").click(function () {
-            $("#menu_list_ets").toggle();
-          });
+   $( document ).ready(function() {     
+        $('.menu_responsive .btn-navbar').click(function(){
+           $(this).parent().parent().find('.mobilemenu ').toggle();
         });
-      </script> -->
+        $('.top_res_click').click(function(){
+           $(this).parent().parent().find('.top_res_menu ').toggle();
+        });
+        $('#res_btlogin2').click(function(){
+            $('.login_pop').click();    
+        }); 
+        $("#toggle-menu").click(function(){
+            $("#menu_list_ets").toggle();
+        });    
+   });
+   
+    
+</script>  -->
 
       <div id="wrapper" class="etsWrapper middle_bg_custom body_full_width">
         <div class="ets_main_content">
@@ -295,158 +288,141 @@
                         </li>
                       </ul>
                     </div>
+                    <div class="responsive_cart">
+                      <div id="cart" class="ybccart">
+                        <!-- <a href="http://www.stationkebabs.co.uk/index.php?route=checkout/cart"> -->
+                        <a href="checkout/cart">
+                          <h4>My Basket</h4>
+                          <span>My Basket</span>
+                          <div id="basket_icon"></div>
+                          <span class="fix-cart" id="cart-total"
+                            >0 x items | Total: £0.00</span
+                          >
+                        </a>
+
+                        <!-- Begin ETS customize  -->
+                        <div class="content">
+                          <div class="empty">Your shopping cart is empty!</div>
+                        </div>
+                        <!-- End ETS customize -->
+                      </div>
+                    </div>
                   </div>
 
                   <!-- <script>
-                    $(document).ready(function () {
-                      var catname = window.location.hash;
-                      $("ul.box-category li").each(function () {
-                        if (catname != "") {
-                          if ($(this).find("a").attr("data-href") == catname) {
-                            $(this).find("a").addClass("active");
-                          }
-                        } else {
-                          var cName = "";
-                          if (cName != "") {
-                            if (
-                              $(this).find("a").attr("data-href") ==
-                              "#" + cName
-                            ) {
-                              $(this).find("a").addClass("active");
-                              $("html, body").animate(
-                                {
-                                  scrollTop: $("#" + cName).offset().top,
-                                },
-                                2000
-                              );
-                            }
-                          }
-                        }
-                      });
-                      $("#list_category_style_content").hide();
-                      $("#toggle_category_home").click(function () {
-                        $("#list_category_style_content").toggle();
-                      });
-                    });
-                  </script> -->
+    $(document).ready(function(){
+
+      var catname = window.location.hash;
+      $('ul.box-category li').each(function(){
+      if(catname != ''){       
+        if($(this).find('a').attr('data-href') == catname){
+          $(this).find('a').addClass('active');
+        }         
+      }else{
+        var cName = '';
+        if(cName!=''){
+          if($(this).find('a').attr('data-href') == '#'+cName){
+            $(this).find('a').addClass('active');
+            $('html, body').animate({
+                scrollTop: $("#"+cName).offset().top
+            }, 2000);
+          }
+        }
+      }
+      }) 
+        $("#list_category_style_content").hide();
+        $("#toggle_category_home").click(function(){
+            $("#list_category_style_content").toggle();
+        });
+
+  });
+</script> -->
 
                   <!-- <script type="text/javascript">
-                    function loadSlideshow0() {
-                      jQuery("#ecslideshow0").camera({
-                        thumbnails: false,
-                        alignment: "center",
-                        autoAdvance: true,
-                        mobileAutoAdvance: true,
-                        barDirection: "leftToRight",
-                        barPosition: "bottom",
-                        cols: 6,
-                        easing: "easeInOutExpo",
-                        fx: "random",
-                        gridDifference: 250,
-                        imagePath:
-                          "https://www.stationkebabs.co.uk/catalog/view/javascript/ecslideshow/",
-                        height: "400",
-                        hover: true,
-                        loader: "bar",
-                        loaderColor: "#eeeeee",
-                        loaderBgColor: "#222222",
-                        loaderOpacity: 0.8,
-                        minHeight: "200px",
-                        navigation: false,
-                        navigationHover: false,
-                        overlayer: true,
-                        pagination: true,
-                        playPause: false,
-                        pieDiameter: 38,
-                        piePosition: "rightTop",
-                        rows: 4,
-                        slicedCols: 12,
-                        slicedRows: 8,
-                        slideOn: "random",
-                        thumbnails: false,
-                        time: 7000,
-                        transPeriod: 1500,
-                      });
-                    }
-                  </script>
-                  <script type="text/javascript"></script>
-                  <script>
-                    $("#search_input").autocomplete({
-                      delay: 500,
-                      minLength: 2,
-                      source: function (request, response) {
-                        $("span.wait").remove();
-                        $.ajax({
-                          url: "index.php?route=common/home/postcodes",
-                          data:
-                            "keyword=" +
-                            $("#search_input").val() +
-                            "&id_store=" +
-                            "3",
-                          dataType: "json",
-                          beforeSend: function () {
-                            $("#loading_icon").css("display", "block");
-                          },
-                          success: function (json) {
-                            $("#loading_icon").css("display", "none");
-                            $("#search_result").css("display", "none");
-                            if (json.success) {
-                              response(
-                                $.map(json.postcodes, function (item) {
-                                  return {
-                                    label: item.Postcode,
-                                    value: item.Postcode,
-                                  };
-                                })
-                              );
-                            }
-                            if (json.error) {
-                              $(".ui-autocomplete").hide();
-                              $(".input-xlarge.focused").attr(
-                                "style",
-                                "border:1px solid red !important"
-                              );
-                              $("#search_result").html(json["error"]);
-                              $("#search_result").css("display", "block");
-                            }
-                          },
-                        });
-                      },
-                      select: function (event, ui) {
-                        $("input#search_input").attr("value", ui.item["value"]);
+           function  loadSlideshow0(){
+    			jQuery('#ecslideshow0').camera({
+				thumbnails: false,
+				alignment: 'center',
+				autoAdvance: true,
+				mobileAutoAdvance: true,
+				barDirection: 'leftToRight',
+				barPosition: 'bottom',
+				cols: 6,
+				easing: 'easeInOutExpo',
+				fx: 'random',
+				gridDifference: 250,
+				imagePath: 'https://www.stationkebabs.co.uk/catalog/view/javascript/ecslideshow/',
+				height: '400',
+				hover: true,
+				loader: 'bar',
+				loaderColor: '#eeeeee',
+				loaderBgColor: '#222222',
+				loaderOpacity: .8,
+				minHeight: '200px',
+				navigation: false,
+				navigationHover: false,
+				overlayer: true,
+				pagination: true,
+				playPause: false,
+				pieDiameter: 38,
+				piePosition: 'rightTop',
+				rows: 4,
+				slicedCols: 12,
+				slicedRows: 8,
+				slideOn: 'random',
+				thumbnails: false,
+				time: 7000,
+				transPeriod: 1500			});
+};
+	</script> -->
 
-                        return false;
-                      },
-                    });
-                  </script> -->
+                  <!-- <script>
+    $('#search_input').autocomplete({
+        delay: 500,
+        minLength: 2,
+        source: function(request, response) {
+            $('span.wait').remove();
+            $.ajax({
+                url: 'index.php?route=common/home/postcodes',
+                data: 'keyword='+$('#search_input').val()+'&id_store='+'3',
+                dataType: 'json',
+                beforeSend: function(){
+                    $('#loading_icon').css('display','block');
+                },
+                success: function(json) {
+                    $('#loading_icon').css('display','none');
+                    $('#search_result').css('display','none'); 
+                    if(json.success){
+                        response($.map(json.postcodes, function(item) {
+                            return {                            
+                                label: item.Postcode,
+                                value: item.Postcode,
+                            }
+                        }));
+                    }
+                    if(json.error){
+                        $('.ui-autocomplete').hide();
+                        $('.input-xlarge.focused').attr('style','border:1px solid red !important'); 
+                        $('#search_result').html(json['error']);
+                        $('#search_result').css('display','block'); 
+                    }
+                }
+            });
+        }, 
+        select: function(event, ui) {
+            $('input#search_input').attr('value', ui.item['value']);    
+                
+            return false;
+        },
+    });
+</script>     -->
 
                   <div class="custom-row-start" style="width: 100%">
                     <div
                       class="box box_section custom-col-12 ybctablet ybcmobile"
-                      style="padding: 0px !important"
+                      style="padding: 0px !important ;"
                       data-box="12"
                     >
-                      <!-- <style>
-                        .galleryPreviewImage {
-                          position: relative;
-                        }
-                        .galleryPreviewImage::after {
-                          content: "";
-                          background: url(image/slider_pattern.png) repeat;
-                          position: absolute;
-                          width: 100%;
-                          height: 100%;
-                          top: 0;
-                          left: 0;
-                        }
-                      </style> -->
-
-                      <!-- <script>
-                        $(window).load(function () {
-                          $(".sliderloaderdinemic").fadeOut("slow");
-                        });
-                      </script> -->
-
                       <div class="box-content ybc_slider_content">
                         <div class="inner_box_section">
                           <div class="inner_box_table_cell">
@@ -464,7 +440,7 @@
                                       class="previewImage previewImage1"
                                       style="
                                         background-image: url('image/data/foods/kebabs/chicken-kebab-3.jpg');
-                                        min-height: 868px !important;
+                                        min-height: 480px !important;
                                         display: none;
                                       "
                                     ></div>
@@ -472,7 +448,7 @@
                                       class="previewImage previewImage2"
                                       style="
                                         background-image: url('image/data/foods/pizzas/pizza6.jpg');
-                                        min-height: 868px !important;
+                                        min-height: 480px !important;
                                         display: none;
                                       "
                                     ></div>
@@ -480,7 +456,7 @@
                                       class="previewImage previewImage3"
                                       style="
                                         background-image: url('image/data/foods/side_orders/french-fries.jpg');
-                                        min-height: 868px !important;
+                                        min-height: 480px !important;
                                         display: block;
                                       "
                                     ></div>
@@ -566,318 +542,204 @@
                                   />
                                 </div>
                                 <!-- <script>
-                                  //$(document).ready(function(){
-                                  $(".collection_button1").click(function () {
-                                    //alert();
-                                    $("#search_result1").css("display", "none");
-                                    var keyword =
-                                      $("#search_result1").val() == undefined
-                                        ? $(
-                                            "select[name=search_result1] option"
-                                          )
-                                            .filter(":selected")
-                                            .val()
-                                        : $("#search_result1").val().trim();
-
-                                    var checkbox = 0; //parseInt($('.searchFullScreen input[type=\'radio\']:checked').val());
-                                    if (keyword.length > 0 || checkbox == 0) {
-                                      $("#search_input1").removeClass("error");
-                                      //   $('#search_input').css('border', '1px solid #24A976');
-                                      $("#loading_icon1").css(
-                                        "display",
-                                        "block"
-                                      );
-                                      $.ajax({
-                                        url: "index.php?route=common/home/checkZipCode",
-                                        type: "post",
-                                        data:
-                                          "keyword=" +
-                                          keyword +
-                                          "&checkbox=" +
-                                          checkbox +
-                                          "&id_store=" +
-                                          "3",
-                                        success: function (data) {
-                                          if ($(".store_list").length > 0)
-                                            $(".store_list").remove();
-                                          $("#loading_icon1").css(
-                                            "display",
-                                            "none"
-                                          );
-                                          if (data != "EXIST") {
-                                            $("#search_result1").html(data);
-                                            $("#search_result1").css(
-                                              "display",
-                                              "block"
-                                            );
-                                          } else {
+                        //$(document).ready(function(){
+                            $('.collection_button1').click(function(){ //alert();
+                                $('#search_result1').css('display','none');
+                                var keyword = $('#search_result1').val() == undefined ? $('select[name=search_result1] option').filter(':selected').val() : $('#search_result1').val().trim();
+								
+                                var checkbox = 0; //parseInt($('.searchFullScreen input[type=\'radio\']:checked').val());
+                                if((keyword.length > 0) || (checkbox == 0))
+                                {
+                                    $('#search_input1').removeClass('error');
+                                 //   $('#search_input').css('border', '1px solid #24A976');  
+                                    $('#loading_icon1').css('display','block');
+                                    $.ajax({
+                                		url: 'index.php?route=common/home/checkZipCode',
+                                		type: 'post',
+                                		data: 'keyword='+keyword+'&checkbox='+checkbox+'&id_store='+'3',
+                                		success: function(data){ 
+                                		    if($('.store_list').length > 0)
+                                                $('.store_list').remove();
+                                            $('#loading_icon1').css('display','none');
+                                			if(data!='EXIST')
+                                            {  
+                                                $('#search_result1').html(data);
+                                                $('#search_result1').css('display','block');  
+																							
+                                            }
+                                            else
+                                            {
                                             // var catpath = $('#catpath').attr('href');
-                                            // window.location = catpath; //'index.php?route=product/category&path=59';
-                                            if ($("#catpath").length > 0) {
-                                              var catpath =
-                                                $("#catpath").attr("href");
-                                              window.location = catpath;
-                                            } else {
-                                              $.fancybox.open(
-                                                [
-                                                  {
-                                                    type: "inline",
-                                                    autoScale: true,
-                                                    minHeight: 30,
-                                                    content:
-                                                      '<p class="fancybox-error">Shop not available in today!</p>',
-                                                  },
-                                                ],
+                                            // window.location = catpath; //'index.php?route=product/category&path=59'; 
+                                                if ($('#catpath').length > 0)
                                                 {
-                                                  padding: 0,
+                                                    var catpath = $('#catpath').attr('href');
+                                                    window.location = catpath;
                                                 }
-                                              );
-                                            }
-                                          }
-                                        },
-                                        error: function () {
-                                          $("#search_result1").css(
-                                            "display",
-                                            "none"
-                                          );
-                                          $("#loading_icon1").css(
-                                            "display",
-                                            "none"
-                                          );
-                                        },
-                                      });
-                                    } else {
-                                      $("#loading_icon1").css(
-                                        "display",
-                                        "none"
-                                      );
-                                      if ($(".store_list").length > 0)
-                                        $(".store_list").remove();
-                                      if (keyword.length <= 0) {
-                                        $("#search_input1").addClass("error");
-                                      }
-                                    }
-                                  });
-                                  $(".delivery_button1").click(function () {
-                                    $("#search_result1").css("display", "none");
-
-                                    var keyword =
-                                      $("#search_input1").val() == undefined
-                                        ? $("select[name=search_input2] option")
-                                            .filter(":selected")
-                                            .val()
-                                        : $("#search_input1").val().trim();
-
-                                    //var keyword = $('#search_input1').val().trim();
-                                    var checkbox = 1; //parseInt($('.searchFullScreen input[type=\'radio\']:checked').val());
-                                    if (keyword.length > 0 || checkbox == 0) {
-                                      $("#search_input1").removeClass(
-                                        "postcode-input-error"
-                                      );
-                                      $("div.enter_postcode p").removeClass(
-                                        "postcode-error"
-                                      );
-                                      $("#loading_icon1").css(
-                                        "display",
-                                        "block"
-                                      );
-                                      $.ajax({
-                                        url: "index.php?route=common/home/checkZipCode",
-                                        type: "post",
-                                        data:
-                                          "keyword=" +
-                                          keyword +
-                                          "&checkbox=" +
-                                          checkbox +
-                                          "&id_store=" +
-                                          "3",
-                                        success: function (data) {
-                                          if ($(".store_list").length > 0)
-                                            $(".store_list").remove();
-                                          $("#loading_icon1").css(
-                                            "display",
-                                            "none"
-                                          );
-                                          if (data != "EXIST") {
-                                            $("#search_result1").html(data);
-                                            $("#search_result1").css(
-                                              "display",
-                                              "block"
-                                            );
-                                            $(".store_list").css(
-                                              "color",
-                                              "red"
-                                            );
-                                            $("div.enter_postcode p").css(
-                                              "display",
-                                              "none"
-                                            );
-                                            $(".store_list").removeClass(
-                                              "wrap_row"
-                                            );
-                                            setTimeout(function () {
-                                              $("div.enter_postcode p").css(
-                                                "display",
-                                                "block"
-                                              );
-                                              $("#search_result1").css(
-                                                "display",
-                                                "none"
-                                              );
-                                            }, 3000);
-                                          } else {
-                                            if ($("#catpath").length > 0) {
-                                              var catpath =
-                                                $("#catpath").attr("href");
-                                              window.location = catpath; //'index.php?route=product/category&path=59';
-                                            } else {
-                                              $.fancybox.open(
-                                                [
-                                                  {
-                                                    type: "inline",
-                                                    autoScale: true,
-                                                    minHeight: 30,
-                                                    content:
-                                                      '<p class="fancybox-error">Shop not available in today!</p>',
-                                                  },
-                                                ],
+                                                else
                                                 {
-                                                  padding: 0,
+                                                     $.fancybox.open([
+                                                		{
+                                                			type: 'inline',
+                                                			autoScale: true,
+                                                			minHeight: 30,
+                                                			content: '<p class="fancybox-error">Shop not available in today!</p>'
+                                                		}
+                                                	], {
+                                                		padding: 0
+                                                	});
                                                 }
-                                              );
                                             }
-                                          }
-                                        },
-                                        error: function () {
-                                          $("#search_result1").css(
-                                            "display",
-                                            "none"
-                                          );
-                                          $("#loading_icon1").css(
-                                            "display",
-                                            "none"
-                                          );
-
-                                          $(".store_list").css("color", "red");
-                                          $("div.enter_postcode p").css(
-                                            "display",
-                                            "none"
-                                          );
-                                          $(".store_list").removeClass(
-                                            "wrap_row"
-                                          );
-                                        },
-                                      });
-                                    } else {
-                                      $("div.enter_postcode p").addClass(
-                                        "postcode-error"
-                                      );
-                                      $("#loading_icon1").css(
-                                        "display",
-                                        "none"
-                                      );
-                                      if ($(".store_list").length > 0)
-                                        $(".store_list").remove();
-                                      if (keyword.length <= 0) {
-                                        $("#search_input1").addClass(
-                                          "postcode-input-error"
-                                        );
-                                      }
-                                    }
-                                  });
-
-                                  // });
-
-                                  $("#search_input1").autocomplete({
-                                    delay: 500,
-                                    minLength: 2,
-                                    source: function (request, response) {
-                                      $("span.wait").remove();
-                                      $.ajax({
-                                        url: "index.php?route=common/home/postcodes",
-                                        data:
-                                          "keyword=" +
-                                          $("#search_input1").val() +
-                                          "&id_store=" +
-                                          "3",
-                                        dataType: "json",
-                                        beforeSend: function () {
-                                          $("#loading_icon1").css(
-                                            "display",
-                                            "block"
-                                          );
-                                        },
-                                        success: function (json) {
-                                          $("#loading_icon1").css(
-                                            "display",
-                                            "none"
-                                          );
-                                          $("#search_result1").css(
-                                            "display",
-                                            "none"
-                                          );
-                                          if (json.success) {
-                                            response(
-                                              $.map(
-                                                json.postcodes,
-                                                function (item) {
-                                                  return {
-                                                    label: item.Postcode,
-                                                    value: item.Postcode,
-                                                  };
+                                            	
+                                            
+                                		},
+                                        error: function()
+                                        {
+                                            $('#search_result1').css('display','none');   
+                                            $('#loading_icon1').css('display','none');
+                                        }
+                                	});
+                                }
+                                else
+                                {
+                                     $('#loading_icon1').css('display','none');
+                                     if($('.store_list').length > 0)
+                                                $('.store_list').remove();
+                                     if(keyword.length <= 0){
+                                           $('#search_input1').addClass('error');
+                                     }
+                                }
+                            });
+                            $('.delivery_button1').click(function(){  
+                                $('#search_result1').css('display','none');
+								
+								
+								var keyword = $('#search_input1').val() == undefined ? $('select[name=search_input2] option').filter(':selected').val() : $('#search_input1').val().trim();
+								
+                                //var keyword = $('#search_input1').val().trim();
+                                var checkbox = 1; //parseInt($('.searchFullScreen input[type=\'radio\']:checked').val());
+                                if((keyword.length > 0) || (checkbox == 0))
+                                {
+                                    $('#search_input1').removeClass('postcode-input-error'); 
+                                    $('div.enter_postcode p').removeClass('postcode-error');
+                                    $('#loading_icon1').css('display','block');
+                                    $.ajax({
+                                		url: 'index.php?route=common/home/checkZipCode',
+                                		type: 'post',
+                                		data: 'keyword='+keyword+'&checkbox='+checkbox+'&id_store='+'3',
+                                		success: function(data){ 
+                                		    if($('.store_list').length > 0)
+                                                $('.store_list').remove();
+                                            $('#loading_icon1').css('display','none');
+                                			if(data!='EXIST')
+                                            {
+                                                $('#search_result1').html(data);
+                                                $('#search_result1').css('display','block');  
+												$('.store_list').css('color','red');
+												$('div.enter_postcode p').css('display','none'); 
+												$('.store_list').removeClass('wrap_row'); 
+													setTimeout(function () {
+														 $('div.enter_postcode p').css('display','block'); 
+														 $('#search_result1').css('display','none');  
+													}, 3000);
+                                            }
+                                            else
+                                            {
+                                                if ($('#catpath').length > 0)
+                                                {
+                                                    var catpath = $('#catpath').attr('href');
+                                                    window.location = catpath; //'index.php?route=product/category&path=59'; 
                                                 }
-                                              )
-                                            );
-                                          }
-                                          if (json.error) {
-                                            $(".ui-autocomplete").hide();
-                                            $(".input-xlarge.focused").attr(
-                                              "style",
-                                              "border:1px solid red !important"
-                                            );
-                                            $("#search_result1").html(
-                                              json["error"]
-                                            );
-                                            $("#search_result1").css(
-                                              "display",
-                                              "block"
-                                            );
-
-                                            $(".store_list").css(
-                                              "color",
-                                              "red"
-                                            );
-                                            $("div.enter_postcode p").css(
-                                              "display",
-                                              "none"
-                                            );
-                                            $(".store_list").removeClass(
-                                              "wrap_row"
-                                            );
-                                            setTimeout(function () {
-                                              $("div.enter_postcode p").css(
-                                                "display",
-                                                "block"
-                                              );
-                                              $("#search_result1").css(
-                                                "display",
-                                                "none"
-                                              );
-                                            }, 3000);
-                                          }
-                                        },
-                                      });
-                                    },
-                                    select: function (event, ui) {
-                                      $("input#search_input1").attr(
-                                        "value",
-                                        ui.item["value"]
-                                      );
-
-                                      return false;
-                                    },
-                                  });
-                                </script> -->
+                                               else
+                                               {
+                                                     $.fancybox.open([
+                                                		{
+                                                			type: 'inline',
+                                                			autoScale: true,
+                                                			minHeight: 30,
+                                                			content: '<p class="fancybox-error">Shop not available in today!</p>'
+                                                		}
+                                                	], {
+                                                		padding: 0
+                                                	});
+                                               }
+                                            }
+                                            	
+                                            
+                                		},
+                                        error: function()
+                                        {
+                                            $('#search_result1').css('display','none');   
+                                            $('#loading_icon1').css('display','none');
+											
+											$('.store_list').css('color','red');
+											$('div.enter_postcode p').css('display','none'); 
+											$('.store_list').removeClass('wrap_row'); 
+                                        }
+                                	});
+                                }
+                                else
+                                {
+                                    $('div.enter_postcode p').addClass('postcode-error');
+                                    $('#loading_icon1').css('display','none');
+                                     if($('.store_list').length > 0)
+                                        $('.store_list').remove();
+                                    if(keyword.length <= 0){
+                                        $('#search_input1').addClass('postcode-input-error'); 
+                                        
+                                    }
+                                }
+                            });
+                            
+                       // });
+                    
+						$('#search_input1').autocomplete({
+								delay: 500,
+								minLength: 2,
+								source: function(request, response) {
+									$('span.wait').remove();
+									$.ajax({
+										url: 'index.php?route=common/home/postcodes',
+										data: 'keyword='+$('#search_input1').val()+'&id_store='+'3',
+										dataType: 'json',
+										beforeSend: function(){
+											$('#loading_icon1').css('display','block');
+										},
+										success: function(json) {
+											$('#loading_icon1').css('display','none');
+											$('#search_result1').css('display','none'); 
+											if(json.success){
+												response($.map(json.postcodes, function(item) {
+													return {                            
+														label: item.Postcode,
+														value: item.Postcode,
+													}
+												}));
+											}
+											if(json.error){ 
+												$('.ui-autocomplete').hide();
+												$('.input-xlarge.focused').attr('style','border:1px solid red !important'); 
+												$('#search_result1').html(json['error']);
+												$('#search_result1').css('display','block'); 
+												
+												$('.store_list').css('color','red');
+												$('div.enter_postcode p').css('display','none'); 
+												$('.store_list').removeClass('wrap_row'); 
+													setTimeout(function () {
+														 $('div.enter_postcode p').css('display','block'); 
+														 $('#search_result1').css('display','none');  
+													}, 3000);
+											}
+										}
+									});
+								}, 
+								select: function(event, ui) {
+									$('input#search_input1').attr('value', ui.item['value']);    
+										
+									return false;
+								},
+							});
+						</script> -->
                               </div>
                               <input
                                 type="hidden"
@@ -890,140 +752,97 @@
                       </div>
 
                       <!-- <script type="text/javascript">
-                        // init variables
-                        var imagesTotal = 3;
-                        var currentImage = 1;
-                        var thumbsTotalWidth = 0;
+// init variables
+var imagesTotal = 3;
+var currentImage = 1;
+var thumbsTotalWidth = 0;
 
-                        $("a.galleryBullet" + currentImage).addClass("active");
-                        $("a.thumbnailsimage" + currentImage).addClass(
-                          "active"
-                        );
-                        $("div.description" + currentImage).addClass("visible");
+$('a.galleryBullet' + currentImage).addClass("active");
+$('a.thumbnailsimage' + currentImage).addClass("active");
+$('div.description' + currentImage).addClass("visible");
 
-                        // SET WIDTH for THUMBNAILS CONTAINER
-                        $(window).load(function () {
-                          $(".galleryThumbnails a img").each(function () {
-                            thumbsTotalWidth += $(this).width() + 10 + 8;
-                          });
-                          $(".galleryThumbnails").width(thumbsTotalWidth);
-                        });
 
-                        // PREVIOUS ARROW CODE
-                        $("a.previousSlideArrow").click(function () {
-                          $("div.previewImage" + currentImage).hide();
-                          $("a.galleryBullet" + currentImage).removeClass(
-                            "active"
-                          );
-                          $("a.thumbnailsimage" + currentImage).removeClass(
-                            "active"
-                          );
-                          $("div.description" + currentImage).removeClass(
-                            "visible"
-                          );
-                          currentImage--;
-                          if (currentImage == 0) {
-                            currentImage = imagesTotal;
-                          }
-                          $("a.galleryBullet" + currentImage).addClass(
-                            "active"
-                          );
-                          $("a.thumbnailsimage" + currentImage).addClass(
-                            "active"
-                          );
-                          $("div.previewImage" + currentImage).show();
-                          $("div.description" + currentImage).addClass(
-                            "visible"
-                          );
-                          return false;
-                        });
-                        // ===================
+// SET WIDTH for THUMBNAILS CONTAINER
+$(window).load(function() {
+	$('.galleryThumbnails a img').each(function() {
+		thumbsTotalWidth += $(this).width() + 10 + 8;
+	});
+	$('.galleryThumbnails').width(thumbsTotalWidth);
+});
 
-                        // NEXT ARROW CODE
-                        $("a.nextSlideArrow").click(function () {
-                          $("div.previewImage" + currentImage).hide();
-                          $("a.galleryBullet" + currentImage).removeClass(
-                            "active"
-                          );
-                          $("a.thumbnailsimage" + currentImage).removeClass(
-                            "active"
-                          );
-                          $("div.description" + currentImage).removeClass(
-                            "visible"
-                          );
-                          currentImage++;
-                          if (currentImage == imagesTotal + 1) {
-                            currentImage = 1;
-                          }
-                          $("a.galleryBullet" + currentImage).addClass(
-                            "active"
-                          );
-                          $("a.thumbnailsimage" + currentImage).addClass(
-                            "active"
-                          );
-                          $("div.previewImage" + currentImage).show();
-                          $("div.description" + currentImage).addClass(
-                            "visible"
-                          );
-                          return false;
-                        });
-                        // ===================
 
-                        // BULLETS CODE
-                        function changeimage(imageNumber) {
-                          $("div.previewImage" + currentImage).hide();
-                          currentImage = imageNumber;
-                          $("div.previewImage" + imageNumber).show();
+// PREVIOUS ARROW CODE
+$('a.previousSlideArrow').click(function() {
+	$('div.previewImage' + currentImage).hide();
+	$('a.galleryBullet' + currentImage).removeClass("active");
+	$('a.thumbnailsimage' + currentImage).removeClass("active");
+	$('div.description' + currentImage).removeClass("visible");
+	currentImage--;
+	if (currentImage == 0) {
+		currentImage = imagesTotal;
+	}
+	$('a.galleryBullet' + currentImage).addClass("active");
+	$('a.thumbnailsimage' + currentImage).addClass("active");
+	$('div.previewImage' + currentImage).show();
+	$('div.description' + currentImage).addClass("visible");
+	return false;
+});
+// ===================
 
-                          $(".galleryNavigationBullets a").removeClass(
-                            "active"
-                          );
-                          $(".galleryThumbnails a").removeClass("active");
-                          $(".galleryDescription > div").removeClass("visible");
 
-                          $("a.galleryBullet" + imageNumber).addClass("active");
-                          $("a.thumbnailsimage" + currentImage).addClass(
-                            "active"
-                          );
-                          $("div.description" + currentImage).addClass(
-                            "visible"
-                          );
-                        }
-                        // ===================
+// NEXT ARROW CODE
+$('a.nextSlideArrow').click(function() {
+	$('div.previewImage' + currentImage).hide();
+	$('a.galleryBullet' + currentImage).removeClass("active");
+	$('a.thumbnailsimage' + currentImage).removeClass("active");
+	$('div.description' + currentImage).removeClass("visible");
+	currentImage++;
+	if (currentImage == imagesTotal + 1) {
+		currentImage = 1;
+	}
+	$('a.galleryBullet' + currentImage).addClass("active");
+	$('a.thumbnailsimage' + currentImage).addClass("active");
+	$('div.previewImage' + currentImage).show();
+	$('div.description' + currentImage).addClass("visible");
+	return false;
+});
+// ===================
 
-                        // AUTOMATIC CHANGE SLIDES
-                        function autoChangeSlides() {
-                          $("div.previewImage" + currentImage).hide();
-                          $("a.galleryBullet" + currentImage).removeClass(
-                            "active"
-                          );
-                          $("a.thumbnailsimage" + currentImage).removeClass(
-                            "active"
-                          );
-                          $("div.description" + currentImage).removeClass(
-                            "visible"
-                          );
-                          currentImage++;
-                          if (currentImage == imagesTotal + 1) {
-                            currentImage = 1;
-                          }
-                          $("a.galleryBullet" + currentImage).addClass(
-                            "active"
-                          );
-                          $("a.thumbnailsimage" + currentImage).addClass(
-                            "active"
-                          );
-                          $("div.previewImage" + currentImage).show();
-                          $("div.description" + currentImage).addClass(
-                            "visible"
-                          );
-                        }
-                        var duration =
-                          $('input[name="slideDuration"]').val() * 1000;
-                        var slideTimer = setInterval(function () {
-                          autoChangeSlides();
-                        }, duration);
-                      </script> -->
+// BULLETS CODE
+function changeimage(imageNumber) {
+  $('div.previewImage' + currentImage).hide();
+	currentImage = imageNumber;
+	$('div.previewImage' + imageNumber).show();
+
+	$('.galleryNavigationBullets a').removeClass("active");
+	$('.galleryThumbnails a').removeClass("active");
+	$('.galleryDescription > div').removeClass("visible");
+
+	$('a.galleryBullet' + imageNumber).addClass("active");
+	$('a.thumbnailsimage' + currentImage).addClass("active");
+	$('div.description' + currentImage).addClass("visible");
+}
+// ===================
+
+// AUTOMATIC CHANGE SLIDES
+function autoChangeSlides() {
+	$('div.previewImage' + currentImage).hide();
+	$('a.galleryBullet' + currentImage).removeClass("active");
+	$('a.thumbnailsimage' + currentImage).removeClass("active");
+	$('div.description' + currentImage).removeClass("visible");
+	currentImage++;
+	if (currentImage == imagesTotal + 1) {
+		currentImage = 1;
+	}
+	$('a.galleryBullet' + currentImage).addClass("active");
+	$('a.thumbnailsimage' + currentImage).addClass("active");
+	$('div.previewImage' + currentImage).show();
+	$('div.description' + currentImage).addClass("visible");
+}
+var duration = $('input[name="slideDuration"]').val()*1000;
+var slideTimer = setInterval(function() {autoChangeSlides(); }, duration);
+</script>
+	 -->
                     </div>
                     <!-- custom-row end -->
                   </div>
@@ -1031,7 +850,7 @@
                   <div class="custom-row-start" style="width: 100%">
                     <div
                       class="box box_section custom-col-12 ybctablet ybcmobile"
-                      style="padding: 0px !important"
+                      style="padding: 0px !important ;"
                       data-box="12"
                     >
                       <div
@@ -1288,12 +1107,6 @@
                             </h2>
                             <br />
 
-                            <!-- <script
-                              language="javascript"
-                              src="catalog/view/javascript/jquery.quovolver.min.js"
-                              type="text/javascript"
-                            ></script> -->
-
                             <link
                               href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,300italic,300,600,600italic,700,700italic,800,800italic"
                               rel="stylesheet"
@@ -1310,7 +1123,7 @@
                                 "
                               >
                                 <div class="col-lg-12">
-                                  <div class="ybc-quote" style="display: block">
+                                  <div class="ybc-quote" style="display: none">
                                     <div class="rating 5">
                                       <a href="javascript:void(0)"
                                         ><i
@@ -1469,7 +1282,7 @@
                                     <b class="ybc-author">Danny Messenger</b>
                                     <p><b class="ybc-date">Jul 04,2021</b></p>
                                   </div>
-                                  <div class="ybc-quote" style="display: none">
+                                  <div class="ybc-quote" style="display: block">
                                     <div class="rating 4.6666666666667">
                                       <a href="javascript:void(0)"
                                         ><i
@@ -1513,29 +1326,29 @@
                               </div>
                               <div class="quovolve-nav quovolve-nav-below">
                                 <ol class="nav-numbers">
-                                  <li class="active">
-                                    <a href="#item-1">1</a>
-                                  </li>
+                                  <li class=""><a href="#item-1">1</a></li>
                                   <li class=""><a href="#item-2">2</a></li>
                                   <li class=""><a href="#item-3">3</a></li>
                                   <li class=""><a href="#item-4">4</a></li>
-                                  <li class=""><a href="#item-5">5</a></li>
+                                  <li class="active">
+                                    <a href="#item-5">5</a>
+                                  </li>
                                 </ol>
                               </div>
                             </div>
-
                             <!-- <script type="text/javascript">
-                              $("#ybc_testimonials").quovolver({
-                                children: ".ybc-quote",
-                                equalHeight: false,
-                                navPosition: "below",
-                                navNum: true,
-                                pauseOnHover: true,
-                                autoPlay: true,
-                                //autoPlaySpeed:'5000',
-                                transitionSpeed: "300",
-                              });
-                            </script> -->
+    $('#ybc_testimonials').quovolver({
+        children: '.ybc-quote',
+        equalHeight: false,
+        navPosition: 'below',
+        navNum: true,
+        pauseOnHover: true,
+        autoPlay: true,
+        //autoPlaySpeed:'5000',
+        transitionSpeed: '300',
+    }); 
+    
+</script> -->
                           </div>
                         </div>
                       </div>
@@ -1552,7 +1365,76 @@
         </div>
       </div>
 
-      <Footer/>
+      <div class="bg_custom_footer">
+        <div class="fix_ets_main_content">
+          <div class="etsWrapper">
+            <div class="row footer sticky-stopper">
+              <div class="contentFooter">
+                <div class="top_footer">
+                  <div>
+                    <ul class="pull-left footer_menu">
+                      <img
+                        alt="Order online &amp; pay by card www.myfoodbasket.co.uk"
+                        src="//www.myfoodbasket.co.uk/image/payment_logos/checkout-payment-card.png"
+                        style="height: 25px"
+                      />
+                      <br />
+                      <li><a href="/">Home</a><span>::</span></li>
+                      <li><a href="/menu">Order Online</a><span>::</span></li>
+                      <li><a href="/contact">Contact Us</a><span>::</span></li>
+                      <li><a href="/sitemap">Site Map</a></li>
+                    </ul>
+                    <ul class="pull-right ftr_sm">
+                      <li>
+                        <a target="_blank" href="https://www.facebook.com/"
+                          ><i class="fa fa-facebook-official"></i
+                        ></a>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://twitter.com/"
+                          ><i class="fa fa-twitter-square"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 bottomFooter">
+                  <p class="pull-left">
+                    Copyright © 2021 STATION KEBABS CLACTON-ON-SEA <br />
+                    <a href="//www.myfoodbasket.co.uk/">
+                      <img
+                        alt="Online Ordering For Takeaways, powered by My Food Basket"
+                        src="//www.myfoodbasket.co.uk/image/powered-by-mfb.png"
+                      />
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-------------------------------Polianna js---------------------------------------------------------------->
+
+            <!-- <script type="text/javascript">
+$(document).ready(function() {
+    $('.select1').customStyle1();
+    $("#checkbox-01").click(function(){
+        $('.label2').removeClass('c_on');
+        $('.label2').addClass('c_off');
+        $('.label1').toggleClass('c_on');
+        $('.label1').toggleClass('c_off');
+    });
+    $("#checkbox-02").click(function(){
+        $('.label1').removeClass('c_on');
+        $('.label1').addClass('c_off');
+        $('.label2').toggleClass('c_on');
+        $('.label2').toggleClass('c_off');
+    });
+});
+</script> -->
+          </div>
+        </div>
+      </div>
       <!--end ets body-->
 
       <div id="sticker">
@@ -1562,36 +1444,34 @@
       </div>
 
       <!-- <script type="text/javascript">
-        $(document).ready(function () {
-          var containerheight = $(".etsWrapper.middle_bg_custom").height();
-          var windowheight = $(window).height();
-          var header = $(".bg_option_header").height();
-          var footer = $(".bg_custom_footer").height();
-          var topmenu = $(".ets_main_content_top").height();
-          var height = windowheight - header - footer - topmenu;
+    $(document).ready(function(){ 
+        var containerheight = $('.etsWrapper.middle_bg_custom').height();
+        var windowheight = $(window).height();
+        var header = $('.bg_option_header').height();
+        var footer = $('.bg_custom_footer').height();
+        var topmenu = $('.ets_main_content_top').height();
+        var height = windowheight-header-footer-topmenu;
 
-          if (containerheight < height)
-            $(".middle_bg_custom .fix_ets_main_content .etsWrapper").css(
-              "min-height",
-              height
-            );
-        });
-        $(window).on("resize", function () {
-          var win = $(this);
-          var containerheight = $(".etsWrapper.middle_bg_custom").height();
-          var windowheight = win.height();
-          var header = $(".bg_option_header").height();
-          var footer = $(".bg_custom_footer").height();
-          var topmenu = $(".ets_main_content_top").height();
-          var height = windowheight - header - footer - topmenu;
+        if(containerheight<height)
+        $('.middle_bg_custom .fix_ets_main_content .etsWrapper').css('min-height',height);
+        
 
-          if (containerheight < height)
-            $(".middle_bg_custom .fix_ets_main_content .etsWrapper").css(
-              "min-height",
-              height
-            );
-        });
-      </script> -->
+    });
+    $(window).on('resize', function(){
+        var win = $(this);
+        var containerheight = $('.etsWrapper.middle_bg_custom').height();
+        var windowheight = win.height();
+        var header = $('.bg_option_header').height();
+        var footer = $('.bg_custom_footer').height();
+        var topmenu = $('.ets_main_content_top').height();
+        var height = windowheight-header-footer-topmenu;
+
+        if(containerheight<height)
+        $('.middle_bg_custom .fix_ets_main_content .etsWrapper').css('min-height',height);
+    });
+	
+	
+</script> -->
 
       <!--div class="pop-bdy"> </div-->
     </div>
@@ -1631,10 +1511,94 @@ export default {
     Link,
     UpperShopNav,
     LowerShopNav,
-    Footer
+    Footer,
   },
-  props:{
-        theme:Number,
-    },
+  props: {
+    theme: Number,
+  },
 };
 </script>
+
+
+    <style>
+.camera_wrap {
+  width: 63%;
+}
+</style>
+	<style type="text/css">
+.etsFloat {
+  padding: 0px 0px !important;
+}
+.galleryContainer {
+  margin: 0px !important;
+}
+</style>
+
+    <style>
+.galleryPreviewImage {
+  position: relative;
+}
+.galleryPreviewImage::after {
+  content: "";
+  /* background: url(image/slider_pattern.png) repeat; */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+</style>
+	
+	
+	<style>
+.galleryPreviewImage .previewImage {
+  background-size: cover;
+}
+</style>
+	
+	
+	<style>
+.galleryPreviewImage .previewImage {
+  background-position: center;
+}
+</style>
+	
+	
+	<style>
+.postcode_search .collection_button1 {
+  background: #2575c7 !important;
+}
+.postcode_search .delivery_button1 {
+  background: #2575c7 !important;
+}
+
+.postcode_search .collection_button1:hover {
+  background: #ab0000 !important;
+}
+.postcode_search .delivery_button1:hover {
+  background: #ab0000 !important;
+}
+</style> 
+	<!-- <script> 
+		$(window).load(function() {
+			$(".sliderloaderdinemic").fadeOut("slow"); 
+		});
+	</script> -->
+	<style>
+#loading_icon1 {
+  display: none;
+  float: right;
+  left: 50%;
+  padding-top: 20px;
+  position: absolute;
+  top: 7%;
+}
+</style>
+	<style type="text/css">
+.etsFloat {
+  padding: 0px 0px !important;
+}
+.galleryContainer {
+  margin: 0px !important;
+}
+</style>
