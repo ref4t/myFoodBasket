@@ -33,33 +33,51 @@ Route::get('/dashboard', function () {
 
 Route::prefix('shop')->group(function(){
     Route::get('/home',function(){
-        $openBanner = true;
-        return Inertia::render('ShopPages/ShopFront',['openBanner' => $openBanner]);
+        $theme = 2;
+        if ($theme == 1){
+            return Inertia::render('ShopPages/Hometheme1',['theme' => $theme]);
+        }else
+            return Inertia::render('ShopPages/Theme_2/Home',['theme' => $theme]);
     })->name('shopHome');
 
     Route::get('/member',function(){
-        $openBanner = true;
-        return Inertia::render('ShopPages/Member',['openBanner' => $openBanner]);
+        $theme = 2;
+        if ($theme == 1){
+            return Inertia::render('ShopPages/Membertheme1',['theme' => $theme]);
+        }else
+            return Inertia::render('ShopPages/Theme_2/Member',['theme' => $theme]);
     })->name('shopMember');
 
     Route::get('/menu',function(){
-        $openBanner = true;
-        return Inertia::render('ShopPages/Menu',['openBanner' => $openBanner]);
-    })->name('shopmenu');
+        $theme = 2;
+        if ($theme == 1){
+            return Inertia::render('ShopPages/Menutheme1',['theme' => $theme]);
+        }else
+            return Inertia::render('ShopPages/Theme_2/Menu',['theme' => $theme]);
+    })->name('shopMenu');
 
     Route::get('/checkout',function(){
-        $openBanner = true;
-        return Inertia::render('ShopPages/Checkout',['openBanner' => $openBanner]);
+        $theme = 2;
+        if ($theme == 1){
+            return Inertia::render('ShopPages/Checkouttheme1',['theme' => $theme]);
+        }else
+            return Inertia::render('ShopPages/Theme_2/Checkout',['theme' => $theme]);
     })->name('shopcheckout');
 
     Route::get('/contactus',function(){
-        $openBanner = true;
-        return Inertia::render('ShopPages/Contactus',['openBanner' => $openBanner]);
+        $theme = 2;
+        if ($theme == 1){
+            return Inertia::render('ShopPages/Contactustheme1',['theme' => $theme]);
+        }else
+            return Inertia::render('ShopPages/Theme_2/Aboutus',['theme' => $theme]);
     })->name('shopcontactus');
+    
     Route::get('/cart',function(){
         $openBanner = true;
         return Inertia::render('ShopPages/Cart',['openBanner' => $openBanner]);
     })->name('shopcart');
+
+    
 });
 
 require __DIR__.'/auth.php';
