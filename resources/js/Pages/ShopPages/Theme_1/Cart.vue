@@ -5,8 +5,8 @@
         <UpperShopNav/>
         
         <div v-if="openBanner" class="grid grid-cols-12">
-            <img class=" col-start-3 col-end-5" src="../../../../public/images/store_logo.jpg" alt="logo">
-            <img class=" col-end-11 col-span-2" src="../../../../public/images/open.jpg" alt="open">
+            <img class=" col-start-3 col-end-5" src="/images/store_logo.jpg" alt="logo">
+            <img class=" col-end-11 col-span-2" src="/images/open.jpg" alt="open">
         </div>
         <!-- lower nav bar -->
         <LowerShopNav/>

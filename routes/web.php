@@ -35,7 +35,7 @@ Route::prefix('shop')->group(function(){
     Route::get('/home',function(){
         $theme = 2;
         if ($theme == 1){
-            return Inertia::render('ShopPages/Hometheme1',['theme' => $theme]);
+            return Inertia::render('ShopPages/Theme_1/Home',['theme' => $theme]);
         }else
             return Inertia::render('ShopPages/Theme_2/Home',['theme' => $theme]);
     })->name('shopHome');
@@ -43,7 +43,7 @@ Route::prefix('shop')->group(function(){
     Route::get('/member',function(){
         $theme = 2;
         if ($theme == 1){
-            return Inertia::render('ShopPages/Membertheme1',['theme' => $theme]);
+            return Inertia::render('ShopPages/Theme_1/Member',['theme' => $theme]);
         }else
             return Inertia::render('ShopPages/Theme_2/Member',['theme' => $theme]);
     })->name('shopMember');
@@ -51,7 +51,7 @@ Route::prefix('shop')->group(function(){
     Route::get('/menu',function(){
         $theme = 2;
         if ($theme == 1){
-            return Inertia::render('ShopPages/Menutheme1',['theme' => $theme]);
+            return Inertia::render('ShopPages/Theme_1/Menu',['theme' => $theme]);
         }else
             return Inertia::render('ShopPages/Theme_2/Menu',['theme' => $theme]);
     })->name('shopMenu');
@@ -59,7 +59,7 @@ Route::prefix('shop')->group(function(){
     Route::get('/checkout',function(){
         $theme = 2;
         if ($theme == 1){
-            return Inertia::render('ShopPages/Checkouttheme1',['theme' => $theme]);
+           return Inertia::render('ShopPages/Theme_1/Checkout',['theme' => $theme]);
         }else
             return Inertia::render('ShopPages/Theme_2/Checkout',['theme' => $theme]);
     })->name('shopcheckout');
@@ -67,7 +67,7 @@ Route::prefix('shop')->group(function(){
     Route::get('/contactus',function(){
         $theme = 2;
         if ($theme == 1){
-            return Inertia::render('ShopPages/Contactustheme1',['theme' => $theme]);
+            return Inertia::render('ShopPages/Theme_1/Aboutus',['theme' => $theme]);
         }else
             return Inertia::render('ShopPages/Theme_2/Aboutus',['theme' => $theme]);
     })->name('shopcontactus');
@@ -75,7 +75,7 @@ Route::prefix('shop')->group(function(){
     Route::get('/cart',function(){
         $theme = 2;
         if ($theme == 1){
-            return Inertia::render('ShopPages/Cart',['theme' => $theme]);
+            return Inertia::render('ShopPages/Theme_1/Cart',['theme' => $theme]);
         }else
             return Inertia::render('ShopPages/Theme_2/Cart',['theme' => $theme]);
     })->name('shopcart');
