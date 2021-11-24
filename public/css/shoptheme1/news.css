@@ -175,9 +175,9 @@ body.page_checkout > #container > #wrapper{padding-top:0;}
 .main-account .title-heading.title-active:after{content:"\f103";}
 .loyality{padding:0 27px;text-align:right;}
 .loyality > strong{font-size:16px;}
-.loyality > span,.update-bt .form-control{background:#651230 none repeat scroll 0 0;border-radius:3px;color:#ffffff;font-size:14px;font-weight:bold;margin-left:5px;padding:7px 25px;}
-.title-heading{border-bottom:3px solid;color:#000000;cursor:pointer;float:left;font-size:18px;line-height:22px;margin-bottom:25px;margin-top:20px;position:relative;text-align:left;width:100%;}
-.title-heading::before{border-color:#651230;border:15px solid;content:"";float:left;height:0;margin-bottom:-3px;margin-right:30px;width:0;border-color:#651230;}
+.loyality > span,.update-bt .form-control{background:#FBBC4B none repeat scroll 0 0;border-radius:3px;color:#ffffff;font-size:14px;font-weight:bold;margin-left:5px;padding:7px 25px;}
+.title-heading{border-bottom:3px solid;color:#FBBC4B;cursor:pointer;float:left;font-size:18px;line-height:22px;margin-bottom:25px;margin-top:20px;position:relative;text-align:left;width:100%;}
+.title-heading::before{border-color:#FBBC4B;border:15px solid;content:"";float:left;height:0;margin-bottom:-3px;margin-right:30px;width:0;border-color:#FBBC4B;}
 .ets_account_info{float:left;width:100%;}
 .page_account .mainWrapper.box-mainWrapper{padding:0;width:100%;}
 .ets_details{display:block;float:left;left:50%;position:relative;transform:translateX(-50%);width:380px;}
@@ -213,7 +213,7 @@ label.style-select select{-moz-appearance:none;}
 .action-bt{border-top:1px solid #d2d2d2;padding-top:17px;}
 .bt-close{color:#f40201;float:right;}
 .box-content-address input.form-control[type="radio"]{float:right;width:auto;}
-.box-content-address > label > strong{color:#651230;display:block;font-size:18px;margin-bottom:10px;}
+.box-content-address > label > strong{color:#FBBC4B;display:block;font-size:18px;margin-bottom:10px;}
 .box-content-address > p{font-weight:bold;}
 .ets_order_status{background:#11b228 none repeat scroll 0 0;border-radius:0 7px 0 0;box-shadow:0 0 3px #999999;color:#ffffff;font-size:14px;font-weight:bold;min-width:130px;padding:10px 5px;position:absolute;right:0;text-align:center;top:0;}
 .ets_order_status.status_pending{background:#999999;}
@@ -223,9 +223,9 @@ label.style-select select{-moz-appearance:none;}
 .box-content-address table tr td:first-child{width:100px;color:#000;}
 .options-extra table tr td{font-weight:normal;}
 table tr td{color:#888888;font-size:11px;font-weight:bold;padding:1px 0px;}
-table tr.firt-infor td{color:#651230;font-size:18px;font-weight:bold;}
+table tr.firt-infor td{color:#FBBC4B;font-size:18px;font-weight:bold;}
 .ets_box_order_total{border-top:1px solid #d2d2d2;float:left;margin-top:12px;padding-top:12px;width:100%;}
-.ets_order_total{color:#651230;font-size:23px;font-weight:bold;}
+.ets_order_total{color:#FBBC4B;font-size:23px;font-weight:bold;}
 .ets_order_total i{margin-right:10px;}
 .fancyorder.button{border-radius:0;float:right;font-size:15px;font-weight:bold;height:auto;line-height:29px;padding:0 20px;text-transform:none;}
 .ets_reoder{float:none;position:absolute;right:0;text-align:center;top:44%;transform:translateY(-50%);width:40%;}

@@ -4,7 +4,7 @@
       <div class="home_menu">
         <!----------------------------------Menu------------------------------------------>
 
-        <div id="wrapper_menu" class="colormenu responsive_menu">
+        <div @click="toggle" id="wrapper_menu" class="colormenu responsive_menu">
           <div class="ets_main_content">
             <div id="toggle-menu" class="">
               <span class="icon-bar"></span>
@@ -156,7 +156,7 @@
             </div>
 
             <div class="main-menu-full-width">
-              <ul id="menu_list_ets" class="menuResp">
+              <ul id="menu_list_ets" class="menuResp" :style="{display : navStat}" >
                 <li>
                   <Link :href="route('shopHome')" >Home</Link>
                 </li>
@@ -349,10 +349,59 @@ export default {
     Link,
   },
 
+  data() {
+    return{
+      
+        navStat: 'block',
+        width: document.documentElement.clientWidth,
+    }
+  },
+  mounted() {
+    window.addEventListener('resize', this.getDimensions);
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.getDimensions);
+  },
+  methods: {
+    
+    getDimensions() {
+      this.width = document.documentElement.clientWidth;
+      if (this.width > 980){
+        this.navStat = 'block'
+      }else {
+        this.navStat = 'none'}
+    },
+    toggle(){
+      if(this.navStat == 'none'){
+        this.navStat = 'block'
+      }
+      else{
+        this.navStat = 'none'
+      }
+    }
 
+  }
   
 };
 </script>
+   <!-- <script type="text/javascript">
+   $( document ).ready(function() {     
+        $('.menu_responsive .btn-navbar').click(function(){
+           $(this).parent().parent().find('.mobilemenu ').toggle();
+        });
+        $('.top_res_click').click(function(){
+           $(this).parent().parent().find('.top_res_menu ').toggle();
+        });
+        $('#res_btlogin2').click(function(){
+            $('.login_pop').click();    
+        }); 
+        $("#toggle-menu").click(function(){
+            $("#menu_list_ets").toggle();
+        });    
+   });
+   
+    
+</script>  -->
 
 <style >
 .menuResp > li > a {

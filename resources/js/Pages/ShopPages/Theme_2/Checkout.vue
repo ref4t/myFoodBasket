@@ -1,5 +1,5 @@
 <template>
-  <Head title="Shop name">
+  <Head title="Checkout">
     <link rel="stylesheet" href="/css/shoptheme1/stylesheet.css" />
     <link rel="stylesheet" href="/css/shoptheme1/responsive.css" />
     <link rel="stylesheet" href="/css/shoptheme1/responsive1.css" />
@@ -1722,19 +1722,8 @@
                                         </div>
                                       </div>
                                     </li>
-                                  </ul>
-                                </div>
-                              </div>
-
-                              <!--div class="buttons">
-                            <div class="right"><a href="https://www.123.the-public.co.uk/index.php?route=checkout/checkout" class="redbutton">Checkout</a></div>
-                            <div class="left"><a href="http://www.123.the-public.co.uk/index.php?route=common/home" class="button">Continue Shopping</a></div>
-                          </div-->
-
-                              <div class="clear"></div>
-                            </div>
-                          </div>
-                          <div id="step_payment_method">
+                                    <li>
+                                      <div id="step_payment_method">
                             <div class="title-heading">Payment Options</div>
                             <div class="custom_payment_method_ets">
                               <div
@@ -1862,6 +1851,20 @@
                               </div>
                             </div>
                           </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+
+                              <!--div class="buttons">
+                            <div class="right"><a href="https://www.123.the-public.co.uk/index.php?route=checkout/checkout" class="redbutton">Checkout</a></div>
+                            <div class="left"><a href="http://www.123.the-public.co.uk/index.php?route=common/home" class="button">Continue Shopping</a></div>
+                          </div-->
+
+                              <div class="clear"></div>
+                            </div>
+                          </div>
+                          
                           <br />
                           <!--p>Please select the preferred payment method to use on this order.</p><br /-->
                           <b style="display: none"

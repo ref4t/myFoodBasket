@@ -4335,7 +4335,7 @@ body.page_contact .leftContent .content table textarea {
 }
 
 #sticker .sticky-icon {
-    background-image: url(../image/sticky-icon.jpg);
+    background-image: src='images/sticky-icon.jpgs';
     background-position: right top;
     background-repeat: no-repeat;
     color: #333;

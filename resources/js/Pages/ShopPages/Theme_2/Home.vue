@@ -438,16 +438,13 @@
                                   <div class="galleryPreviewImage" style="">
                                     <div
                                       class="previewImage previewImage1"
-                                      style="
-                                        background-image: url('image/data/foods/kebabs/chicken-kebab-3.jpg');
-                                        min-height: 480px !important;
-                                        display: none;
-                                      "
+                                      
+                                      style="background-image: url('../public/images/Theme_2/Slider/onion_rings.jpg'); min-height: 868px !important; display: block;"
                                     ></div>
                                     <div
                                       class="previewImage previewImage2"
                                       style="
-                                        background-image: url('image/data/foods/pizzas/pizza6.jpg');
+                                        background-image: src='images/Theme_2/Slider/onion-rings.jpg';
                                         min-height: 480px !important;
                                         display: none;
                                       "
@@ -455,9 +452,9 @@
                                     <div
                                       class="previewImage previewImage3"
                                       style="
-                                        background-image: url('image/data/foods/side_orders/french-fries.jpg');
+                                        background-image: src='images/Theme_2/Slider/french-fries.jpg';
                                         min-height: 480px !important;
-                                        display: block;
+                                        display: nonce;
                                       "
                                     ></div>
                                   </div>

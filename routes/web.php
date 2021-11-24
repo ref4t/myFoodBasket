@@ -60,8 +60,11 @@ Route::prefix('shop')->group(function(){
         $theme = 2;
         if ($theme == 1){
            return Inertia::render('ShopPages/Theme_1/Checkout',['theme' => $theme]);
-        }else
+        }else{
+            
             return Inertia::render('ShopPages/Theme_2/Checkout',['theme' => $theme]);
+        }
+            
     })->name('shopcheckout');
 
     Route::get('/contactus',function(){
@@ -79,6 +82,30 @@ Route::prefix('shop')->group(function(){
         }else
             return Inertia::render('ShopPages/Theme_2/Cart',['theme' => $theme]);
     })->name('shopcart');
+
+    Route::get('/registration',function(){
+        $theme = 2;
+        if ($theme == 1){
+            return Inertia::render('ShopPages/Theme_1/Registration',['theme' => $theme]);
+        }else
+            return Inertia::render('ShopPages/Theme_2/Registration',['theme' => $theme]);
+    })->name('shopReg');
+
+    Route::get('/account',function(){
+        $theme = 2;
+        if ($theme == 1){
+            return Inertia::render('ShopPages/Theme_1/Account',['theme' => $theme]);
+        }else
+            return Inertia::render('ShopPages/Theme_2/Account',['theme' => $theme]);
+    })->name('shopAcc');
+    
+    Route::post('/account',function(){
+        $theme = 2;
+        if ($theme == 1){
+            return Inertia::render('ShopPages/Theme_1/Account',['theme' => $theme]);
+        }else
+            return Inertia::render('ShopPages/Theme_2/Account',['theme' => $theme]);
+    })->name('shopAcc');
 
     
 });

@@ -162,7 +162,7 @@
                 <div id="content" class="homepage">
                   <!-- route :  -->
 
-                  <Menu />
+                  
 
                   <div id="wrapper" class="etsWrapper middle_bg_custom">
                     <div class="ets_main_content">
@@ -527,33 +527,33 @@
                                       status, and keep track of the orders you
                                       have previously made.
                                     </p>
-                                    <a
-                                      href="https://www.123.the-public.co.uk/index.php?route=account/register"
-                                      class="button"
-                                      >Continue</a
-                                    >
+                                    <Link :href="route('shopReg')"
+                                      class="buttonLogin button"
+                                      style="background-color: #2575C7;height: 30px !important; line-height: 26px !important;  padding: 0; text-align: center; width: 100px;">
+                                      Continue
+                                    </Link>
                                   </div>
                                 </div>
                                 <div class="right">
                                   <h2>Returning Customer</h2>
-                                  <form
-                                    action="https://www.123.the-public.co.uk/index.php?route=account/login"
-                                    method="post"
-                                    enctype="multipart/form-data"
+                                  <form @submit.prevent="submit"
                                   >
                                     <div class="content loginForm">
                                       <p>I am a returning customer</p>
                                       <p class="loginEmail">E-Mail Address:</p>
                                       <input
+                                        v-model="form.email"
                                         type="text"
                                         name="email"
-                                        value=""
+                                        
                                       />
-                                      <p class="loginPassword">Password:</p>
+                                      <span v-if="v$.form.email.$error"  style="color:red; padding:2px" > *{{ v$.form.email.$errors[0].$message }} </span>
+                                      <p class="loginPassword" style="padding-top: 10px">Password:</p>
                                       <input
+                                        v-model="form.password"
                                         type="password"
                                         name="password"
-                                        value=""
+                                        
                                       />
                                       <a
                                         href="https://www.123.the-public.co.uk/index.php?route=account/forgotten"
@@ -563,6 +563,7 @@
                                         class="buttonLogin button"
                                         type="submit"
                                         value="Login"
+                                        style="background-color: #2575C7;height: 30px !important; line-height: 26px !important;  padding: 0; text-align: center; width: 100px;"
                                       />
                                     </div>
                                   </form>
@@ -707,22 +708,66 @@
   </body>
 </template>
 
+
 <script>
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import { Method } from "@inertiajs/inertia";
 import UpperShopNav from "@/Components/UpperShopNav.vue";
+import Banner from "@/Components/Banner.vue";
 import LowerShopNav from "@/Components/LowerShopNav.vue";
+import Menu from "@/Components/Menu.vue";
 import Footer from "@/Components/Footer.vue";
+import useValidate from '@vuelidate/core'
+import { required, email, minLength, sameAs } from '@vuelidate/validators'
+
 
 export default {
-  name: "Home",
-
   components: {
     Head,
     Link,
     UpperShopNav,
+    Banner,
     LowerShopNav,
-    Footer
+    Menu,
+    Footer,
+  },
+  props: {},
+  data() {
+    return {
+        
+      v$: useValidate(),
+      form: {
+        email: "", 
+        password:"" 
+      },
+        
+    }
+  },
+  validations(){
+    return {
+      form: {
+        email: { required, email }, 
+        password:{ required } 
+      },
+    }
+  },
+  methods:{
+
+    submit(){
+      
+      this.v$.$validate()
+      if(!this.v$.$error){
+      
+      
+        this.$inertia.post('account',this.form)
+      }
+      else{
+        
+        console.log('Form failed validation')
+      }
+    }
   },
 };
 </script>
+
+
