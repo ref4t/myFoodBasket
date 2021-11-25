@@ -955,22 +955,106 @@
                           <div id="mindeliveryrequire"></div>
                         </div>
                       </div>
-                      <div class="partcheckout">
+                      <div v-if="collect" class="partcheckout">
                         <div class="title-heading">
                           <span
-                            v-if="delivery"
-                            class="titlevanchuyen title-delivery"
-                            >Delivery Time</span
-                          >
-                          <span
-                            v-if="collect"
                             class="titlevanchuyen title-collection"
                             >Collection Time</span
                           >
                         </div>
                         <div class="contentpart">
                           <label class="style-select box-time-select">
-                            <select class="time_select" name="time_method">
+                            <select class="time_select" v-model="collectData.timestamp" name="time_method">
+                              <option id="time_0" value="ASAP">ASAP</option>
+                              <option id="time_1" value="17:00-17:15">
+                                17:00-17:15
+                              </option>
+                              <option id="time_2" value="17:15-17:30">
+                                17:15-17:30
+                              </option>
+                              <option id="time_3" value="17:30-17:45">
+                                17:30-17:45
+                              </option>
+                              <option id="time_4" value="17:45-18:00">
+                                17:45-18:00
+                              </option>
+                              <option id="time_5" value="18:00-18:15">
+                                18:00-18:15
+                              </option>
+                              <option id="time_6" value="18:15-18:30">
+                                18:15-18:30
+                              </option>
+                              <option id="time_7" value="18:30-18:45">
+                                18:30-18:45
+                              </option>
+                              <option id="time_8" value="18:45-19:00">
+                                18:45-19:00
+                              </option>
+                              <option id="time_9" value="19:00-19:15">
+                                19:00-19:15
+                              </option>
+                              <option id="time_10" value="19:15-19:30">
+                                19:15-19:30
+                              </option>
+                              <option id="time_11" value="19:30-19:45">
+                                19:30-19:45
+                              </option>
+                              <option id="time_12" value="19:45-20:00">
+                                19:45-20:00
+                              </option>
+                              <option id="time_13" value="20:00-20:15">
+                                20:00-20:15
+                              </option>
+                              <option id="time_14" value="20:15-20:30">
+                                20:15-20:30
+                              </option>
+                              <option id="time_15" value="20:30-20:45">
+                                20:30-20:45
+                              </option>
+                              <option id="time_16" value="20:45-21:00">
+                                20:45-21:00
+                              </option>
+                              <option id="time_17" value="21:00-21:15">
+                                21:00-21:15
+                              </option>
+                              <option id="time_18" value="21:15-21:30">
+                                21:15-21:30
+                              </option>
+                              <option id="time_19" value="21:30-21:45">
+                                21:30-21:45
+                              </option>
+                              <option id="time_20" value="21:45-22:00">
+                                21:45-22:00
+                              </option>
+                              <option id="time_21" value="22:00-22:15">
+                                22:00-22:15
+                              </option>
+                              <option id="time_22" value="22:15-22:30">
+                                22:15-22:30
+                              </option>
+                              <option id="time_23" value="22:30-22:45">
+                                22:30-22:45
+                              </option>
+                              <option id="time_24" value="22:45-23:00">
+                                22:45-23:00
+                              </option>
+                              <option id="time_25" value="23:00-23:15">
+                                23:00-23:15
+                              </option>
+                            </select>
+                          </label>
+                        </div>
+                      </div>
+                      <div v-if="delivery" class="partcheckout">
+                        <div class="title-heading">
+                          <span
+                            class="titlevanchuyen title-collection"
+                            >Delivery Time</span
+                          >
+                        </div>
+                        <div class="contentpart">
+                          <label class="style-select box-time-select">
+                            <select v-model="deliveryData.timestamp" class="time_select" name="time_method">
                               <option id="time_0" value="ASAP">ASAP</option>
                               <option id="time_1" value="17:00-17:15">
                                 17:00-17:15
@@ -1063,8 +1147,10 @@
                             value="new"
                             id="payment-address-new"
                           />
+                          <form @submit.prevent="deliveryInfo">
                           <table class="form 3">
-                            <tbody>
+                            
+                              <tbody>
                               <tr>
                                 <td style="display: none"></td>
                                 <td colspan="2">
@@ -1075,10 +1161,10 @@
                                     "
                                   >
                                     <input
+                                      v-model="deliveryData.address_1"
                                       placeholder="Address line 1:"
                                       type="text"
                                       name="address_1"
-                                      value=""
                                       class="large-field"
                                     />
                                   </div>
@@ -1094,10 +1180,10 @@
                                     "
                                   >
                                     <input
+                                      v-model="deliveryData.address_2"
                                       placeholder="Address line 2:"
                                       type="text"
                                       name="address_2"
-                                      value=""
                                       class="large-field"
                                     />
                                   </div>
@@ -1110,10 +1196,10 @@
                                     class="ybc_custom_form_group input-short"
                                   >
                                     <input
+                                      v-model="deliveryData.city"
                                       placeholder="City:"
                                       type="text"
                                       name="city"
-                                      value=""
                                       class="large-field"
                                     />
                                   </div>
@@ -1127,10 +1213,10 @@
                                     "
                                   >
                                     <input
+                                      v-model="deliveryData.postcode"
                                       placeholder="Post Code:"
                                       type="text"
                                       name="postcode"
-                                      value=""
                                       class="large-field"
                                     />
                                   </div>
@@ -1148,11 +1234,10 @@
                                     class="ybc_custom_form_group fa fa-phone"
                                   >
                                     <input
+                                      v-model="deliveryData.phone"
                                       type="text"
                                       placeholder="Phone number"
                                       name="phone"
-                                      onkeypress="return NumericValidation(event)"
-                                      value=""
                                       class="large-field"
                                     />
                                   </div>
@@ -1164,9 +1249,10 @@
                                 <td colspan="2">
                                   <div class="ybc_custom_form_group fa fa-road">
                                     <textarea
+                                      v-model="deliveryData.company"
                                       placeholder="Aditional directions (optional)"
                                       name="company"
-                                      onkeypress="return StringValidation(event)"
+                                      
                                       rows="5"
                                       cols="41"
                                     ></textarea>
@@ -1536,7 +1622,9 @@
                                 </td>
                               </tr>
                             </tbody>
+                            
                           </table>
+                          </form>
                           <input type="hidden" name="guestaddress" value="1" />
                         </div>
                       </div>
@@ -1552,7 +1640,7 @@
                         </div>
                         <div class="right">
                           <input
-                            @click="next"
+                            @click="deliveryInfo"
                             style="text-transform: none"
                             type="button"
                             value="Next"
@@ -2100,6 +2188,18 @@ export default {
         password:"",
         confirm:"",
         newsletter:"",
+      },
+      deliveryData:{
+        address_1:"",
+        address_2:"",
+        city:"",
+        postcode:"",
+        phone:"",
+        company:"",
+        timestamp:""
+      },
+      collectData:{
+        timestamp:""
       }
 
     };
@@ -2130,8 +2230,16 @@ export default {
         password: {required, minLength: minLength(6)},
         confirm: {required, sameAs: sameAs(this.create.password) },
         newsletter:{},
+      },
+      deliveryData:{
+        address_1:{required},
+        address_2:{},
+        city:{required},
+        postcode:{required, numeric},
+        phone:{required, numeric},
+        company:{},
+        timestamp:{required}
       }
-      
 
     }
   },

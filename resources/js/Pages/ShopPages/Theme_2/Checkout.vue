@@ -1049,7 +1049,7 @@
                         </div>
                         <div class="contentpart">
                           <label class="style-select box-time-select">
-                            <select v-model="delivery.timestamp" class="time_select" name="time_method">
+                            <select v-model="deliveryData.timestamp" class="time_select" name="time_method">
                               <option id="time_0" value="ASAP">ASAP</option>
                               <option id="time_1" value="17:00-17:15">
                                 17:00-17:15
@@ -1661,7 +1661,6 @@
                               Postal Code<br />
                               <input
                                 type="text"
-                                onkeyup="jQuery(this).val(jQuery(this).val().toUpperCase());"
                                 class="input-xlarge focused"
                                 id="your_postcode"
                                 name="keyword"
@@ -2143,6 +2142,7 @@ import VShowSlide from "v-show-slide";
 import useValidate from '@vuelidate/core'
 import { required, email, minLength, sameAs, numeric } from '@vuelidate/validators'
 
+
 export default {
   name: "Home",
 
@@ -2195,6 +2195,7 @@ export default {
         postcode:"",
         phone:"",
         company:"",
+        timestamp:""
       },
       collectData:{
         timestamp:""
@@ -2202,6 +2203,7 @@ export default {
 
     };
   },
+
 
   validations() {
     return {
@@ -2237,6 +2239,7 @@ export default {
         postcode:{required, numeric},
         phone:{required, numeric},
         company:{},
+        timestamp:{required}
       }
 
     }
@@ -2274,6 +2277,9 @@ export default {
       this.step = 3;
     },
 
+    currentTime(){
+
+    },
 
     loginsubmit(){
       
@@ -2316,12 +2322,14 @@ export default {
 
     deliveryInfo(){
       if(this.delivery){
+        console.log(this.deliveryData)
         this.v$.deliveryData.$touch()
         if(!this.v$.deliveryData.$error){
           console.log(this.deliveryData)
           this.step = this.step + 1
         }
         else{
+          console.log(this.v$.deliveryData.$errors)
           console.log("delivery failed validation")
         }
       }
