@@ -107,6 +107,22 @@ Route::prefix('shop')->group(function(){
             return Inertia::render('ShopPages/Theme_2/Account',['theme' => $theme]);
     })->name('shopAcc');
 
+    Route::get('/forgotten',function(){
+        $theme = 2;
+        if ($theme == 1){
+            return Inertia::render('ShopPages/Theme_1/Forgotpass',['theme' => $theme]);
+        }else
+            return Inertia::render('ShopPages/Theme_2/Forgotpass',['theme' => $theme]);
+    })->name('shopForgot');
+
+    Route::post('/forgotten',function(){
+        $theme = 2;
+        if ($theme == 1){
+            return Inertia::render('ShopPages/Theme_1/Forgotpass',['theme' => $theme]);
+        }else
+            return Inertia::render('ShopPages/Theme_2/Forgotpass',['theme' => $theme]);
+    })->name('shopForgot');
+
     
 });
 

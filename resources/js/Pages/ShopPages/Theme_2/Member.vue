@@ -555,10 +555,10 @@
                                         name="password"
                                         
                                       />
-                                      <a
-                                        href="https://www.123.the-public.co.uk/index.php?route=account/forgotten"
-                                        >Forgotten Password</a
-                                      >
+                                      <Link :href="route('shopForgot')" class="color:blue, text-size:24px" >
+                                      
+                                      Forgotten Password
+                                    </Link>
                                       <input
                                         class="buttonLogin button"
                                         type="submit"

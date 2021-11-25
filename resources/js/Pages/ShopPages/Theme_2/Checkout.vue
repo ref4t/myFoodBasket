@@ -376,31 +376,39 @@
                           <div class="clearfix">
                             <p class="or_login"><b>OR</b></p>
                           </div>
-                          <div class="ybc_custom_form_group fa fa-envelope">
+                          <form @submit.prevent="loginsubmit">
+                            <div class="ybc_custom_form_group fa fa-envelope">
                             <input
+                              v-model="loginData.email"
                               placeholder="Email address"
                               type="text"
                               name="email"
-                              value=""
+                              
                             />
+                            <br/>
+                            <span v-if="v$.loginData.email.$error" style="color:red; text-size:24px; margin-top:4px" >{{ v$.loginData.email.$errors[0].$message }}</span>
                           </div>
                           <br />
                           <div class="ybc_custom_form_group fa fa-lock">
                             <input
+                              v-model="loginData.password"
                               placeholder="Password"
                               type="password"
                               name="password"
-                              value=""
+                              
                             />
+                            <br/>
+                            <span v-if="v$.loginData.password.$error" style="color:red; text-size:24px; margin-top:4px" >{{ v$.loginData.password.$errors[0].$message }}</span>
                           </div>
                           <br />
                           <input
-                            @click="login"
-                            type="button"
+                            class="buttonLogin button"
+                            type="submit"
                             value="Log in"
-                            id="button-login"
-                            class="button"
-                          /><br />
+                            style="background-color: #2575C7;height: 30px !important; line-height: 26px !important;  padding: 0; text-align: center; width: 100px;"
+                          />
+                          </form>
+                          <br />
                           <br />
                         </div>
                       </transition>
@@ -427,13 +435,14 @@
                         >
                           <div>
                             <!--  <h2>Your Personal Details</h2> -->
+                            <form @submit.prevent="guestsubmit" >
                             <table>
                               <tbody>
                                 <tr>
                                   <td style="display: none"></td>
                                   <td>
                                     <label class="style-select">
-                                      <select name="gender">
+                                      <select v-model="guestData.gender">
                                         <option value="">Title</option>
                                         <option value="1">Mr.</option>
                                         <option value="2">Mrs.</option>
@@ -442,12 +451,20 @@
                                         <option value="5">Dr.</option>
                                         <option value="6">Prof.</option>
                                       </select>
+                                      
                                     </label>
                                   </td>
                                 </tr>
                                 <tr>
+                                  <td style="display: none"></td>
+                                  <td>
+                                    <span v-if="v$.guestData.gender.$error"  style="color:red; text-size:24px" >Please select a title!</span>
+                                  </td>
+                                </tr>
+                                
+                                <tr>
                                   <td style="display: none">
-                                    <span class="required">*</span>
+                                   
                                   </td>
                                   <td>
                                     <div
@@ -457,16 +474,19 @@
                                       "
                                     >
                                       <input
+
+                                        v-model="guestData.firstname"
                                         type="text"
                                         name="firstname"
                                         placeholder="Name"
-                                        value=""
+                                        
                                         class="
                                           large-field
                                           text-bold
                                           change_color
                                         "
                                       />
+                                     
                                     </div>
                                     <div
                                       class="
@@ -476,17 +496,28 @@
                                       "
                                     >
                                       <input
+                                      v-model="guestData.lastname"
                                         type="text"
                                         name="lastname"
                                         placeholder="Surname"
-                                        value=""
+                                        
                                         class="
                                           large-field
                                           text-bold
                                           change_color
                                         "
                                       />
+                                      
                                     </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="display: none">
+                                   
+                                  </td>
+                                  <td>
+                                    <span v-if="v$.guestData.firstname.$error"  style="color:red; text-size:24px; text-aligh:left " >Name required !</span>
+                                  
                                   </td>
                                 </tr>
 
@@ -502,17 +533,27 @@
                                       "
                                     >
                                       <input
+                                        v-model="guestData.email"
                                         type="text"
                                         placeholder="Email address"
                                         name="email"
-                                        value=""
+                                        
                                         class="
                                           large-field
                                           text-bold
                                           change_color
                                         "
                                       />
+                                      
                                     </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="display: none">
+                                    <span class="required">*</span>
+                                  </td>
+                                  <td>
+                                    <span v-if="v$.guestData.email.$error"  style="color:red; text-size:24px; text-aligh:left " >Valid email required !</span>
                                   </td>
                                 </tr>
 
@@ -525,37 +566,43 @@
                                       class="ybc_custom_form_group fa fa-phone"
                                     >
                                       <input
+                                        v-model="guestData.telephone"
                                         type="text"
                                         placeholder="Phone number"
                                         name="telephone"
-                                        value=""
                                         class="
                                           large-field
                                           text-bold
                                           change_color
                                         "
                                       />
+                                    
                                     </div>
                                   </td>
                                 </tr>
 
                                 <tr>
-                                  <td style="display: none">&nbsp;</td>
-                                  <td>
-                                    <div class="buttons">
-                                      <div class="left">
-                                        <input
-                                          type="button"
-                                          value="Checkout"
-                                          id="button-guest"
-                                          class="button"
-                                        />
-                                      </div>
-                                    </div>
+                                  <td style="display: none">
+                                    <span class="required">*</span>
                                   </td>
+                                  <td>
+                                     <span v-if="v$.guestData.telephone.$error"  style="color:red; text-size:24px; text-aligh:left " >Valid telephone required !</span>
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td style="display: none">&nbsp;</td>
+                                  
                                 </tr>
                               </tbody>
                             </table>
+                              <input
+                                class="buttonLogin button"
+                                type="submit"
+                                value="Checkout"
+                                style="background-color: #2575C7;height: 30px !important; line-height: 26px !important;  padding: 0; text-align: center; width: 100px;"
+                              />
+                            </form>
                           </div>
                         </div>
                       </transition>
@@ -573,7 +620,8 @@
                         />Create an account
                       </h2>
                       <transition name="slide">
-                        <div
+                        <form @submit.prevent="createAc">
+                          <div
                           v-if="display3"
                           id="tab-register"
                           class="content-tab"
@@ -586,7 +634,7 @@
                                   <td style="display: none"></td>
                                   <td>
                                     <label class="style-select">
-                                      <select name="gender">
+                                      <select v-model="create.gender" name="gender">
                                         <option value="">Title</option>
                                         <option value="1">Mr.</option>
                                         <option value="2">Mrs.</option>
@@ -596,6 +644,12 @@
                                         <option value="6">Prof.</option>
                                       </select>
                                     </label>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="display: none"></td>
+                                  <td>
+                                     <span v-if="v$.create.gender.$error"  style="color:red; text-size:24px" >Please select a title!</span>
                                   </td>
                                 </tr>
                                 <tr>
@@ -610,9 +664,9 @@
                                       "
                                     >
                                       <input
+                                        v-model="create.firstname"
                                         type="text"
                                         name="firstname"
-                                        value=""
                                         class="large-field"
                                         placeholder="Name"
                                       />
@@ -625,13 +679,22 @@
                                       "
                                     >
                                       <input
+                                        v-model="create.lastname"
                                         type="text"
                                         name="lastname"
-                                        value=""
                                         class="large-field"
                                         placeholder="Surname"
                                       />
                                     </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="display: none">
+                                   
+                                  </td>
+                                  <td>
+                                    <span v-if="v$.create.firstname.$error"  style="color:red; text-size:24px; text-aligh:left " >Name required !</span>
+                                  
                                   </td>
                                 </tr>
 
@@ -648,9 +711,9 @@
                                       "
                                     >
                                       <input
+                                        v-model="create.email"
                                         type="text"
                                         name="email"
-                                        value=""
                                         class="large-field"
                                         placeholder="Email address"
                                       />
@@ -667,15 +730,24 @@
                                       class="ybc_custom_form_group fa fa-phone"
                                     >
                                       <input
+                                        v-model="create.telephone"
                                         type="text"
                                         name="telephone"
-                                        value=""
                                         class="large-field"
                                         placeholder="Phone number"
                                       />
                                     </div>
                                   </td>
                                 </tr>
+                                <tr>
+                                  <td style="display: none">
+                                    <span class="required">*</span>
+                                  </td>
+                                  <td>
+                                    <span v-if="v$.create.email.$error"  style="color:red; text-size:24px; text-aligh:left " >Valid email required !</span>
+                                  </td>
+                                </tr>
+
 
                                 <tr>
                                   <td style="display: none">
@@ -686,13 +758,21 @@
                                       class="ybc_custom_form_group fa fa-lock"
                                     >
                                       <input
+                                        v-model="create.password"
                                         type="password"
                                         name="password"
-                                        value=""
                                         class="large-field"
                                         placeholder="Password"
                                       />
                                     </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="display: none">
+                                    <span class="required">*</span> Password:
+                                  </td>
+                                  <td>
+                                    <span v-if="v$.create.password.$error"  style="color:red; text-size:24px; text-aligh:left " > *Minimum length 6 </span>
                                   </td>
                                 </tr>
 
@@ -706,13 +786,21 @@
                                       class="ybc_custom_form_group fa fa-lock"
                                     >
                                       <input
+                                        v-model="create.confirm"
                                         type="password"
                                         name="confirm"
-                                        value=""
                                         class="large-field"
                                         placeholder="Confirm Password"
                                       />
                                     </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="display: none">
+                                    
+                                  </td>
+                                  <td>
+                                    <span v-if="v$.create.confirm.$error"  style="color:red; text-size:24px; text-aligh:left " >Must be same as password</span>
                                   </td>
                                 </tr>
                               </tbody>
@@ -745,14 +833,15 @@
                           <div class="buttons">
                             <div class="u">
                               <input
-                                type="button"
+                                class="buttonLogin button"
+                                type="submit"
                                 value="Create"
-                                id="button-register"
-                                class="button"
+                                style="background-color: #2575C7;height: 30px !important; line-height: 26px !important;  padding: 0; text-align: center; width: 100px;"
                               />
                             </div>
                           </div>
                         </div>
+                        </form>
                       </transition>
                     </div>
                   </div>
@@ -861,22 +950,106 @@
                           <div id="mindeliveryrequire"></div>
                         </div>
                       </div>
-                      <div class="partcheckout">
+                      <div v-if="collect" class="partcheckout">
                         <div class="title-heading">
                           <span
-                            v-if="delivery"
-                            class="titlevanchuyen title-delivery"
-                            >Delivery Time</span
-                          >
-                          <span
-                            v-if="collect"
                             class="titlevanchuyen title-collection"
                             >Collection Time</span
                           >
                         </div>
                         <div class="contentpart">
                           <label class="style-select box-time-select">
-                            <select class="time_select" name="time_method">
+                            <select class="time_select" v-model="collectData.timestamp" name="time_method">
+                              <option id="time_0" value="ASAP">ASAP</option>
+                              <option id="time_1" value="17:00-17:15">
+                                17:00-17:15
+                              </option>
+                              <option id="time_2" value="17:15-17:30">
+                                17:15-17:30
+                              </option>
+                              <option id="time_3" value="17:30-17:45">
+                                17:30-17:45
+                              </option>
+                              <option id="time_4" value="17:45-18:00">
+                                17:45-18:00
+                              </option>
+                              <option id="time_5" value="18:00-18:15">
+                                18:00-18:15
+                              </option>
+                              <option id="time_6" value="18:15-18:30">
+                                18:15-18:30
+                              </option>
+                              <option id="time_7" value="18:30-18:45">
+                                18:30-18:45
+                              </option>
+                              <option id="time_8" value="18:45-19:00">
+                                18:45-19:00
+                              </option>
+                              <option id="time_9" value="19:00-19:15">
+                                19:00-19:15
+                              </option>
+                              <option id="time_10" value="19:15-19:30">
+                                19:15-19:30
+                              </option>
+                              <option id="time_11" value="19:30-19:45">
+                                19:30-19:45
+                              </option>
+                              <option id="time_12" value="19:45-20:00">
+                                19:45-20:00
+                              </option>
+                              <option id="time_13" value="20:00-20:15">
+                                20:00-20:15
+                              </option>
+                              <option id="time_14" value="20:15-20:30">
+                                20:15-20:30
+                              </option>
+                              <option id="time_15" value="20:30-20:45">
+                                20:30-20:45
+                              </option>
+                              <option id="time_16" value="20:45-21:00">
+                                20:45-21:00
+                              </option>
+                              <option id="time_17" value="21:00-21:15">
+                                21:00-21:15
+                              </option>
+                              <option id="time_18" value="21:15-21:30">
+                                21:15-21:30
+                              </option>
+                              <option id="time_19" value="21:30-21:45">
+                                21:30-21:45
+                              </option>
+                              <option id="time_20" value="21:45-22:00">
+                                21:45-22:00
+                              </option>
+                              <option id="time_21" value="22:00-22:15">
+                                22:00-22:15
+                              </option>
+                              <option id="time_22" value="22:15-22:30">
+                                22:15-22:30
+                              </option>
+                              <option id="time_23" value="22:30-22:45">
+                                22:30-22:45
+                              </option>
+                              <option id="time_24" value="22:45-23:00">
+                                22:45-23:00
+                              </option>
+                              <option id="time_25" value="23:00-23:15">
+                                23:00-23:15
+                              </option>
+                            </select>
+                          </label>
+                        </div>
+                      </div>
+                      <div v-if="delivery" class="partcheckout">
+                        <div class="title-heading">
+                          <span
+                            class="titlevanchuyen title-collection"
+                            >Delivery Time</span
+                          >
+                        </div>
+                        <div class="contentpart">
+                          <label class="style-select box-time-select">
+                            <select v-model="delivery.timestamp" class="time_select" name="time_method">
                               <option id="time_0" value="ASAP">ASAP</option>
                               <option id="time_1" value="17:00-17:15">
                                 17:00-17:15
@@ -969,8 +1142,10 @@
                             value="new"
                             id="payment-address-new"
                           />
+                          <form @submit.prevent="deliveryInfo">
                           <table class="form 3">
-                            <tbody>
+                            
+                              <tbody>
                               <tr>
                                 <td style="display: none"></td>
                                 <td colspan="2">
@@ -981,10 +1156,10 @@
                                     "
                                   >
                                     <input
+                                      v-model="deliveryData.address_1"
                                       placeholder="Address line 1:"
                                       type="text"
                                       name="address_1"
-                                      value=""
                                       class="large-field"
                                     />
                                   </div>
@@ -1000,10 +1175,10 @@
                                     "
                                   >
                                     <input
+                                      v-model="deliveryData.address_2"
                                       placeholder="Address line 2:"
                                       type="text"
                                       name="address_2"
-                                      value=""
                                       class="large-field"
                                     />
                                   </div>
@@ -1016,10 +1191,10 @@
                                     class="ybc_custom_form_group input-short"
                                   >
                                     <input
+                                      v-model="deliveryData.city"
                                       placeholder="City:"
                                       type="text"
                                       name="city"
-                                      value=""
                                       class="large-field"
                                     />
                                   </div>
@@ -1033,10 +1208,10 @@
                                     "
                                   >
                                     <input
+                                      v-model="deliveryData.postcode"
                                       placeholder="Post Code:"
                                       type="text"
                                       name="postcode"
-                                      value=""
                                       class="large-field"
                                     />
                                   </div>
@@ -1054,11 +1229,10 @@
                                     class="ybc_custom_form_group fa fa-phone"
                                   >
                                     <input
+                                      v-model="deliveryData.phone"
                                       type="text"
                                       placeholder="Phone number"
                                       name="phone"
-                                      onkeypress="return NumericValidation(event)"
-                                      value=""
                                       class="large-field"
                                     />
                                   </div>
@@ -1070,9 +1244,10 @@
                                 <td colspan="2">
                                   <div class="ybc_custom_form_group fa fa-road">
                                     <textarea
+                                      v-model="deliveryData.company"
                                       placeholder="Aditional directions (optional)"
                                       name="company"
-                                      onkeypress="return StringValidation(event)"
+                                      
                                       rows="5"
                                       cols="41"
                                     ></textarea>
@@ -1442,7 +1617,9 @@
                                 </td>
                               </tr>
                             </tbody>
+                            
                           </table>
+                          </form>
                           <input type="hidden" name="guestaddress" value="1" />
                         </div>
                       </div>
@@ -1458,7 +1635,7 @@
                         </div>
                         <div class="right">
                           <input
-                            @click="next"
+                            @click="deliveryInfo"
                             style="text-transform: none"
                             type="button"
                             value="Next"
@@ -1963,6 +2140,8 @@ import UpperShopNav from "@/Components/UpperShopNav.vue";
 import LowerShopNav from "@/Components/LowerShopNav.vue";
 import Footer from "@/Components/Footer.vue";
 import VShowSlide from "v-show-slide";
+import useValidate from '@vuelidate/core'
+import { required, email, minLength, sameAs, numeric } from '@vuelidate/validators'
 
 export default {
   name: "Home",
@@ -1976,13 +2155,91 @@ export default {
   },
   data() {
     return {
+      v$: useValidate(),
       display1: true,
       display2: false,
       display3: false,
       step: 1,
       collect: true,
       delivery: false,
+
+      loginData:{
+        email:"",
+        password:""
+      },
+
+      guestData:{
+        gender:"",
+        firstname:"",
+        lastname:"",
+        email:"",
+        telephone:""
+
+      },
+
+      create:{
+        gender:"",
+        firstname:"",
+        lastname:"",
+        email:"",
+        telephone:"",
+        password:"",
+        confirm:"",
+        newsletter:"",
+      },
+
+      deliveryData:{
+        address_1:"",
+        address_2:"",
+        city:"",
+        postcode:"",
+        phone:"",
+        company:"",
+      },
+      collectData:{
+        timestamp:""
+      }
+
     };
+  },
+
+  validations() {
+    return {
+
+      loginData:{
+        email:{required, email},
+        password:{required}
+      },
+
+      guestData:{
+        gender:{required},
+        firstname:{required},
+        lastname:{required},
+        email:{required, email},
+        telephone:{required}
+
+      },
+      create:{
+        gender:{required},
+        firstname:{required},
+        lastname:{required},
+        email:{required, email},
+        telephone:{required},
+        password: {required, minLength: minLength(6)},
+        confirm: {required, sameAs: sameAs(this.create.password) },
+        newsletter:{},
+      },
+      
+      deliveryData:{
+        address_1:{required},
+        address_2:{},
+        city:{required},
+        postcode:{required, numeric},
+        phone:{required, numeric},
+        company:{},
+      }
+
+    }
   },
 
   methods: {
@@ -2016,8 +2273,68 @@ export default {
     next() {
       this.step = 3;
     },
+
+
+    loginsubmit(){
+      
+      console.log(this.loginData.email)
+      this.v$.loginData.$touch()
+      if(!this.v$.loginData.$error){
+        console.log("success")
+        this.step = this.step + 1
+      }
+      else{
+        console.log("failed validation")
+      }
+    },
+
+
+    guestsubmit(){
+      
+      console.log("here")
+      this.v$.guestData.$touch()
+      if(!this.v$.guestData.$error){
+        console.log(this.guestData)
+        this.step = this.step + 1
+      }
+      else{
+        console.log("guest failed validation")
+        
+      }
+    },
+
+    createAc(){
+      this.v$.create.$touch()
+      if(!this.v$.create.$error){
+        console.log(this.create)
+        this.step = this.step + 1
+      }
+      else{
+        console.log("guest failed validation")
+      }
+    },
+
+    deliveryInfo(){
+      if(this.delivery){
+        this.v$.deliveryData.$touch()
+        if(!this.v$.deliveryData.$error){
+          console.log(this.deliveryData)
+          this.step = this.step + 1
+        }
+        else{
+          console.log("delivery failed validation")
+        }
+      }
+      else{
+        console.log("collect data")
+        this.step = this.step + 1
+      }
+    }
+
   },
-};
+  
+
+}
 </script>
 
 <style>

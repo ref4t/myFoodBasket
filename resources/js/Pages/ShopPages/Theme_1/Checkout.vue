@@ -376,31 +376,39 @@
                           <div class="clearfix">
                             <p class="or_login"><b>OR</b></p>
                           </div>
-                          <div class="ybc_custom_form_group fa fa-envelope">
+                          <form @submit.prevent="loginsubmit">
+                            <div class="ybc_custom_form_group fa fa-envelope">
                             <input
+                              v-model="loginData.email"
                               placeholder="Email address"
                               type="text"
                               name="email"
-                              value=""
+                              
                             />
+                            <br/>
+                            <span v-if="v$.loginData.email.$error" style="color:red; text-size:24px; margin-top:4px" >{{ v$.loginData.email.$errors[0].$message }}</span>
                           </div>
                           <br />
                           <div class="ybc_custom_form_group fa fa-lock">
                             <input
+                              v-model="loginData.password"
                               placeholder="Password"
                               type="password"
                               name="password"
-                              value=""
+                              
                             />
+                            <br/>
+                            <span v-if="v$.loginData.password.$error" style="color:red; text-size:24px; margin-top:4px" >{{ v$.loginData.password.$errors[0].$message }}</span>
                           </div>
                           <br />
                           <input
-                            @click="login"
-                            type="button"
+                            type="submit"
                             value="Log in"
                             id="button-login"
                             class="cusButton"
-                          /><br />
+                          />
+                          </form>
+                          <br />
                           <br />
                         </div>
                       </transition>
@@ -419,7 +427,8 @@
                       </h2>
 
                       <transition name="slide">
-                        <div
+                        
+                          <div
                           v-if="display2"
                           id="tab-gest"
                           class="content-tab"
@@ -427,13 +436,14 @@
                         >
                           <div>
                             <!--  <h2>Your Personal Details</h2> -->
+                            <form @submit.prevent="guestsubmit" >
                             <table>
                               <tbody>
                                 <tr>
                                   <td style="display: none"></td>
                                   <td>
                                     <label class="style-select">
-                                      <select name="gender">
+                                      <select v-model="guestData.gender">
                                         <option value="">Title</option>
                                         <option value="1">Mr.</option>
                                         <option value="2">Mrs.</option>
@@ -442,12 +452,20 @@
                                         <option value="5">Dr.</option>
                                         <option value="6">Prof.</option>
                                       </select>
+                                      
                                     </label>
                                   </td>
                                 </tr>
                                 <tr>
+                                  <td style="display: none"></td>
+                                  <td>
+                                    <span v-if="v$.guestData.gender.$error"  style="color:red; text-size:24px" >Please select a title!</span>
+                                  </td>
+                                </tr>
+                                
+                                <tr>
                                   <td style="display: none">
-                                    <span class="required">*</span>
+                                   
                                   </td>
                                   <td>
                                     <div
@@ -457,16 +475,19 @@
                                       "
                                     >
                                       <input
+
+                                        v-model="guestData.firstname"
                                         type="text"
                                         name="firstname"
                                         placeholder="Name"
-                                        value=""
+                                        
                                         class="
                                           large-field
                                           text-bold
                                           change_color
                                         "
                                       />
+                                     
                                     </div>
                                     <div
                                       class="
@@ -476,17 +497,28 @@
                                       "
                                     >
                                       <input
+                                      v-model="guestData.lastname"
                                         type="text"
                                         name="lastname"
                                         placeholder="Surname"
-                                        value=""
+                                        
                                         class="
                                           large-field
                                           text-bold
                                           change_color
                                         "
                                       />
+                                      
                                     </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="display: none">
+                                   
+                                  </td>
+                                  <td>
+                                    <span v-if="v$.guestData.firstname.$error"  style="color:red; text-size:24px; text-aligh:left " >Name required !</span>
+                                  
                                   </td>
                                 </tr>
 
@@ -502,17 +534,27 @@
                                       "
                                     >
                                       <input
+                                        v-model="guestData.email"
                                         type="text"
                                         placeholder="Email address"
                                         name="email"
-                                        value=""
+                                        
                                         class="
                                           large-field
                                           text-bold
                                           change_color
                                         "
                                       />
+                                      
                                     </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="display: none">
+                                    <span class="required">*</span>
+                                  </td>
+                                  <td>
+                                    <span v-if="v$.guestData.email.$error"  style="color:red; text-size:24px; text-aligh:left " >Valid email required !</span>
                                   </td>
                                 </tr>
 
@@ -525,40 +567,50 @@
                                       class="ybc_custom_form_group fa fa-phone"
                                     >
                                       <input
+                                        v-model="guestData.telephone"
                                         type="text"
                                         placeholder="Phone number"
                                         name="telephone"
-                                        value=""
                                         class="
                                           large-field
                                           text-bold
                                           change_color
                                         "
                                       />
+                                    
                                     </div>
                                   </td>
                                 </tr>
 
                                 <tr>
-                                  <td style="display: none">&nbsp;</td>
-                                  <td>
-                                    <div class="buttons">
-                                      <div class="left">
-                                        <input
-                                          type="button"
-                                          value="Checkout"
-                                          id="button-guest"
-                                          class="cusButton"
-                                        />
-                                      </div>
-                                    </div>
+                                  <td style="display: none">
+                                    <span class="required">*</span>
                                   </td>
+                                  <td>
+                                     <span v-if="v$.guestData.telephone.$error"  style="color:red; text-size:24px; text-aligh:left " >Valid telephone required !</span>
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td style="display: none">&nbsp;</td>
+                                  
                                 </tr>
                               </tbody>
                             </table>
+                              <input
+                                
+                                type="submit"
+                                value="Checkout"
+                                class="cusButton"
+                              />
+                            </form>
                           </div>
                         </div>
+                        
+                        
                       </transition>
+
+                      <!-- create account -->
 
                       <h2
                         data-toggle="tab-register"
@@ -573,7 +625,8 @@
                         />Create an account
                       </h2>
                       <transition name="slide">
-                        <div
+                        <form @submit.prevent="createAc">
+                          <div
                           v-if="display3"
                           id="tab-register"
                           class="content-tab"
@@ -586,7 +639,7 @@
                                   <td style="display: none"></td>
                                   <td>
                                     <label class="style-select">
-                                      <select name="gender">
+                                      <select v-model="create.gender" name="gender">
                                         <option value="">Title</option>
                                         <option value="1">Mr.</option>
                                         <option value="2">Mrs.</option>
@@ -596,6 +649,12 @@
                                         <option value="6">Prof.</option>
                                       </select>
                                     </label>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="display: none"></td>
+                                  <td>
+                                     <span v-if="v$.create.gender.$error"  style="color:red; text-size:24px" >Please select a title!</span>
                                   </td>
                                 </tr>
                                 <tr>
@@ -610,9 +669,9 @@
                                       "
                                     >
                                       <input
+                                        v-model="create.firstname"
                                         type="text"
                                         name="firstname"
-                                        value=""
                                         class="large-field"
                                         placeholder="Name"
                                       />
@@ -625,13 +684,22 @@
                                       "
                                     >
                                       <input
+                                        v-model="create.lastname"
                                         type="text"
                                         name="lastname"
-                                        value=""
                                         class="large-field"
                                         placeholder="Surname"
                                       />
                                     </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="display: none">
+                                   
+                                  </td>
+                                  <td>
+                                    <span v-if="v$.create.firstname.$error"  style="color:red; text-size:24px; text-aligh:left " >Name required !</span>
+                                  
                                   </td>
                                 </tr>
 
@@ -648,9 +716,9 @@
                                       "
                                     >
                                       <input
+                                        v-model="create.email"
                                         type="text"
                                         name="email"
-                                        value=""
                                         class="large-field"
                                         placeholder="Email address"
                                       />
@@ -667,15 +735,24 @@
                                       class="ybc_custom_form_group fa fa-phone"
                                     >
                                       <input
+                                        v-model="create.telephone"
                                         type="text"
                                         name="telephone"
-                                        value=""
                                         class="large-field"
                                         placeholder="Phone number"
                                       />
                                     </div>
                                   </td>
                                 </tr>
+                                <tr>
+                                  <td style="display: none">
+                                    <span class="required">*</span>
+                                  </td>
+                                  <td>
+                                    <span v-if="v$.create.email.$error"  style="color:red; text-size:24px; text-aligh:left " >Valid email required !</span>
+                                  </td>
+                                </tr>
+
 
                                 <tr>
                                   <td style="display: none">
@@ -686,13 +763,21 @@
                                       class="ybc_custom_form_group fa fa-lock"
                                     >
                                       <input
+                                        v-model="create.password"
                                         type="password"
                                         name="password"
-                                        value=""
                                         class="large-field"
                                         placeholder="Password"
                                       />
                                     </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="display: none">
+                                    <span class="required">*</span> Password:
+                                  </td>
+                                  <td>
+                                    <span v-if="v$.create.password.$error"  style="color:red; text-size:24px; text-aligh:left " > *Minimum length 6 </span>
                                   </td>
                                 </tr>
 
@@ -706,13 +791,21 @@
                                       class="ybc_custom_form_group fa fa-lock"
                                     >
                                       <input
+                                        v-model="create.confirm"
                                         type="password"
                                         name="confirm"
-                                        value=""
                                         class="large-field"
                                         placeholder="Confirm Password"
                                       />
                                     </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="display: none">
+                                    
+                                  </td>
+                                  <td>
+                                    <span v-if="v$.create.confirm.$error"  style="color:red; text-size:24px; text-aligh:left " >Must be same as password</span>
                                   </td>
                                 </tr>
                               </tbody>
@@ -745,7 +838,7 @@
                           <div class="buttons">
                             <div class="u">
                               <input
-                                type="button"
+                                type="submit"
                                 value="Create"
                                 id="button-register"
                                 class="cusButton"
@@ -753,6 +846,7 @@
                             </div>
                           </div>
                         </div>
+                        </form>
                       </transition>
                     </div>
                   </div>
@@ -1960,6 +2054,8 @@ import UpperShopNav from "@/Components/UpperShopNav.vue";
 import LowerShopNav from "@/Components/LowerShopNav.vue";
 import Footer from "@/Components/Footer.vue";
 import VShowSlide from "v-show-slide";
+import useValidate from '@vuelidate/core'
+import { required, email, minLength, sameAs, numeric } from '@vuelidate/validators'
 
 export default {
   name: "Home",
@@ -1973,13 +2069,71 @@ export default {
   },
   data() {
     return {
+      v$: useValidate(),
       display1: true,
       display2: false,
       display3: false,
       step: 1,
       collect: true,
       delivery: false,
+
+      loginData:{
+        email:"",
+        password:""
+      },
+
+      guestData:{
+        gender:"",
+        firstname:"",
+        lastname:"",
+        email:"",
+        telephone:""
+
+      },
+
+      create:{
+        gender:"",
+        firstname:"",
+        lastname:"",
+        email:"",
+        telephone:"",
+        password:"",
+        confirm:"",
+        newsletter:"",
+      }
+
     };
+  },
+
+  validations() {
+    return {
+
+      loginData:{
+        email:{required, email},
+        password:{required}
+      },
+
+      guestData:{
+        gender:{required},
+        firstname:{required},
+        lastname:{required},
+        email:{required, email},
+        telephone:{required}
+
+      },
+      create:{
+        gender:{required},
+        firstname:{required},
+        lastname:{required},
+        email:{required, email},
+        telephone:{required},
+        password: {required, minLength: minLength(6)},
+        confirm: {required, sameAs: sameAs(this.create.password) },
+        newsletter:{},
+      }
+      
+
+    }
   },
 
   methods: {
@@ -2013,8 +2167,51 @@ export default {
     next() {
       this.step = 3;
     },
+
+
+    loginsubmit(){
+      
+      console.log(this.loginData.email)
+      this.v$.loginData.$touch()
+      if(!this.v$.loginData.$error){
+        console.log("success")
+        this.step = this.step + 1
+      }
+      else{
+        console.log("failed validation")
+      }
+    },
+
+
+    guestsubmit(){
+      
+      console.log("here")
+      this.v$.guestData.$touch()
+      if(!this.v$.guestData.$error){
+        console.log(this.guestData)
+        this.step = this.step + 1
+      }
+      else{
+        console.log("guest failed validation")
+        
+      }
+    },
+
+    createAc(){
+      this.v$.create.$touch()
+      if(!this.v$.create.$error){
+        console.log(this.create)
+        this.step = this.step + 1
+      }
+      else{
+        console.log("guest failed validation")
+      }
+    }
+
   },
-};
+  
+
+}
 </script>
 
 <style>

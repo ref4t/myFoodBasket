@@ -793,39 +793,7 @@
         >
       </div>
 
-      <!-- <script type="text/javascript">
-        $(document).ready(function () {
-          var containerheight = $(".etsWrapper.middle_bg_custom").height();
-          var windowheight = $(window).height();
-          var header = $(".bg_option_header").height();
-          var footer = $(".bg_custom_footer").height();
-          var topmenu = $(".ets_main_content_top").height();
-          var height = windowheight - header - footer - topmenu;
 
-          if (containerheight < height)
-            $(".middle_bg_custom .fix_ets_main_content .etsWrapper").css(
-              "min-height",
-              height
-            );
-        });
-        $(window).on("resize", function () {
-          var win = $(this);
-          var containerheight = $(".etsWrapper.middle_bg_custom").height();
-          var windowheight = win.height();
-          var header = $(".bg_option_header").height();
-          var footer = $(".bg_custom_footer").height();
-          var topmenu = $(".ets_main_content_top").height();
-          var height = windowheight - header - footer - topmenu;
-
-          if (containerheight < height)
-            $(".middle_bg_custom .fix_ets_main_content .etsWrapper").css(
-              "min-height",
-              height
-            );
-        });
-      </script> -->
-
-      <!--div class="pop-bdy"> </div-->
     </div>
     <ul
       class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all"
