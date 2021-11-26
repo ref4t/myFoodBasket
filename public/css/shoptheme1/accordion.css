@@ -1,0 +1,13 @@
+.wrapper{width:100%;margin:20px auto;}
+.st-accordion{width:100%;min-width:270px;margin:0 auto;}
+.st-accordion ul{padding:0;margin:0;}
+.st-accordion ul li{background-color:#eee;border-bottom:1px solid #ccc;border-top:1px solid #fff;height:auto !important;overflow:hidden;padding:7px 10px;}
+.st-accordion ul li:first-child{border-top:none;}
+.st-accordion ul li > a{font-family:'Roboto Condensed', Arial, Helvetica, sans-serif;font-size:15px;color:#000;line-height:20px;display:block;position:relative;text-decoration:none;outline:none;-webkit-transition:color 0.2s ease-in-out;-moz-transition:color 0.2s ease-in-out;-o-transition:color 0.2s ease-in-out;-ms-transition:color 0.2s ease-in-out;transition:color 0.2s ease-in-out;}
+.st-content #voucher.content{margin-bottom:5px;}
+.st-accordion ul li > a span{background:transparent url(../image/down.png) no-repeat center center;text-indent:-9000px;width:20px;height:20px;position:absolute;top:0%;right:10px;-webkit-transition:all 0.2s ease-in-out;-moz-transition:all 0.2s ease-in-out;-o-transition:all 0.2s ease-in-out;-ms-transition:all 0.2s ease-in-out;transition:all 0.2s ease-in-out;}
+.st-accordion ul li > a:hover{color:#FB2B75;}
+.st-accordion ul li > a:hover span{opacity:1;}
+.st-accordion ul li.st-open > a{}
+.st-accordion ul li.st-open > a span{-webkit-transform:rotate(180deg);-moz-transform:rotate(180deg);transform:rotate(180deg);opacity:1;}
+.st-content{}
