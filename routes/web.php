@@ -16,14 +16,15 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Inertia::render('Mainshop/Home');
 });
-
+Route::get('/restaurants', function () {
+    return Inertia::render('Mainshop/restaurantList');
+});
+Route::get('/restaurants/name', function () {
+    return Inertia::render('Mainshop/singleRestaurant');
+});
+Route::get('/login');
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
