@@ -3,7 +3,6 @@
     <link rel="stylesheet" href="/css/shoptheme1/stylesheet.css" />
     <link rel="stylesheet" href="/css/shoptheme1/responsive.css" />
     <link rel="stylesheet" href="/css/shoptheme1/responsive1.css" />
-    <link rel="stylesheet" href="/css/shoptheme1/ecslideshow.css" />
     <link rel="stylesheet" href="/css/shoptheme1/accordion.css" />
     <link rel="stylesheet" href="/css/shoptheme1/camera.css" />
     <link rel="stylesheet" href="/css/shoptheme1/fast_order.css" />
@@ -12,6 +11,7 @@
     <link rel="stylesheet" href="/css/shoptheme1/owl.carousel.css" />
     <link rel="stylesheet" href="/css/shoptheme1/topmenu.css" />
     <link rel="stylesheet" href="/css/shoptheme1/ybc-testimonials.css" />
+    <link rel="stylesheet" href="/css/shoptheme1/ets_green.css" />
   </Head>
 
   <body class="home lang_en ets_green">
@@ -464,7 +464,7 @@
                                   </div>
 
                                   <input
-                                    class="button ybc_search_location_submit"
+                                    class="aboutButton"
                                     style="margin-left: 10px"
                                     type="submit"
                                     value="Get Directions"
@@ -493,9 +493,7 @@
                               </div>
                               <div class="rightContent ybc_information_content">
                                 <form
-                                  action="https://www.123.the-public.co.uk/index.php?route=information/contact"
-                                  method="post"
-                                  enctype="multipart/form-data"
+                                  @submit.prevent="contactForm"
                                   id="contact-form"
                                 >
                                   <h2>Contact us form</h2>
@@ -507,6 +505,7 @@
                                     "
                                   >
                                     <select
+                                      v-model="contactData.title"
                                       name="name"
                                       class="large-field"
                                       placeholder="Title"
@@ -530,10 +529,10 @@
                                     "
                                   >
                                     <input
+                                    v-model="contactData.firstName"
                                       type="text"
                                       name="firstname"
                                       placeholder="Name"
-                                      value=""
                                       class="large-field"
                                     />
                                   </div>
@@ -545,10 +544,10 @@
                                     "
                                   >
                                     <input
+                                      v-model="contactData.lastName"
                                       type="text"
                                       name="lastname"
                                       placeholder="Surname"
-                                      value=""
                                       class="large-field"
                                     />
                                   </div>
@@ -557,10 +556,10 @@
                                     class="ybc_custom_form_group fa fa-envelope"
                                   >
                                     <input
+                                    v-model="contactData.email"
                                       type="text"
                                       name="email"
                                       placeholder="Email address"
-                                      value=""
                                     />
                                   </div>
 
@@ -568,10 +567,10 @@
                                     class="ybc_custom_form_group fa fa-phone"
                                   >
                                     <input
+                                    v-model="contactData.phone"
                                       type="text"
                                       name="phone"
                                       placeholder="Phone number"
-                                      value=""
                                     />
                                   </div>
                                   <div
@@ -581,6 +580,7 @@
                                     "
                                   >
                                     <textarea
+                                      v-model="contactData.enquiry"
                                       name="enquiry"
                                       placeholder="Your enquiry"
                                       cols="40"
@@ -589,18 +589,7 @@
                                     ></textarea>
                                   </div>
 
-                                  <!--
-                <tr>
-                    <td class="firstTd">Enter the code in the box below:</td>
-                    <td><input type="text" name="captcha" value="" /></td>
-                </tr>
-                
-                <tr>
-                    <td class="firstTd">
-                        <img src="index.php?route=information/contact/captcha" alt="" />
-                                            </td>
-                </tr>
-                -->
+                                 
 
                                   <div
                                     class="g-recaptcha"
@@ -641,11 +630,7 @@
                                     style="width: 100%"
                                     type="submit"
                                     value="submit"
-                                    class="
-                                      button
-                                      ybc_search_location_submit
-                                      contact-form-submit
-                                    "
+                                    class="aboutButton"
                                   />
                                   <!--<p style="margin-top: 10px;">Feilds marked width * are a mandatory feilds</p>-->
                                 </form>
@@ -780,6 +765,9 @@ import Banner from "@/Components/Banner.vue";
 import LowerShopNav from "@/Components/LowerShopNav.vue";
 import Menu from "@/Components/Menu.vue";
 import Footer from "@/Components/Footer.vue";
+import useValidate from '@vuelidate/core'
+import { required, email, minLength, alpha, maxLength } from '@vuelidate/validators'
+
 
 export default {
   components: {
@@ -792,12 +780,63 @@ export default {
     Footer,
   },
   props: {},
+
+  data() {
+    return{
+      v$: useValidate(),
+      contactData:{
+        title:"",
+        firstName:"",
+        lastName:"",
+        email:"",
+        phone:"",
+        enquiry:""
+      }
+    }
+  },
+
+  validations(){
+    return{
+      contactData:{
+        title:{required},
+        firstName:{required,alpha},
+        lastName:{required,alpha},
+        email:{required,email},
+        phone:{required, minLength: minLength(9), maxLength: maxLength(15)},
+        enquiry:{required,minLength:minLength(5), maxLength: maxLength(50)}
+      }
+    }
+  },
+  method:{
+    contactForm(){
+      this.v$.$validate()
+      if(this.v$.$error){
+        console.log("success")
+      }else{
+        console.log("failed")
+      }
+    }
+  }
+
 };
 </script>
 
 
 
 <style>
+.aboutButton{
+  background-color: #FBBC4B; 
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  width: 96%;
+  
+}
 body > div#container {
   background-color: #2e2e2e;
 }

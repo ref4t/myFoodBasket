@@ -1,5 +1,8 @@
 <template>
-    <Head title="Register" />
+    <Head title="Register">
+        <link rel="stylesheet" href="/css/app.css" />
+
+    </Head>
 
     <BreezeValidationErrors class="mb-4" />
 

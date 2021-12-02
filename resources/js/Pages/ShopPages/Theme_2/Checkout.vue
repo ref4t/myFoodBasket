@@ -36,18 +36,6 @@
             <div class="fix_ets_main_content">
               <div class="main ets">
                 <div id="wrapper" class="relat">
-                  <!--div class="top_info">
-         <div>
-         
-                       
-            
-           
-           </div>
-           
-           <div>
-                      
-                                     </div>  
-         </div -->
 
                   <div class="ctr"></div>
 
@@ -115,7 +103,7 @@
       </div>
       <!-- bg_option_header -->
 
-      <div id="wrapper" class="etsWrapper middle_bg_custom body_full_width">
+      <div id="wrapper" class="etsWrapper middle_bg_custom body_full_width" style="min-height:49.1vh">
         <div class="ets_main_content">
           <div class="fix_ets_main_content">
             <div class="etsWrapper body_content_sec" style="min-height: 435px">
@@ -351,12 +339,8 @@
                         class="ybcgeneral title-toggle"
                         @click="display"
                       >
-                        <input
-                          type="radio"
-                          name="login_radio"
-                          id="login_radio"
-                          checked="checked"
-                        />Log in
+                          
+                        Log in
                       </h2>
                       <transition name="slide">
                         <div
@@ -418,12 +402,9 @@
                         data-toggle="tab-gest"
                         data-disable="yes"
                         class="ybcgeneral title-toggle guest-h2 title-active"
+                        
                       >
-                        <input
-                          type="radio"
-                          id="guest_radio"
-                          name="guest_radio"
-                        />Guest checkout
+                        Guest checkout
                       </h2>
 
                       <transition name="slide">
@@ -613,11 +594,7 @@
                         class="ybcgeneral title-toggle"
                         @click="displayCreate"
                       >
-                        <input
-                          type="radio"
-                          id="acc_radio"
-                          name="acc_radio"
-                        />Create an account
+                      Create an account
                       </h2>
                       <transition name="slide">
                         <form @submit.prevent="createAc">
@@ -1625,7 +1602,7 @@
                       </div>
 
                       <div class="buttons box-action box-action-step2">
-                        <div class="backbtn">
+                        <div class="">
                           <input
                             type="button"
                             @click="stepback"
@@ -2277,9 +2254,6 @@ export default {
       this.step = 3;
     },
 
-    currentTime(){
-
-    },
 
     loginsubmit(){
       

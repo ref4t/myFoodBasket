@@ -1,5 +1,8 @@
 <template>
-    <Head title="Reset Password" />
+    <Head title="Reset Password" >
+        <link rel="stylesheet" href="/css/app.css" />
+
+    </Head>
 
     <BreezeValidationErrors class="mb-4" />
 

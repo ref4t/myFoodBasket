@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/shoptheme1/owl.carousel.css" />
     <link rel="stylesheet" href="/css/shoptheme1/topmenu.css" />
     <link rel="stylesheet" href="/css/shoptheme1/ybc-testimonials.css" />
+    <link rel="stylesheet" href="/css/shoptheme1/ets_green.css" />
   </Head>
 
   <body class="home lang_en ets_green">
@@ -70,7 +71,7 @@
       </div>
       <!-- bg_option_header -->
 
-      <div id="wrapper" class="etsWrapper middle_bg_custom">
+      <div id="wrapper" class="etsWrapper middle_bg_custom" style="min-height:49.1vh">
         <div class="ets_main_content">
           <div class="fix_ets_main_content">
             <div class="etsWrapper body_content_sec">
@@ -392,45 +393,7 @@
                                 </div>
                               </div>
 
-                              <!-- <script>
-
-
-
-                                $(document).ready(function () {
-                                  var catname = window.location.hash;
-                                  $("ul.box-category li").each(function () {
-                                    if (catname != "") {
-                                      if (
-                                        $(this).find("a").attr("data-href") ==
-                                        catname
-                                      ) {
-                                        $(this).find("a").addClass("active");
-                                      }
-                                    } else {
-                                      var cName = "";
-                                      if (cName != "") {
-                                        if (
-                                          $(this).find("a").attr("data-href") ==
-                                          "#" + cName
-                                        ) {
-                                          $(this).find("a").addClass("active");
-                                          $("html, body").animate(
-                                            {
-                                              scrollTop: $("#" + cName).offset()
-                                                .top,
-                                            },
-                                            2000
-                                          );
-                                        }
-                                      }
-                                    }
-                                  });
-                                  $("#list_category_style_content").hide();
-                                  $("#toggle_category_home").click(function () {
-                                    $("#list_category_style_content").toggle();
-                                  });
-                                });
-                              </script> -->
+                             
 
                               <div class="login-content">
                                 <div class="left">
@@ -444,11 +407,9 @@
                                       have previously made.
                                     </p>
                                     <Link :href="route('shopReg')"
-                                      class="buttonLogin button"
-                                      style="background-color: #2575C7;height: 30px !important; line-height: 26px !important;  padding: 0; text-align: center; width: 100px;">
-                                      Continue
+                                      class="cusButton">
+                                       Continue
                                     </Link>
-                                    >
                                   </div>
                                 </div>
                                 <div class="right">
@@ -479,7 +440,7 @@
                                       <input
                                         class="buttonLogin button"
                                         type="submit"
-                                        value="Login"
+                                        value="Log in"
                                         style="background-color: #FBBC4B;height: 30px !important; line-height: 26px !important;  padding: 0; text-align: center; width: 100px;"
                                       />
                                     </div>
@@ -648,10 +609,9 @@ export default {
 
 .cusButton{
   background-color: #FBBC4B; 
-  border: none;
-  border-radius: 8px;
+  font-weight: bold;
   color: white;
-  padding: 15px 32px;
+  padding: 5px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -659,7 +619,10 @@ export default {
   cursor: pointer;
   
 }
-
+.cusButton:hover {
+  background-color: #fad185;
+  color: white;
+}
 
 h1 {
   font-size: nonepx;
@@ -708,11 +671,7 @@ body > div#container {
   background-position: px px;
 }
 
-body h1,
-body h2,
-body h3,
-body h4 {
-}
+
 
 @media (max-width: 649px) {
   body #header {
@@ -775,10 +734,7 @@ body > div#container {
 
 /* background -color footer  */
 
-.etsWrapper .fix_ets_main_content,
-.bg_custom_footer .fix_ets_main_content,
-.home_menu {
-}
+
 
 .ets_main_content .main.ets {
   box-shadow: 0 0 10px 5px black;
@@ -1020,21 +976,7 @@ h4 {
 
 /* end */
 
-@media (min-width: 659px) and (max-width: 1199px) {
-  .bg_option_header,
-  .hieu {
-    /*					background-color: #FFFFB3;
-							background-image: url("https://www.123.the-public.co.uk/image/data/patterns/overlay5.png"); 
-			                        background-repeat: repeat;
-                        background-position: center 0;*/
-  }
 
-  #wrapper.etsWrapper.middle_bg_custom {
-  }
-
-  .middle_bg_custom .fix_ets_main_content > .etsWrapper {
-  }
-}
 
 @media (max-width: 649px) {
   #payment-address {
@@ -1048,14 +990,7 @@ h4 {
            background-color: #FFFFFF;
         } */
 
-  #wrapper.etsWrapper.middle_bg_custom {
-  }
-
-  .body_ets:before {
-  }
-
-  .middle_bg_custom .fix_ets_main_content > .etsWrapper {
-  }
+  
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
