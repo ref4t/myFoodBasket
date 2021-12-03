@@ -3,6 +3,12 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\NewOrderController;
+
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\MemberController;
 use App\Http\Controllers\Shop\MenuController;
@@ -11,6 +17,7 @@ use App\Http\Controllers\Shop\AboutusController;
 use App\Http\Controllers\Shop\AccountController;
 use App\Http\Controllers\Shop\ForgotPasswordController;
 use App\Http\Controllers\Shop\RegistryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,11 +38,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::prefix('shop')->group(function(){
@@ -63,6 +68,14 @@ Route::prefix('shop')->group(function(){
     // post
     Route::post('/forgotten',[ForgotPasswordController::class, 'index'])->name('shopForgot');
     
+});
+
+
+Route::prefix('admin')->group(function(){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+    Route::get('/orders', [OrderController::class, 'index'])->name('admin.dashboard.orders');
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('admin.dashboard.transactions');
+    Route::get('/new-orders', [NewOrderController::class, 'index'])->name('admin.dashboard.newOrders');
 });
 
 require __DIR__.'/auth.php';
