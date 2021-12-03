@@ -73,7 +73,11 @@ Route::prefix('shop')->group(function(){
 
 Route::prefix('admin')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+
     Route::get('/orders', [OrderController::class, 'index'])->name('admin.dashboard.orders');
+    Route::get('/orders/view/{id}',[OrderController::class, 'view'])->name('admin.dashboard.orders.show');
+    Route::get('/orders/edit/{id}',[OrderController::class, 'edit'])->name('admin.dashboard.orders.edit');
+
     Route::get('/transactions', [TransactionController::class, 'index'])->name('admin.dashboard.transactions');
     Route::get('/new-orders', [NewOrderController::class, 'index'])->name('admin.dashboard.newOrders');
 });
