@@ -44,7 +44,7 @@
                         <tbody> 
                               <tr>
                                   <td style="width: 15%">Order ID:</td>
-                                  <td>{{ order.id }}</td>
+                                  <td>{{ order.order_id }}</td>
                               </tr>
                               <tr>
                                   <td>Invoice No:</td>
@@ -122,7 +122,7 @@
                     </div>
                     <div id="menu1" class="container tab-pane fade">
                       <br />
-                      <table v-for="order in orders" :key="order.id" class="table table-striped table-borderless table-hover">
+                      <table v-for="order in orders" :key="order.order_id" class="table table-striped table-borderless table-hover">
                         <tbody> 
                               <tr>
                                   <td style="width: 15%" >First Name:</td>

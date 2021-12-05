@@ -20,7 +20,7 @@ class OrderController extends Controller
             return Inertia::render('Admin/Orders',['orders' => $query->paginate(10)]);
         }
         else{
-            $orders = oc_order::paginate(10,['id','store_name','firstname','lastname','payment_method','total','order_status_id','date_added','flag_post_code']);
+            $orders = oc_order::paginate(10,['order_id','store_name','firstname','lastname','payment_method','total','order_status_id','date_added','flag_post_code']);
         
 
             return Inertia::render('Admin/Orders',['orders' => $orders]);
@@ -31,7 +31,7 @@ class OrderController extends Controller
 
     public function view($id){
 
-        $orders = oc_order::where('id', $id)->get();
+        $orders = oc_order::where('order_id', $id)->get();
         return Inertia::render('Admin/ShowOrder',['orders' => $orders]);
     }
 
