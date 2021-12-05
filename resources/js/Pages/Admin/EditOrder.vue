@@ -9,7 +9,7 @@
                 <div class="card-header">
                     <h2> Order </h2>
                     <div class="text-right"  >
-                        <button class="btn btn-secondary rounded-pill" style="margin-right:1%" type="submit">Save</button>
+                        <Link as="button" class="btn btn-secondary rounded-pill" style="margin-right:1%" type="submit">Save</Link>
                         <Link :href="route('admin.dashboard.orders')" as="button" class="btn btn-secondary rounded-pill" type="button">Cancel</Link>
                     </div>
                 </div>
@@ -56,7 +56,8 @@
                         <br />
                         
                         
-                        <table class="table table-borderless table-striped table-hover">
+                        <div class="card">
+                            <table class="table table-borderless table-striped table-hover">
                             
                                 <tbody> 
                                 <tr>
@@ -102,13 +103,15 @@
                         
                             
                         </table>
+                        </div>
                         
                         
                         </div>
                         <div id="menu1" class="container tab-pane fade">
                         <br />
 
-                        <table class="table table-borderless table-striped table-hover">
+                        <div class="card">
+                            <table class="table table-borderless table-striped table-hover">
                             
                                 <tbody> 
                                 <tr>
@@ -182,12 +185,15 @@
                         
                             
                         </table>
+                        </div>
 
 
                         </div>
                         <div id="menu2" class="container tab-pane fade">
                         <br />
-                        <table class="table table-borderless table-striped table-hover">
+                        
+                        <div class="card">
+                            <table class="table table-borderless table-striped table-hover">
                             
                             <tbody> 
                                 <tr>
@@ -262,14 +268,50 @@
                             
                         </table>
                         </div>
+
+                        </div>
                         <div id="menu3" class="container tab-pane fade">
                         <br />
-                        <h3>Menu 2</h3>
-                        <p>
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem accusantium doloremque laudantium, totam rem
-                            aperiam.
-                        </p>
+                        
+                        <div class="card">
+                            <table class="table table-borderless table-hover">
+                            <thead>
+                                <th></th>
+                                <th>Product</th>
+                                <th>Model</th>
+                                <th>Quantity</th>
+                                <th style="text-align: right">Unit Price</th>
+                                <th style="text-align: right">Total Price</th>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in products" :key="item.order_id">
+                                <td> <Link @click="deleteItem(item.order_product_id)" > <i  class="fas fa-minus-circle" style="color:red" ></i></Link>  </td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.model }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td style="text-align: right">
+                                    {{ format(item.price) }}
+                                </td>
+                                <td style="text-align: right">
+                                    {{ format(item.total) }}
+                                </td>
+                                </tr>
+                                <tr
+                                v-for="total in total"
+                                :key="total.order_total_id"
+                                >
+                                <td>{{ total.title }}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align: right">
+                                    {{ format(total.value) }}
+                                </td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+
                         </div>
                         <div id="menu4" class="container tab-pane fade">
                         <br />
@@ -306,6 +348,7 @@
 import Pagination from "@/Components/Pagination";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { Head, Link } from "@inertiajs/inertia-vue3";
+import Button from '@/Components/Button.vue';
 
 export default {
   components: {
@@ -314,18 +357,28 @@ export default {
     AdminLayout,
     Pagination,
   },
+  
 
-  props: ['orders'],
+  props:{
+      orders: Object,
+      products: Object,
+      total: Object
+  },
 
   data(){
       return{
-          form:{
-              firstname: null,
-          }
+          
       }
   },
   methods: {
-      
+      format(value) {
+      let val = (value / 1).toFixed(2);
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+     deleteItem(id){
+         this.$inertia.post(this.route('admin.dashboard.orders.edit.delete',{id}))
+     }
+
   }
 };
 </script>

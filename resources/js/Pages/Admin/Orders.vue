@@ -42,7 +42,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="order in orders.data" :key="order.order_id">
+                    <tr v-for="order in orders.data" :key="order.id">
                       <td>{{ order.order_id }}</td>
                       <td>{{ order.flag_post_code }}</td>
                       <td>{{ order.store_name }}</td>

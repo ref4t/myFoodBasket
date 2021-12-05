@@ -10,6 +10,8 @@ use App\Models\oc_order;
 use App\Models\oc_order_cart;
 use App\Models\oc_order_product;
 use App\Models\oc_order_total;
+use App\Models\oc_order_history;
+use App\Models\oc_order_status;
 
 class OrderController extends Controller
 {
@@ -34,24 +36,58 @@ class OrderController extends Controller
 
     public function view($id){
 
-        $orders = oc_order::where('order_id', $id)->get();
+        $orders = oc_order::join('oc_currency','oc_order.currency_id' , '=', 'oc_currency.currency_id')
+        ->where('oc_order.order_id', '=', $id)
+        ->get();
 
         $cart = oc_order_product::where('order_id', $id)->get();
         
         $total = oc_order_total::where('order_id', $id)->get();
 
+        $history = oc_order_history::join('oc_order_status', 'oc_order_history.order_status_id', '=', 'oc_order_status.order_status_id' )
+                                    ->where('oc_order_history.order_id', '=', $id)
+                                    ->get();
+
+        $status = oc_order_status::all();
+        
+        
+    
+
         return Inertia::render('Admin/ShowOrder',[
             'orders' => $orders,
             'cart' => $cart,
-            'total' => $total
+            'total' => $total,
+            'history' => $history,
+            'status' => $status,
+            'id' => $id
         ]);
     }
 
     public function edit($id){
 
         $orders = oc_order::find($id);
+        $products = oc_order_product::where('order_id', $id)->get();
+        $total = oc_order_total::where('order_id', $id)->get();
         
-        return Inertia::render('Admin/EditOrder',['orders' => $orders]);
+        return Inertia::render('Admin/EditOrder',[
+            'orders' => $orders,
+            'products' => $products,
+            'total'
+        ]);
 
+    }
+
+    public function comment(Request $request){
+    
+        
+
+        oc_order_history::create($request->toArray());
+    }
+
+    public function delete($id){
+
+        oc_order_product::find($id)->delete($id);
+
+        return redirect(url()->previous());
     }
 }

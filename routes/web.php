@@ -30,13 +30,15 @@ use App\Http\Controllers\Shop\RegistryController;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Inertia::render('Mainshop/Home');
 });
+Route::get('/restaurants', function () {
+    return Inertia::render('Mainshop/restaurantList');
+});
+Route::get('/restaurants/name', function () {
+    return Inertia::render('Mainshop/singleRestaurant');
+});
+Route::get('/login');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
@@ -76,7 +78,9 @@ Route::prefix('admin')->group(function(){
 
     Route::get('/orders', [OrderController::class, 'index'])->name('admin.dashboard.orders');
     Route::get('/orders/view/{id}',[OrderController::class, 'view'])->name('admin.dashboard.orders.show');
+    Route::post('/orders/view/comment',[OrderController::class, 'comment'])->name('admin.orders.show.comment');
     Route::get('/orders/edit/{id}',[OrderController::class, 'edit'])->name('admin.dashboard.orders.edit');
+    Route::post('/orders/edit/delete/{item}',[OrderController::class, 'delete'])->name('admin.dashboard.orders.edit.delete');
 
     Route::get('/transactions', [TransactionController::class, 'index'])->name('admin.dashboard.transactions');
     Route::get('/new-orders', [NewOrderController::class, 'index'])->name('admin.dashboard.newOrders');
