@@ -1,9 +1,7 @@
 <template>
-  <Head title="Shop name">
+  <Head title="Home">
     <link rel="stylesheet" href="/css/shoptheme1/stylesheet.css" />
     <link rel="stylesheet" href="/css/shoptheme1/responsive.css" />
-    <link rel="stylesheet" href="/css/shoptheme1/responsive1.css" />
-    <link rel="stylesheet" href="/css/shoptheme1/ecslideshow.css" />
     <link rel="stylesheet" href="/css/shoptheme1/accordion.css" />
     <link rel="stylesheet" href="/css/shoptheme1/camera.css" />
     <link rel="stylesheet" href="/css/shoptheme1/fast_order.css" />
@@ -12,12 +10,37 @@
     <link rel="stylesheet" href="/css/shoptheme1/owl.carousel.css" />
     <link rel="stylesheet" href="/css/shoptheme1/topmenu.css" />
     <link rel="stylesheet" href="/css/shoptheme1/ybc-testimonials.css" />
+    <link rel="stylesheet" href="/css/shoptheme1/ets_green.css" />
     <link rel="stylesheet" href="/css/shoptheme1/stepcheckout.css" />
   </Head>
 
-  <body class="close_shop home lang_en ets_green">
+  <body class="home lang_en ets_green">
+    <div
+      id="smartbanner"
+      class="android shown"
+      style="position: static; top: 0px; display: none"
+    >
+      <div class="sb-container">
+        <a href="#" class="sb-close">×</a
+        ><span
+          class="sb-icon"
+          style="
+            background-image: url('https://www.123.the-public.co.uk/image/data/app-icons/ak-spices-hemel-hempstead.png');
+          "
+        ></span>
+        <div class="sb-info">
+          <strong>A.K. Spices-Stage</strong><span>A.K. Spices-Stage</span
+          ><span>FREE - In Google Play</span>
+        </div>
+        <a
+          href="market://details?id=com.emz.ak_spices_indain_takeaway_hemel_hempstead"
+          class="sb-button"
+          ><span>VIEW</span></a
+        >
+      </div>
+    </div>
+
     <UpperShopNav />
-    <!-- end conteinner header -->
 
     <div class="shopStatus shopStatusMobile" style="display: none">
       <div class="shop_close_ets">
@@ -35,18 +58,6 @@
             <div class="fix_ets_main_content">
               <div class="main ets">
                 <div id="wrapper" class="relat">
-                  <!--div class="top_info">
-         <div>
-         
-                       
-            
-           
-           </div>
-           
-           <div>
-                      
-                                     </div>  
-         </div -->
 
                   <div class="ctr"></div>
 
@@ -99,7 +110,7 @@
             <div class="home_menu">
               <!----------------------------------Menu------------------------------------------>
 
-              
+              <LowerShopNav />
 
               <div class="etswarning main">
                 <div class="topnote"><div id="notification"></div></div>
@@ -111,11 +122,10 @@
             </div>
           </div>
         </div>
-        <LowerShopNav />
       </div>
       <!-- bg_option_header -->
 
-      <div id="wrapper" class="etsWrapper middle_bg_custom body_full_width">
+      <div id="wrapper" class="etsWrapper middle_bg_custom body_full_width" style="min-height:49.1vh">
         <div class="ets_main_content">
           <div class="fix_ets_main_content">
             <div class="etsWrapper body_content_sec" style="min-height: 435px">
@@ -351,12 +361,8 @@
                         class="ybcgeneral title-toggle"
                         @click="display"
                       >
-                        <input
-                          type="radio"
-                          name="login_radio"
-                          id="login_radio"
-                          checked="checked"
-                        />Log in
+                          
+                        Log in
                       </h2>
                       <transition name="slide">
                         <div
@@ -402,10 +408,9 @@
                           </div>
                           <br />
                           <input
+                            class="cusButtont1"
                             type="submit"
                             value="Log in"
-                            id="button-login"
-                            class="cusButton"
                           />
                           </form>
                           <br />
@@ -418,17 +423,13 @@
                         data-toggle="tab-gest"
                         data-disable="yes"
                         class="ybcgeneral title-toggle guest-h2 title-active"
+                        
                       >
-                        <input
-                          type="radio"
-                          id="guest_radio"
-                          name="guest_radio"
-                        />Guest checkout
+                        Guest checkout
                       </h2>
 
                       <transition name="slide">
-                        
-                          <div
+                        <div
                           v-if="display2"
                           id="tab-gest"
                           class="content-tab"
@@ -598,19 +599,14 @@
                               </tbody>
                             </table>
                               <input
-                                
+                                class="cusButtont1"
                                 type="submit"
                                 value="Checkout"
-                                class="cusButton"
                               />
                             </form>
                           </div>
                         </div>
-                        
-                        
                       </transition>
-
-                      <!-- create account -->
 
                       <h2
                         data-toggle="tab-register"
@@ -618,11 +614,7 @@
                         class="ybcgeneral title-toggle"
                         @click="displayCreate"
                       >
-                        <input
-                          type="radio"
-                          id="acc_radio"
-                          name="acc_radio"
-                        />Create an account
+                      Create an account
                       </h2>
                       <transition name="slide">
                         <form @submit.prevent="createAc">
@@ -838,10 +830,9 @@
                           <div class="buttons">
                             <div class="u">
                               <input
+                                class="cusButtont1"
                                 type="submit"
                                 value="Create"
-                                id="button-register"
-                                class="cusButton"
                               />
                             </div>
                           </div>
@@ -1635,17 +1626,16 @@
                             type="button"
                             @click="stepback"
                             value="Back"
-                            class="button text-bold change_color"
+                            class="cusButtont1"
                           />
                         </div>
                         <div class="right">
                           <input
                             @click="deliveryInfo"
-                            style="text-transform: none"
                             type="button"
                             value="Next"
                             id="button-guest-address"
-                            class="button"
+                            class="cusButtont1"
                           />
                         </div>
                       </div>
@@ -1666,7 +1656,6 @@
                               Postal Code<br />
                               <input
                                 type="text"
-                                onkeyup="jQuery(this).val(jQuery(this).val().toUpperCase());"
                                 class="input-xlarge focused"
                                 id="your_postcode"
                                 name="keyword"
@@ -1904,19 +1893,8 @@
                                         </div>
                                       </div>
                                     </li>
-                                  </ul>
-                                </div>
-                              </div>
-
-                              <!--div class="buttons">
-                            <div class="right"><a href="https://www.123.the-public.co.uk/index.php?route=checkout/checkout" class="redbutton">Checkout</a></div>
-                            <div class="left"><a href="http://www.123.the-public.co.uk/index.php?route=common/home" class="button">Continue Shopping</a></div>
-                          </div-->
-
-                              <div class="clear"></div>
-                            </div>
-                          </div>
-                          <div id="step_payment_method">
+                                    <li>
+                                      <div id="step_payment_method">
                             <div class="title-heading">Payment Options</div>
                             <div class="custom_payment_method_ets">
                               <div
@@ -2044,6 +2022,20 @@
                               </div>
                             </div>
                           </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+
+                              <!--div class="buttons">
+                            <div class="right"><a href="https://www.123.the-public.co.uk/index.php?route=checkout/checkout" class="redbutton">Checkout</a></div>
+                            <div class="left"><a href="http://www.123.the-public.co.uk/index.php?route=common/home" class="button">Continue Shopping</a></div>
+                          </div-->
+
+                              <div class="clear"></div>
+                            </div>
+                          </div>
+                          
                           <br />
                           <!--p>Please select the preferred payment method to use on this order.</p><br /-->
                           <b style="display: none"
@@ -2061,7 +2053,7 @@
                                 type="button"
                                 @click="stepback"
                                 value="Back"
-                                class="button"
+                                class="cusButtont1"
                               />
                             </div>
                             <div class="right">
@@ -2069,7 +2061,7 @@
                                 type="button"
                                 value="Pay £2.90"
                                 id="button-payment-method"
-                                class="button"
+                                class="cusButtont1"
                                 disabled="disabled"
                               />
                             </div>
@@ -2135,15 +2127,16 @@
   </body>
 </template>
 
+
 <script>
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import { Method } from "@inertiajs/inertia";
 import UpperShopNav from "@/Components/UpperShopNav.vue";
 import LowerShopNav from "@/Components/LowerShopNav.vue";
 import Footer from "@/Components/Footer.vue";
-import VShowSlide from "v-show-slide";
 import useValidate from '@vuelidate/core'
 import { required, email, minLength, sameAs, numeric } from '@vuelidate/validators'
+
 
 export default {
   name: "Home",
@@ -2189,6 +2182,7 @@ export default {
         confirm:"",
         newsletter:"",
       },
+
       deliveryData:{
         address_1:"",
         address_2:"",
@@ -2204,6 +2198,7 @@ export default {
 
     };
   },
+
 
   validations() {
     return {
@@ -2231,6 +2226,7 @@ export default {
         confirm: {required, sameAs: sameAs(this.create.password) },
         newsletter:{},
       },
+      
       deliveryData:{
         address_1:{required},
         address_2:{},
@@ -2314,6 +2310,25 @@ export default {
       else{
         console.log("guest failed validation")
       }
+    },
+
+    deliveryInfo(){
+      if(this.delivery){
+        console.log(this.deliveryData)
+        this.v$.deliveryData.$touch()
+        if(!this.v$.deliveryData.$error){
+          console.log(this.deliveryData)
+          this.step = this.step + 1
+        }
+        else{
+          console.log(this.v$.deliveryData.$errors)
+          console.log("delivery failed validation")
+        }
+      }
+      else{
+        console.log("collect data")
+        this.step = this.step + 1
+      }
     }
 
   },
@@ -2322,50 +2337,23 @@ export default {
 }
 </script>
 
-<style>
-.cusButton{
-  background-color: #FBBC4B; 
-  border: none;
-  border-radius: 12px;
+<style >
+.cusButtont1 {
+  background-color: #fbbc4b;
+  font-weight: bold;
   color: white;
-  padding: 15px 32px;
+  padding: 5px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
-  
 }
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-  font-size: 18px;
-  color: black;
+.cusButtont1:hover {
+  background-color: #fad185;
+  color: white;
 }
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  margin-left: -7pc;
-  margin-top: -3pc;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-</style>
-
-<style>
 .slide-enter-active,
 .slide-leave-active {
   transition: max-height 1s ease-in-out;
@@ -2389,4 +2377,378 @@ export default {
   background: #d2d2d2;
   color: #3e3e3e;
 }
+h1 {
+  font-size: nonepx;
+  line-height: nonepx;
+}
+h1,
+h2,
+h3,
+h4,
+.hieu {
+  color: #065979;
+}
+</style>
+
+<style>
+body > div#container {
+  background-color: #2e2e2e;
+}
+
+body > div#container {
+  border-bottom: 1px solid #fbbc4b;
+}
+body > div#container {
+  background-color: #2e2e2e;
+}
+.camera_wrap {
+  width: 63%;
+}
+.colormenu {
+  width: 100%;
+}
+
+.colormenu,
+.tabs,
+.top_menu_responsive .btn-navbar,
+.list_category_style_1 {
+  background-color: #fbbc4b;
+}
+</style>
+
+
+<style >
+.header_banner {
+  height: 170px;
+
+  background-position: px px;
+}
+
+@media (max-width: 649px) {
+  body #header {
+    background-color: #ffffff;
+  }
+}
+
+body > div#container {
+  border-bottom: 1px solid #fbbc4b;
+}
+
+.body_ets {
+  background-color: #ffffff;
+}
+
+.body_ets,
+.hieu,
+.homepagefooter {
+  background-image: url("https://www.123.the-public.co.uk/image/data/patterns/overlay5.png");
+  background-repeat: repeat;
+
+  background-position: left top;
+}
+
+.body_ets:before {
+  background-repeat: no-repeat;
+
+  background-position: center top;
+}
+
+.bg_custom_footer:before {
+  /** dola update **/
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.bottomFooter {
+  background-color: #fbbc4b;
+}
+
+.topFooterRes {
+  background-color: #fbbc4b;
+}
+
+.footerRes {
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#wrapper.etsWrapper {
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.middle_bg_custom .fix_ets_main_content > .etsWrapper {
+  background-color: #ffffff;
+
+  background-repeat: no-repeat;
+}
+
+/* background -color footer  */
+
+.ets_main_content .main.ets {
+  box-shadow: 0 0 10px 5px black;
+}
+
+.checkout-heading span {
+  background-color: transparent;
+}
+
+.ets_main_content {
+  width: 880px;
+}
+
+.ets_main_content,
+#container .ets_main_content.style_header_1.ets_main_content_top {
+  width: 1000px;
+}
+
+#jssor_1 {
+  width: 900px;
+}
+
+/*.ybc_wide_banner_fullwidth,.main-menu-full-width{
+        margin:0 auto;
+            			width: 1000px;  
+	           
+                }*/
+div .top_footer {
+  margin: 0 auto;
+  width: 1000px;
+}
+@media (min-width: 1000px) {
+  .ybc_wide_banner_fullwidth,
+  .main-menu-full-width {
+    margin: 0 auto;
+    width: 1000px;
+  }
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: #d30a17 !important;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #fbbc4b !important;
+}
+#search_result .store_list.wrap_row,
+.error {
+  color: #ff0000 !important;
+}
+input.errors,
+select.errors {
+  border-color: #ff0000 !important;
+}
+
+input,
+textarea,
+select {
+  border-color: #616161 !important;
+}
+input,
+textarea,
+select {
+  color: #919191;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  opacity: 1;
+  color: #919191;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  opacity: 1;
+  color: #919191;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  opacity: 1;
+  color: #919191;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  opacity: 1;
+  color: #919191;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  color: #292929;
+}
+input:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+
+  color: #292929;
+}
+input:focus::-moz-placeholder,
+textarea:focus::-moz-placeholder {
+  /* Firefox 19+ */
+
+  color: #292929;
+}
+input:focus:-ms-input-placeholder,
+textarea:focus:-ms-input-placeholder {
+  /* IE 10+ */
+
+  color: #292929;
+}
+input:focus:-moz-placeholder,
+textarea:focus:-moz-placeholder {
+  /* Firefox 18- */
+
+  color: #292929;
+}
+
+/* sang */
+
+body > div#container {
+  background-color: #2e2e2e;
+}
+
+a {
+  color: #3dbcd4;
+}
+
+a:hover {
+  color: #ff1b11;
+}
+
+h1,
+h2,
+h3,
+h4,
+.hieu {
+  color: #065979;
+}
+
+.responsive_cart {
+  background-color: #5ab1eb;
+}
+
+.footer a {
+  color: #262626;
+}
+
+.footer a:active,
+.footer a.active {
+  color: #ffffff;
+}
+
+.footer a:hover {
+  color: #d30a17;
+}
+
+.footer .top_footer {
+  color: #262626;
+}
+
+.footer .bottomFooter p {
+  color: #ffffff;
+}
+
+.footer .bottomFooter a {
+  color: #181888;
+}
+
+.footer .bottomFooter a:hover {
+  color: #ffffff;
+}
+
+body {
+  font-size: nonepx;
+}
+
+h1 {
+  font-size: nonepx;
+  line-height: nonepx;
+}
+
+h2 {
+  font-size: nonepx;
+}
+
+h3,
+.footer h3 {
+  font-size: nonepx;
+}
+
+h4 {
+  font-size: nonepx;
+}
+
+.box-category > li > a {
+  font-size: nonepx;
+}
+
+.product-list .name {
+  font-size: nonepx;
+}
+
+.product-list .price {
+  font-size: nonepx;
+}
+
+/* option for wide menu */
+.menuResp > li > a {
+  background-color: #fbbc4b;
+  color: #fffef5;
+}
+.menuResp > li > a:hover {
+  background-color: #fff169;
+  color: #bb1a20;
+}
+
+.menuResp a {
+  font-size: nonepx;
+}
+
+.ybccart a {
+  background-color: #fbbc4b;
+}
+
+#cart.ybccart a:hover {
+  background-color: #fff169;
+}
+#cart.ybccart a:hover,
+#cart.ybccart a:hover * {
+  color: #bb1a20;
+}
+#cart.ybccart a,
+#cart.ybccart a * {
+  color: #fffff7;
+}
+
+/* end */
+
+@media (max-width: 649px) {
+  #payment-address {
+    margin-top: 30px;
+  }
+  body > div#container {
+    background-color: #ffffff;
+  }
+
+  /* .main_header_responsive{
+           background-color: #FFFFFF;
+        } */
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .main_header_responsive {
+    background-image: url("https://www.123.the-public.co.uk/image/data/patterns/overlay5.png");
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .main_header_responsive {
+    background-image: url("https://www.123.the-public.co.uk/image/data/patterns/overlay5.png");
+  }
+}
+
+/*end*/
 </style>
