@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header">
+              <div class="card-header ">
                   <h2> Order </h2>
               </div>
               <div class="card-body">
@@ -40,11 +40,12 @@
                     <div id="order" class="container tab-pane active">
                       <br />
                       
-                      <table v-for="order in orders" :key="order.id" class="table table-borderless table-striped table-hover">
+                      <div class="card">
+                        <table v-for="order in orders" :key="order.order_id" class="table table-borderless  table-hover">
                         <tbody> 
                               <tr>
                                   <td style="width: 15%">Order ID:</td>
-                                  <td>{{ order.id }}</td>
+                                  <td>{{ order.order_id }}</td>
                               </tr>
                               <tr>
                                   <td>Invoice No:</td>
@@ -117,12 +118,14 @@
                         </tbody>
                           
                       </table>
+                      </div>
                       
 
                     </div>
                     <div id="menu1" class="container tab-pane fade">
                       <br />
-                      <table v-for="order in orders" :key="order.id" class="table table-striped table-borderless table-hover">
+                      <div class="card">
+                        <table v-for="order in orders" :key="order.order_id" class="table  table-borderless table-hover">
                         <tbody> 
                               <tr>
                                   <td style="width: 15%" >First Name:</td>
@@ -161,15 +164,39 @@
                         </tbody>
                           
                       </table>
+                      </div>
                     </div>
                     <div id="menu2" class="container tab-pane fade">
                       <br />
-                      <h3>Menu 2</h3>
-                      <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem accusantium doloremque laudantium, totam rem
-                        aperiam.
-                      </p>
+                      
+                      <div class="card">
+                        <table class="table table-borderless" >
+                        <thead>
+                          <th>Product</th>
+                          <th>Model</th>
+                          <th>Quantity</th>
+                          <th>Unit Price</th>
+                          <th>Total Price</th>
+                        </thead>
+                        <tbody>
+                          <tr v-for="item in cart" :key="item.order_id" >
+                            <td> {{ item.name }} </td>
+                            <td> {{ item.model }} </td>
+                            <td> {{ item.quantity }} </td>
+                            <td> {{ item.price }} </td>
+                            <td> {{ item.total }} </td>
+                          </tr>
+                          <tr v-for="total in total" :key="total.order_total_id" >
+                            <td> {{total.title}} </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td> {{ total.value }} </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -198,6 +225,8 @@ export default {
 
   props: {
     orders: Object,
+    cart: Object,
+    total: Object,
   },
 };
 </script>

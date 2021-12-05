@@ -42,8 +42,8 @@
                                     </thead>
                                     <tbody>
                                         
-                                        <tr v-for="order in orders.data" :key="order.id">
-                                            <td>{{ order.id }}</td>
+                                        <tr v-for="order in orders.data" :key="order.order_id">
+                                            <td>{{ order.order_id }}</td>
                                             <td>{{ order.flag_post_code }}</td>
                                             <td>{{ order.store_name }}</td>
                                             <td>{{ order.firstname  }} {{ order.lastname }}</td>
@@ -52,8 +52,8 @@
                                             <td>{{ order.date_added }}</td>
                                             <td>{{ order.payment_method }}</td>
                                             <td class="text-right">
-                                                <Link :href="route('admin.dashboard.orders.show', { id: order.id })" as="button" class="btn btn-success text-uppercase" style="letter-spacing: 0.1em;" >View</Link>
-                                                <Link :href="route('admin.dashboard.orders.edit', { id: order.id })" as="button" class="btn btn-success text-uppercase ml-1" style="letter-spacing: 0.1em;" >Edit</Link>
+                                                <Link :href="route('admin.dashboard.orders.show', { order_id: order.order_id })" as="button" class="btn btn-success text-uppercase" style="letter-spacing: 0.1em;" >View</Link>
+                                                <Link :href="route('admin.dashboard.orders.edit', { order_id: order.order_id })" as="button" class="btn btn-success text-uppercase ml-1" style="letter-spacing: 0.1em;" >Edit</Link>
                                             </td>
                                         </tr>>
                                     </tbody>

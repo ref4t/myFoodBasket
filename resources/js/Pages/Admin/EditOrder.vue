@@ -96,7 +96,7 @@
                                 </tr>
                                 <tr>
                                     <td>Fax:</td>
-                                    <td><input class="form-control" type="text" name="telephone" id="telephone" v-model="orders.fax" aria-label="default input example"></td>
+                                    <td><input class="form-control" type="text" name="fax" id="fax" v-model="orders.fax" aria-label="default input example"></td>
                                 </tr>
                             </tbody>
                         
@@ -124,22 +124,22 @@
                                 <tr>
                                     <td>First Name:</td>
                                     <td>
-                                        <input class="form-control"  type="text" name="firstname" id="firstname" v-model="orders.payment_firstname" aria-label="default input example">
+                                        <input class="form-control"  type="text" name="payment_firstname" id="payment_firstname" v-model="orders.payment_firstname" aria-label="default input example">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Last Name:</td>
                                     <td>
-                                        <input class="form-control"  type="text" name="lastname" id="lastname" v-model="orders.payment_lastname" aria-label="default input example">
+                                        <input class="form-control"  type="text" name="payment_lastname" id="payment_lastname" v-model="orders.payment_lastname" aria-label="default input example">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Company Name:</td>
-                                    <td><input class="form-control"  type="text" name="conpany" id="conpany" v-model="orders.payment_company" aria-label="default input example" readonly></td>
+                                    <td><input class="form-control"  type="text" name="payment_company" id="payment_company" v-model="orders.payment_company" aria-label="default input example" readonly></td>
                                 </tr>
                                 <tr>
                                     <td>Company ID:</td>
-                                    <td><input class="form-control" type="text" name="conpany_id" id="conpany_id" v-model="orders.payment_company_id" aria-label="default input example"></td>
+                                    <td><input class="form-control" type="text" name="payment_company_id" id="conpany_id" v-model="orders.payment_company_id" aria-label="default input example"></td>
                                 </tr>
                                 <tr>
                                     <td>Address 1:</td>
@@ -147,15 +147,15 @@
                                 </tr>
                                 <tr>
                                     <td>Address 2:</td>
-                                    <td><input class="form-control" type="text" name="telephone" id="telephone" v-model="orders.payment_address_2" aria-label="default input example"></td>
+                                    <td><input class="form-control" type="text" name="payment_address_2" id="payment_address_2" v-model="orders.payment_address_2" aria-label="default input example"></td>
                                 </tr>
                                 <tr>
                                     <td>City:</td>
-                                    <td><input class="form-control" type="text" name="telephone" id="telephone" v-model="orders.payment_address_1" aria-label="default input example"></td>
+                                    <td><input class="form-control" type="text" name="payment_address_1" id="payment_address_1" v-model="orders.payment_address_1" aria-label="default input example"></td>
                                 </tr>
                                 <tr>
                                     <td>Postcode:</td>
-                                    <td><input class="form-control" type="text" name="telephone" id="telephone" v-model="orders.payment_postcode" aria-label="default input example"></td>
+                                    <td><input class="form-control" type="text" name="payment_postcode" id="payment_postcode" v-model="orders.payment_postcode" aria-label="default input example"></td>
                                 </tr>
                                 <tr>
                                     <td>Country:</td>
@@ -203,38 +203,38 @@
                                 <tr>
                                     <td>First Name:</td>
                                     <td>
-                                        <input class="form-control"  type="text" name="firstname" id="firstname" v-model="orders.shipping_firstname" aria-label="default input example">
+                                        <input class="form-control"  type="text" name="firstname" id="shipping_firstname" v-model="orders.shipping_firstname" aria-label="default input example">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Last Name:</td>
                                     <td>
-                                        <input class="form-control"  type="text" name="lastname" id="lastname" v-model="orders.shipping_lastname" aria-label="default input example">
+                                        <input class="form-control"  type="text" name="shipping_lastname" id="shipping_lastname" v-model="orders.shipping_lastname" aria-label="default input example">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Company Name:</td>
-                                    <td><input class="form-control"  type="text" name="conpany" id="conpany" v-model="orders.shipping_company" aria-label="default input example" readonly></td>
+                                    <td><input class="form-control"  type="text" name="shipping_company" id="shipping_company" v-model="orders.shipping_company" aria-label="default input example" readonly></td>
                                 </tr>
                                 <tr>
                                     <td>Company ID:</td>
-                                    <td><input class="form-control" type="text" name="conpany_id" id="conpany_id" v-model="orders.shipping_company_id" aria-label="default input example"></td>
+                                    <td><input class="form-control" type="text" name="shipping_company_id" id="shipping_company_id" v-model="orders.shipping_company_id" aria-label="default input example"></td>
                                 </tr>
                                 <tr>
                                     <td>Address 1:</td>
-                                    <td><input class="form-control" type="text" name="telephone" id="telephone" v-model="orders.shipping_address_1" aria-label="default input example"></td>
+                                    <td><input class="form-control" type="text" name="shipping_address_1" id="shipping_address_1" v-model="orders.shipping_address_1" aria-label="default input example"></td>
                                 </tr>
                                 <tr>
                                     <td>Address 2:</td>
-                                    <td><input class="form-control" type="text" name="telephone" id="telephone" v-model="orders.shipping_address_2" aria-label="default input example"></td>
+                                    <td><input class="form-control" type="text" name="shipping_address_2" id="shipping_address_2" v-model="orders.shipping_address_2" aria-label="default input example"></td>
                                 </tr>
                                 <tr>
                                     <td>City:</td>
-                                    <td><input class="form-control" type="text" name="telephone" id="telephone" v-model="orders.shipping_address_1" aria-label="default input example"></td>
+                                    <td><input class="form-control" type="text" name="shipping_address_1" id="shipping_address_1" v-model="orders.shipping_address_1" aria-label="default input example"></td>
                                 </tr>
                                 <tr>
                                     <td>Postcode:</td>
-                                    <td><input class="form-control" type="text" name="telephone" id="telephone" v-model="orders.shipping_postcode" aria-label="default input example"></td>
+                                    <td><input class="form-control" type="text" name="shipping_postcode" id="shipping_postcode" v-model="orders.shipping_postcode" aria-label="default input example"></td>
                                 </tr>
                                 <tr>
                                     <td>Country:</td>
