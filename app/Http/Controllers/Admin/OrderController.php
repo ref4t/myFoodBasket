@@ -12,24 +12,35 @@ use App\Models\oc_order_product;
 use App\Models\oc_order_total;
 use App\Models\oc_order_history;
 use App\Models\oc_order_status;
+use App\Models\	myfoodba_order_transaction_id;
 
 class OrderController extends Controller
 {
     public function index(){
 
-
-        $query = oc_order::query();
-        if(request('search')){
-            $query-> where('firstname','LIKE','%'.request('search').'%');
-
-            return Inertia::render('Admin/Orders',['orders' => $query->paginate(10)]);
-        }
-        else{
-            $orders = oc_order::paginate(10,['order_id','store_name','firstname','lastname','payment_method','total','order_status_id','date_added','flag_post_code']);
         
-
-            return Inertia::render('Admin/Orders',['orders' => $orders]);
+        
+        $query = oc_order::query();
+        
+        if(request('search')){ 
+            $query-> where('firstname','LIKE','%'.request('search').'%');
+            
         }
+
+        if(request('field') && request('direction') ){
+            
+            $query->orderBy(request('field'), request('direction'));
+            
+        }
+        
+        
+       
+        
+        return Inertia::render('Admin/Orders',[
+            'orders' => $query->paginate(),
+            'filters' => request()->all(['search','field','direction'])
+            ]);
+
 
         
     }
@@ -47,6 +58,7 @@ class OrderController extends Controller
         $history = oc_order_history::join('oc_order_status', 'oc_order_history.order_status_id', '=', 'oc_order_status.order_status_id' )
                                     ->where('oc_order_history.order_id', '=', $id)
                                     ->get();
+
 
         $status = oc_order_status::all();
         
@@ -68,11 +80,12 @@ class OrderController extends Controller
         $orders = oc_order::find($id);
         $products = oc_order_product::where('order_id', $id)->get();
         $total = oc_order_total::where('order_id', $id)->get();
+
         
         return Inertia::render('Admin/EditOrder',[
             'orders' => $orders,
             'products' => $products,
-            'total'
+            'total' => $total
         ]);
 
     }
@@ -82,12 +95,21 @@ class OrderController extends Controller
         
 
         oc_order_history::create($request->toArray());
+
+        return redirect()->route('admin.dashboard.orders');
     }
 
     public function delete($id){
 
         oc_order_product::find($id)->delete($id);
 
-        return redirect(url()->previous());
+        
+    }
+
+    public function update(Request $request){
+
+        oc_order::find($request->order_id)
+            ->update($request->all());
+
     }
 }

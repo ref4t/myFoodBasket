@@ -80,7 +80,8 @@ Route::prefix('admin')->group(function(){
     Route::get('/orders/view/{id}',[OrderController::class, 'view'])->name('admin.dashboard.orders.show');
     Route::post('/orders/view/comment',[OrderController::class, 'comment'])->name('admin.orders.show.comment');
     Route::get('/orders/edit/{id}',[OrderController::class, 'edit'])->name('admin.dashboard.orders.edit');
-    Route::post('/orders/edit/delete/{item}',[OrderController::class, 'delete'])->name('admin.dashboard.orders.edit.delete');
+    Route::post('/orders/edit/delete/{item}',[OrderController::class, 'delete'])->name('edit.product.delete');
+    Route::post('/orders/edit/update/{order}',[OrderController::class, 'update'])->name('edit.order.update');
 
     Route::get('/transactions', [TransactionController::class, 'index'])->name('admin.dashboard.transactions');
     Route::get('/new-orders', [NewOrderController::class, 'index'])->name('admin.dashboard.newOrders');

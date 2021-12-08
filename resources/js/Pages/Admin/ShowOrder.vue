@@ -341,7 +341,7 @@ export default {
         }
 
         this.form.order_id = this.id
-        this.$inertia.post( route('admin.orders.show.comment') , this.form)
+        this.$inertia.post( route('admin.orders.show.comment') , this.form,{replace: true, preserveState: true})
     }
   },
 };

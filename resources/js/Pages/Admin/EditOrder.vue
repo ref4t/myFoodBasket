@@ -5,11 +5,11 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <form @submit.prevent="submit" method="post">
+              <form >
                 <div class="card-header">
                     <h2> Order </h2>
                     <div class="text-right"  >
-                        <Link as="button" class="btn btn-secondary rounded-pill" style="margin-right:1%" type="submit">Save</Link>
+                        <Link @click="submit(orders)" as="button" class="btn btn-secondary rounded-pill" style="margin-right:1%" type="submit">Save</Link>
                         <Link :href="route('admin.dashboard.orders')" as="button" class="btn btn-secondary rounded-pill" type="button">Cancel</Link>
                     </div>
                 </div>
@@ -63,12 +63,7 @@
                                 <tr>
                                     <td style="width: 15%">Store:</td>
                                     <td>
-                                        <select class="form-control" aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
+                                         <input class="form-control"  type="text" name="firstname" id="firstname" v-model="orders.store_name" aria-label="default input example">
                                     </td>
                                 </tr>
                                 <tr>
@@ -85,7 +80,7 @@
                                 </tr>
                                 <tr>
                                     <td>Customer Group</td>
-                                    <td><input class="form-control"  type="text" name="group" id="group" v-model="orders.customer_group_id" aria-label="default input example" readonly></td>
+                                    <td><input class="form-control"  type="text" name="group" id="group" v-model="orders.customer_group_id" aria-label="default input example" readonly ></td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
@@ -138,7 +133,7 @@
                                 </tr>
                                 <tr>
                                     <td>Company Name:</td>
-                                    <td><input class="form-control"  type="text" name="payment_company" id="payment_company" v-model="orders.payment_company" aria-label="default input example" readonly></td>
+                                    <td><input class="form-control"  type="text" name="payment_company" id="payment_company" v-model="orders.payment_company" aria-label="default input example" ></td>
                                 </tr>
                                 <tr>
                                     <td>Company ID:</td>
@@ -220,7 +215,7 @@
                                 </tr>
                                 <tr>
                                     <td>Company Name:</td>
-                                    <td><input class="form-control"  type="text" name="shipping_company" id="shipping_company" v-model="orders.shipping_company" aria-label="default input example" readonly></td>
+                                    <td><input class="form-control"  type="text" name="shipping_company" id="shipping_company" v-model="orders.shipping_company" aria-label="default input example" ></td>
                                 </tr>
                                 <tr>
                                     <td>Company ID:</td>
@@ -275,7 +270,7 @@
                         
                         <div class="card">
                             <table class="table table-borderless table-hover">
-                            <thead>
+                            <thead class="thead-light">
                                 <th></th>
                                 <th>Product</th>
                                 <th>Model</th>
@@ -300,6 +295,7 @@
                                 v-for="total in total"
                                 :key="total.order_total_id"
                                 >
+                                <td></td>
                                 <td>{{ total.title }}</td>
                                 <td></td>
                                 <td></td>
@@ -310,6 +306,34 @@
                                 </tr>
                             </tbody>
                             </table>
+                            
+                        </div>
+
+                        <div class="card">
+                            <form action="" method="post">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-light">
+                                        <th colspan="2" class="text-center" >Add Product(s)</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Products: </td>
+                                            <td> <input class="form-control" type="text" > </td>
+                                        
+                                        </tr>
+                                        <tr>
+                                            <td>Quantity:</td>
+                                            <td> <input class="form-control" type="text" > </td>
+                                        
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td> <Link as="button" class="btn btn-secondary rounded-pill" style="margin-right:1%" type="submit">Add Product</Link> </td>
+                                        
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
                         </div>
 
                         </div>
@@ -323,13 +347,129 @@
                         </p>
                         </div>
                         <div id="menu5" class="container tab-pane fade">
-                        <br />
-                        <h3>Menu 2</h3>
-                        <p>
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem accusantium doloremque laudantium, totam rem
-                            aperiam.
-                        </p>
+                            <br />
+                            <div class="card">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-light">
+                                        
+                                        <th>Product</th>
+                                        <th>Model</th>
+                                        <th>Quantity</th>
+                                        <th style="text-align: right">Unit Price</th>
+                                        <th style="text-align: right">Total Price</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="item in products" :key="item.order_id">
+                                        
+                                        <td>{{ item.name }}</td>
+                                        <td>{{ item.model }}</td>
+                                        <td>{{ item.quantity }}</td>
+                                        <td style="text-align: right">
+                                            {{ format(item.price) }}
+                                        </td>
+                                        <td style="text-align: right">
+                                            {{ format(item.total) }}
+                                        </td>
+                                        </tr>
+                                        <tr
+                                        v-for="total in total"
+                                        :key="total.order_total_id"
+                                        >
+                                        <td>{{ total.title }}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: right">
+                                            {{ format(total.value) }}
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="card">
+                                <form @submit.prevent="totalUpdate" method="post">
+                                    <table class="table table-bordered" >
+                                        <thead class="thead-light">
+                                            <th colspan="2" >Order Details</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Shipping Method:</td>
+                                                <td>
+                                                    <select class="form-control" aria-label="Default select example">
+                                                        <option selected>Open this select menu</option>
+                                                        <option value="1">One</option>
+                                                        <option value="2">Two</option>
+                                                        <option value="3">Three</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Payment Method:</td>
+                                                <td>
+                                                    <select class="form-control" aria-label="Default select example">
+                                                        <option selected>Open this select menu</option>
+                                                        <option value="1">One</option>
+                                                        <option value="2">Two</option>
+                                                        <option value="3">Three</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Coupon:</td>
+                                                <td>
+                                                    <input class="form-control" type="text" name="" id="">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Voucher:</td>
+                                                <td>
+                                                    <input class="form-control" type="text" name="" id="">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Reward:</td>
+                                                <td>
+                                                    <input class="form-control" type="text" name="" id="">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Order Status:</td>
+                                                <td>
+                                                    <select class="form-control" aria-label="Default select example">
+                                                        <option selected>Open this select menu</option>
+                                                        <option value="1">One</option>
+                                                        <option value="2">Two</option>
+                                                        <option value="3">Three</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Comment:</td>
+                                                <td>
+                                                <div class="form-floating">
+                                                    <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                                                </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Affliate:</td>
+                                                <td>
+                                                    <input class="form-control" type="text" name="" id="">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td> <Link as="button" class="btn btn-secondary rounded-pill" style="margin-right:1%" type="submit">Update Total</Link> </td>
+                                            
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </form>
+                            </div>
+
                         </div>
                     </div>
                     </div>
@@ -376,7 +516,16 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
      deleteItem(id){
-         this.$inertia.post(this.route('admin.dashboard.orders.edit.delete',{id}))
+         this.$inertia.post(this.route('edit.product.delete',{id}))
+     },
+     totalUpdate(){
+
+     },
+
+     submit(order){
+
+         console.log(order)
+         this.$inertia.post("update/" + order.order_id, order)
      }
 
   }
