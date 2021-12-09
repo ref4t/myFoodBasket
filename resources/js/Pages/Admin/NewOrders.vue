@@ -28,10 +28,10 @@
                     </span>
 
                     <div class="info-box-content" style="height: 200px; width:  ">
-                        <small style="min-height: 14vh">
-                            <p class="h2 text-info">£{{format(total_orders)}} </p>
-                        <span class="info-box-text"><span style="font-weight: bold" >Delivery:</span> {{format(delivery_total)}} <span class="float-right" ><span style="font-weight: bold" >Card:</span> £{{format(card_total)}}</span> </span>
-                        <span class="info-box-text"><span style="font-weight: bold" >Collection:</span>  {{format(collection_total)}} <span class="float-right" ><span style="font-weight: bold" >Collection:</span> £{{format(cash_total)}}</span> </span>
+                        <small style="min-height: 160px">
+                            <p class="h2 text-info">£{{format(total[0].total)}} </p>
+                        <span class="info-box-text"><span style="font-weight: bold" >Delivery:</span> {{format(delivery[0].total)}} <span class="float-right" ><span style="font-weight: bold" >Card:</span> £{{format(card[0].total)}}</span> </span>
+                        <span class="info-box-text"><span style="font-weight: bold" >Collection:</span>  {{format(collection[0].total)}} <span class="float-right" ><span style="font-weight: bold" >Collection:</span> £{{format(cash[0].total)}}</span> </span>
                        
                         </small>
                         
@@ -50,10 +50,10 @@
                     ></span>
 
                     <div class="info-box-content " style="height: 200px; width:  " >
-                        <small style="min-height: 14vh">
-                            <p class="h2 text-danger">£{{format(sales)}} </p>
-                        <span class="info-box-text"><span style="font-weight: bold" >Delivery:</span> {{format(delivery_sales)}} <span class="float-right" ><span style="font-weight: bold" >Card:</span> £{{format(card_sales)}}</span> </span>
-                        <span class="info-box-text"><span style="font-weight: bold" >Collection:</span>  {{format(collection_sales)}} <span class="float-right" ><span style="font-weight: bold" >Collection:</span> £{{format(cash_sales)}}</span> </span>
+                        <small style="min-height: 160px">
+                            <p class="h2 text-danger">£{{format(total[0].count)}} </p>
+                        <span class="info-box-text"><span style="font-weight: bold" >Delivery:</span> {{format(delivery[0].count)}} <span class="float-right" ><span style="font-weight: bold" >Card:</span> £{{format(card[0].count)}}</span> </span>
+                        <span class="info-box-text"><span style="font-weight: bold" >Collection:</span>  {{format(collection[0].count)}} <span class="float-right" ><span style="font-weight: bold" >Collection:</span> £{{format(cash[0].count)}}</span> </span>
                        
                         </small>
                         
@@ -71,7 +71,7 @@
                     ></span>
 
                     <div class="info-box-content " style="height: 200px; width:  " >
-                        <small style="min-height: 14vh">
+                        <small style="min-height: 160px">
                             <p class="h2 text-warning">{{total_products}} </p>
                         
                         </small>
@@ -90,7 +90,7 @@
                     </span>
 
                     <div class="info-box-content" style="height: 200px; width:  ">
-                        <small style="min-height: 14vh">
+                        <small style="min-height: 160px">
                             <span v-for="customer in top_customer" :key="customer.order_id" class="info-box-text"> <b >{{customer.firstname.charAt(0).toUpperCase()}}. {{customer.lastname.charAt(0).toUpperCase() + customer.lastname.slice(1)}}</b> <span class="float-right" > <b>Total:</b> £{{format(customer.sumtotal)}}</span> </span>
                         
                         </small>
@@ -297,16 +297,11 @@ export default {
         orders: Object,
         filters: Object,
         top_customer: Object,
-        total_orders: Object,
-        delivery_total: Object,
-        collection_total: Object,
-        card_total: Object,
-        cash_total: Object,
-        sales: Object,
-        delivery_sales: Object,
-        collection_sales: Object,
-        card_sales: Object,
-        cash_sales: Object,
+        total: Array,
+        delivery: Array,
+        collection: Array,
+        card: Array,
+        cash: Array,
         total_products: Object
         
     },
@@ -334,9 +329,14 @@ export default {
     watch: {
         params:{
             handler(){
+                let params = this.params;
+                Object.keys(params).forEach(key=>{
+                    if(params[key] == ''){
+                        delete params[key];
+                    }
+                });
 
-                console.log(this.params)
-                this.$inertia.get(this.route('admin.dashboard.newOrders'),this.params, {replace: true, preserveState: true});
+                this.$inertia.get(this.route('admin.dashboard.newOrders'),params, {replace: true, preserveState: true});
             },
             deep: true,
         }

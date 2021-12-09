@@ -37,25 +37,22 @@ class NewOrderController extends Controller
             
             
 
-            $total_orders =  DB::table('oc_order')->where('store_name', $shop )->sum('total');
-            $delivery_total =  DB::table('oc_order')->where('store_name', $shop )->where('flag_post_code','=' , 'delivery')->sum('total');
-            $collection_total =  DB::table('oc_order')->where('store_name', $shop )->where('flag_post_code','=' , 'collection')->sum('total');
-            $card_total =  DB::table('oc_order')->where('store_name', $shop )->where('payment_method','=' , 'CARD')->sum('total');
-            $cash_total =  DB::table('oc_order')->where('store_name', $shop )->where('payment_method','=' , 'Cash on Delivery')->sum('total');
+            $total =  oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', $shop )->get();
 
-            // sales
-            $sales = DB::table('oc_order')->where('store_name', $shop )->count('order_id');
-            $delivery_sales = DB::table('oc_order')->where('store_name', $shop )->where('flag_post_code','=' , 'delivery')->count('order_id');
-            $collection_sales = DB::table('oc_order')->where('store_name', $shop )->where('flag_post_code','=' , 'collection')->count('order_id');
-            $card_sales = DB::table('oc_order')->where('store_name', $shop )->where('payment_method','=' , 'CARD')->count('order_id');
-            $cash_sales = DB::table('oc_order')->where('store_name', $shop )->where('payment_method','=' , 'Cash on Delivery')->count('order_id');
+            $delivery = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', $shop )->where('flag_post_code','=' , 'delivery')->get();
+
+            $collection = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', $shop )->where('flag_post_code','=' , 'collection')->get();
+
+            $card = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', $shop )->where('payment_method','=' , 'CARD')->get();
+
+            $cash = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', $shop )->where('payment_method','=' , 'Cash on Delivery')->get();
+            
             
 
             // total ordered products
             $total_products = oc_order_product::join('oc_order','oc_order_product.order_id', '=', 'oc_order.order_id')
-                                                ->select('order_product_id','oc_order.order_id')
                                                 ->where('oc_order.store_name', '=', $shop)
-                                                ->count('order_product_id');
+                                                ->count();
 
             $now = Carbon::now();
 
@@ -109,16 +106,12 @@ class NewOrderController extends Controller
             'orders' => $orders,
             'filters' => request()->all(['search','field','direction','record']),
             'top_customer' => $top_users,
-            'total_orders' => $total_orders,
-            'delivery_total' => $delivery_total,
-            'collection_total' => $collection_total,
-            'card_total' => $card_total,
-            'cash_total' => $cash_total,
-            'sales' => $sales,
-            'delivery_sales' => $delivery_sales,
-            'collection_sales' => $collection_sales,
-            'card_sales' => $card_sales,
-            'cash_sales' => $cash_sales,
+            'total' => $total,
+            'delivery' => $delivery,
+            'collection' => $collection,
+            'card' => $card,
+            'cash' => $cash,
+           
             'total_products' => $total_products
             ]);
         
