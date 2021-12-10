@@ -6,6 +6,7 @@ import { InertiaProgress } from '@inertiajs/progress';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
+
 library.add(faPhone);
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
@@ -21,4 +22,15 @@ createInertiaApp({
     },
 });
 
-InertiaProgress.init({ color: '#4B5563' });
+InertiaProgress.init({
+    // The delay after which the progress bar will
+    // appear during navigation, in milliseconds.
+    delay: 250,
+  
+    // The color of the progress bar.
+    color: '#ff5722',
+  
+    // Whether the NProgress spinner will be shown.
+    showSpinner: true,
+  })
+

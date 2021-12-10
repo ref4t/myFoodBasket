@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\Mainshop\ShopSearchController;
+
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\TransactionController;
@@ -31,13 +33,13 @@ use App\Http\Controllers\Shop\RegistryController;
 
 Route::get('/', function () {
     return Inertia::render('Mainshop/Home');
-});
-Route::get('/restaurants', function () {
-    return Inertia::render('Mainshop/restaurantList');
-});
-Route::get('/restaurants/name', function () {
-    return Inertia::render('Mainshop/singleRestaurant');
-});
+})->name('Home');
+Route::get('/search', [ShopSearchController::class, 'search'])->name('mainshopSearch');
+
+// Route::get('/restaurants', function () {
+//     return Inertia::render('Mainshop/restaurantList');
+// });
+Route::get('/restaurant/{id}',[ShopSearchController::class, 'singleShop'])->name('singleshop');
 Route::get('/login');
 
 // Route::get('/dashboard', function () {
