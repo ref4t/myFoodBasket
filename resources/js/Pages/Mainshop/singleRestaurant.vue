@@ -33,7 +33,7 @@
                                             <star-rating :star-size="18" :show-rating="false" :increment=".5" :rating="rating" :read-only="true" />
                                         </div>
                                         </div>
-                                    <label>(2 Reviews)</label>
+                                    <label>({{review_count}} Reviews)</label>
                                     <a class="writereview" rel="35" href="#">Write a review</a>
                                 </div>
                                 <p class="address">{{setting.config_address}}</p>
@@ -157,7 +157,7 @@
                     </div>
                     <div class="tab-pane counties-pane" id="review">
                                                 <button type="button" class="btn btn-default" data-target="#popuplogin" data-toggle="modal">Login</button>
-                <div class="row listing-row" v-for="reviews in review">
+                <div class="row listing-row" v-for="reviews in review.data">
                     <div class="col-xs-3 col-sm-2 avatar" style="display:none;">
                         <a class="thumbnail " href="#">
                             <img src="image/david jame.jpeg">
@@ -166,8 +166,8 @@
                     </div>  
                     <div class="col-xs-12 col-sm-12 review_content">
                         <div class="infor-review">
-                            <p class="author pull-left"><span class="name-author"><b>Customer: </b>{{reviews.customer_id}}</span>
-                                                        <span class="date_review"><b>Order date: </b>{{reviews.date_added}}</span>  </p>
+                            <p class="author pull-left"><span class="name-author"><b>Customer: </b>{{reviews.get_customer.firstname+' '+reviews.get_customer.lastname}}</span>
+                                                        <span class="date_review"><b>Time: </b>{{reviews.date_added}}</span>  </p>
                             <div class="pull-right">
                                 <div class="star-rating rating-sm rating-disabled"><div class="rating-container rating-gly-star" data-content=""><div class="rating-stars" data-content="" style="width: 80%;"></div><input value="4" type="number" class="rating form-control hide" name="quality" disabled="true" min="0" max="5" step="1" data-size="sm"></div></div>
                             </div>
@@ -209,6 +209,7 @@
                         </div>
                     </div>  
                 </div>
+                <Pagination :links="review.links"></Pagination>
                     </div>   
                     <div class="tab-pane counties-pane" id="map">
                                                
@@ -234,7 +235,7 @@
 </template>
 <script>
 import MainshopHeader from '@/Pages/Mainshop/Header.vue';
-
+import Pagination from "@/Components/Pagination";
 import MainshopFooter from '@/Pages/Mainshop/Footer.vue';
 import StarRating from 'vue-star-rating';
 import { Head } from '@inertiajs/inertia-vue3';
@@ -245,18 +246,36 @@ export default {
         MainshopHeader,
         MainshopFooter,
         StarRating,
+        Pagination,
 
     },
     props: {
     setting: Object,
-    review:Array,
+    review:Object,
   },
   data() {
       return {
-         
+            opening_hours:null,
             rating:4.5,
+            review_count:null,
+            store_open_staus:null,
       
       };
+  },
+  created(){
+      this.review_count=this.review.data.length;
+      var setting_var=this.setting;
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var zip = url.searchParams.get("zip");
+        var result = Object.entries(setting_var);
+        var keys=[];
+        for(let i=0; i<result.length ; i++){
+            if(result[i][1].includes(zip)){
+                keys.push(result[i][0]);
+            }
+        }
+                console.log(keys);
   },
 };
 </script>
