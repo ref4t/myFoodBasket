@@ -53,9 +53,9 @@ class ShopSearchController extends Controller
                         $data[$result['key']] = unserialize($result['value']);
                     }
                 }
-        $reviews = oc_store_review::where('store_id','=',$id)->get();
+        $reviews = oc_store_review::with('getCustomer')->where('store_id','=',$id)->where('status','=',1)->where('customer_id','!=', 0)->paginate(10);
+        //  dd($reviews);
         
-                // dd($data);
     return Inertia::render('Mainshop/singleRestaurant',['setting'=>$data,'review'=>$reviews]);
 
     }

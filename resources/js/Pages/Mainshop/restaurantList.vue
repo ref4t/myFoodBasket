@@ -103,7 +103,7 @@
                             </div>
             
                             <div class="col-xs-12 col-sm-8 col-md-6 decription_store">
-                                <h3><a :href="'/restaurant/'+shop.store_id" class="">{{shop.config_name}}</a></h3>
+                                <h3><a :href="'/restaurant/'+shop.store_id+'?zip='+search" class="">{{shop.config_name}}</a></h3>
                                 <div class="reviews">
                                     <div class="star-rating rating-sm rating-disabled">
                                         <div class="rating-container rating-gly-star" data-content="">                    
@@ -161,10 +161,7 @@ export default {
       };
   },
  created() {
-            var url_string = window.location.href;
-            var url = new URL(url_string);
-            var zip = url.searchParams.get("zip");
-            console.log(zip); // undefined
+           
     }
 };
 </script>
