@@ -6,42 +6,84 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                Total Orders
+                <h2>Total Orders</h2>
 
-                <div class="float-right" >
-                    <div class="form-inline">
-                    <div class="input-group rounded">
-                        <input
-                            type="search"
-                            v-model="params.search"
-                            class="form-control rounded"
-                            placeholder="First Name"
-                            aria-label="Search"
-                            aria-describedby="search-addon"
-                        />
-                        <span class="input-group-text border-0" id="search-addon">
-                            <i class="fas fa-search"></i>
-                        </span>
-                    </div>
-                </div>
-                </div>
+                
               </div>
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
-                  <thead>
+                <table class="table table-bordered table-hover text-nowrap">
+                  <thead class="thead-primary">
                     <tr>
-                      <th class="text-capitalize">Order ID</th>
-                      <th class="text-capitalize">Order Type</th>
-                      <th class="text-capitalize">Shop</th>
-                      <th class="text-capitalize">Customer</th>
-                      <th class="text-capitalize">Status</th>
-                      <th class="text-capitalize">Total</th>
-                      <th class="text-capitalize">Date Added</th>
-                      <th class="text-capitalize">Payment Type</th>
-                      <th class="text-capitalize">Action</th>
+                        <th class="text-capitalize">
+                            <Link @click="sort('order_id')" >
+                            Order ID
+                            <i v-if="params.field == 'order_id' && params.direction == 'asc'" class="fas fa-chevron-down"></i> 
+                            <i v-if="params.field == 'order_id' && params.direction == 'desc'" class="fas fa-chevron-up"></i>
+                            </Link></th>
+                        <th class="text-capitalize">
+                            <Link >
+                            Order Type
+                            </Link></th>
+                        <th class="text-capitalize">
+                            <Link >
+                            Shop
+                            </Link>
+                        </th>
+                        <th class="text-capitalize">
+                            <Link @click="sort('firstname')" > 
+                            Customer 
+                            <i v-if="params.field == 'firstname' && params.direction == 'asc'" class="fas fa-chevron-down"></i> 
+                            <i v-if="params.field == 'firstname' && params.direction == 'desc'" class="fas fa-chevron-up"></i>
+                            </Link> 
+                        </th>
+                        <th class="text-capitalize"><Link @click="sort('order_status_id')" >
+                            Status
+                            <i v-if="params.field == 'order_status_id' && params.direction == 'asc'" class="fas fa-chevron-down"></i> 
+                            <i v-if="params.field == 'order_status_id' && params.direction == 'desc'" class="fas fa-chevron-up"></i>
+                            </Link>
+                        </th>
+                        <th class="text-capitalize"><Link @click="sort('total')" >
+                            Total
+                            <i v-if="params.field == 'total' && params.direction == 'asc'" class="fas fa-chevron-down"></i> 
+                            <i v-if="params.field == 'total' && params.direction == 'desc'" class="fas fa-chevron-up"></i>
+                            </Link>
+                        </th>
+                        <th class="text-capitalize"><Link @click="sort('order_id')" >
+                            Date Added
+                            <i v-if="params.field == 'order_id' && params.direction == 'asc'" class="fas fa-chevron-down"></i> 
+                            <i v-if="params.field == 'order_id' && params.direction == 'desc'" class="fas fa-chevron-up"></i>
+                            </Link>
+                        </th>
+                        <th class="text-capitalize"><Link @click="sort('payment_method')" >
+                            Payment Type
+                            <i v-if="params.field == 'payment_method' && params.direction == 'asc'" class="fas fa-chevron-down"></i> 
+                            <i v-if="params.field == 'payment_method' && params.direction == 'desc'" class="fas fa-chevron-up"></i>
+                            </Link>
+                        </th>
+                        <th class="text-capitalize">Action</th>
                     </tr>
-                  </thead>
+                </thead>
                   <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                          <input
+                              type="search"
+                              v-model="params.search"
+                              class="form-control rounded"
+                              placeholder="First Name"
+                              aria-label="Search"
+                              aria-describedby="search-addon"
+                          />
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                  </tr>
                     <tr v-for="order in orders.data" :key="order.id">
                       <td>{{ order.order_id }}</td>
                       <td>{{ order.flag_post_code }}</td>
@@ -52,8 +94,8 @@
                       <td>{{ order.date_added }}</td>
                       <td>{{ order.payment_method }}</td>
                       <td class="text-right">
-                          <Link :href="route('admin.dashboard.orders.show', { id: order.order_id })" as="button" class="btn btn-success text-uppercase" style="letter-spacing: 0.1em;" >View</Link>
-                          <Link :href="route('admin.dashboard.orders.edit', { id: order.order_id })" as="button" class="btn btn-success text-uppercase ml-1" style="letter-spacing: 0.1em;" >Edit</Link>
+                          <Link :href="route('admin.dashboard.orders.show', { id: order.order_id })" as="button" class="btn btn-info text-uppercase" style="letter-spacing: 0.1em;" >View</Link>
+                          <Link :href="route('admin.dashboard.orders.edit', { id: order.order_id })" as="button" class="btn btn-warning text-uppercase ml-1" style="letter-spacing: 0.1em;" >Edit</Link>
                       </td>
                     </tr>
                   </tbody>
@@ -90,19 +132,35 @@ export default {
 
   props: {
     orders: Object,
+    filters:Object
   },
   data() {
       return {
         params:{
-            search:null
+            search:this.filters.search,
+            field: this.filters.field,
+            direction: this.filters.direction
         }   
       };
-  },
+    },
+
+    methods:{
+        sort(field){
+            this.params.field = field;
+            this.params.direction = this.params.direction === 'asc' ? 'desc' : 'asc';
+        }
+    },
   watch: {
       params:{
           handler(){
-              this.$inertia.get(this.route('admin.dashboard.orders'),this.params, {replace: true, preserveState: true})
-              console.log('here')
+              let params = this.params;
+
+              Object.keys(params).forEach(key=>{
+                if(params[key] == ''){
+                  delete params[key];
+                }
+              });
+              this.$inertia.get(this.route('admin.dashboard.orders'),params, {replace: true, preserveState: true})
           },
           deep: true,
       }
