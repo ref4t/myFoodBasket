@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\oc_order;
 use App\Models\oc_order_product;
 use App\Models\oc_order_status;
+use App\Models\oc_setting;
 
 class NewOrderController extends Controller
 {
@@ -126,6 +127,7 @@ class NewOrderController extends Controller
             }
 
             $status = oc_order_status::all();
+
             $settings=oc_setting::where('store_id','=',$id)->where('group','=','config')->get();
 
                 foreach ($settings as $result) {
@@ -145,7 +147,7 @@ class NewOrderController extends Controller
                     }
                 }
 
-                dd($settings);
+            dd($settings);
             // all good
         } catch (\Exception $e) {
             DB::rollback();
