@@ -126,6 +126,26 @@ class NewOrderController extends Controller
             }
 
             $status = oc_order_status::all();
+            $settings=oc_setting::where('store_id','=',$id)->where('group','=','config')->get();
+
+                foreach ($settings as $result) {
+                    if( $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone' ){
+                        if (!$result['serialized']) {
+                            $data[$result['key']] = $result['value'];
+                        } else {
+                            $data[$result['key']] = unserialize($result['value']);
+                        }
+                    }
+                    elseif($result){
+                        if (!$result['serialized']) {
+                            $data[$result['key']] = $result['value'];
+                        } else {
+                            $data[$result['key']] = unserialize($result['value']);
+                        }
+                    }
+                }
+
+                dd($settings);
             // all good
         } catch (\Exception $e) {
             DB::rollback();
