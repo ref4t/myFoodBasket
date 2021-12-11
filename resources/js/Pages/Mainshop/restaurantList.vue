@@ -1,8 +1,5 @@
 <template>
  <Head title="Home">
-        
-        <link rel="stylesheet" href="/css/mainshop/theme.css">
-        <link rel="stylesheet" href="/css/mainshop/style_new.css">
     </Head>
     <MainshopHeader/>
     <div id="resault-slider">
@@ -72,7 +69,7 @@
                         <div class="row">
                             <div class="input-group resault_search">
                                 <span><i title="Display restaurants around my location first" class=" fa fa-map-marker mylocation"></i></span>
-                                <input type="text" placeholder="Eg. WN4 OAR" name="search_resault" value="BA11 1DR" class="form-control col-sm-3">
+                                <input type="text" placeholder="Eg. WN4 OAR" name="search_resault" class="form-control col-sm-3" v-model="search">
                                 <div class="btn-group">
                                     <button id="search-resault" class="btn btn-default" type="button">FIND</button>
                                 </div>
@@ -89,106 +86,41 @@
                         <i class="fa fa-th" id="ybcgrid"></i>
                     </div>
                 </div>
-                                                <div class="loadding">
-                    <div id="floatingBarsG">
-                    	<div class="blockG" id="rotateG_01"></div>
-                    	<div class="blockG" id="rotateG_02"></div>
-                    	<div class="blockG" id="rotateG_03"></div>
-                    	<div class="blockG" id="rotateG_04"></div>
-                    	<div class="blockG" id="rotateG_05"></div>
-                    	<div class="blockG" id="rotateG_06"></div>
-                    	<div class="blockG" id="rotateG_07"></div>
-                    	<div class="blockG" id="rotateG_08"></div>
-                    </div>
-                </div>
-                             
-                                
-                <div id="list-store" class="list">
+                                                            
+                <div v-for="shop in shops" id="list-store" class="list" >
                     
-                                            <div class="row  listing-row">
+                        <div class="row  listing-row">
                             <div class="listing_content">
                             <div class="col-xs-12 col-sm-4 thumbnail_store">
                                 <a class="thumbnail" href="http://www.the-public.co.uk/index.php?route=common/store&amp;store=35">
                                     <div class="table">
                                         <div class="table-cell">
-                                        <img src="/image/data/demo-store-logo.png" alt="2- Demo Pizza &amp; Kebab">
+                                        <img :src="'/image/'+shop.config_logo" :alt="shop.config_name">
                                         </div>
                                     </div>
-                                                                            <div class="timesetting_store" style="display: none;">
-                                                                                    </div>
                                      
                                 </a>
-                                                                <div class="btn-store">
-                                    <div class="table">
-                                        <div class="table-cell">
-                                            <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=679">View Menu</a>
-                                            <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=679">Place Order</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                                            </div>
+                            </div>
             
                             <div class="col-xs-12 col-sm-8 col-md-6 decription_store">
-                                <h3><a href="http://www.the-public.co.uk/index.php?route=common/store&amp;store=35" class="">2- Demo Pizza &amp; Kebab</a></h3>
+                                <h3><a :href="'/restaurant/'+shop.store_id" class="">{{shop.config_name}}</a></h3>
                                 <div class="reviews">
-                                    <div class="star-rating rating-sm rating-disabled"><div class="rating-container rating-gly-star" data-content=""><div class="rating-stars" data-content="" style="width: 80%;"></div><input value="4" type="number" disabled="true" class="rating form-control hide" name="service" min="0" max="5" step="1" data-size="sm"></div></div>
+                                    <div class="star-rating rating-sm rating-disabled">
+                                        <div class="rating-container rating-gly-star" data-content="">                    
+                                                <star-rating :star-size="18" :show-rating="false" :increment=".5" :rating="rating" :read-only="true" />
+                                                </div>
+                                                </div>
                                     <label>(2 Reviews)</label>
                                     <a class="writereview" rel="35" href="#">Write a review</a>
                                 </div>
-                                <p class="address">Shofiur</p>
-                                <p class="phone">01291630436</p>
+                                <p class="address">{{shop.config_address}}</p>
+                                <p class="phone">{{shop.config_telephone}}</p>
                                                                 <p class="delivery">Minimum delivery: <span class="minspend">£0.00</span></p>
                                 <p class="free">Free delivery availble</p>
                                                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-2 timesetting">
                                                                     <button class="btn btn-primary btn-open">Open</button>
-                                    <a href="http://www.store2.the-public.co.uk/" class="gotoweb">Visit website</a>
-                                    <div class="timesetting_store" style="display: none;">
-                                                                            </div>
-                                                            </div>
-                            
-                            </div>
-                    </div>
-                                            <div class="row  listing-row">
-                            <div class="listing_content">
-                            <div class="col-xs-12 col-sm-4 thumbnail_store">
-                                <a class="thumbnail" href="http://www.the-public.co.uk/index.php?route=common/store&amp;store=91">
-                                    <div class="table">
-                                        <div class="table-cell">
-                                        <img src="/image/data/shop-files/E-F/frome-kebab/logo-new.png" alt="FROME KEBAB AND PIZZA">
-                                        </div>
-                                    </div>
-                                                                            <div class="timesetting_store" style="display: none;">
-                                                                                    </div>
-                                     
-                                </a>
-                                                                <div class="btn-store">
-                                    <div class="table">
-                                        <div class="table-cell">
-                                            <a href="http://www.fromekebabandpizza.co.uk/index.php?route=product/category&amp;path=">View Menu</a>
-                                            <a href="http://www.fromekebabandpizza.co.uk/index.php?route=product/category&amp;path=">Place Order</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                                            </div>
-            
-                            <div class="col-xs-12 col-sm-8 col-md-6 decription_store">
-                                <h3><a href="http://www.the-public.co.uk/index.php?route=common/store&amp;store=91" class="">FROME KEBAB AND PIZZA</a></h3>
-                                <div class="reviews">
-                                    <div class="star-rating rating-sm rating-disabled"><div class="rating-container rating-gly-star" data-content=""><div class="rating-stars" data-content="" style="width: 100%;"></div><input value="5" type="number" disabled="true" class="rating form-control hide" name="service" min="0" max="5" step="1" data-size="sm"></div></div>
-                                    <label>(25 Reviews)</label>
-                                    <a class="writereview" rel="91" href="#">Write a review</a>
-                                </div>
-                                <p class="address">1 Eagle Lane,
-Frome
-Somerset</p>
-                                <p class="phone">01373466060</p>
-                                                                <p class="delivery">Minimum delivery: <span class="minspend">£10.00</span></p>
-                                <p class="free">Free delivery availble</p>
-                                                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-2 timesetting">
-                                                                    <button class="btn btn-primary btn-open">Open</button>
-                                    <a href="http://www.fromekebabandpizza.co.uk/" class="gotoweb">Visit website</a>
+                                    <Link :href="shop.config_ssl" class="gotoweb">Visit website</Link>
                                     <div class="timesetting_store" style="display: none;">
                                                                             </div>
                                                             </div>
@@ -204,15 +136,35 @@ Somerset</p>
 </template>
 <script>
 import MainshopHeader from '@/Pages/Mainshop/Header.vue';
-
+import StarRating from 'vue-star-rating';
 import MainshopFooter from '@/Pages/Mainshop/Footer.vue';
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head,Link } from '@inertiajs/inertia-vue3';
 
 export default {
     components: {
         Head,
+        Link,
         MainshopHeader,
         MainshopFooter,
+        StarRating,
     },
+    props: {
+    shops: Object,
+    search:String,
+  },
+  data() {
+      return {
+         
+            search:this.search,
+            rating:4.5,
+      
+      };
+  },
+ created() {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var zip = url.searchParams.get("zip");
+            console.log(zip); // undefined
+    }
 };
 </script>

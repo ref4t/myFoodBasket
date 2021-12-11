@@ -1,8 +1,5 @@
 <template>
     <Head title="Home">
-        <link rel="stylesheet" href="/css/mainshop/bootstrap.css">
-        <link rel="stylesheet" href="/css/mainshop/theme.css">
-        <link rel="stylesheet" href="/css/mainshop/style_new.css">
     </Head>
     <MainshopHeader/>
     <MainshopBody/>
