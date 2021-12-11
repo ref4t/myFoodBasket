@@ -1,5 +1,5 @@
 <template>
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4" style="z-index:100" >
         <!-- Brand Logo -->
         <Link :href="route('admin.dashboard.index')" class="brand-link">
           <span class="brand-text font-weight-light">Admin FoodBasket</span>
@@ -42,7 +42,7 @@
                   <p>
                     Orders
                     <i class="fas fa-angle-left right"></i>
-                    <span class="badge badge-info right">6</span>
+                    
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
@@ -65,7 +65,7 @@
                     <Link :href="route('admin.dashboard.newOrders')" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>New Orders</p>
-                      <span class="badge badge-info right">6</span>
+                      
                     </Link>
                   </li>
                 </ul>

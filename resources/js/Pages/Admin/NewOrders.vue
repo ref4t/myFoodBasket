@@ -51,9 +51,9 @@
 
                     <div class="info-box-content " style="height: 200px; width:  " >
                         <small style="min-height: 160px">
-                            <p class="h2 text-danger">£{{format(total[0].count)}} </p>
-                        <span class="info-box-text"><span style="font-weight: bold" >Delivery:</span> {{format(delivery[0].count)}} <span class="float-right" ><span style="font-weight: bold" >Card:</span> £{{format(card[0].count)}}</span> </span>
-                        <span class="info-box-text"><span style="font-weight: bold" >Collection:</span>  {{format(collection[0].count)}} <span class="float-right" ><span style="font-weight: bold" >Collection:</span> £{{format(cash[0].count)}}</span> </span>
+                            <p class="h2 text-danger">{{total[0].count}} </p>
+                        <span class="info-box-text"><span style="font-weight: bold" >Delivery:</span> {{delivery[0].count}} <span class="float-right" ><span style="font-weight: bold" >Card:</span> {{card[0].count}}</span> </span>
+                        <span class="info-box-text"><span style="font-weight: bold" >Collection:</span>  {{collection[0].count}} <span class="float-right" ><span style="font-weight: bold" >Collection:</span> {{cash[0].count}}</span> </span>
                        
                         </small>
                         
@@ -185,8 +185,23 @@
                                             </th>
                                         </tr>
                                         <tr>
-                                            <th></th>
-                                            <th></th>
+                                            <th>
+                                                <select v-model="params.order_type"  class="form-control rounded" aria-label="Default select example">
+                                                    <option selected></option>
+                                                    <option v-bind:value=" 'delivery' " >Delivery</option>
+                                                    <option v-bind:value=" 'collection' ">Collection</option>
+                                                </select>
+                                            </th>
+                                            <th>
+                                                <input
+                                                    type="search"
+                                                    v-model="params.order_no"
+                                                    class="form-control rounded"
+                                                    placeholder="Order No."
+                                                    aria-label="Search"
+                                                    aria-describedby="search-addon"
+                                                />
+                                            </th>
                                             <th></th>
                                             <th>
                                                 <input
@@ -200,7 +215,12 @@
                                             </th>
                                             <th></th>
                                             <th></th>
-                                            <th></th>
+                                            <th>
+                                                <select v-model="params.status"  class="form-control rounded" aria-label="Default select example">
+                                                    <option selected></option>
+                                                    <option v-for="status in status" :key="status.order_status_id" v-bind:value=" status.order_status_id " >{{status.name}}</option>
+                                                </select>
+                                            </th>
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -250,11 +270,11 @@
                                                 <img v-if="order.payment_code == 'cod'" :src="'/image/payment_logos/worldpay_logo.png'" style="width: 30px;">
                                             </td> -->
                                             <td >
-                                                <Link :href="route('admin.dashboard.orders.show', { id: order.order_id })"   ><i class="fas fa-print"></i></Link>
+                                                <Link @click="openModal"  ><i class="fas fa-print"></i></Link>
                                                
                                             </td>
                                             <td >
-                                                <Link :href="route('admin.dashboard.orders.show', { id: order.order_id })"   ><i class="fas fa-mobile"></i></Link>
+                                                <Link><i class="fas fa-mobile"></i></Link>
                                                
                                             </td>
                                             <td >
@@ -273,6 +293,17 @@
                 </div>
             </div>
         </section>
+
+        <div class="modal fade" id="modal-lg">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1> {{ shop_name }} </h1>
+                        <span class="text-centered" > Shop Info </span>
+                    </div>
+                </div>
+            </div>
+        </div>
         
     </admin-layout>
 </template>
@@ -302,13 +333,18 @@ export default {
         collection: Array,
         card: Array,
         cash: Array,
-        total_products: Object
+        total_products: Number,
+        status: Object,
+        shop_name: String
         
     },
     data() {
       return {
         params:{
             search:this.filters.search,
+            order_type: this.filters.order_type,
+            order_no: this.filters.order_no,
+            status: this.filters.status,
             field: this.filters.field,
             direction: this.filters.direction,
             record:this.filters.record,
@@ -324,6 +360,9 @@ export default {
         sort(field){
             this.params.field = field;
             this.params.direction = this.params.direction === 'asc' ? 'desc' : 'asc';
+        },
+        openModal(){
+            $('#modal-lg').modal('show')
         }
     },
     watch: {
@@ -335,6 +374,8 @@ export default {
                         delete params[key];
                     }
                 });
+
+                console.log(params)
 
                 this.$inertia.get(this.route('admin.dashboard.newOrders'),params, {replace: true, preserveState: true});
             },
