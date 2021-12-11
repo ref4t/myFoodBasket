@@ -13,9 +13,10 @@
             <p class="main_description">Find restaurant and order directly from restaurant website</p>
             <div class="input-group">
                 <i class="fa fa-map-marker mylocation"></i>
-                <input type="text" placeholder="Eg. WN4 OAR" name="search_resault" class="form-control col-sm-3">
+                <input type="text" placeholder="Eg. WN4 OAR" name="search_resault" class="form-control col-sm-3" v-model="zipCode">
+                <p class="bg-danger" v-if="$page.props.message">{{$page.props.message}}</p>
                 <div class="btn-group">
-                    <button id="search-resault" class="btn btn-default" type="button">FIND</button>
+                    <button id="search-resault" class="btn btn-default" type="button" v-on:click="searchShop">FIND</button>
                 </div>
             </div>  
             <div class="how_it_work">
@@ -38,3 +39,20 @@
     </div>
 </div>
 </template>
+<script>
+export default {
+    
+    data(){
+        return{
+            zipCode:null,
+        }
+    },
+    
+     methods: {
+         searchShop(){
+             console.log(this.zipCode);
+             this.$inertia.get(this.route('mainshopSearch'),{zip:this.zipCode},{ preserveState: true, preserveScroll: true})
+         }
+     }
+}
+</script>

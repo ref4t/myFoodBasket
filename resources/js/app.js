@@ -6,6 +6,7 @@ import { InertiaProgress } from '@inertiajs/progress';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
+
 library.add(faPhone);
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
