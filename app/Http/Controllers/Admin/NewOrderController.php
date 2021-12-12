@@ -12,6 +12,8 @@ use App\Models\oc_order;
 use App\Models\oc_order_product;
 use App\Models\oc_order_status;
 use App\Models\oc_setting;
+use App\Models\oc_gender;
+use App\Models\customer_order;
 
 class NewOrderController extends Controller
 {
@@ -27,12 +29,12 @@ class NewOrderController extends Controller
             $shop = 'Wymondham Kebabs';
             $shop_id = 46;
 
-            $orders = oc_order::select([ 'order_id', 'store_name', 'firstname', 'lastname','payment_method','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+            $orders = oc_order::with('getProducts','getTotal')->select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+                                
                                 ->where([['store_name', '=', $shop] , ['date_added','>=', Carbon::now()->subYear()]])
                                 ->orderBy('date_added','DESC')
                                 ->paginate(20);
-                                
-
+            
             $top_users = oc_order::where('store_name', $shop )->select('customer_id', 'firstname','lastname',DB::raw('SUM(total) AS sumtotal'))
                 ->groupBy('customer_id','firstname','lastname')
                 ->orderByRaw('COUNT(*) DESC')
@@ -54,34 +56,34 @@ class NewOrderController extends Controller
             
 
             // total ordered products
-            $total_products = oc_order_product::join('oc_order','oc_order_product.order_id', '=', 'oc_order.order_id')
-                                                ->where('oc_order.store_name', '=', $shop)
-                                                ->count();
+             $total_products = oc_order_product::join('oc_order','oc_order_product.order_id', '=', 'oc_order.order_id')
+            ->where('oc_order.store_name', '=', $shop)
+            ->count();
 
-            // $total_products = oc_order::with('getShopid')->where('store_id', '=', $shop_id )->first();
+            
 
             $now = Carbon::now();
 
             if(request('search')){ 
-                $orders = oc_order::select([ 'order_id', 'store_name', 'firstname', 'lastname','payment_method','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+                $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
                                     ->where('store_name', $shop )
                                     ->where('firstname','LIKE','%'.request('search').'%')
                                     ->paginate(20);
             }
             if(request('order_type')){ 
-                $orders = oc_order::select([ 'order_id', 'store_name', 'firstname', 'lastname','payment_method','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+                $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
                                     ->where('store_name', $shop )
                                     ->where('flag_post_code','LIKE','%'.request('order_type').'%')
                                     ->paginate(20);
             }
             if(request('order_no')){ 
-                $orders = oc_order::select([ 'order_id', 'store_name', 'firstname', 'lastname','payment_method','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+                $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
                                     ->where('store_name', $shop )
                                     ->where('order_id','LIKE','%'.request('order_no').'%')
                                     ->paginate(20);
             }
             if(request('status')){ 
-                $orders = oc_order::select([ 'order_id', 'store_name', 'firstname', 'lastname','payment_method','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+                $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
                                     ->where('store_name', $shop )
                                     ->where('order_status_id','LIKE','%'.request('status').'%')
                                     ->paginate(20);
@@ -89,7 +91,7 @@ class NewOrderController extends Controller
 
             
             if(request('record') == 1){
-                $orders = oc_order::select([ 'order_id', 'store_name', 'firstname', 'lastname','payment_method','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+                $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
                                     ->where('store_name', $shop )
                                     ->whereDay('date_added', '=', Carbon::today()->toDateString())
                                     ->orderBy('date_added','DESC')
@@ -101,14 +103,14 @@ class NewOrderController extends Controller
                 // By week
             }
             if(request('record') == 3){
-                $orders = oc_order::select([ 'order_id', 'store_name', 'firstname', 'lastname','payment_method','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+                $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
                                     ->where('store_name', $shop )
                                     ->whereDate('date_added','>=', $now->subMonth())
                                     ->orderBy('date_added','DESC')
                                     ->paginate(20);
             }
             if(request('record') == 4){
-                $orders = oc_order::select([ 'order_id', 'store_name', 'firstname', 'lastname','payment_method','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+                $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
                                     ->where('store_name', $shop )
                                     ->whereDate('date_added','>=', $now->subYear())
                                     ->orderBy('date_added','DESC')
@@ -119,7 +121,7 @@ class NewOrderController extends Controller
 
             if(request('field') && request('direction') ){
                 
-                $orders = oc_order::select([ 'order_id', 'store_name', 'firstname', 'lastname','payment_method','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+                $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
                                     ->where('store_name', $shop )
                                     ->orderBy(request('field'), request('direction'))
                                     ->paginate(20);
@@ -128,26 +130,26 @@ class NewOrderController extends Controller
 
             $status = oc_order_status::all();
 
-            $settings=oc_setting::where('store_id','=',$id)->where('group','=','config')->get();
+            $gender = oc_gender::all();
+            
+            $data = [];
+
+            $settings=oc_setting::where('store_id','=',$shop_id)->where('group','=','config')->get();
+
+            
 
                 foreach ($settings as $result) {
-                    if( $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone' ){
+                    if( $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone'  || $result['key'] == 'map_post_code' ){
                         if (!$result['serialized']) {
                             $data[$result['key']] = $result['value'];
                         } else {
                             $data[$result['key']] = unserialize($result['value']);
                         }
                     }
-                    elseif($result){
-                        if (!$result['serialized']) {
-                            $data[$result['key']] = $result['value'];
-                        } else {
-                            $data[$result['key']] = unserialize($result['value']);
-                        }
-                    }
+                   
                 }
 
-            dd($settings);
+            
             // all good
         } catch (\Exception $e) {
             DB::rollback();
@@ -169,8 +171,15 @@ class NewOrderController extends Controller
             'total_products' => $total_products,
             'status' => $status,
             'shop_name' => $shop,
+            'settings' => $data,
+            'gender' => $gender
             ]);
         
         
+    }
+
+    public function destroy(Request $request){
+        oc_order::whereIn('order_id', $request)->delete();
+        return redirect(url()->previous() )->with('success', 'Order deleted successfully');
     }
 }

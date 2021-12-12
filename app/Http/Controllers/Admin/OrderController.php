@@ -91,8 +91,6 @@ class OrderController extends Controller
     }
 
     public function comment(Request $request){
-    
-        
 
         oc_order_history::create($request->toArray());
 
@@ -102,7 +100,7 @@ class OrderController extends Controller
     public function delete($id){
 
         oc_order_product::find($id)->delete($id);
-
+        return redirect(url()->previous());
         
     }
 

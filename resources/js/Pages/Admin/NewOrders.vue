@@ -1,5 +1,6 @@
 <template>
   <admin-layout>
+    <vue-flash-message ></vue-flash-message>
     <section class="content">
       <div class="card">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -175,10 +176,12 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h2>New Orders</h2>
+               <button @click="select_all()" id="check_all" class="btn btn-success" > SELECT ALL </button>
                 <div class="float-right">
                   <div class="form-inline">
-                    <div class="input-group rounded"></div>
+                    <div class="input-group rounded">
+                      <button v-if="deleteData.length" @click="delete_multiple" class="btn btn-danger" > DELETE SELECTED ({{deleteData.length}})</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -389,8 +392,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="order in orders.data" :key="order.id">
+                    <tr v-for="order in orders.data" :key="order.order_id">
                       <td>
+                        <input v-if="deleteData.includes(order.order_id)" checked type="checkbox" @click="add_to_delete(order.order_id)" class="form-check">
+                        <input v-else type="checkbox"  @click="add_to_delete(order.order_id)" class="form-check" >
                         <i
                           v-if="order.flag_post_code == 'delivery'"
                           class="fas fa-motorcycle"
@@ -489,10 +494,10 @@
                                                 <img v-if="order.payment_code == 'cod'" :src="'/image/payment_logos/worldpay_logo.png'" style="width: 30px;">
                                             </td> -->
                       <td>
-                        <i @click="openModal" class="fas fa-print"></i>
+                        <i @click="openModal(order)" class="fas fa-print"></i>
                       </td>
                       <td>
-                        <Link><i class="fas fa-mobile"></i></Link>
+                        <i class="fas fa-mobile"></i>
                       </td>
                       <td>
                         <Link
@@ -524,79 +529,89 @@
             <button @click="closeModal" type="buttom" class="close" ><span aria-hidden="true" >&times;</span></button>
             <h3 class="modal-title text-uppercase">{{ shop_name }}</h3>
             <span class="modal-title">
-              Owner Name <br />
-              POST CODE <br />
-              Mobile Number
+              {{settings.config_name}} <br />
+              {{settings.config_address}}<br />
+              {{settings.map_post_code}}<br/>
+              {{settings.config_telephone}}
             </span>
           </div>
 
           <div class="modal-body overflow-hidden">
             <span class="text-center">
-              <h5>COLLECTION</h5>
+              <h5 class="text-uppercase" >{{ modal.flag }}</h5>
             </span>
             <span class="float-left">
-                Date Added
+                {{modal.date}}
             </span>
             <span class="float-right" >
-                OrderId
+                Order ID:{{modal.id}}
             </span>
-            <table class="table table-section">
+            <table class="table table-borderless table-section">
                 
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td class="text-left" >data</td>
-                        <td class="text-right">price</td>
+                    <tr v-for="product in modal.products" :key="product.product_order_id">
+                        <td>{{ product.quantity }}</td>
+                        <td class="text-left" >{{product.name}}</td>
+                        <td class="text-right">{{format(product.price)}}</td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td class="text-left" >Garlic Bread Pizza</td>
-                        <td class="text-right">£3.00</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td class="text-left" >data</td>
-                        <td class="text-right">price</td>
-                    </tr>
+                    
 
-                    <tr >
-                        <td colspan="3">
-                            <span class="wt_bx">
-                                <i>Service Charge</i>
-
-                                <b class="float-right" >£3.00</b>
-                            </span>
-                        </td>
-                    </tr>
+                    
                 </tbody>
             </table>
 
-            <p><span class="float-left" ><h5>TOTAL:</h5></span>
-            <span class="float-right" ><h5>£3.00</h5></span></p>
+            <table class="table table-borderless table-section" >
+              <tbody>
+                <tr v-for="total in modal.totals" :key="total.title">
+                        <td colspan="3"  v-if="total.title != 'Total to pay'">
+                            <span class="wt_bx">
+                                <i>{{total.title}}</i>
 
-            <h5>
-                TOTAL:
-                <span class="float-right" ></span>
+                                <b class="float-right" >{{total.text}}</b>
+                            </span>
+                        </td>
+                    </tr>
+              </tbody>
+            </table>
+
+
+            <h5 v-for="total in modal.totals" :key="total.title">
+                <span v-if="total.title == 'Total to pay'" class="folat-left" >TOTAL:</span>
+                <span v-if="total.title == 'Total to pay'" class="float-right" > {{total.text}} </span>
             </h5>
 
             <div class="footer text-center">
-                <p class="text-uppercase h4">Card/Cash</p>
-                <p>Mr. Pentester Testing</p>
-                <p>Mobile No</p>
-                <p>Email</p>
+                <p class="text-uppercase h4">{{modal.method}}</p>
+                <p> <span v-for="gender in gender" :key="gender.gender_id" ><span v-if="gender.gender_id == modal.gender"> {{gender.name}}</span></span> {{modal.fname}} {{modal.lname}}
+                </p>
+                <p> {{modal.instruction}} </p>
+                <p>{{modal.mobile}}</p>
+                <p>{{modal.email}}</p>
+
+                <p style="color:red" v-if="modal.address_2" >
+                        
+                    {{modal.address_1}}  |  {{modal.address_2}}
+                        
+                </p>
+
+                <p v-if="!modal.address_2" style="color:red" >{{modal.address_1}}</p>
+                <p style="color:red" >{{modal.city}} {{modal.postcode}} </p>
 
                 <p class="h4">ORDER HISTORY</p>
                 <p><select
-                    v-model="params.order_type"
-                    class="rounded"
+                    v-model="selected"
+                    class=" form rounded"
                     aria-label="Default select example"
                     style="width:30%"
                 >
-                    <option selected></option>
-                    <option v-bind:value="'delivery'">Delivery</option>
-                    <option v-bind:value="'collection'">
-                    Collection
-                    </option>
+                    
+                        <option
+                        v-for="statusData in status"
+                        :key="statusData.order_status_id"
+                         :value="statusData.order_status_id"
+                        >
+                        {{ statusData.name }}
+                        </option>
                 </select></p>
 
                  <Link  as="button" class="btn btn-success text-uppercase float-right" style="letter-spacing: 0.1em;" >Print</Link>
@@ -615,6 +630,8 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import Pagination from "@/Components/Pagination";
 import { Head, Link } from "@inertiajs/inertia-vue3";
+import Vue from 'vue';
+import VueFlashMessage from 'vue-flash-message';
 
 export default {
   components: {
@@ -622,6 +639,7 @@ export default {
     Pagination,
     Link,
     Head,
+    VueFlashMessage
   },
 
   props: {
@@ -636,9 +654,13 @@ export default {
     total_products: Number,
     status: Object,
     shop_name: String,
+    settings: Object,
+    gender:Object,
   },
   data() {
     return {
+      deleteData:[],
+      selected: "",
       params: {
         search: this.filters.search,
         order_type: this.filters.order_type,
@@ -648,6 +670,27 @@ export default {
         direction: this.filters.direction,
         record: this.filters.record,
       },
+
+      modal:{
+          gender:"",
+          fname:"",
+          lname:"",
+          email:"",
+          mobile:"",
+          status:"",
+          flag:"",
+          date:"",
+          id:"",
+          method:"",
+          address_1:"",
+          address_2:"",
+          city:"",
+          postcode:"",
+          instruction:"",
+          products:"",
+          totals:""
+
+      }
     };
   },
 
@@ -656,12 +699,70 @@ export default {
       let val = (value / 1).toFixed(2);
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
+    add_to_delete(id){
+      this.deleteData.includes(id)
+      ?
+      this.deleteData = this.deleteData.filter(item=>item!=id)
+      :
+      this.deleteData.push(id);
+      console.log(this.deleteData);
+    },
+    select_all(){
+      this.orders.data.map(item=>{
+        this.deleteData.includes(item.order_id)
+        ?
+        this.deleteData = this.deleteData.filter(item2=>item2!=item.order_id)
+        :
+        this.deleteData.push(item.order_id)
+        console.log(this.deleteData);
+        return 0;
+      })
+    },
+    delete_multiple(){
+      // let con = confirm("Sure want to delete?");
+      this.flash('Hello World', 'success', {
+        timeout: 3000,
+        beforeDestroy() {
+          alert('oh no, not again!');
+        }
+      });
+
+    
+
+      if (con){
+        this.$inertia.post( route('admin.newOrders.delete') , this.deleteData,{
+        replace: true, 
+        preserveState: true})
+        this.deleteData = [];
+      }
+
+      window.$('#check_all').props('checked',false);
+    },
     sort(field) {
       this.params.field = field;
       this.params.direction = this.params.direction === "asc" ? "desc" : "asc";
     },
-    openModal() {
-      $("#modal-lg").modal("show");
+    openModal(order) {
+      $("#modal-lg").modal("show")
+        this.modal.id = order.order_id,
+        this.modal.date = order.date_added
+        this.modal.flag = order.flag_post_code,
+        this.modal.gender = order.customer_group_id,
+        this.modal.fname = order.firstname,
+        this.modal.lname = order.lastname,
+        this.modal.email = order.email,
+        this.modal.mobile = order.telephone,
+        this.modal.status = order.order_status_id,
+        this.modal.method = order.payment_method,
+        this.modal.city = order.payment_city,
+        this.modal.postcode = order.payment_postcode,
+        this.modal.address_1 = order.payment_address_1,
+        this.modal.address_2 = order.payment_address_2,
+        this.modal.instruction = order.payment_company,
+        this.modal.products = order.get_products,
+        this.selected = order.order_status_id,
+        this.modal.totals = order.get_total
+        
     },
     closeModal(){
         $("#modal-lg").modal("hide");
@@ -691,6 +792,10 @@ export default {
 </script>
 
 <style>
+.address{
+    display: block !important;
+    border-bottom: dotted 2px #b1b1b1;
+}
 .wt_bx {
     display: block !important;
     border-bottom: dotted 2px #b1b1b1;

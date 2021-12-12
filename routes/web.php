@@ -87,6 +87,7 @@ Route::prefix('admin')->group(function(){
 
     Route::get('/transactions', [TransactionController::class, 'index'])->name('admin.dashboard.transactions');
     Route::get('/new-orders', [NewOrderController::class, 'index'])->name('admin.dashboard.newOrders');
+    Route::post('/new-orders', [NewOrderController::class, 'destroy'])->name('admin.newOrders.delete');
 });
 
 require __DIR__.'/auth.php';

@@ -516,7 +516,7 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
      deleteItem(id){
-         this.$inertia.post(this.route('edit.product.delete',{id}))
+         this.$inertia.post(this.route('edit.product.delete',{id},{replace: true, preserveState: true}))
      },
      totalUpdate(){
 
