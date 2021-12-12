@@ -1,6 +1,8 @@
 <template>
   <admin-layout>
-    <vue-flash-message ></vue-flash-message>
+    <template v-slot:header>
+      <h1 class="m-0">NEW ORDERS</h1>
+    </template>
     <section class="content">
       <div class="card">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -560,7 +562,7 @@
                 </tbody>
             </table>
 
-            <table class="table table-borderless table-section" >
+            <table class="table table-borderless" >
               <tbody>
                 <tr v-for="total in modal.totals" :key="total.title">
                         <td colspan="3"  v-if="total.title != 'Total to pay'">
@@ -630,16 +632,13 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import Pagination from "@/Components/Pagination";
 import { Head, Link } from "@inertiajs/inertia-vue3";
-import Vue from 'vue';
-import VueFlashMessage from 'vue-flash-message';
 
 export default {
   components: {
     AdminLayout,
     Pagination,
     Link,
-    Head,
-    VueFlashMessage
+    Head
   },
 
   props: {
@@ -705,7 +704,6 @@ export default {
       this.deleteData = this.deleteData.filter(item=>item!=id)
       :
       this.deleteData.push(id);
-      console.log(this.deleteData);
     },
     select_all(){
       this.orders.data.map(item=>{
@@ -714,18 +712,17 @@ export default {
         this.deleteData = this.deleteData.filter(item2=>item2!=item.order_id)
         :
         this.deleteData.push(item.order_id)
-        console.log(this.deleteData);
         return 0;
       })
     },
     delete_multiple(){
-      // let con = confirm("Sure want to delete?");
-      this.flash('Hello World', 'success', {
-        timeout: 3000,
-        beforeDestroy() {
-          alert('oh no, not again!');
-        }
-      });
+      let con = confirm("Sure want to delete?");
+      // this.flash('Hello World', 'success', {
+      //   timeout: 3000,
+      //   beforeDestroy() {
+      //     alert('oh no, not again!');
+      //   }
+      // });
 
     
 
@@ -778,7 +775,6 @@ export default {
           }
         });
 
-        console.log(params);
 
         this.$inertia.get(this.route("admin.dashboard.newOrders"), params, {
           replace: true,

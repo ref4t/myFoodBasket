@@ -2115,7 +2115,6 @@ import { Method } from "@inertiajs/inertia";
 import UpperShopNav from "@/Components/UpperShopNav.vue";
 import LowerShopNav from "@/Components/LowerShopNav.vue";
 import Footer from "@/Components/Footer.vue";
-import VShowSlide from "v-show-slide";
 import useValidate from '@vuelidate/core'
 import { required, email, minLength, sameAs, numeric } from '@vuelidate/validators'
 

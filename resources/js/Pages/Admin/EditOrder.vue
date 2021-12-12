@@ -524,7 +524,6 @@ export default {
 
      submit(order){
 
-         console.log(order)
          this.$inertia.post("update/" + order.order_id, order)
      }
 
