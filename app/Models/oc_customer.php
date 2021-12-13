@@ -18,7 +18,7 @@ class oc_customer extends Model
 
    
     public function getAddress(){
-        return $this->hasOne(oc_address::class,'customer_id','customer_id');
+        return $this->hasMany(oc_address::class,'customer_id','customer_id');
     }
     public function getStore(){
         return $this->hasOne(oc_store::class,'store_id','store_id');
@@ -26,4 +26,6 @@ class oc_customer extends Model
     public function getGroup(){
         return $this->hasOne(oc_customer_group_description::class,'customer_group_id','customer_group_id');
     }
+
+
 }

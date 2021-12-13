@@ -10,6 +10,8 @@ use App\Models\oc_customer;
 use App\Models\oc_customer_ip;
 use App\Models\oc_address;
 use App\Models\oc_store;
+use App\Models\oc_country;
+use App\Models\oc_zone;
 
 class CustomerController extends Controller
 {
@@ -42,15 +44,27 @@ class CustomerController extends Controller
     }
 
     public function edit($id){
-        $customer = oc_customer::with('getStore')->where('customer_id', $id)->first();
+        $customer = oc_customer::with('getAddress','getStore')->where('customer_id', $id)->first();
+        $country = oc_country::all();
+        $zone = oc_zone::all();
 
         return Inertia::render('Admin/EditCustomer',[
             'customer' => $customer,
+            'country' => $country,
+            'zone' => $zone
         ]);
     }
+    public function update(Request $request){
+        dd($request->toArray());
+    }
+
+    
 
     public function destroy(Request $request){
         oc_customer::whereIn('customer_id', $request)->delete();
         return redirect(url()->previous() )->with('success', 'Order deleted successfully');
+    }
+    public function addAddress(Request $request){
+        dd($request->toArray());
     }
 }

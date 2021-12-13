@@ -1,5 +1,8 @@
 <template>
   <admin-layout>
+    <template v-slot:header>
+            <h1 class="m-0">CUSTOMER</h1>
+        </template>
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -7,9 +10,8 @@
             <div class="card">
               <form >
                 <div class="card-header">
-                    <h2> Order </h2>
                     <div class="text-right"  >
-                        <Link @click="submit(orders)" as="button" class="btn btn-secondary rounded-pill" style="margin-right:1%" type="submit">Save</Link>
+                        <button @click="update(customer)"  class="btn btn-success rounded-pill" style="margin-right:1%" type="button">Save</button>
                         <Link :href="route('admin.customer')" as="button" class="btn btn-secondary rounded-pill" type="button">Cancel</Link>
                     </div>
                 </div>
@@ -17,47 +19,295 @@
                     <div class="container">
                     <br />
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs">
+                    <ul class="nav  nav-tabs">
                         <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#menu"
-                            >Customer Details</a
+                            >General</a
                         >
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#menu1"
-                            >Payment Details</a
+                            >History</a
                         >
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#menu2"
-                            >Shipping Details</a
+                            >Transactions</a
                         >
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#menu3"
-                            >Products</a
+                            >Reward Points</a
                         >
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#menu4"
-                            >Vouchers</a
+                            >IP Address</a
                         >
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#menu5"
-                            >Totals</a
-                        >
-                        </li>
+                        
                     </ul>
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div id="menu" class="container tab-pane active">
+                        <div id="menu" class="container tab-pane active custom" >
                         <br />
-                        
-                        
                         <div class="card">
-                            
+                          <div class="row">
+                            <div class="col-2">
+                              <div class="nav flex-column nav-tabs " id="v-pills-tab" role="tablist" aria-orientation="vertical" style="min-height:100%" >
+
+
+                                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">General</a>
+                                <!-- addresses -->
+                                <a v-for=" (address,index) in customer.get_address" :key="index" class="nav-link"  :id="'v-pills-address-tab'+ index" data-toggle="pill" :href="'#v-pills-address'+ index" role="tab" :aria-controls="'v-pills-address-'+ index" aria-selected="false">Address {{index + 1}} <i class="fas fa-times-circle float-right" style="color:red;margin-top:5px"></i> </a>
+                                <!-- add new address -->
+                                <a class="nav-link" id="v-pills-add-address-tab" data-toggle="pill" href="#v-pills-add-address" role="tab" aria-controls="v-pills-add-address" aria-selected="false">Add Address</a>
+                              </div>
+                            </div>
+                            <div class="col-10">
+                              <div class="tab-content" id="v-pills-tabContent" >
+
+                              <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                <table class="table table-borderless table-hover">
+                                  <tbody>
+                                    <tr >
+                                      <td style="width:15%">First Name:</td>
+                                      <td>
+                                        <input class="form-control" type="text" name="firstname" v-model="customer.firstname" aria-label="firstname">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Last Name:</td>
+                                      <td>
+                                        <input class="form-control" type="text" name="lastname" v-model="customer.lastname" aria-label="lastname">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Email:</td>
+                                      <td>
+                                        <input class="form-control" type="email" name="email" v-model="customer.email" aria-label="email">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Telephone:</td>
+                                      <td>
+                                        <input class="form-control" type="text" name="telephone" v-model="customer.telephone" aria-label="telephone">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Fax:</td>
+                                      <td>
+                                        <input class="form-control" type="text" name="fax" v-model="customer.fax" aria-label="fax">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Password:</td>
+                                      <td>
+                                        <input class="form-control" type="password" name="password" v-model="password.password" aria-label="password">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Confirm:</td>
+                                      <td>
+                                        <input class="form-control" type="password" name="confirm" v-model="password.confirmPassword"  aria-label="confirm">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Newsletter:</td>
+                                      <td>
+                                        <select v-model="customer.newsletter" class="form-control" name="newsletter" id="">
+                                          <option value="0" >Disable</option>
+                                          <option value="1" >Enable</option>
+                                        </select>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Customer Group:</td>
+                                      <td>
+                                        <select v-model="customer.customer_group_id" class="form-control" name="customer_group_id" id="">
+                                          <option value="1" >Default</option>
+                                        </select>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Status:</td>
+                                      <td>
+                                        <select v-model="customer.status" class="form-control" name="status" id="">
+                                          <option value="0" >Disable</option>
+                                          <option value="1" >Enable</option>
+                                        </select>
+                                      </td>
+                                    </tr>
+
+                                  </tbody>
+                                </table>
+                              </div>
+
+                              <div v-for=" (address,index) in customer.get_address" :key="index" class="tab-pane fade" :id="'v-pills-address'+ index" role="tabpanel" :aria-labelledby="'v-pills-address-tab'+ index">
+                                <table class="table table-borderless table-hover" >
+                                  <tbody>
+                                    <tr>
+                                      <td style="width:15%">First Name:</td>
+                                      <td>
+                                        <input class="form-control" type="text" name="firstname" v-model="address.firstname" aria-label="firstname">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Last Name:</td>
+                                      <td>
+                                        <input class="form-control" type="text" name="lastname" v-model="address.lastname" aria-label="lastname">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Company:</td>
+                                      <td>
+                                        <input class="form-control" type="text" name="company" v-model="address.company" aria-label="company">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Company ID:</td>
+                                      <td>
+                                        <input class="form-control" type="text" name="company_id" v-model="address.company_id" aria-label="company_id">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Address 1:</td>
+                                      <td>
+                                        <input class="form-control" type="text" name="address_1" v-model="address.address_1" aria-label="address_1">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Address 2:</td>
+                                      <td>
+                                        <input class="form-control" type="text" name="address_2" v-model="address.address_2" aria-label="address_2">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">City:</td>
+                                      <td>
+                                        <input class="form-control" type="text" name="city" v-model="address.city" aria-label="city">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Postcode:</td>
+                                      <td>
+                                        <input class="form-control" type="text" name="postcode" v-model="address.postcode" aria-label="postcode">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Country:</td>
+                                      <td>
+                                        <select v-model="address.country_id" class="form-control" name="country" id="country">
+                                          <option v-for="country in country" :key="country.country_id" :value="country.country_id"> {{country.name}} </option>
+                                        </select>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Region/State:</td>
+                                      <td>
+                                        <select v-model="address.zone_id" class="form-control" name="" id="">
+                                          <template v-for="zone in zone" :key="zone.zone_id" >
+                                            <option v-if="zone.country_id == address.country_id" :value="zone.zone_id"> {{zone.name}} </option>
+                                          </template>
+                                        </select>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:15%">Default Address:</td>
+                                      <td>
+                                        <input  type="radio" name="default" v-model="defaultAddress" :value="address.address_id" aria-label="default">
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <div class="tab-pane fade" id="v-pills-add-address" role="tabpanel" aria-labelledby="v-pills-add-address-tab">
+                                <form @submit.prevent="addAddress" method="post">
+                                  <table class="table table-borderless table-hover" >
+                                    <tbody>
+                                      <tr>
+                                        <td style="width:15%">First Name:</td>
+                                        <td>
+                                          <input class="form-control" type="text" name="firstname" v-model="this.form.firstname" aria-label="firstname">
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style="width:15%">Last Name:</td>
+                                        <td>
+                                          <input class="form-control" type="text" name="lastname" v-model="this.form.lastname" aria-label="lastname">
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style="width:15%">Company:</td>
+                                        <td>
+                                          <input class="form-control" type="text" name="company" v-model="this.form.company" aria-label="company">
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style="width:15%">Company ID:</td>
+                                        <td>
+                                          <input class="form-control" type="text" name="company_id" v-model="this.form.company_id" aria-label="company_id">
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style="width:15%">Address 1:</td>
+                                        <td>
+                                          <input class="form-control" type="text" name="address_1" v-model="this.form.address_1" aria-label="address_1">
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style="width:15%">Address 2:</td>
+                                        <td>
+                                          <input class="form-control" type="text" name="address_2" v-model="this.form.address_2" aria-label="address_2">
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style="width:15%">City:</td>
+                                        <td>
+                                          <input class="form-control" type="text" name="city" v-model="this.form.city" aria-label="city">
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style="width:15%">Postcode:</td>
+                                        <td>
+                                          <input class="form-control" type="text" name="postcode" v-model="this.form.postcode" aria-label="postcode">
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style="width:15%">Country:</td>
+                                        <td>
+                                          <select v-model="this.form.country" class="form-control" name="country" id="country">
+                                            <option v-for="country in country" :key="country.country_id" :value="country.country_id"> {{country.name}} </option>
+                                          </select>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style="width:15%">Region/State:</td>
+                                        <td>
+                                          <select v-model="this.form.zone" class="form-control" name="" id="">
+                                            <template v-for="zone in zone" :key="zone.zone_id" >
+                                              <option v-if="zone.country_id == this.form.country" :value="zone.zone_id"> {{zone.name}} </option>
+                                            </template>
+                                          </select>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style="width:15%">Default Address:</td>
+                                        <td>
+                                          <input  type="radio" name="default" v-model="this.form.default" :value="1" aria-label="default">
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <div class="float-right m-2">
+                                    <button class="btn btn-success rounded" >Add Address</button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
                         </div>
                         
                         
@@ -105,15 +355,7 @@
                             aperiam.
                         </p>
                         </div>
-                        <div id="menu5" class="container tab-pane fade">
-                           <h3>Menu 5</h3>
-                        <p>
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem accusantium doloremque laudantium, totam rem
-                            aperiam.
-                        </p> 
-
-                        </div>
+                        
                     </div>
                     </div>
                 </div>
@@ -144,16 +386,50 @@ export default {
 
   props:{
       customer: Object,
+      country: Object,
+      zone: Object
   },
 
   data(){
       return{
-          
+          defaultAddress:'',
+          password:{
+            password:'',
+            confirmPassword:'',
+          },
+          form:{
+            firstname:'',
+            lastname:'',
+            company:'',
+            company_id:'',
+            address_1:'',
+            address_2:'',
+            city:'',
+            postcode:'',
+            country:'',
+            zone:'',
+            default:''
+
+          }
       }
   },
+  mounted(){
+    this.defaultAddress = this.customer.address_id,
+    console.log(this.defaultAddress)
+    },
+
   methods: {
-    
+    update(customerData){
+      this.$inertia.post(this.route('admin.customer.update',customerData,{replace: true, preserveState: true}))
+    },
+    addAddress(){
+      this.$inertia.post(this.route('admin.customer.addAddress',this.form,{replace: true, preserveState: true}))
+    }
 
   }
 };
 </script>
+
+<style>
+
+</style>
