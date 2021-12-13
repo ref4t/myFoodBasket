@@ -733,7 +733,6 @@ export default {
         this.deleteData = [];
       }
 
-      window.$('#check_all').props('checked',false);
     },
     sort(field) {
       this.params.field = field;

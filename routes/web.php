@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\NewOrderController;
+use App\Http\Controllers\Admin\CustomerController;
 
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\MemberController;
@@ -88,6 +89,11 @@ Route::prefix('admin')->group(function(){
     Route::get('/transactions', [TransactionController::class, 'index'])->name('admin.dashboard.transactions');
     Route::get('/new-orders', [NewOrderController::class, 'index'])->name('admin.dashboard.newOrders');
     Route::post('/new-orders', [NewOrderController::class, 'destroy'])->name('admin.newOrders.delete');
+
+
+    Route::get('/user',[CustomerController::class,'index'])->name('admin.customer');
+    Route::get('/user/edit/{id}',[CustomerController::class,'edit'])->name('admin.customer.edit');
+    Route::post('/new-orders', [CustomerController::class, 'destroy'])->name('admin.customer.delete');
 });
 
 require __DIR__.'/auth.php';

@@ -29,11 +29,15 @@ class NewOrderController extends Controller
             $shop = 'Wymondham Kebabs';
             $shop_id = 46;
 
-            $orders = oc_order::with('getProducts','getTotal')->select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+            if( !request('search') && !request('field' ) && !request('direction' ) && !request('record' ) && !request('order_type' ) && !request('order_no' ) && !request('order_no' )){
+                $orders = oc_order::with('getProducts','getTotal')->select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
                                 
                                 ->where([['store_name', '=', $shop] , ['date_added','>=', Carbon::now()->subYear()]])
                                 ->orderBy('date_added','DESC')
                                 ->paginate(20);
+            }
+
+            
             
             $top_users = oc_order::where('store_name', $shop )->select('customer_id', 'firstname','lastname',DB::raw('SUM(total) AS sumtotal'))
                 ->groupBy('customer_id','firstname','lastname')
@@ -68,6 +72,7 @@ class NewOrderController extends Controller
                 $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
                                     ->where('store_name', $shop )
                                     ->where('firstname','LIKE','%'.request('search').'%')
+                                    ->orWhere('lastname','LIKE','%'.request('search').'%')
                                     ->paginate(20);
             }
             if(request('order_type')){ 

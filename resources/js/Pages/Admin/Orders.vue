@@ -1,15 +1,14 @@
 <template>
   <admin-layout>
+    <template v-slot:header>
+            <h1 class="m-0 text-capitalize">Total Orders</h1>
+        </template>
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header">
-                <h2>Total Orders</h2>
-
-                
-              </div>
+              
               <div class="card-body table-responsive p-0">
                 <table class="table table-bordered table-hover text-nowrap">
                   <thead class="thead-primary">
