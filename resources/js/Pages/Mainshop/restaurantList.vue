@@ -69,9 +69,9 @@
                         <div class="row">
                             <div class="input-group resault_search">
                                 <span><i title="Display restaurants around my location first" class=" fa fa-map-marker mylocation"></i></span>
-                                <input type="text" placeholder="Eg. WN4 OAR" name="search_resault" class="form-control col-sm-3" v-model="search">
+                                <input type="text" placeholder="Eg. WN4 OAR" name="search_resault" class="form-control col-sm-3" v-model="zipCode">
                                 <div class="btn-group">
-                                    <button id="search-resault" class="btn btn-default" type="button">FIND</button>
+                                    <button id="search-resault" class="btn btn-default" type="button" v-on:click="searchShop">FIND</button>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                         <div class="row  listing-row">
                             <div class="listing_content">
                             <div class="col-xs-12 col-sm-4 thumbnail_store">
-                                <a class="thumbnail" href="http://www.the-public.co.uk/index.php?route=common/store&amp;store=35">
+                                <a class="thumbnail" :href="'/restaurant/'+shop.store_id+'?zip='+search">
                                     <div class="table">
                                         <div class="table-cell">
                                         <img :src="'/image/'+shop.config_logo" :alt="shop.config_name">
@@ -103,14 +103,14 @@
                             </div>
             
                             <div class="col-xs-12 col-sm-8 col-md-6 decription_store">
-                                <h3><a :href="'/restaurant/'+shop.store_id+'?zip='+search" class="">{{shop.config_name}}</a></h3>
+                                <h3><a :href="'/restaurant/'+shop.store_id+'?zip='+search" class="">{{htmlDecode(shop.config_name)}}</a></h3>
                                 <div class="reviews">
                                     <div class="star-rating rating-sm rating-disabled">
                                         <div class="rating-container rating-gly-star" data-content="">                    
-                                                <star-rating :star-size="18" :show-rating="false" :increment=".5" :rating="rating" :read-only="true" />
+                                                <star-rating :star-size="18" :show-rating="false" :increment=".5" :rating="Math.round(shop.point)" :read-only="true" />
                                                 </div>
                                                 </div>
-                                    <label>(2 Reviews)</label>
+                                    <label>({{shop.total}} Reviews)</label>
                                     <a class="writereview" rel="35" href="#">Write a review</a>
                                 </div>
                                 <p class="address">{{shop.config_address}}</p>
@@ -119,7 +119,8 @@
                                 <p class="free">Free delivery availble</p>
                                                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-2 timesetting">
-                                                                    <button class="btn btn-primary btn-open">Open</button>
+                                    <button class="btn btn-primary btn-open" v-if="shop.open">Open</button>
+                                    <button class="btn btn-primary btn-close" v-else>Close</button>
                                     <Link :href="shop.config_ssl" class="gotoweb">Visit website</Link>
                                     <div class="timesetting_store" style="display: none;">
                                                                             </div>
@@ -155,13 +156,19 @@ export default {
   data() {
       return {
          
-            search:this.search,
-            rating:4.5,
+            zipCode:this.search,
       
       };
   },
- created() {
-           
-    }
+ methods: {
+        htmlDecode(input) {
+        var doc = new DOMParser().parseFromString(input, "text/html");
+        return doc.documentElement.textContent;
+        },
+        searchShop(){
+             console.log(this.zipCode);
+             this.$inertia.get(this.route('mainshopSearch'),{zip:this.zipCode},{ preserveState: true, preserveScroll: true})
+         }
+  },
 };
 </script>
