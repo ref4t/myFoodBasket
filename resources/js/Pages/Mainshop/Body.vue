@@ -14,7 +14,7 @@
             <div class="input-group">
                 <i class="fa fa-map-marker mylocation"></i>
                 <input type="text" placeholder="Eg. WN4 OAR" name="search_resault" class="form-control col-sm-3" v-model="zipCode">
-                <p class="bg-danger" v-if="$page.props.message">{{$page.props.message}}</p>
+                <p class="bg-danger" v-if="$page.props.message">{{htmlDecode($page.props.message)}}</p>
                 <div class="btn-group">
                     <button id="search-resault" class="btn btn-default" type="button" v-on:click="searchShop">FIND</button>
                 </div>
@@ -49,6 +49,10 @@ export default {
     },
     
      methods: {
+         htmlDecode(input) {
+        var doc = new DOMParser().parseFromString(input, "text/html");
+        return doc.documentElement.textContent;
+        },
          searchShop(){
              console.log(this.zipCode);
              this.$inertia.get(this.route('mainshopSearch'),{zip:this.zipCode},{ preserveState: true, preserveScroll: true})

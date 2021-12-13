@@ -1,5 +1,6 @@
 <template>
 <Head title="Home">
+    <link rel="stylesheet" href="/css/mainshop/style_page_other.css">
     </Head>
     <MainshopHeader/>
     <div id="resault-slider">
@@ -26,7 +27,7 @@
                                 </a>
                             </div>            
                             <div class="col-xs-12 col-sm-4 col-md-6 col-xs-5">
-                                <h3><a :href="'/restaurant/'+setting.store_id" class="">{{setting.config_name}}</a></h3>
+                                <h3><a :href="'/restaurant/'+setting.store_id" class="">{{htmlDecode(setting.config_name)}}</a></h3>
                                 <div class="reviews">
                                     <div class="star-rating rating-sm rating-disabled"><div class="rating-container rating-gly-star" data-content="">
                                         <div class="rating-stars" style="width: 80%;"></div>
@@ -42,11 +43,21 @@
                                 <p class="free">Free delivery availble</p>
                                 </div>
                             <div class="col-xs-12 col-sm-4 col-md-2 timesetting col-xs-3">
-                                                                    <button class="btn btn-primary btn-close">Close</button>
-                                    <a href="http://www.store2.the-public.co.uk/" class="gotoweb">Visit website</a> 
-                                    <div class="timesetting_store">
+                                    <button class="btn btn-primary btn-open" v-if="timeSetting.open">Open</button>
+                                    <button class="btn btn-primary btn-close" v-else>Close</button>
+                                    <a :href="setting.config_ssl" class="gotoweb">Visit website</a> 
+                                    <div class="timesetting_store" v-if="!timeSetting.open">
                                     <label class="">We will be back within</label>
-                                    <div class="timedown is-countdown" data-until="600"><span class="countdown-row countdown-show3"><span class="countdown-section"><span class="countdown-amount">0</span><span class="countdown-period">Hours</span></span><span class="countdown-section"><span class="countdown-amount">6</span><span class="countdown-period">Minutes</span></span><span class="countdown-section"><span class="countdown-amount">56</span><span class="countdown-period">Seconds</span></span></span></div>
+                                    <div class="timedown is-countdown" data-until="600">
+                                        <span class="countdown-row countdown-show3">
+                                            <span class="countdown-section">
+                                                <span class="countdown-amount">{{hours}}</span><span class="countdown-period">Hours</span></span>
+                                                    <span class="countdown-section">
+                                                        <span class="countdown-amount">{{minutes}}</span>
+                                                    <span class="countdown-period">Minutes</span></span>
+                                                    <span class="countdown-section">
+                                                        <span class="countdown-amount">{{seconds}}</span>
+                                                        <span class="countdown-period">Seconds</span></span></span></div>
                                     </div>
                                  </div>
                             <div class="col-xs-12 col-sm-12 col-md-5 col-sm-offset-0 col-md-offset-4">
@@ -72,91 +83,16 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <ul class="box-category">
-                                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=436">Pizza (53)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=437">Kebabs (18)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=438">Burgers (35)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=439">Wraps (10)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=441">Omelettes (7)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=440">Kids Menu (5)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=443">Drinks (22)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1752">weekend Special (1)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1754">Hotdog (3)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1770">Popular Dishes (1)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1771">Special Offers (19)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1772">Garlic Breads (6)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1773">Fried Chicken (14)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1774">Hot Wings (2)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1775">Chicken Strips (2)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1776">Chicken Nuggets (2)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1777">Extras (17)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1778">Desserts (4)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1779">Kids Meals (7)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1780">Meal Deals (12)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1784">Baguette (2)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1785">Big Feast (1)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1787">Meal Deal (2)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1788">Peri Peri (10)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1789">Kids Korner (4)</a>
-                  </li>
-                                    <li>
-                    <a href="http://www.store2.the-public.co.uk/index.php?route=product/category&amp;path=1790">Salads (2)</a>
-                  </li>
-                                              </ul>
+                <li v-for="category in category">
+                    <a :href="setting.config_ssl+'menu?category='+category.category_id">{{htmlDecode(category.get_category_description.name)+' ('+category.get_category_description.get_category_product_count+')'}} </a>
+                </li>                     
+            </ul>
         </div>
     </div>
 </div>
                     </div>
                     <div class="tab-pane counties-pane" id="review">
-                                                <button type="button" class="btn btn-default" data-target="#popuplogin" data-toggle="modal">Login</button>
+                    <button type="button" class="btn btn-default" data-target="#popuplogin" data-toggle="modal">Login</button>
                 <div class="row listing-row" v-for="reviews in review.data">
                     <div class="col-xs-3 col-sm-2 avatar" style="display:none;">
                         <a class="thumbnail " href="#">
@@ -166,7 +102,7 @@
                     </div>  
                     <div class="col-xs-12 col-sm-12 review_content">
                         <div class="infor-review">
-                            <p class="author pull-left"><span class="name-author"><b>Customer: </b>{{reviews.get_customer.firstname+' '+reviews.get_customer.lastname}}</span>
+                            <p class="author pull-left"><span class="name-author" v-if="reviews.get_customer"><b>Customer: </b>{{reviews.get_customer.firstname+' '+reviews.get_customer.lastname}}</span>
                                                         <span class="date_review"><b>Time: </b>{{reviews.date_added}}</span>  </p>
                             <div class="pull-right">
                                 <div class="star-rating rating-sm rating-disabled"><div class="rating-container rating-gly-star" data-content=""><div class="rating-stars" data-content="" style="width: 80%;"></div><input value="4" type="number" class="rating form-control hide" name="quality" disabled="true" min="0" max="5" step="1" data-size="sm"></div></div>
@@ -252,30 +188,46 @@ export default {
     props: {
     setting: Object,
     review:Object,
+    delivery:Array,
+    timeSetting:Object,
+    reviewCount:Array,
+    category:Array,
   },
   data() {
       return {
             opening_hours:null,
-            rating:4.5,
+            rating:0,
             review_count:null,
             store_open_staus:null,
+            hours:0,
+            minutes:0,
+            seconds:0,
+            counter:0,
       
       };
   },
   created(){
-      this.review_count=this.review.data.length;
-      var setting_var=this.setting;
-        var url_string = window.location.href;
-        var url = new URL(url_string);
-        var zip = url.searchParams.get("zip");
-        var result = Object.entries(setting_var);
-        var keys=[];
-        for(let i=0; i<result.length ; i++){
-            if(result[i][1].includes(zip)){
-                keys.push(result[i][0]);
-            }
+      this.review_count=this.reviewCount[0].total;
+      this.rating=Math.round(this.reviewCount[0].point);
+        setInterval(() => {
+            var timeSeconds = this.timeSetting.until;
+            var distance = timeSeconds - this.counter;
+                var hours = Math.floor((distance % ( 60 * 60 * 24)) / (60 * 60));
+                var minutes = Math.floor((distance % (60 * 60)) / ( 60));
+                var seconds = Math.floor((distance % ( 60)));
+                
+                this.hours=hours;
+                this.minutes=minutes;
+                this.seconds=seconds;
+                this.counter++;               
+            }, 1000)
+        
+  },
+  methods: {
+        htmlDecode(input) {
+        var doc = new DOMParser().parseFromString(input, "text/html");
+        return doc.documentElement.textContent;
         }
-                console.log(keys);
   },
 };
 </script>
