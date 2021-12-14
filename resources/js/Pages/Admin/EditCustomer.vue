@@ -21,27 +21,27 @@
                     <!-- Nav tabs -->
                     <ul class="nav  nav-tabs font-weight-bold">
                         <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#menu"
+                        <a class="nav-link active" data-toggle="tab" href="#general"
                             >General</a
                         >
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#menu1"
+                        <a class="nav-link" data-toggle="tab" href="#history"
                             >History</a
                         >
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#menu2"
+                        <a class="nav-link" data-toggle="tab" href="#transaction"
                             >Transactions</a
                         >
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#menu3"
+                        <a class="nav-link" data-toggle="tab" href="#reward"
                             >Reward Points</a
                         >
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#menu4"
+                        <a class="nav-link" data-toggle="tab" href="#ip"
                             >IP Address</a
                         >
                         </li>
@@ -50,7 +50,7 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div id="menu" class=" tab-pane active custom" >
+                        <div id="general" class=" tab-pane active custom" >
                         <br />
                         <div class="card">
                           <div class="row">
@@ -324,48 +324,193 @@
                         
                         
                         </div>
-                        <div id="menu1" class=" tab-pane fade">
+                        <div id="history" class=" tab-pane fade">
                         <br />
 
-                        <div class="card">
-                            <h3>Menu 2</h3>
-                        <p>
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem accusantium doloremque laudantium, totam rem
-                            aperiam.
-                        </p>
-                        </div>
-
-
-                        </div>
-                        <div id="menu2" class=" tab-pane fade">
-                        <br />
                         
-                        <h3>Menu 2</h3>
-                        <p>
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem accusantium doloremque laudantium, totam rem
-                            aperiam.
-                        </p>
+                            <table class="table table-bordered">
+                              <thead >
+                                <tr class="table-primary">
+                                  <th scope="col" style="width:25%" >Date Added</th>
+                                  <th scope="col">Comment</th>
+                                  <th scope="col" style="width:10%" >Action</th>
+                                </tr>
+                              </thead>
+                              
+                              <tbody>
+                                
+                                  <tr v-for="history in history" :key="history.customer_history_id" >
+                                    <td>{{history.date_added}}</td>
+                                    <td>{{history.comment}}</td>
+                                    <td>
+                                      <button @click="deleteHistory(history.customer_history_id)" class="btn btn-danger rounded-pill" type="button">DELETE</button>
+                                    </td>
+                                  </tr>
+                                
+                                  <tr v-if="!history.length" >
+                                    <td colspan="3" class="text-center" >No Results!</td>
+                                  </tr>
+                              </tbody>
+                            </table>
+
+                            <form @submit.prevent="addHistory(this.historyData, customer.customer_id)" method="post">
+                              <table class="table table-borderless" >
+                                <tbody>
+                                  <tr>
+                                    <td style="width:25%" >Comment:</td>
+                                    <td>
+                                      <textarea v-model="this.historyData.comment" type="textarea" class="form-control" placeholder="Write a comment" />
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="2" class="text-right">
+                                      <button class="btn btn-success rounded-pill" type="submit" >ADD HISTORY</button>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </form>
+                        
+
 
                         </div>
-                        <div id="menu3" class=" tab-pane fade">
-                        <h3>Menu 3</h3>
-                        <p>
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem accusantium doloremque laudantium, totam rem
-                            aperiam.
-                        </p>
-
-                        </div>
-                        <div id="menu4" class=" tab-pane fade">
+                        <div id="transaction" class=" tab-pane fade">
                         <br />
-                        <h3>Menu 4</h3>
-                        <p>
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem accusantium doloremque laudantium, totam rem
-                            aperiam.
-                        </p>
+                          <table class="table table-bordered">
+                            <thead >
+                              <tr class="table-primary">
+                                <th scope="col" style="width:25%" >Date Added</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col" style="width:10%">Action</th>
+                              </tr>
+                            </thead>
+                            
+                            <tbody>
+                              
+                                <tr v-for="transaction in transactions" :key="transaction.customer_transaction_id" >
+                                  <td>{{transaction.date_added}}</td>
+                                  <td>{{transaction.description}}</td>
+                                  <td>{{format(transaction.amount)}}</td>
+                                   <td>
+                                     <button @click="deleteTransaction(transaction.customer_transaction_id)" class="btn btn-danger rounded-pill" type="button">DELETE</button>
+                                   </td>
+                                </tr>
+                              
+                                <tr v-if="!transactions.length" >
+                                  <td colspan="4" class="text-center" >No Results!</td>
+                                </tr>
+                            </tbody>
+                          </table>
+
+                          <form @submit.prevent="addTransaction(this.transactionData, customer.customer_id)" method="post">
+                            <table class="table table-borderless" >
+                              <tbody>
+                                <tr>
+                                  <td style="width:25%" >Description:</td>
+                                  <td>
+                                    <input v-model="this.transactionData.description" type="text" class="form-control" >
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="width:25%" >Amount:</td>
+                                  <td>
+                                    <input v-model="this.transactionData.amount" type="text" class="form-control" >
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2" class="text-right">
+                                    <button class="btn btn-success rounded-pill" type="submit" >ADD TRANSACTION</button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </form>
+
+                        </div>
+                        <div id="reward" class=" tab-pane fade">
+                        <br />
+                          <table class="table table-bordered">
+                            <thead >
+                              <tr class="table-primary">
+                                <th scope="col" style="width:25%" >Date Added</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Points</th>
+                                <th scope="col" style="width:10%">Action</th>
+                              </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <tr v-for="reward in rewards" :key="reward.customer_reward_id" >
+                                  <td>{{reward.date_added}}</td>
+                                  <td>{{reward.description}}</td>
+                                  <td>{{format(reward.points)}}</td>
+                                   <td>
+                                     <button @click="deleteReward(reward.customer_reward_id)" class="btn btn-danger rounded-pill" type="button">DELETE</button>
+                                   </td>
+                                </tr>
+                              
+                                <tr v-if="!rewards.length" >
+                                  <td colspan="4" class="text-center" >No Results!</td>
+                                </tr>
+                            </tbody>
+                          </table>
+
+                          <form @submit.prevent="addReward(this.rewardData, customer.customer_id)" method="post">
+                            <table class="table table-borderless" >
+                              <tbody>
+                                <tr>
+                                  <td style="width:25%" >Description:</td>
+                                  <td>
+                                    <input v-model="this.rewardData.description" type="text" class="form-control" >
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="width:25%" >
+                                    Points: <br/>
+                                    Use minus to remove points
+                                  </td>
+                                  <td>
+                                    <input v-model="this.rewardData.points" type="text" class="form-control" >
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2" class="text-right">
+                                    <button class="btn btn-success rounded-pill" type="submit" >ADD REWARD</button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </form>
+
+                        </div>
+                        <div id="ip" class=" tab-pane fade">
+                        <br />
+                          <table class="table table-bordered">
+                            <thead >
+                              <tr class="table-primary">
+                                <th scope="col" >ip</th>
+                                <th scope="col">Total Accounts</th>
+                                <th scope="col">Date Added</th>
+                                <th scope="col" style="width:10%">Action</th>
+                              </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <tr v-for="(ip,index) in ips" :key="index" >
+                                  <td > <a :href="'http://www.geoiptool.com/en/?IP='+ ip.ip" target="_blank" >{{ip.ip}}</a> </td>
+                                  <td>{{accounts[index]}}</td>
+                                  <td>{{ip.date_added}}</td>
+                                   <td>
+                                     <button @click="banIp(ip.ip)" class="btn btn-danger rounded-pill" type="button">BAN IP</button>
+                                   </td>
+                                </tr>
+                              
+                                <tr v-if="!ips.length" >
+                                  <td colspan="4" class="text-center" >No Results!</td>
+                                </tr>
+                            </tbody>
+                          </table>
                         </div>
                         
                     </div>
@@ -399,7 +544,12 @@ export default {
   props:{
       customer: Object,
       country: Object,
-      zone: Object
+      zone: Object,
+      history: Object,
+      transactions: Object,
+      rewards: Object,
+      ips: Object,
+      accounts: Array
   },
 
   data(){
@@ -423,29 +573,76 @@ export default {
             zone_id:'',
             default:''
 
+          },
+          historyData:{
+            comment:''
+          },
+          transactionData:{
+            description:'',
+            ammount:''
+          },
+          rewardData:{
+            description:'',
+            points:'',
           }
       }
   },
   mounted(){
-    this.defaultAddress = this.customer.address_id,
-    console.log(this.defaultAddress)
+    this.defaultAddress = this.customer.address_id
     },
 
   methods: {
+    format(value) {
+      let val = (value / 1).toFixed(2);
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
     update(customerData, password,defaultAddress){
       this.$inertia.post(this.route('admin.customer.update',{customerData, password,defaultAddress},{replace: true, preserveState: true}))
     },
     addAddress(formData,id){
-      console.log(formData,id);
       this.$inertia.post(this.route('admin.customer.addAddress',{formData, id},{replace: true, preserveState: true}))
     },
     deleteAddress(id){
-      console.log(id)
       let con = confirm("Sure want to delete?");
       if (con){
-        this.$inertia.post(this.route('admin.customer.deleteAddress',{id},{replace: true, preserveState: true}))
+        this.$inertia.post(this.route('admin.customer.deleteAddress',{id}))
       }
-    }
+    },
+    addHistory(form,id){
+      this.$inertia.post(this.route('admin.customer.addHistory',{form,id},{replace: true, preserveState: true}))
+    },
+    deleteHistory(id){
+      let con = confirm("Sure want to delete?");
+      if (con){
+        this.$inertia.post(this.route('admin.customer.deleteHistory',{id},{replace: true, preserveState: true}))
+      }
+    },
+    addTransaction(form,id){
+      this.$inertia.post(this.route('admin.customer.addTransaction',{form,id},{replace: true, preserveState: true}))
+    },
+    deleteTransaction(id){
+      let con = confirm("Sure want to delete?");
+      if (con){
+        this.$inertia.post(this.route('admin.customer.deleteTransaction',{id},{replace: true, preserveState: true}))
+      }
+    },
+    addReward(form,id){
+      this.$inertia.post(this.route('admin.customer.addReward',{form,id},{replace: true, preserveState: true}))
+    },
+    deleteReward(id){
+      let con = confirm("Sure want to delete?");
+      if (con){
+        this.$inertia.post(this.route('admin.customer.deleteReward',{id},{replace: true, preserveState: true}))
+      }
+    },
+    banIp(ip){
+      let con = confirm("Sure want to Ban this Ip?");
+      if(con){
+        this.$inertia.post(this.route('admin.customer.banIp',{ip},{replace: true, preserveState: true}))
+      }
+      
+    },
+    
 
   }
 };

@@ -92,11 +92,20 @@ Route::prefix('admin')->group(function(){
 
 
     Route::get('/customer',[CustomerController::class,'index'])->name('admin.customer');
+    Route::get('/customer/create', [CustomerController::class, 'create'])->name('admin.customer.create');
+    Route::post('/customer/create', [CustomerController::class, 'store'])->name('admin.customer.create');
     Route::get('/customer/edit/{id}',[CustomerController::class,'edit'])->name('admin.customer.edit');
     Route::post('/customer/delete', [CustomerController::class, 'destroy'])->name('admin.customer.delete');
     Route::post('/customer/update', [CustomerController::class, 'update'])->name('admin.customer.update');
     Route::post('/customer/addAddress', [CustomerController::class, 'addAddress'])->name('admin.customer.addAddress');
     Route::post('/customer/deleteAddress/{id}', [CustomerController::class, 'deleteAddress'])->name('admin.customer.deleteAddress');
+    Route::post('/customer/addHistory', [CustomerController::class, 'addHistory'])->name('admin.customer.addHistory');
+    Route::post('/customer/deleteHistory/{id}', [CustomerController::class, 'deleteHistory'])->name('admin.customer.deleteHistory');
+    Route::post('/customer/addTransaction', [CustomerController::class, 'addTransaction'])->name('admin.customer.addTransaction');
+    Route::post('/customer/deleteTransaction/{id}', [CustomerController::class, 'deleteTransaction'])->name('admin.customer.deleteTransaction');
+    Route::post('/customer/addReward', [CustomerController::class, 'addReward'])->name('admin.customer.addReward');
+    Route::post('/customer/deleteReward/{id}', [CustomerController::class, 'deleteReward'])->name('admin.customer.deleteReward');
+    Route::post('/customer/banIp/{ip}', [CustomerController::class, 'banIp'])->name('admin.customer.banIp');
 });
 
 require __DIR__.'/auth.php';

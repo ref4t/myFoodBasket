@@ -29,6 +29,24 @@ class oc_customer extends Model
         return $this->hasOne(oc_customer_group_description::class,'customer_group_id','customer_group_id');
     }
 
+    public function store($customer, $address){
+        DB::beginTransaction();
+		try{
+            DB::select("INSERT INTO oc_customer SET firstname = '" .($customer['firstname']) . "', lastname = '" .($customer['lastname']) . "', email = '" .($customer['email']) . "',password = '" .($customer['password']) . "',salt = 0, telephone = '" .($customer['telephone']) . "', fax = '" .($customer['fax']) . "', newsletter = '" . (int)$customer['newsletter'] . "', customer_group_id = '" . (int)$customer['customer_group_id'] . "', status = '" . (int)$customer['status'] . "',approved = 1,token = ' ', date_added = NOW()");
+            $customer_id = DB::getPdo()->lastInsertId();
+            DB::select("INSERT INTO oc_address SET  customer_id = '" . (int)$customer_id . "', firstname = '" .($address['firstname']) . "', lastname = '" .($address['lastname']) . "', company = '" .($address['company']) . "', company_id = '" .($address['company_id']) . "', tax_id = '" .($address['tax_id']) . "', address_1 = '" .($address['address_1']) . "', address_2 = '" .($address['address_2']) . "', city = '" .($address['city']) . "', postcode = '" .($address['postcode']) . "', country_id = '" . (int)$address['country_id'] . "', zone_id = '" . (int)$address['zone_id'] . "'");
+            $address_id = DB::getPdo()->lastInsertId();
+            DB::select("UPDATE oc_customer SET address_id = '" . (int)$address_id . "' WHERE customer_id = '" . (int)$customer_id . "'");
+            
+            return $customer_id;
+            
+        }catch (\Exception $e) {
+            dd($e);
+            DB::rollback();
+            // something went wrong
+        }
+    }
+
     public function editCustomer($data, $password, $defaultAdd) {
         DB::beginTransaction();
 		try{
