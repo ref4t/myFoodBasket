@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="/css/shoptheme1/owl.carousel.css" />
     <link rel="stylesheet" href="/css/shoptheme1/topmenu.css" />
     <link rel="stylesheet" href="/css/shoptheme1/ybc-testimonials.css" />
+    <link rel="stylesheet" href="/css/shoptheme1/ets_green.css" />
   </Head>
 
-  <body class="home lang_en ets_green">
+  <div class="home lang_en ets_green">
     <div
       id="smartbanner"
       class="android shown"
@@ -56,7 +57,7 @@
                   <div class="ctr"></div>
 
                   <!-- Banner -->
-                  <Banner />
+                  <Banner :shop-logo='shopLogo' :shop-open="shopOpen"/>
 
                   <div class="ctr"></div>
                 </div>
@@ -873,13 +874,11 @@
                               >
                                 <div id="frm_subscribe">
                                   <form
-                                    name="subscribe"
-                                    id="subscribe"
-                                    class="subscribe-form"
+                                    @submit.prevent="newsform"
                                   >
                                     <div class="row subscribe-form-sec">
                                       <div class="left_cd">
-                                        <select name="title">
+                                        <select v-model="newsData.title" name="title">
                                           <option value="">Select Title</option>
                                           <option value="Mr.">Mr.</option>
                                           <option value="Mrs.">Mrs.</option>
@@ -891,6 +890,7 @@
                                       </div>
                                       <div class="left_cd">
                                         <input
+                                          v-model="newsData.firstName"
                                           type="text"
                                           name="subscribe_name"
                                           placeholder="Enter Your First Name"
@@ -898,6 +898,7 @@
                                       </div>
                                       <div class="left_cd">
                                         <input
+                                          v-model="newsData.lastName"
                                           type="text"
                                           name="last-name"
                                           placeholder="Enter Your Last Name"
@@ -905,6 +906,7 @@
                                       </div>
                                       <div class="left_cd">
                                         <input
+                                          v-model="newsData.email"
                                           type="text"
                                           name="subscribe_email"
                                           placeholder="Enter your email address"
@@ -912,17 +914,18 @@
                                       </div>
                                       <div class="left_cd">
                                         <input
+                                          v-model="newsData.telephone"
                                           type="text"
                                           name="telephone"
                                           placeholder="Enter your Telephone"
                                         />
                                       </div>
-                                      <div id="subscribe_result"></div>
+                                      <div v-if="v$.newsData.$error" id="subscribe_result"><span class="error">Invalid Data</span></div>
                                       <div class="newBookingbtn">
-                                        <a
-                                          class="button"
-                                          onclick="email_subscribe()"
-                                          ><span>Sign up</span></a
+                                        <button
+                                          class="cusButton"
+                                          type="submit"
+                                          ><span>Sign up</span></button
                                         >
                                       </div>
                                     </div>
@@ -978,7 +981,7 @@
     >
       <div id="scroll_ico"></div>
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
@@ -989,6 +992,8 @@ import Banner from "@/Components/Banner.vue";
 import LowerShopNav from "@/Components/LowerShopNav.vue";
 import Menu from "@/Components/Menu.vue";
 import Footer from "@/Components/Footer.vue";
+import useValidate from '@vuelidate/core'
+import { required, email, alpha, minValue} from '@vuelidate/validators'
 
 export default {
   components: {
@@ -1000,13 +1005,70 @@ export default {
     Menu,
     Footer,
   },
-  props: {},
+  props: {
+    setting: Object,
+    delivery:Array,
+    timeSetting:Object,
+  },
+  data() {
+    return{
+      shopLogo:this.setting.config_logo,
+      shopOpen:this.timeSetting.open,
+      v$: useValidate(),
+      newsData:{
+        title: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        telephone: "",
+      }
+    }
+  },
+
+  validations(){
+    return{
+      newsData:{
+        title: {required},
+        firstName: {required,alpha},
+        lastName:  {required,alpha},
+        email:  {required,email},
+        telephone: {required},
+      }
+    }
+  },
+  methods: {
+    newsform(){
+      this.v$.$validate()
+      if(!this.v$.$error){
+        console.log("Success")
+      }else{
+        console.log("failed")
+        console.log(this.v$.$errors)
+        console.log(this.newsData)
+      }
+    }
+  },
+  created(){
+    console.log(this.shopLogo);
+  }
 };
 </script>
 
 
 
 <style>
+.cusButton{
+  background-color: #FBBC4B; 
+  border: none;
+  color: white;
+  padding: 5px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
 body > div#container {
   background-color: #2e2e2e;
 }

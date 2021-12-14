@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="/css/shoptheme1/owl.carousel.css" />
     <link rel="stylesheet" href="/css/shoptheme1/topmenu.css" />
     <link rel="stylesheet" href="/css/shoptheme1/ybc-testimonials.css" />
+    <link rel="stylesheet" href="/css/shoptheme1/ets_green.css" />
+
   </Head>
 
   <body class="home lang_en ets_green">

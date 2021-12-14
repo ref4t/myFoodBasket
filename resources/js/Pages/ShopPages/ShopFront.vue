@@ -5,8 +5,8 @@
         <UpperShopNav/>
         
         <div v-if="openBanner" class="grid grid-cols-12">
-            <img class=" col-start-3 col-end-5" src="../../../../public/images/store_logo.jpg" alt="logo">
-            <img class=" col-end-11 col-span-2" src="../../../../public/images/open.jpg" alt="open">
+            <img class=" col-start-3 col-end-5" src="/public/images/store_logo.jpg" alt="logo">
+            <img class=" col-end-11 col-span-2" src="/public/images/open.jpg" alt="open">
         </div>
         <!-- lower nav bar -->
         <LowerShopNav/>
@@ -19,7 +19,7 @@
                 <Carousel :autoplay="3000" :wrap-around="true"  >
                     <Slide v-for="slide in 10" :key="slide" >
                     <div class="carousel__item">
-                        <img src="../../../../public/images/banner_4.jpg" alt="">
+                        <img src="/public/images/banner_4.jpg" alt="">
                     </div>
                     </Slide>
 

@@ -1,5 +1,8 @@
 <template>
-    <Head title="Log in" />
+    <Head title="Log in" >
+        <link rel="stylesheet" href="/css/app.css" />
+
+    </Head>
 
     <BreezeValidationErrors class="mb-4" />
 

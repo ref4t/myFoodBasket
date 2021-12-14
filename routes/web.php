@@ -3,6 +3,28 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+
+use App\Http\Controllers\Mainshop\ShopSearchController;
+use App\Http\Controllers\Home\DomainController;
+
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\NewOrderController;
+use App\Http\Controllers\Admin\CustomerController;
+
+use App\Http\Controllers\Shop\HomeController;
+use App\Http\Controllers\Shop\MemberController;
+use App\Http\Controllers\Shop\MenuController;
+use App\Http\Controllers\Shop\CheckoutController;
+use App\Http\Controllers\Shop\AboutusController;
+use App\Http\Controllers\Shop\AccountController;
+use App\Http\Controllers\Shop\ForgotPasswordController;
+use App\Http\Controllers\Shop\RegistryController;
+
+use App\Models\oc_store;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,116 +36,81 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// $stores= oc_store::all();
+// $urls=[];
+// foreach ($stores as $key=>$domain) {
+//         //   dd(parse_url($domain->url));9
+//          $host=parse_url($domain->url);
+//         if(isset($host['host']))
+//         $urls[$key]=$host['host'];
+//     }
+// $string=implode('|',$urls);
+// Route::pattern('domain', '('.$string.')');
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+$domain = array('domain' => parse_url(url()->current())['host']);
+
+Route::group( $domain,function () {
+    /* routes here */
+    Route::get('/', [HomeController::class, 'index'])->name('shopHome');
+    Route::get('/member',[MemberController::class, 'index'])->name('shopMember');
+
+    Route::get('/menu',[MenuController::class, 'index'])->name('shopMenu');
+
+    Route::get('/checkout',[CheckoutController::class, 'index'])->name('shopcheckout');
+
+    Route::get('/contactus',[AboutusController::class, 'index'])->name('shopcontactus');
+    
+    Route::get('/cart',[CartController::class, 'index'])->name('shopcart');
+
+    Route::get('/registration',[RegisterController::class, 'index'])->name('shopReg');
+
+    Route::get('/account',[AccountController::class, 'index'])->name('shopAcc');
+    
+    // post
+    Route::post('/account',[AccountController::class, 'index'])->name('shopAcc');
+
+    Route::get('/forgotten',[ForgotPasswordController::class, 'index'])->name('shopForgot');
+
+    // post
+    Route::post('/forgotten',[ForgotPasswordController::class, 'index'])->name('shopForgot');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(array('domain' => 'myfoodbasket.test'), function () {
+    /* routes here */
+    Route::get('/', [DomainController::class, 'index'])->name('Home');
+    Route::get('/search', [ShopSearchController::class, 'search'])->name('mainshopSearch');
+    Route::get('/restaurant/{id}',[ShopSearchController::class, 'singleShop'])->name('singleshop');
+});
+// $stores= oc_store::all();
+// foreach ($stores as $domain) {
+//     //   dd(parse_url($domain->url));9
+//      $host=parse_url($domain->url);
+//      if(isset($host['host'])){
+//     $dom=$host['host'];
+//     Route::group(array('domain' => $dom), $domainRoutes);
+//     }
+// }
+Route::get('/login');
 
 
+Route::prefix('admin')->group(function(){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('admin.dashboard.orders');
+    Route::get('/orders/view/{id}',[OrderController::class, 'view'])->name('admin.dashboard.orders.show');
+    Route::post('/orders/view/comment',[OrderController::class, 'comment'])->name('admin.orders.show.comment');
+    Route::get('/orders/edit/{id}',[OrderController::class, 'edit'])->name('admin.dashboard.orders.edit');
+    Route::post('/orders/edit/delete/{item}',[OrderController::class, 'delete'])->name('edit.product.delete');
+    Route::post('/orders/edit/update/{order}',[OrderController::class, 'update'])->name('edit.order.update');
+
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('admin.dashboard.transactions');
+    Route::get('/new-orders', [NewOrderController::class, 'index'])->name('admin.dashboard.newOrders');
+    Route::post('/new-orders', [NewOrderController::class, 'destroy'])->name('admin.newOrders.delete');
 
 
-Route::prefix('shop')->group(function(){
-    Route::get('/home',function(){
-        $theme = 1;
-        if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Home',['theme' => $theme]);
-        }else
-            return Inertia::render('ShopPages/Theme_2/Home',['theme' => $theme]);
-    })->name('shopHome');
-
-    Route::get('/member',function(){
-        $theme = 1;
-        if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Member',['theme' => $theme]);
-        }else
-            return Inertia::render('ShopPages/Theme_2/Member',['theme' => $theme]);
-    })->name('shopMember');
-
-    Route::get('/menu',function(){
-        $theme = 1;
-        if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Menu',['theme' => $theme]);
-        }else
-            return Inertia::render('ShopPages/Theme_2/Menu',['theme' => $theme]);
-    })->name('shopMenu');
-
-    Route::get('/checkout',function(){
-        $theme = 1;
-        if ($theme == 1){
-           return Inertia::render('ShopPages/Theme_1/Checkout',['theme' => $theme]);
-        }else{
-            
-            return Inertia::render('ShopPages/Theme_2/Checkout',['theme' => $theme]);
-        }
-            
-    })->name('shopcheckout');
-
-    Route::get('/contactus',function(){
-        $theme = 1;
-        if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Aboutus',['theme' => $theme]);
-        }else
-            return Inertia::render('ShopPages/Theme_2/Aboutus',['theme' => $theme]);
-    })->name('shopcontactus');
-    
-    Route::get('/cart',function(){
-        $theme = 1;
-        if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Cart',['theme' => $theme]);
-        }else
-            return Inertia::render('ShopPages/Theme_2/Cart',['theme' => $theme]);
-    })->name('shopcart');
-
-    Route::get('/registration',function(){
-        $theme = 1;
-        if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Registration',['theme' => $theme]);
-        }else
-            return Inertia::render('ShopPages/Theme_2/Registration',['theme' => $theme]);
-    })->name('shopReg');
-
-    Route::get('/account',function(){
-        $theme = 1;
-        if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Account',['theme' => $theme]);
-        }else
-            return Inertia::render('ShopPages/Theme_2/Account',['theme' => $theme]);
-    })->name('shopAcc');
-    
-    Route::post('/account',function(){
-        $theme = 1;
-        if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Account',['theme' => $theme]);
-        }else
-            return Inertia::render('ShopPages/Theme_2/Account',['theme' => $theme]);
-    })->name('shopAcc');
-
-    Route::get('/forgotten',function(){
-        $theme = 1;
-        if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Forgotpass',['theme' => $theme]);
-        }else
-            return Inertia::render('ShopPages/Theme_2/Forgotpass',['theme' => $theme]);
-    })->name('shopForgot');
-
-    Route::post('/forgotten',function(){
-        $theme = 1;
-        if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Forgotpass',['theme' => $theme]);
-        }else
-            return Inertia::render('ShopPages/Theme_2/Forgotpass',['theme' => $theme]);
-    })->name('shopForgot');
-
-    
+    Route::get('/user',[CustomerController::class,'index'])->name('admin.customer');
+    Route::get('/user/edit/{id}',[CustomerController::class,'edit'])->name('admin.customer.edit');
+    Route::post('/new-orders', [CustomerController::class, 'destroy'])->name('admin.customer.delete');
 });
 
 require __DIR__.'/auth.php';

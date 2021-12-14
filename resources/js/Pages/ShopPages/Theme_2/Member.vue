@@ -154,7 +154,7 @@
 
 
 
-<div id="wrapper" class="etsWrapper middle_bg_custom">
+<div id="wrapper" class="etsWrapper middle_bg_custom" style="min-height:49.1vh">
         <div class="ets_main_content">
           <div class="fix_ets_main_content">
             <div class="etsWrapper body_content_sec">
