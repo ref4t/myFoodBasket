@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="/css/mainshop/bootstrap.css">
         <link rel="stylesheet" href="/css/mainshop/theme.css">
         <link rel="stylesheet" href="/css/mainshop/style_new.css">
+        <link rel="stylesheet" href="/css/shoptheme1/stylesheet.css" />
+        <link rel="stylesheet" href="/css/shoptheme1/news.css" />   
 
         <!-- Scripts -->
         @routes

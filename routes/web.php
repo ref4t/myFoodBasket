@@ -3,8 +3,10 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 use App\Http\Controllers\Mainshop\ShopSearchController;
+use App\Http\Controllers\Home\DomainController;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
@@ -21,6 +23,9 @@ use App\Http\Controllers\Shop\AccountController;
 use App\Http\Controllers\Shop\ForgotPasswordController;
 use App\Http\Controllers\Shop\RegistryController;
 
+use App\Models\oc_store;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,26 +36,22 @@ use App\Http\Controllers\Shop\RegistryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// $stores= oc_store::all();
+// $urls=[];
+// foreach ($stores as $key=>$domain) {
+//         //   dd(parse_url($domain->url));9
+//          $host=parse_url($domain->url);
+//         if(isset($host['host']))
+//         $urls[$key]=$host['host'];
+//     }
+// $string=implode('|',$urls);
+// Route::pattern('domain', '('.$string.')');
 
-Route::get('/', function () {
-    return Inertia::render('Mainshop/Home');
-})->name('Home');
-Route::get('/search', [ShopSearchController::class, 'search'])->name('mainshopSearch');
+$domain = array('domain' => parse_url(url()->current())['host']);
 
-// Route::get('/restaurants', function () {
-//     return Inertia::render('Mainshop/restaurantList');
-// });
-Route::get('/restaurant/{id}',[ShopSearchController::class, 'singleShop'])->name('singleshop');
-Route::get('/login');
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-
-Route::prefix('shop')->group(function(){
-    Route::get('/home',[HomeController::class, 'index'])->name('shopHome');
-
+Route::group( $domain,function () {
+    /* routes here */
+    Route::get('/', [HomeController::class, 'index'])->name('shopHome');
     Route::get('/member',[MemberController::class, 'index'])->name('shopMember');
 
     Route::get('/menu',[MenuController::class, 'index'])->name('shopMenu');
@@ -72,8 +73,24 @@ Route::prefix('shop')->group(function(){
 
     // post
     Route::post('/forgotten',[ForgotPasswordController::class, 'index'])->name('shopForgot');
-    
 });
+
+Route::group(array('domain' => 'myfoodbasket.test'), function () {
+    /* routes here */
+    Route::get('/', [DomainController::class, 'index'])->name('Home');
+    Route::get('/search', [ShopSearchController::class, 'search'])->name('mainshopSearch');
+    Route::get('/restaurant/{id}',[ShopSearchController::class, 'singleShop'])->name('singleshop');
+});
+// $stores= oc_store::all();
+// foreach ($stores as $domain) {
+//     //   dd(parse_url($domain->url));9
+//      $host=parse_url($domain->url);
+//      if(isset($host['host'])){
+//     $dom=$host['host'];
+//     Route::group(array('domain' => $dom), $domainRoutes);
+//     }
+// }
+Route::get('/login');
 
 
 Route::prefix('admin')->group(function(){
