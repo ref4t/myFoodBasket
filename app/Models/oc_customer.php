@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 use App\Models\oc_customer_ip;
 use App\Models\oc_address;
 use App\Models\oc_store;
@@ -25,6 +27,47 @@ class oc_customer extends Model
     }
     public function getGroup(){
         return $this->hasOne(oc_customer_group_description::class,'customer_group_id','customer_group_id');
+    }
+
+    public function editCustomer($data, $password, $defaultAdd) {
+        DB::beginTransaction();
+		try{
+            DB::select("UPDATE oc_customer SET firstname = '" .($data['firstname']) . "', lastname = '" .($data['lastname']) . "', email = '" .($data['email']) . "', telephone = '" .($data['telephone']) . "', fax = '" .($data['fax']) . "', newsletter = '" . (int)$data['newsletter'] . "', customer_group_id = '" . (int)$data['customer_group_id'] . "', status = '" . (int)$data['status'] . "' WHERE customer_id = '" . (int)$data['customer_id'] . "'");
+            DB::select("UPDATE oc_customer SET address_id = '" . (int)$defaultAdd . "' WHERE customer_id = '" . (int)$data['customer_id'] . "'");
+            
+            
+            if ($password) {
+                $sql2="UPDATE `oc_customer` SET `password` = '" .$password. "' WHERE `oc_customer`.`customer_id` = " . (int)$data['customer_id'] ."";
+                $po=DB::select($sql2);
+              
+            }
+    
+             DB::select("DELETE FROM oc_address WHERE customer_id = '" . (int)$data['customer_id'] . "'");
+            
+            
+            if ($data['get_address']) {
+                foreach ($data['get_address'] as $address) {
+                     DB::select("INSERT INTO oc_address SET address_id = '" . (int)$address['address_id'] . "', customer_id = '" . (int)$data['customer_id'] . "', firstname = '" .($address['firstname']) . "', lastname = '" .($address['lastname']) . "', company = '" .($address['company']) . "', company_id = '" .($address['company_id']) . "', tax_id = '" .($address['tax_id']) . "', address_1 = '" .($address['address_1']) . "', address_2 = '" .($address['address_2']) . "', city = '" .($address['city']) . "', postcode = '" .($address['postcode']) . "', country_id = '" . (int)$address['country_id'] . "', zone_id = '" . (int)$address['zone_id'] . "'");
+    
+                    
+                }
+            }
+        }catch (\Exception $e) {
+            dd($e);
+            DB::rollback();
+            // something went wrong
+        }
+
+        
+	}
+
+    public function addAddress($address,$id) {
+        $query = DB::statement("INSERT INTO oc_address SET  customer_id = '" . (int)$id . "', firstname = '" .($address['firstname']) . "', lastname = '" .($address['lastname']) . "', company = '" .($address['company']) . "', company_id = '" .($address['company_id']) . "', tax_id = ' ', address_1 = '" .($address['address_1']) . "', address_2 = '" .($address['address_2']) . "', city = '" .($address['city']) . "', postcode = '" .($address['postcode']) . "', country_id = '" . (int)$address['country_id'] . "', zone_id = '" . (int)$address['zone_id'] . "'");
+         $adress_id = DB::getPdo()->lastInsertId();
+
+         if($address['default'] == 1){
+             DB::select("UPDATE `oc_customer` SET `address_id` = '" .$adress_id. "' WHERE `oc_customer`.`customer_id` = " . (int)$id ."");
+         }
     }
 
 

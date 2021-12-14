@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\oc_customer;
 use App\Models\oc_customer_ip;
@@ -54,17 +55,36 @@ class CustomerController extends Controller
             'zone' => $zone
         ]);
     }
+    
     public function update(Request $request){
-        dd($request->toArray());
+        
+
+        $Data = $request['customerData'];
+        $pass = Hash::make($request['password']);
+        $default = $request['defaultAddress'];
+        $sql = oc_customer::editCustomer($Data,$pass,$default);
+
+        return redirect()->back();
+
     }
 
     
 
     public function destroy(Request $request){
         oc_customer::whereIn('customer_id', $request)->delete();
-        return redirect(url()->previous() )->with('success', 'Order deleted successfully');
+        return redirect()->back();
     }
     public function addAddress(Request $request){
-        dd($request->toArray());
+        $data = $request->toArray();
+        $address = $data['formData'];
+        $id = $data['id'];
+        $sql = oc_customer::addAddress($address,$id);
+        return redirect()->back();
+
+    }
+
+    public function deleteAddress($id){
+        oc_address::find($id)->delete($id);
+        return redirect()->back();
     }
 }

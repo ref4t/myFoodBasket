@@ -94,8 +94,9 @@ Route::prefix('admin')->group(function(){
     Route::get('/customer',[CustomerController::class,'index'])->name('admin.customer');
     Route::get('/customer/edit/{id}',[CustomerController::class,'edit'])->name('admin.customer.edit');
     Route::post('/customer/delete', [CustomerController::class, 'destroy'])->name('admin.customer.delete');
-    Route::post('/customer/update', [CustomerController::class, 'addAddress'])->name('admin.customer.update');
+    Route::post('/customer/update', [CustomerController::class, 'update'])->name('admin.customer.update');
     Route::post('/customer/addAddress', [CustomerController::class, 'addAddress'])->name('admin.customer.addAddress');
+    Route::post('/customer/deleteAddress/{id}', [CustomerController::class, 'deleteAddress'])->name('admin.customer.deleteAddress');
 });
 
 require __DIR__.'/auth.php';

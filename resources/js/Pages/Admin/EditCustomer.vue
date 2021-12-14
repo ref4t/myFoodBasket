@@ -11,15 +11,15 @@
               <form >
                 <div class="card-header">
                     <div class="text-right"  >
-                        <button @click="update(customer)"  class="btn btn-success rounded-pill" style="margin-right:1%" type="button">Save</button>
+                        <button @click.prevent="update(customer,this.password.password,this.defaultAddress)"  class="btn btn-success rounded-pill" style="margin-right:1%" type="button">Save</button>
                         <Link :href="route('admin.customer')" as="button" class="btn btn-secondary rounded-pill" type="button">Cancel</Link>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="container">
+                    <div >
                     <br />
                     <!-- Nav tabs -->
-                    <ul class="nav  nav-tabs">
+                    <ul class="nav  nav-tabs font-weight-bold">
                         <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#menu"
                             >General</a
@@ -50,17 +50,17 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div id="menu" class="container tab-pane active custom" >
+                        <div id="menu" class=" tab-pane active custom" >
                         <br />
                         <div class="card">
                           <div class="row">
                             <div class="col-2">
-                              <div class="nav flex-column nav-tabs " id="v-pills-tab" role="tablist" aria-orientation="vertical" style="min-height:100%" >
+                              <div class="nav flex-column nav-tabs font-weight-bold" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="min-height:100%" >
 
 
                                 <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">General</a>
                                 <!-- addresses -->
-                                <a v-for=" (address,index) in customer.get_address" :key="index" class="nav-link"  :id="'v-pills-address-tab'+ index" data-toggle="pill" :href="'#v-pills-address'+ index" role="tab" :aria-controls="'v-pills-address-'+ index" aria-selected="false">Address {{index + 1}} <i class="fas fa-times-circle float-right" style="color:red;margin-top:5px"></i> </a>
+                                <a v-for=" (address,index) in customer.get_address" :key="index" class="nav-link"  :id="'v-pills-address-tab'+ index" data-toggle="pill" :href="'#v-pills-address'+ index" role="tab" :aria-controls="'v-pills-address-'+ index" aria-selected="false">Address {{index + 1}}</a>
                                 <!-- add new address -->
                                 <a class="nav-link" id="v-pills-add-address-tab" data-toggle="pill" href="#v-pills-add-address" role="tab" aria-controls="v-pills-add-address" aria-selected="false">Add Address</a>
                               </div>
@@ -69,6 +69,7 @@
                               <div class="tab-content" id="v-pills-tabContent" >
 
                               <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                
                                 <table class="table table-borderless table-hover">
                                   <tbody>
                                     <tr >
@@ -145,6 +146,10 @@
                               </div>
 
                               <div v-for=" (address,index) in customer.get_address" :key="index" class="tab-pane fade" :id="'v-pills-address'+ index" role="tabpanel" :aria-labelledby="'v-pills-address-tab'+ index">
+                               <div class="float-right">
+                                  <button @click.prevent="deleteAddress(address.address_id)"  class="btn btn-danger rounded m-2" style="margin-right:1%" type="button">DELETE</button>
+                                  
+                                </div>
                                 <table class="table table-borderless table-hover" >
                                   <tbody>
                                     <tr>
@@ -171,6 +176,7 @@
                                         <input class="form-control" type="text" name="company_id" v-model="address.company_id" aria-label="company_id">
                                       </td>
                                     </tr>
+                                    
                                     <tr>
                                       <td style="width:15%">Address 1:</td>
                                       <td>
@@ -223,7 +229,7 @@
                                 </table>
                               </div>
                               <div class="tab-pane fade" id="v-pills-add-address" role="tabpanel" aria-labelledby="v-pills-add-address-tab">
-                                <form @submit.prevent="addAddress" method="post">
+                                <form @submit.prevent="addAddress(this.form,customer.customer_id)" method="post">
                                   <table class="table table-borderless table-hover" >
                                     <tbody>
                                       <tr>
@@ -248,6 +254,12 @@
                                         <td style="width:15%">Company ID:</td>
                                         <td>
                                           <input class="form-control" type="text" name="company_id" v-model="this.form.company_id" aria-label="company_id">
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style="width:15%">Tax ID:</td>
+                                        <td>
+                                          <input class="form-control" type="text" name="tax_id" v-model="this.form.tax_id" aria-label="tax_id">
                                         </td>
                                       </tr>
                                       <tr>
@@ -277,7 +289,7 @@
                                       <tr>
                                         <td style="width:15%">Country:</td>
                                         <td>
-                                          <select v-model="this.form.country" class="form-control" name="country" id="country">
+                                          <select v-model="this.form.country_id" class="form-control" name="country" id="country">
                                             <option v-for="country in country" :key="country.country_id" :value="country.country_id"> {{country.name}} </option>
                                           </select>
                                         </td>
@@ -285,9 +297,9 @@
                                       <tr>
                                         <td style="width:15%">Region/State:</td>
                                         <td>
-                                          <select v-model="this.form.zone" class="form-control" name="" id="">
+                                          <select v-model="this.form.zone_id" class="form-control" name="zone" id="">
                                             <template v-for="zone in zone" :key="zone.zone_id" >
-                                              <option v-if="zone.country_id == this.form.country" :value="zone.zone_id"> {{zone.name}} </option>
+                                              <option v-if="zone.country_id == this.form.country_id" :value="zone.zone_id"> {{zone.name}} </option>
                                             </template>
                                           </select>
                                         </td>
@@ -301,7 +313,7 @@
                                     </tbody>
                                   </table>
                                   <div class="float-right m-2">
-                                    <button class="btn btn-success rounded" >Add Address</button>
+                                    <button class="btn btn-success rounded font-weight-bold" type="submit" >Add Address</button>
                                   </div>
                                 </form>
                               </div>
@@ -312,7 +324,7 @@
                         
                         
                         </div>
-                        <div id="menu1" class="container tab-pane fade">
+                        <div id="menu1" class=" tab-pane fade">
                         <br />
 
                         <div class="card">
@@ -326,7 +338,7 @@
 
 
                         </div>
-                        <div id="menu2" class="container tab-pane fade">
+                        <div id="menu2" class=" tab-pane fade">
                         <br />
                         
                         <h3>Menu 2</h3>
@@ -337,7 +349,7 @@
                         </p>
 
                         </div>
-                        <div id="menu3" class="container tab-pane fade">
+                        <div id="menu3" class=" tab-pane fade">
                         <h3>Menu 3</h3>
                         <p>
                             Sed ut perspiciatis unde omnis iste natus error sit
@@ -346,7 +358,7 @@
                         </p>
 
                         </div>
-                        <div id="menu4" class="container tab-pane fade">
+                        <div id="menu4" class=" tab-pane fade">
                         <br />
                         <h3>Menu 4</h3>
                         <p>
@@ -402,12 +414,13 @@ export default {
             lastname:'',
             company:'',
             company_id:'',
+            tax_id:'',
             address_1:'',
             address_2:'',
             city:'',
             postcode:'',
-            country:'',
-            zone:'',
+            country_id:'',
+            zone_id:'',
             default:''
 
           }
@@ -419,17 +432,21 @@ export default {
     },
 
   methods: {
-    update(customerData){
-      this.$inertia.post(this.route('admin.customer.update',customerData,{replace: true, preserveState: true}))
+    update(customerData, password,defaultAddress){
+      this.$inertia.post(this.route('admin.customer.update',{customerData, password,defaultAddress},{replace: true, preserveState: true}))
     },
-    addAddress(){
-      this.$inertia.post(this.route('admin.customer.addAddress',this.form,{replace: true, preserveState: true}))
+    addAddress(formData,id){
+      console.log(formData,id);
+      this.$inertia.post(this.route('admin.customer.addAddress',{formData, id},{replace: true, preserveState: true}))
+    },
+    deleteAddress(id){
+      console.log(id)
+      let con = confirm("Sure want to delete?");
+      if (con){
+        this.$inertia.post(this.route('admin.customer.deleteAddress',{id},{replace: true, preserveState: true}))
+      }
     }
 
   }
 };
 </script>
-
-<style>
-
-</style>

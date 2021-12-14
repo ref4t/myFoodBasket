@@ -185,6 +185,6 @@ class NewOrderController extends Controller
 
     public function destroy(Request $request){
         oc_order::whereIn('order_id', $request)->delete();
-        return redirect(url()->previous() )->with('success', 'Order deleted successfully');
+        return redirect()->back();
     }
 }
