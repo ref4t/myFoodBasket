@@ -29,40 +29,56 @@ class NewOrderController extends Controller
             $shop = 'Wymondham Kebabs';
             $shop_id = 46;
 
-            $orders = oc_order::with('getProducts','getTotal')->select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
-                                
-                                ->where([['store_name', '=', $shop] , ['date_added','>=', Carbon::now()->subYear()]])
-                                ->orderBy('date_added','DESC')
-                                ->paginate(20);
-            
-            $top_users = oc_order::where('store_name', $shop )->select('customer_id', 'firstname','lastname',DB::raw('SUM(total) AS sumtotal'))
-                ->groupBy('customer_id','firstname','lastname')
-                ->orderByRaw('COUNT(*) DESC')
-                ->take(5)
-                ->get();
-
-            
-
-            $total =  oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where([['store_name', '=', $shop] , ['date_added','>=', Carbon::now()->subYear()]])->get();
-
-            $delivery = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where([['store_name', '=', $shop] , ['date_added','>=', Carbon::now()->subYear()]])->where('flag_post_code','=' , 'delivery')->get();
-
-            $collection = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where([['store_name', '=', $shop] , ['date_added','>=', Carbon::now()->subYear()]])->where('flag_post_code','=' , 'collection')->get();
-
-            $card = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where([['store_name', '=', $shop] , ['date_added','>=', Carbon::now()->subYear()]])->where('payment_method','=' , 'CARD')->get();
-
-            $cash = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where([['store_name', '=', $shop] , ['date_added','>=', Carbon::now()->subYear()]])->where('payment_method','=' , 'Cash on Delivery')->get();
-            
-            
-
-            // total ordered products
-             $total_products = oc_order_product::join('oc_order','oc_order_product.order_id', '=', 'oc_order.order_id')
-            ->where('oc_order.store_name', '=', $shop)
-            ->count();
-
-            
+            $top_users = null;
+            $total = null;
+            $delivery = null;
+            $collection = null;
+            $card = null;
+            $cash = null;
+            $total_products = null;
 
             $now = Carbon::now();
+
+            if( !request('record') && !request('date1') && !request('date2')  ){
+                $orders = oc_order::with('getProducts','getTotal')->select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+                                
+                ->where('store_name', '=', $shop)
+                ->orderBy('date_added','DESC')
+                ->paginate(20);
+
+            $top_users = oc_order::where('store_name', $shop )->select('customer_id', 'firstname','lastname',DB::raw('SUM(total) AS sumtotal'))
+            ->groupBy('customer_id','firstname','lastname')
+            ->orderByRaw('COUNT(*) DESC')
+            ->take(5)
+            ->get();
+
+
+
+            $total =  oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->get();
+
+            $delivery = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->where('flag_post_code','=' , 'delivery')->get();
+
+            $collection = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->where('flag_post_code','=' , 'collection')->get();
+
+            $card = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->where('payment_method','=' , 'CARD')->get();
+
+            $cash = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->where('payment_method','=' , 'Cash on Delivery')->get();
+
+
+
+            // total ordered products
+            $total_products = oc_order_product::join('oc_order','oc_order_product.order_id', '=', 'oc_order.order_id')
+            ->where('oc_order.store_name', '=', $shop)
+            ->whereDate('oc_order.date_added','>=', $now->subYear())
+            ->count();
+           
+        }
+
+           
+
+            
+
+            
 
             if(request('search')){ 
                 $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
@@ -97,6 +113,45 @@ class NewOrderController extends Controller
                                     ->orderBy('date_added','DESC')
                                     ->paginate(20);
 
+                $top_users = oc_order::where('store_name', $shop )->select('customer_id', 'firstname','lastname',DB::raw('SUM(total) AS sumtotal'))
+                ->whereDay('date_added', '=', Carbon::today()->toDateString())
+                ->groupBy('customer_id','firstname','lastname')
+                ->orderByRaw('COUNT(*) DESC')
+                ->take(5)
+                ->get();
+    
+    
+    
+                $total =  oc_order::whereDate('date_added','>=', Carbon::today()->toDateString())->select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where('store_name', '=', $shop)
+                ->get();
+    
+                $delivery = oc_order::whereDate('date_added','>=', Carbon::today()->toDateString())->select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where('store_name', '=', $shop)
+                ->where('flag_post_code','=' , 'delivery')
+                ->get();
+    
+                $collection = oc_order::whereDate('date_added','>=', Carbon::today()->toDateString())->select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where('store_name', '=', $shop)
+                ->where('flag_post_code','=' , 'collection')
+                ->get();
+    
+                $card = oc_order::whereDate('date_added','>=', Carbon::today()->toDateString())->select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where('store_name', '=', $shop)
+                ->where('payment_method','=' , 'CARD')
+                ->get();
+    
+                $cash = oc_order::whereDate('date_added','>=', Carbon::today()->toDateString())->select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where('store_name', '=', $shop)
+                ->where('payment_method','=' , 'Cash on Delivery')
+                ->get();
+
+                $total_products = oc_order_product::join('oc_order','oc_order_product.order_id', '=', 'oc_order.order_id')
+                ->where('oc_order.store_name', '=', $shop)
+                ->whereDate('oc_order.date_added','>=', Carbon::today()->toDateString())
+                ->count();
+    
+
                 
             }
             if(request('record') == 2){
@@ -105,6 +160,43 @@ class NewOrderController extends Controller
                                     ->whereDate('date_added','>=', $now->subWeek())
                                     ->orderBy('date_added','DESC')
                                     ->paginate(20);
+                
+                $top_users = oc_order::where('store_name', $shop )->select('customer_id', 'firstname','lastname',DB::raw('SUM(total) AS sumtotal'))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subWeek()] ])
+                ->groupBy('customer_id','firstname','lastname')
+                ->orderByRaw('COUNT(*) DESC')
+                ->take(5)
+                ->get();
+
+                $total =  oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subWeek()] ])
+                ->get();
+    
+                $delivery = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subWeek()] ])
+                ->where('flag_post_code','=' , 'delivery')
+                ->get();
+    
+                $collection = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subWeek()] ])
+                ->where('flag_post_code','=' , 'collection')
+                ->get();
+    
+                $card = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subWeek()] ])
+                ->where('payment_method','=' , 'CARD')
+                ->get();
+    
+                $cash = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subWeek()] ])
+                ->where('payment_method','=' , 'Cash on Delivery')
+                ->get();
+
+                $total_products = oc_order_product::join('oc_order','oc_order_product.order_id', '=', 'oc_order.order_id')
+                ->where('oc_order.store_name', '=', $shop)
+                ->whereDate('oc_order.date_added','>=', $now->subWeek())
+                ->count();
+    
             }
             if(request('record') == 3){
                 $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
@@ -112,6 +204,42 @@ class NewOrderController extends Controller
                                     ->whereDate('date_added','>=', $now->subMonth())
                                     ->orderBy('date_added','DESC')
                                     ->paginate(20);
+
+                $top_users = oc_order::where('store_name', $shop )->select('customer_id', 'firstname','lastname',DB::raw('SUM(total) AS sumtotal'))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subMonth()] ])
+                ->groupBy('customer_id','firstname','lastname')
+                ->orderByRaw('COUNT(*) DESC')
+                ->take(5)
+                ->get();
+
+                $total =  oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subMonth()] ])
+                ->get();
+    
+                $delivery = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subMonth()] ])
+                ->where('flag_post_code','=' , 'delivery')
+                ->get();
+    
+                $collection = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subMonth()] ])
+                ->where('flag_post_code','=' , 'collection')
+                ->get();
+    
+                $card = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subMonth()] ])
+                ->where('payment_method','=' , 'CARD')
+                ->get();
+    
+                $cash = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subMonth()] ])
+                ->where('payment_method','=' , 'Cash on Delivery')
+                ->get();
+
+                $total_products = oc_order_product::join('oc_order','oc_order_product.order_id', '=', 'oc_order.order_id')
+                ->where('oc_order.store_name', '=', $shop)
+                ->whereDate('oc_order.date_added','>=', $now->subMonth())
+                ->count();
             }
             if(request('record') == 4){
                 $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
@@ -119,17 +247,91 @@ class NewOrderController extends Controller
                                     ->whereDate('date_added','>=', $now->subYear())
                                     ->orderBy('date_added','DESC')
                                     ->paginate(20);
+
+               $top_users = oc_order::where('store_name', $shop )->select('customer_id', 'firstname','lastname',DB::raw('SUM(total) AS sumtotal'))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subYear()] ])
+                ->groupBy('customer_id','firstname','lastname')
+                ->orderByRaw('COUNT(*) DESC')
+                ->take(5)
+                ->get();
+
+                $total =  oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subYear()] ])
+                ->get();
+    
+                $delivery = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subYear()] ])
+                ->where('flag_post_code','=' , 'delivery')
+                ->get();
+    
+                $collection = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subYear()] ])
+                ->where('flag_post_code','=' , 'collection')
+                ->get();
+    
+                $card = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subYear()] ])
+                ->where('payment_method','=' , 'CARD')
+                ->get();
+    
+                $cash = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $now->subYear()] ])
+                ->where('payment_method','=' , 'Cash on Delivery')
+                ->get();
+
+                $total_products = oc_order_product::join('oc_order','oc_order_product.order_id', '=', 'oc_order.order_id')
+                ->where('oc_order.store_name', '=', $shop)
+                ->whereDate('oc_order.date_added','>=', $now->subYear())
+                ->count();
                 
             }
             if(request('date1') && request('date2') ){
                 $startDate = strtok(request('date1'), 'T');
                 $endDate = strtok(request('date2'), 'T');
+
                 $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
                                     ->where('store_name', $shop )
                                     ->whereDate('date_added', '>=', $startDate)
                                     ->whereDate('date_added', '<=', $endDate)
                                     ->orderBy('date_added','DESC')
                                     ->paginate(20);
+                
+                $top_users = oc_order::where('store_name', $shop )->select('customer_id', 'firstname','lastname',DB::raw('SUM(total) AS sumtotal'))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $startDate] , ['date_added','<=',  $endDate]])
+                ->groupBy('customer_id','firstname','lastname')
+                ->orderByRaw('COUNT(*) DESC')
+                ->take(5)
+                ->get();
+
+                $total =  oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $startDate] , ['date_added','<=',  $endDate]])
+                ->get();
+    
+                $delivery = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $startDate] , ['date_added','<=',  $endDate]])
+                ->where('flag_post_code','=' , 'delivery')
+                ->get();
+    
+                $collection = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $startDate] , ['date_added','<=',  $endDate]])
+                ->where('flag_post_code','=' , 'collection')
+                ->get();
+    
+                $card = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $startDate] , ['date_added','<=',  $endDate]])
+                ->where('payment_method','=' , 'CARD')
+                ->get();
+    
+                $cash = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))
+                ->where([['store_name', '=', $shop] , ['date_added','>=',  $startDate] , ['date_added','<=',  $endDate]])
+                ->where('payment_method','=' , 'Cash on Delivery')
+                ->get();
+
+                $total_products = oc_order_product::join('oc_order','oc_order_product.order_id', '=', 'oc_order.order_id')
+                ->where('oc_order.store_name', '=', $shop)
+                ->whereDate('oc_order.date_added','>=', $startDate)
+                ->whereDate('oc_order.date_added','<=', $endDate)
+                ->count();
                 
             }
             
@@ -168,7 +370,7 @@ class NewOrderController extends Controller
             // all good
         } catch (\Exception $e) {
             DB::rollback();
-            // something went wrong
+            dd($e);
         }
         DB::commit();
 
