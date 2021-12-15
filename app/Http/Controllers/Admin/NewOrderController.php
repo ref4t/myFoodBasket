@@ -100,7 +100,11 @@ class NewOrderController extends Controller
                 
             }
             if(request('record') == 2){
-                // By week
+                $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+                                    ->where('store_name', $shop )
+                                    ->whereDate('date_added','>=', $now->subWeek())
+                                    ->orderBy('date_added','DESC')
+                                    ->paginate(20);
             }
             if(request('record') == 3){
                 $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
@@ -113,6 +117,17 @@ class NewOrderController extends Controller
                 $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
                                     ->where('store_name', $shop )
                                     ->whereDate('date_added','>=', $now->subYear())
+                                    ->orderBy('date_added','DESC')
+                                    ->paginate(20);
+                
+            }
+            if(request('date1') && request('date2') ){
+                $startDate = strtok(request('date1'), 'T');
+                $endDate = strtok(request('date2'), 'T');
+                $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
+                                    ->where('store_name', $shop )
+                                    ->whereDate('date_added', '>=', $startDate)
+                                    ->whereDate('date_added', '<=', $endDate)
                                     ->orderBy('date_added','DESC')
                                     ->paginate(20);
                 

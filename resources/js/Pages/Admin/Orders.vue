@@ -225,6 +225,7 @@ export default {
   },
   data() {
       return {
+        
         params:{
             search:this.filters.search,
             id:this.filters.id,
@@ -249,6 +250,7 @@ export default {
         }
     },
   watch: {
+      
       params:{
           handler(){
               let params = this.params;
