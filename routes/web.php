@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\NewOrderController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\LoyaltyController;
+use App\Http\Controllers\Admin\CouponController;
 
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\MemberController;
@@ -77,9 +79,9 @@ Route::prefix('shop')->group(function(){
 
 
 Route::prefix('admin')->group(function(){
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/orders', [OrderController::class, 'index'])->name('admin.dashboard.orders');
+    Route::get('/orders', [OrderController::class, 'index'])->name('admin.dashboard.orders.index');
     Route::get('/orders/view/{id}',[OrderController::class, 'view'])->name('admin.dashboard.orders.show');
     Route::post('/orders/view/comment',[OrderController::class, 'comment'])->name('admin.orders.show.comment');
     Route::get('/orders/edit/{id}',[OrderController::class, 'edit'])->name('admin.dashboard.orders.edit');
@@ -91,7 +93,7 @@ Route::prefix('admin')->group(function(){
     Route::post('/new-orders', [NewOrderController::class, 'destroy'])->name('admin.newOrders.delete');
 
 
-    Route::get('/customer',[CustomerController::class,'index'])->name('admin.customer');
+    Route::get('/customer',[CustomerController::class,'index'])->name('admin.customer.index');
     Route::get('/customer/create', [CustomerController::class, 'create'])->name('admin.customer.create');
     Route::post('/customer/create', [CustomerController::class, 'store'])->name('admin.customer.create');
     Route::get('/customer/edit/{id}',[CustomerController::class,'edit'])->name('admin.customer.edit');
@@ -106,6 +108,17 @@ Route::prefix('admin')->group(function(){
     Route::post('/customer/addReward', [CustomerController::class, 'addReward'])->name('admin.customer.addReward');
     Route::post('/customer/deleteReward/{id}', [CustomerController::class, 'deleteReward'])->name('admin.customer.deleteReward');
     Route::post('/customer/banIp/{ip}', [CustomerController::class, 'banIp'])->name('admin.customer.banIp');
+
+    Route::get('offers/loyalty',[LoyaltyController::class, 'index'])->name('admin.offers.loyalty.index');
+    
+    Route::get('offers/coupon',[CouponController::class, 'index'])->name('admin.offers.coupon.index');
+    Route::get('offers/coupon/create',[CouponController::class, 'create'])->name('admin.offers.coupon.create');
+    Route::post('offers/coupon/create',[CouponController::class, 'store'])->name('admin.offers.coupon.store');
+    Route::post('offers/coupon/delete',[CouponController::class, 'delete'])->name('admin.offers.coupon.delete');
+    Route::get('offers/coupon/edit/{id}',[CouponController::class, 'edit'])->name('admin.offers.coupon.edit');
+    Route::post('offers/coupon/edit',[CouponController::class, 'update'])->name('admin.offers.coupon.update');
+
+
 });
 
 require __DIR__.'/auth.php';
