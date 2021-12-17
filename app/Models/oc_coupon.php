@@ -13,6 +13,8 @@ class oc_coupon extends Model
     protected $table = 'oc_coupon';
     use HasFactory;
 
+   
+
     public function addCoupon($data, $store_id)
     {
         DB::beginTransaction();

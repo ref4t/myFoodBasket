@@ -180,16 +180,35 @@
                 </Link>
               </li>
               <li class="nav-item">
-                <Link
-                  :href="route('admin.dashboard.transactions')"
-                  class="nav-link"
-                >
+            <a href="#" class="nav-link" :class="route().current('admin.offers.voucher.*') ? 'active' : ' ' " >
+              <i class="nav-icon fas fa-money-bill-alt"></i>
+              <p>
+               Gift Voucher
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <Link :href="route('admin.offers.voucher.index')" class="nav-link" :class="route().current('admin.offers.voucher.*') ? 'active' : ' ' ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Gift Vouchers</p>
+                  <p>Gift Voucher</p>
                 </Link>
               </li>
               <li class="nav-item">
-            <a href="#" class="nav-link">
+                <Link
+                  :href="route('admin.offers.voucher.theme.index')"
+                  :class="route().current('admin.offers.voucher.theme.*')"
+                  class="nav-link"
+                >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Voucher Theme</p>
+                </Link>
+              </li>
+
+            </ul>
+          </li>
+              <li class="nav-item">
+            <a href="#" class="nav-link" :class="route().current('admin.offers.free.*') ? 'active' : ' ' " >
               <i class="nav-icon fas fa-gift"></i>
               <p>
                 Free Item
@@ -198,15 +217,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <Link :href="route('admin.dashboard.orders.index')" class="nav-link">
+                <Link :href="route('admin.offers.free.item.index')" class="nav-link" :class="route().current('admin.offers.free.item.*') ? 'active' : ' ' " >
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Item</p>
                 </Link>
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
-                  class="nav-link"
+                  :href="route('admin.offers.free.rule.index')" class="nav-link" :class="route().current('admin.offers.free.rule.*') ? 'active' : ' ' "
+                  
                 >
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cart Rule</p>
