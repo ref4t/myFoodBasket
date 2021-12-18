@@ -23,7 +23,7 @@
                                 <tr >
                                     <td  style="width:25%">Item Name:</td>
                                     <td>
-                                        <input v-model="this.rule.name_rule" class="form-input" type="text">
+                                        <input v-model="this.rule.name_rule" class="form-input " type="text">
                                     </td>
                                 </tr>
                                 <tr >

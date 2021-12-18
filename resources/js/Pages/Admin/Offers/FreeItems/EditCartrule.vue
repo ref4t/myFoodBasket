@@ -29,8 +29,9 @@
                                 <tr >
                                     <td  style="width:25%">Free Item:</td>
                                     <td>
-                                        <div v-for="item in free_items" :key="item.id_free_item" class="form-check form-check-inline ">
-                                            <input class="form-check-input" type="checkbox"  @click="add_item(item.id_free_item)">
+                                        <div v-for="(item,index) in free_items" :key="index" class="form-check form-check-inline ">
+                                            <input v-if="items.includes(item.id_free_item)" class="form-check-input" type="checkbox" @click="add_item(item.id_free_item)" checked >
+                                            <input v-else class="form-check-input  " type="checkbox" @click="add_item(item.id_free_item)" >
                                             <label class="form-check-label" for="inlinecheckbox1">{{item.name_item}}</label>
                                         </div>
                                     </td>
@@ -84,6 +85,7 @@ export default {
         let s = this.rule.id_item;
         this.items = s.split(":");
 
+        this. items = this.items.map(Number);
         console.log(this.items)
     },
 
