@@ -22,8 +22,8 @@
                                         Booking Module
                                     </td>
                                     <td>
-                                        <span as="button" @click="enable" v-if="this.toggleModule == 1" class="bg-success p-2" style="cursor: pointer" >ENABLE</span> <span as="button" v-else @click="enable" class="bg-secondary p-2" style="cursor: pointer" >ENABLE</span>
-                                        <span as="button" @click="disable" v-if="this.toggleModule == 0" class="bg-danger p-2" style="cursor: pointer" >DISABLE</span> <span as="button" v-else @click="disable" class="bg-secondary p-2" style="cursor: pointer" >DISABLE</span>
+                                        <span as="button" @click="enableMod" v-if="this.toggleModule == 1" class="bg-success p-2" style="cursor: pointer" >ENABLE</span> <span as="button" v-else @click="enableMod" class="bg-secondary p-2" style="cursor: pointer" >ENABLE</span>
+                                        <span as="button" @click="disableMod" v-if="this.toggleModule == 0" class="bg-danger p-2" style="cursor: pointer" >DISABLE</span> <span as="button" v-else @click="disableMod" class="bg-secondary p-2" style="cursor: pointer" >DISABLE</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -153,6 +153,8 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import { Head,Link } from '@inertiajs/inertia-vue3';
 import Datepicker from 'vue3-date-time-picker';
 import 'vue3-date-time-picker/dist/main.css';
+import useValidate from '@vuelidate/core'
+import { required, email, minLength,maxLength, sameAs, numeric } from '@vuelidate/validators'
 
 export default {
   components: {
@@ -164,14 +166,37 @@ export default {
 
   props: {
       settings: Object,
-      from: Array,
-      to: Array,
+      from: String,
+      to: String,
   },
   data() {
       return {
+          v$: useValidate(),
           toggleModule: 0,
           toggleCap: 0,
           disable: false
+        }
+    },
+
+    validations() {
+        return {
+            settings:{
+                enable_reservation_module:{numeric},
+                temporary_disable:{maxLength: maxLength(255)},
+                message_if_disable:{maxLength: maxLength(255)},     
+                max_people:{numeric},    
+                google_recapcha:{numeric},	          
+                header_message:{maxLength: maxLength(255)},       
+                header_description:{maxLength: maxLength(255)},	      
+                header_background_options:{maxLength: maxLength(255)},
+                header_background_image:{maxLength: maxLength(255)}, 
+                header_background_color:{maxLength: maxLength(255)},  
+                footer_message:{maxLength: maxLength(255)},
+                confirm_message:{maxLength: maxLength(255)},	          
+                enable_opening_closing_time:{numeric},
+                opening_closing_time:{numeric},
+            }
+          
         }
     },
 
@@ -194,10 +219,10 @@ export default {
     },
 
     methods:{
-        enable(){
+        enableMod(){
             this.toggleModule = 1;
         },
-        disable(){
+        disableMod(){
             this.toggleModule = 0;
         },
         enableCap(){
@@ -220,14 +245,17 @@ export default {
             }else{
                 settings.google_recapcha = 0
             }
-            
-            let con = confirm("Save Changes?");
+            this.v$.settings.$touch()
+            if(!this.v$.settings.$error){
+                
+                let con = confirm("Save Changes?");
 
-            if(con){
-                this.$inertia.post(this.route('admin.reservation.setting.update',{settings,from,to},{
-                        replace: true, 
-                        preserveState: true
-                        }))
+                if(con){
+                    this.$inertia.post(this.route('admin.reservation.setting.update',{settings,from,to},{
+                            replace: true, 
+                            preserveState: true
+                            }))
+                }
             }
             
         }

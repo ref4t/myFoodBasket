@@ -27,6 +27,26 @@ class ReservationSettingController extends Controller
         ]);
     }
     public function update(Request $request){
+
+        $validated = $request->validate([
+            'settings.settings.store_id'	        => ['integer'],
+            'settings.enable_reservation_module'	=> ['boolean'],
+            'settings.temporary_disable'	        => ['string','max:255'],
+            'settings.message_if_disable'	        => ['string','max:255'],
+            'settings.max_people'	                => ['integer'],
+            'settings.google_recapcha'	            => ['boolean'],
+            'settings.header_message'	            => ['string','max:255'],
+            'settings.header_description'	        => ['string','max:255'],
+            'settings.header_background_options'	=> ['string','max:255'],
+            'settings.header_background_image'	    => ['string','max:255','nullable'],
+            'settings.header_background_color'	    => ['string','max:255','nullable'],
+            'settings.footer_message'	            => ['string','max:255'],
+            'settings.confirm_message'	            => ['string','max:255'],
+            'settings.enable_opening_closing_time'	=> ['boolean'],
+            'settings.opening_closing_time'         => ['string','max:255'],
+        ]);
+
+        
         
         $data = $request->toArray();
         $from = $data['from'];
@@ -36,6 +56,7 @@ class ReservationSettingController extends Controller
         
         $tempDisable = serialize($tempDisable);
         $settings = $data['settings'];
+
 
         $settings['temporary_disable'] = $tempDisable;
         $settings['header_background_image'] = ' ';
