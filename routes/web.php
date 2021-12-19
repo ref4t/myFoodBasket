@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\NewOrderController;
 use App\Http\Controllers\Admin\CustomerController;
 
+use App\Http\Controllers\Admin\Reservation\ReservationController;
+use App\Http\Controllers\Admin\Reservation\ReservationSettingController;
+
 use App\Http\Controllers\Admin\Offers\LoyaltyController;
 use App\Http\Controllers\Admin\Offers\CouponController;
 use App\Http\Controllers\Admin\Offers\VoucherController;
@@ -150,6 +153,17 @@ Route::prefix('admin')->group(function(){
     Route::get('offers/free/rule/edit/{id}',[CartRuleController::class, 'edit'])->name('admin.offers.free.rule.edit');
     Route::post('offers/free/rule/update',[CartRuleController::class, 'update'])->name('admin.offers.free.rule.update');
     Route::post('offers/free/rule/delete',[CartRuleController::class, 'delete'])->name('admin.offers.free.rule.delete');
+
+    Route::get('reservation/index', [ReservationController::class, 'index' ])->name('admin.reservation.index');
+    Route::post('reservation/delete', [ReservationController::class, 'delete' ])->name('admin.reservation.delete');
+    Route::post('reservation/accept/{id}', [ReservationController::class, 'accept' ])->name('admin.reservation.accept');
+    Route::post('reservation/reject/{id}', [ReservationController::class, 'reject' ])->name('admin.reservation.reject');
+    
+    Route::get('reservation/setting/index', [ReservationSettingController::class, 'index' ])->name('admin.reservation.setting.index');
+    Route::post('reservation/setting/update', [ReservationSettingController::class, 'update' ])->name('admin.reservation.setting.update');
+
+    
+
 
 
 });

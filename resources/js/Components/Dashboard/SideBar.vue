@@ -72,8 +72,8 @@
 
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book-open"></i>
+            <a href="#" class="nav-link" :class="route().current('admin.reservation.*') ? 'active' : ' ' "  >
+             <i class="nav-icon fas fa-clipboard-list"></i>
               <p>
                 Reservation
                 <i class="fas fa-angle-left right"></i>
@@ -81,15 +81,16 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <Link :href="route('admin.dashboard.orders.index')" class="nav-link">
+                <Link :href="route('admin.reservation.index')" class="nav-link" :class="route().current('admin.reservation.index') ? 'active' : ' ' " >
                   <i class="far fa-circle nav-icon"></i>
                   <p>Reservations</p>
                 </Link>
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
+                  :href="route('admin.reservation.setting.index')"
                   class="nav-link"
+                  :class="route().current('admin.reservation.setting.*') ? 'active' : ' ' "
                 >
                   <i class="far fa-circle nav-icon"></i>
                   <p>Reservation settings</p>
