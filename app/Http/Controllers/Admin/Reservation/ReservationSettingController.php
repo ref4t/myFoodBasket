@@ -31,10 +31,9 @@ class ReservationSettingController extends Controller
         $data = $request->toArray();
         $from = $data['from'];
         $to = $data['to'];
-        $from = strtok($from, 'T');
-        $to =  strtok($to, 'T');
-        $tempDisable['from']= $from;
-        $tempDisable['to'] = $to;
+        $tempDisable['from'] = strtok($from, 'T');
+        $tempDisable['to'] =  strtok($to, 'T');
+        
         $tempDisable = serialize($tempDisable);
         $settings = $data['settings'];
 
