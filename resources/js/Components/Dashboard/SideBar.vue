@@ -1,7 +1,7 @@
 <template>
   <aside
     class="main-sidebar sidebar-dark-primary elevation-4"
-    style="z-index: 100"
+    style="z-index: 2000"
   >
     <!-- Brand Logo -->
     <Link :href="route('admin.dashboard')" class="brand-link">
@@ -51,7 +51,7 @@
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
+                  
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>
@@ -117,7 +117,7 @@
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
+                  
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>
@@ -126,7 +126,7 @@
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
+                  
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>
@@ -135,7 +135,7 @@
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
+                  
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>
@@ -144,7 +144,7 @@
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
+                  
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>
@@ -256,7 +256,7 @@
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
+                  
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>
@@ -292,7 +292,7 @@
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
+                  
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>
@@ -302,7 +302,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" :class="route().current('admin.settings.*') ? 'active' : ' ' " >
               <i class="nav-icon fas fa-cog"></i>
               <p>
                 Setting
@@ -311,23 +311,20 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <Link :href="route('admin.dashboard.orders.index')" class="nav-link">
+                <Link :href="route('admin.settings.cat.index')" class="nav-link" :class="route().current('admin.settings.cat.*') ? 'active' : ' ' ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Map And Category </p>
                 </Link>
               </li>
               <li class="nav-item">
-                <a
-                  :href="route('admin.dashboard.transactions')"
-                  class="nav-link"
-                >
+                 <Link :href="route('admin.settings.shop.index')" class="nav-link" :class="route().current('admin.settings.shop.*') ? 'active' : ' ' ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Shop ettings </p>
-                </a>
+                </Link>
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
+                  
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>
@@ -335,17 +332,14 @@
                 </Link>
               </li>
               <li class="nav-item">
-                <Link
-                  :href="route('admin.dashboard.transactions')"
-                  class="nav-link"
-                >
+                 <Link :href="route('admin.settings.openclose.index')" class="nav-link" :class="route().current('admin.settings.openclose.*') ? 'active' : ' ' ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Open-Close Time </p>
                 </Link>
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
+                  
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>
@@ -354,7 +348,7 @@
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
+                  
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>
@@ -363,7 +357,7 @@
               </li>
               <li class="nav-item">
                 <Link
-                  :href="route('admin.dashboard.transactions')"
+                  
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>

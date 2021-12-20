@@ -22,6 +22,9 @@ use App\Http\Controllers\Admin\Offers\VoucherThemeController;
 use App\Http\Controllers\Admin\Offers\FreeItemController;
 use App\Http\Controllers\Admin\Offers\CartRuleController;
 
+use App\Http\Controllers\Admin\Settings\MapAndCategoryController;
+use App\Http\Controllers\Admin\Settings\OpenCloseController;
+
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\MemberController;
 use App\Http\Controllers\Shop\MenuController;
@@ -30,6 +33,7 @@ use App\Http\Controllers\Shop\AboutusController;
 use App\Http\Controllers\Shop\AccountController;
 use App\Http\Controllers\Shop\ForgotPasswordController;
 use App\Http\Controllers\Shop\RegistryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -161,6 +165,17 @@ Route::prefix('admin')->group(function(){
     
     Route::get('reservation/setting/index', [ReservationSettingController::class, 'index' ])->name('admin.reservation.setting.index');
     Route::post('reservation/setting/update', [ReservationSettingController::class, 'update' ])->name('admin.reservation.setting.update');
+    
+    Route::get('settings/index', [MapAndCategoryController::class, 'index' ])->name('admin.settings.cat.index');
+    Route::post('settings/update', [MapAndCategoryController::class, 'update' ])->name('admin.settings.cat.update');
+   
+    Route::get('settings/shop/index', [MapAndCategoryController::class, 'index' ])->name('admin.settings.shop.index');
+
+    Route::get('settings/open-close/index',[OpenCloseController::class, 'index'])->name('admin.settings.openclose.index');
+    Route::post('settings/open-close/update',[OpenCloseController::class, 'update'])->name('admin.settings.openclose.update');
+
+
+
 
     
 
