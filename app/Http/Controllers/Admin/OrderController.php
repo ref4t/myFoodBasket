@@ -94,7 +94,7 @@ class OrderController extends Controller
 
         oc_order_history::create($request->toArray());
 
-        return redirect()->route('admin.dashboard.orders');
+        return redirect()->route('admin.dashboard.orders.index');
     }
 
     public function delete($id){

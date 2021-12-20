@@ -8,6 +8,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
+                        
                         <div class="card">
                             <div class="card-header">
                                   <button @click="select_all()" id="check_all" class="btn btn-success rounded-pill" > SELECT ALL </button>

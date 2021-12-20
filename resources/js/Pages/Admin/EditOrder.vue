@@ -10,7 +10,7 @@
                     <h2> Order </h2>
                     <div class="text-right"  >
                         <Link @click="submit(orders)" as="button" class="btn btn-secondary rounded-pill" style="margin-right:1%" type="submit">Save</Link>
-                        <Link :href="route('admin.dashboard.orders')" as="button" class="btn btn-secondary rounded-pill" type="button">Cancel</Link>
+                        <Link :href="route('admin.dashboard.orders.index')" as="button" class="btn btn-secondary rounded-pill" type="button">Cancel</Link>
                     </div>
                 </div>
                 <div class="card-body">

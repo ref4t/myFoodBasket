@@ -93,8 +93,8 @@
                       <td>{{ order.date_added }}</td>
                       <td>{{ order.payment_method }}</td>
                       <td class="text-right">
-                          <Link :href="route('admin.dashboard.orders.show', { id: order.order_id })" as="button" class="btn btn-info text-uppercase" style="letter-spacing: 0.1em;" >View</Link>
-                          <Link :href="route('admin.dashboard.orders.edit', { id: order.order_id })" as="button" class="btn btn-warning text-uppercase ml-1" style="letter-spacing: 0.1em;" >Edit</Link>
+                          <Link :href="route('admin.dashboard.orders.show', { id: order.order_id })" as="button" class="btn btn-info rounded-pill text-uppercase" style="letter-spacing: 0.1em;" >View</Link>
+                          <Link :href="route('admin.dashboard.orders.edit', { id: order.order_id })" as="button" class="btn btn-warning rounded-pill text-uppercase ml-1" style="letter-spacing: 0.1em;" >Edit</Link>
                       </td>
                     </tr>
                   </tbody>
@@ -159,7 +159,7 @@ export default {
                   delete params[key];
                 }
               });
-              this.$inertia.get(this.route('admin.dashboard.orders'),params, {replace: true, preserveState: true})
+              this.$inertia.get(this.route('admin.dashboard.orders.index'),params, {replace: true, preserveState: true})
           },
           deep: true,
       }

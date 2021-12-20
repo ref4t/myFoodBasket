@@ -9,7 +9,7 @@
                 <h2>Order</h2>
                 <div class="text-right"  >
                     <Link as="button" class="btn btn-secondary rounded-pill" style="margin-right:1%" type="button">PRINT INVOICE <i class="fas fa-print"></i></Link>
-                    <Link :href="route('admin.dashboard.orders')" as="button" class="btn btn-secondary rounded-pill" type="button">CANCEL <i class="far fa-times-circle"></i></Link>
+                    <Link :href="route('admin.dashboard.orders.index')" as="button" class="btn btn-secondary rounded-pill" type="button">CANCEL <i class="far fa-times-circle"></i></Link>
                 </div>
               </div>
               <div class="card-body">
