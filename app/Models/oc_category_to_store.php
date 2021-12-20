@@ -14,6 +14,9 @@ class oc_category_to_store extends Model
     public function getCategoryDescription(){
         return $this->hasOne(oc_category_description::class,'category_id','category_id')->withCount('getCategoryProduct');
     }
+    public function getCategoryDescriptionWithProducts(){
+        return $this->hasOne(oc_category_description::class,'category_id','category_id')->with('getCategoryProduct');
+    }
     public function getCategoryStatus(){
         return $this->hasOne(oc_category::class,'category_id','category_id')->select('sort_order','status')->orderBy('sort_order','asc');
     }

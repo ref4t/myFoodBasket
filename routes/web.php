@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\Settings\OpenCloseController;
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\MemberController;
 use App\Http\Controllers\Shop\MenuController;
+use App\Http\Controllers\Shop\CartController;
 use App\Http\Controllers\Shop\CheckoutController;
 use App\Http\Controllers\Shop\AboutusController;
 use App\Http\Controllers\Shop\AccountController;
@@ -47,17 +48,13 @@ use App\Http\Controllers\Shop\RegistryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// $stores= oc_store::all();
-// $urls=[];
-// foreach ($stores as $key=>$domain) {
-//         //   dd(parse_url($domain->url));9
-//          $host=parse_url($domain->url);
-//         if(isset($host['host']))
-//         $urls[$key]=$host['host'];
-//     }
-// $string=implode('|',$urls);
-// Route::pattern('domain', '('.$string.')');
-
+$mainDomain = array('domain' => parse_url(env('APP_URL'))['host']);
+Route::group( $mainDomain, function () {
+    /* routes here */
+    Route::get('/', [DomainController::class, 'index'])->name('Home');
+    Route::get('/search', [ShopSearchController::class, 'search'])->name('mainshopSearch');
+    Route::get('/restaurant/{id}',[ShopSearchController::class, 'singleShop'])->name('singleshop');
+});
 $domain = array('domain' => parse_url(url()->current())['host']);
 
 Route::group( $domain,function () {
@@ -66,12 +63,14 @@ Route::group( $domain,function () {
     Route::get('/member',[MemberController::class, 'index'])->name('shopMember');
 
     Route::get('/menu',[MenuController::class, 'index'])->name('shopMenu');
-
+    
     Route::get('/checkout',[CheckoutController::class, 'index'])->name('shopcheckout');
 
     Route::get('/contactus',[AboutusController::class, 'index'])->name('shopcontactus');
     
     Route::get('/cart',[CartController::class, 'index'])->name('shopcart');
+
+    Route::post('/addtocart',[CartController::class, 'addToCart'])->name('addtocart');
 
     Route::get('/registration',[RegisterController::class, 'index'])->name('shopReg');
 
@@ -86,21 +85,8 @@ Route::group( $domain,function () {
     Route::post('/forgotten',[ForgotPasswordController::class, 'index'])->name('shopForgot');
 });
 
-Route::group(array('domain' => 'myfoodbasket.test'), function () {
-    /* routes here */
-    Route::get('/', [DomainController::class, 'index'])->name('Home');
-    Route::get('/search', [ShopSearchController::class, 'search'])->name('mainshopSearch');
-    Route::get('/restaurant/{id}',[ShopSearchController::class, 'singleShop'])->name('singleshop');
-});
-// $stores= oc_store::all();
-// foreach ($stores as $domain) {
-//     //   dd(parse_url($domain->url));9
-//      $host=parse_url($domain->url);
-//      if(isset($host['host'])){
-//     $dom=$host['host'];
-//     Route::group(array('domain' => $dom), $domainRoutes);
-//     }
-// }
+
+
 Route::get('/login');
 
 
