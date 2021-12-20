@@ -338,12 +338,9 @@
                 </Link>
               </li>
               <li class="nav-item">
-                <Link
-                  
-                  class="nav-link"
-                >
+                 <Link :href="route('admin.settings.delivery.index')" class="nav-link" :class="route().current('admin.settings.delivery.*') ? 'active' : ' ' ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>DElivery/Collection Option</p>
+                  <p>Delivery/Collection Option</p>
                 </Link>
               </li>
               <li class="nav-item">

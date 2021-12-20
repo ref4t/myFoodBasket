@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\Offers\CartRuleController;
 
 use App\Http\Controllers\Admin\Settings\MapAndCategoryController;
 use App\Http\Controllers\Admin\Settings\OpenCloseController;
+use App\Http\Controllers\Admin\Settings\DeliveryController;
 
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\MemberController;
@@ -173,6 +174,9 @@ Route::prefix('admin')->group(function(){
 
     Route::get('settings/open-close/index',[OpenCloseController::class, 'index'])->name('admin.settings.openclose.index');
     Route::post('settings/open-close/update',[OpenCloseController::class, 'update'])->name('admin.settings.openclose.update');
+
+    Route::get('settings/delivery/index',[DeliveryController::class, 'index'])->name('admin.settings.delivery.index');
+    Route::post('settings/delivery/update',[DeliveryController::class, 'update'])->name('admin.settings.delivery.update');
 
 
 
