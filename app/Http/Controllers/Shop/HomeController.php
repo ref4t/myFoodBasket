@@ -24,6 +24,9 @@ class HomeController extends Controller
         // $url = 'https://www.stationkebabs.co.uk/';
         $url = request()->root();
         $site = oc_store::where('url','like', '%'.$url.'%')->first();
+        if(!$site){
+            return abort(404);
+        }
          $delivery = oc_delivery_settings::select('name','min_spend')->where('id_store','=',$site->store_id)->get(); 
         $timeSetting=oc_setting::showtimeconfig($site->store_id); 
         // dd($timeSetting);

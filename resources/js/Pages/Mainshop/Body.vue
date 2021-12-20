@@ -40,22 +40,32 @@
 </div>
 </template>
 <script>
+import { useToast } from "vue-toastification";
 export default {
-    
+    setup() {
+      const toast = useToast();
+      return { toast }
+    },
+      props:{
+        message:String,
+    },
     data(){
         return{
             zipCode:null,
+            messages:this.message,
         }
     },
-    
      methods: {
          htmlDecode(input) {
         var doc = new DOMParser().parseFromString(input, "text/html");
         return doc.documentElement.textContent;
         },
          searchShop(){
-             console.log(this.zipCode);
-             this.$inertia.get(this.route('mainshopSearch'),{zip:this.zipCode},{ preserveState: true, preserveScroll: true})
+            //  console.log(this.messages);
+             if(!this.zipCode){
+                 this.toast.warning('Please Search Post Codes to View Restaurants');
+             }
+              this.$inertia.get(this.route('mainshopSearch'),{zip:this.zipCode},{ preserveState: true, preserveScroll: true})
          }
      }
 }
