@@ -11,7 +11,7 @@
         <a href="https://www.123.the-public.co.uk/index.php?route=common/home">
           <div class="bg-logo">
             <img
-              src="https://www.123.the-public.co.uk/image/data/shop-files/A-B/ak-spices/logo-ak.png"
+              :src="'/image/'+shopLogo"
               title="A.K. Spices-Stage"
               alt="A.K. Spices-Stage"
             />
@@ -20,7 +20,8 @@
       </div>
 
       <div class="timeStore shop_closed">
-        <img src="catalog/view/theme/modern/image/open.png" />
+        <img v-if="shopOpen" src="/images/open.png" />
+        <img v-else src="/images/ets_close.png" />
       </div>
     </div>
   </div>
@@ -32,6 +33,9 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
 import { Method } from "@inertiajs/inertia";
 
 export default {
-    name:"Banner"
+   props:['shopLogo','shopOpen'],
+   setup(props){
+     console.log(props);
+   }
 }
 </script>

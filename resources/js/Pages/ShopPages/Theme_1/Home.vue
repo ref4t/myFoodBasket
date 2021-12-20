@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/css/shoptheme1/ets_green.css" />
   </Head>
 
-  <body class="home lang_en ets_green">
+  <div class="home lang_en ets_green">
     <div
       id="smartbanner"
       class="android shown"
@@ -57,7 +57,7 @@
                   <div class="ctr"></div>
 
                   <!-- Banner -->
-                  <Banner />
+                  <Banner :shop-logo='shopLogo' :shop-open="shopOpen"/>
 
                   <div class="ctr"></div>
                 </div>
@@ -981,7 +981,7 @@
     >
       <div id="scroll_ico"></div>
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
@@ -1005,9 +1005,15 @@ export default {
     Menu,
     Footer,
   },
-  props: {},
+  props: {
+    setting: Object,
+    delivery:Array,
+    timeSetting:Object,
+  },
   data() {
     return{
+      shopLogo:this.setting.config_logo,
+      shopOpen:this.timeSetting.open,
       v$: useValidate(),
       newsData:{
         title: "",
@@ -1041,6 +1047,9 @@ export default {
         console.log(this.newsData)
       }
     }
+  },
+  created(){
+    console.log(this.shopLogo);
   }
 };
 </script>

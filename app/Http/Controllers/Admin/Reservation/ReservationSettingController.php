@@ -28,7 +28,7 @@ class ReservationSettingController extends Controller
     }
     public function update(Request $request){
 
-        $validated = $request->validate([
+         $request->validate([
             'settings.settings.store_id'	        => ['integer'],
             'settings.enable_reservation_module'	=> ['boolean'],
             'settings.temporary_disable'	        => ['string','max:255'],

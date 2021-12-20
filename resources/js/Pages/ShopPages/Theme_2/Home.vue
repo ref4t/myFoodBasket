@@ -61,7 +61,7 @@
                         >
                           <div class="bg-logo">
                             <img
-                              src="https://www.stationkebabs.co.uk/image/data/shop-files/S-T/station-kebab-clackton/logo-100h.png"
+                              :src="'/image/'+setting.config_logo"
                               title="STATION KEBABS CLACTON-ON-SEA"
                               alt="STATION KEBABS CLACTON-ON-SEA"
                             />
@@ -70,9 +70,8 @@
                       </div>
 
                       <div class="timeStore shop_closed">
-                        <img
-                          src="https://www.stationkebabs.co.uk/image/data/open_close/new_open.png"
-                        />
+                        <img v-if="timeSetting.open" src="/images/open.png" />
+                        <img v-else src="/images/ets_close.png" />
                       </div>
                     </div>
                   </div>
@@ -1512,6 +1511,9 @@ export default {
   },
   props: {
     theme: Number,
+    setting: Object,
+    delivery:Array,
+    timeSetting:Object,
   },
 };
 </script>
