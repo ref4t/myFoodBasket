@@ -10,29 +10,29 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                  <button @click="select_all()" id="check_all" class="btn btn-success" > SELECT ALL </button>
+                                  <button @click="select_all()" id="check_all" class="btn btn-success rounded-pill" > SELECT ALL </button>
                                 <div class="float-right">
                                     <div class="form-inline">
-                                        <div class="input-group rounded">
-                                            <button  class="btn btn-info" style="margin-right:10px" > APPROVED </button>
-                                            <button  class="btn btn-success" style="margin-right:10px"> INSERT </button>
-                                            <button v-if="deleteData.length" @click="delete_multiple" class="btn btn-danger" > DELETE ({{deleteData.length}})</button>
+                                        <div class="input-group ">
+                                            <button  class="btn btn-info rounded-pill" style="margin-right:10px" > APPROVED </button>
+                                            <Link :href="route('admin.customer.create')" as="button" class="btn btn-success rounded-pill" style="margin-right:10px"> INSERT </Link>
+                                            <button v-if="deleteData.length" @click="delete_multiple" class="btn btn-danger rounded-pill" > DELETE ({{deleteData.length}})</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body table-responsive p-0">
-                                <table class="table table-bordered table-hover text-nowrap" >
+                                <table class="table table-bordered table-hover text-nowrap text-center" >
                                     <thead class="thead-primary" >
                                         <tr>
                                             <th>
                                                
                                             </th>
                                             <th class="text-capitalize">
-                                                <Link @click="sort('fname')" >
+                                                <Link @click="sort('firstname')" >
                                                 Customer Name
-                                                <i v-if="params.field == 'fname' && params.direction == 'asc'" class="fas fa-chevron-down"></i> 
-                                                <i v-if="params.field == 'fname' && params.direction == 'desc'" class="fas fa-chevron-up"></i>
+                                                <i v-if="params.field == 'firstname' && params.direction == 'asc'" class="fas fa-chevron-down"></i> 
+                                                <i v-if="params.field == 'firstname' && params.direction == 'desc'" class="fas fa-chevron-up"></i>
                                                 </Link>
                                             </th>
                                             <th class="text-capitalize">
@@ -46,10 +46,10 @@
                                                 </Link>
                                             </th>
                                             <th class="text-capitalize">
-                                                <Link @click="sort('group')" >
+                                                <Link @click="sort('customer_group_id')" >
                                                 Customer Group
-                                                <i v-if="params.field == 'group' && params.direction == 'asc'" class="fas fa-chevron-down"></i> 
-                                                <i v-if="params.field == 'group' && params.direction == 'desc'" class="fas fa-chevron-up"></i>
+                                                <i v-if="params.field == 'customer_group_id' && params.direction == 'asc'" class="fas fa-chevron-down"></i> 
+                                                <i v-if="params.field == 'customer_group_id' && params.direction == 'desc'" class="fas fa-chevron-up"></i>
                                                 </Link>
                                             </th>
                                             <th class="text-capitalize">
@@ -74,10 +74,10 @@
                                                 </Link>
                                             </th>
                                             <th class="text-capitalize">
-                                                <Link @click="sort('added_date')" >
+                                                <Link @click="sort('date_added')" >
                                                 Date Added
-                                                <i v-if="params.field == 'added_date' && params.direction == 'asc'" class="fas fa-chevron-down"></i> 
-                                                <i v-if="params.field == 'added_date' && params.direction == 'desc'" class="fas fa-chevron-up"></i>
+                                                <i v-if="params.field == 'date_added' && params.direction == 'asc'" class="fas fa-chevron-down"></i> 
+                                                <i v-if="params.field == 'date_added' && params.direction == 'desc'" class="fas fa-chevron-up"></i>
                                                 </Link>
                                             </th>
                                             <th class="text-capitalize">
@@ -139,7 +139,7 @@
                                                 type="search"
                                                 v-model="params.ip"
                                                 class="form-control rounded"
-                                                placeholder="First Name"
+                                                placeholder="Ip Address"
                                                 aria-label="Search"
                                                 aria-describedby="search-addon"
                                                 />
@@ -147,6 +147,7 @@
                                             <td>
                                                 <!-- date picker -->
                                             </td>
+                                            <td></td>
                                             <td></td>
                                         </tr>
 
@@ -246,6 +247,10 @@ export default {
         },
     },
     methods: {
+        sort(field){
+            this.params.field = field;
+            this.params.direction = this.params.direction === 'asc' ? 'desc' : 'asc';
+        },
         add_to_delete(id){
             this.deleteData.includes(id)
             ?
