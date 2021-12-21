@@ -27,6 +27,9 @@ use App\Http\Controllers\Admin\Offers\CartRuleController;
 use App\Http\Controllers\Admin\Settings\MapAndCategoryController;
 use App\Http\Controllers\Admin\Settings\OpenCloseController;
 use App\Http\Controllers\Admin\Settings\DeliveryController;
+use App\Http\Controllers\Admin\Settings\SocialMediaController;
+use App\Http\Controllers\Admin\Settings\ProductIconController;
+use App\Http\Controllers\Admin\Settings\UserController;
 
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\MemberController;
@@ -178,11 +181,24 @@ Route::prefix('admin')->group(function(){
     Route::get('settings/delivery/index',[DeliveryController::class, 'index'])->name('admin.settings.delivery.index');
     Route::post('settings/delivery/update',[DeliveryController::class, 'update'])->name('admin.settings.delivery.update');
 
+    Route::get('settings/social-media/index',[SocialMediaController::class, 'index'])->name('admin.settings.social.index');
+    Route::post('settings/social-media/update',[SocialMediaController::class, 'update'])->name('admin.settings.social.update');
 
 
+    Route::get('settings/product-icon/index',[ProductIconController::class, 'index'])->name('admin.settings.product_icon.index');
+    Route::get('settings/product-icon/create',[ProductIconController::class, 'create'])->name('admin.settings.product_icon.create');
+    Route::post('settings/product-icon/store',[ProductIconController::class, 'store'])->name('admin.settings.product_icon.store');
+    Route::get('settings/product-icon/edit/{id}',[ProductIconController::class, 'edit'])->name('admin.settings.product_icon.edit');
+    Route::post('settings/product-icon/update',[ProductIconController::class, 'update'])->name('admin.settings.product_icon.update');
+    Route::post('settings/product-icon/delete',[ProductIconController::class, 'delete'])->name('admin.settings.product_icon.delete');
 
-    
 
+    Route::get('settings/user/index',[UserController::class, 'index'])->name('admin.settings.user.index');
+    Route::get('settings/user/create',[UserController::class, 'create'])->name('admin.settings.user.create');
+    Route::post('settings/user/store',[UserController::class, 'store'])->name('admin.settings.user.store');
+    Route::get('settings/user/edit/{id}',[UserController::class, 'edit'])->name('admin.settings.user.edit');
+    Route::post('settings/user/update',[UserController::class, 'update'])->name('admin.settings.user.update');
+    Route::post('settings/user/delete',[UserController::class, 'delete'])->name('admin.settings.user.delete');
 
 
 });

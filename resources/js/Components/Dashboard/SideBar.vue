@@ -354,11 +354,32 @@
               </li>
               <li class="nav-item">
                 <Link
-                  
+                  :href="route('admin.settings.social.index')"
                   class="nav-link"
+                  :class="route().current('admin.settings.social.*') ? 'active' : ' ' "
                 >
                   <i class="far fa-circle nav-icon"></i>
                   <p>Social Media Link </p>
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link
+                  :href="route('admin.settings.product_icon.index')"
+                  class="nav-link"
+                  :class="route().current('admin.settings.product_icon.*') ? 'active' : ' ' "
+                >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Product Icon </p>
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link
+                  :href="route('admin.settings.user.index')"
+                  class="nav-link"
+                  :class="route().current('admin.settings.user.*') ? 'active' : ' ' "
+                >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Users </p>
                 </Link>
               </li>
             </ul>
