@@ -43,6 +43,6 @@ class MenuController extends Controller
         if ($theme == 1){
             return Inertia::render('ShopPages/Theme_1/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'catItems'=>$cart]);
         }else
-            return Inertia::render('ShopPages/Theme_2/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'catItems'=>$cart]);
+            return Inertia::render('ShopPages/Theme_6/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'catItems'=>$cart]);
     }
 }

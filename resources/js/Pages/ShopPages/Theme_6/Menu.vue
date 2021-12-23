@@ -1,0 +1,155 @@
+<template>
+    <Head>
+    <!-- <link rel="stylesheet" href="/css/theme-6.css"> -->
+            <link rel="stylesheet" href="/css/shoptheme6/bootstrap.min.css">
+            <link rel="stylesheet" href="/css/shoptheme6/bootstrap-datetimepicker.min.css">
+            <link rel="stylesheet" href="/css/shoptheme6/all.min.css">
+            <link rel="stylesheet" href="/css/shoptheme6/swiper-bundle.min.css">
+            <link rel="stylesheet" href="/css/shoptheme6/fancybox.css">
+            <link rel="stylesheet" href="/css/shoptheme6/animate.min.css">
+            <link rel="stylesheet" href="/css/shoptheme6/select2.min.css">
+            <link rel="stylesheet" href="/css/shoptheme6/app.css">
+            <link rel="stylesheet" href="/css/shoptheme6/responsive.css">
+</Head>
+<TopHeaderSix></TopHeaderSix>
+<div class="container my-5">
+    <div class="row gx-5">
+        <div class="col-auto d-none d-lg-block">
+            <div class="list-group sticky-lg-top">
+                <a href="#" class="list-group-item list-group-item-action" v-for="category in category" :key="category" style="font-size:.8em; padding: 0.2rem 1rem;">
+                    {{category.get_category_description_with_products.name}} 
+                    <span class="badge bg-secondary rounded-pill float-end">{{category.get_category_description_with_products.get_category_product.length}}</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div v-for="(category,index) in category" class="my-4" :key="index">
+                <div class="d-grid gap-1">
+                <a class="btn btn-secondary" data-bs-toggle="collapse" :href="'#collapseExample'+index" role="button" aria-expanded="true" :aria-controls="'collapseExample'+index">
+                    {{category.get_category_description_with_products.name}}
+                </a>
+                </div>
+                <div class="collapse show" :id="'collapseExample'+index">
+                    <div class="card card-body">
+                    <p class="text-center" v-html="category.get_category_description_with_products.description"></p>
+                        <div class="m-2 border border-1 rounded p-3" v-for="(product,index2) in category.get_category_description_with_products.get_category_product" :key="index2">
+                            <h5>{{htmlDecode(product.get_product_description.name)}}</h5>
+                            <!-- <div class="mb-3">
+                                <label for="specialReq" class="form-label">Add your special request?</label>
+                                <textarea class="form-control" id="specialReq" rows="3"></textarea>
+                            </div> -->
+                            <div class="row" v-if="product.get_product_description.image">
+                                <div class="item">
+                                    <img class="rounded float-start" style="height:80px;width:auto;" :src="'/image/'+product.get_product_description.image" :data-fancybox="'photoGallery'+index2">
+                                </div>
+                            </div>
+                            <div v-if="product.get_product_description.size_info && product.get_product_description.price == 0">
+                            <div class="row justify-content-end my-2"  v-for="sizes in product.get_product_description.size_info" :key="sizes">
+                                <div class="col-auto">
+                                    <span class="mx-2 fw-bold">{{htmlDecode(sizes.size)}}</span>
+                                <a type="button" class="btn btn-success btn-sm" @click="addToCart(sizes.id_product,sizes.id_size)">
+                                    £{{htmlDecode(sizes.price)}} |
+                                    <i class="fas fa-shopping-basket" style="color:white;"></i>
+                                </a>
+                                </div>
+                            </div>
+                            </div>
+                            <div v-else class="row justify-content-end my-2">
+                                <div class="col-auto align-self-end">
+                                <a type="button" class="btn btn-success btn-sm" @click="addToCart(sizes.id_product,sizes.id_size)">
+                                    £ {{htmlDecode(product.get_product_description.price)}} |
+                                    <i class="fas fa-shopping-basket" style="color:white;"></i>
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 d-none d-lg-block">
+            <div class="card sticky-lg-top">
+                <div class="alert alert-success" style="color:white; background: #01a101;font-weight:bold">
+                         We are open now!
+                </div>
+            <!-- <div class="card-body" style="background: #01a101;" >
+               <h4 style="color:white;"></h4> 
+            </div> -->
+            <div class="card-body">
+                <h5 class="card-title">My Basket  <i class="fas fa-shopping-basket align-items-end" style="color:black;"></i></h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="#"><i class="fas fa-times-circle me-2" style="color:red"></i></a>An item</li>
+            </ul>
+            <div class="card-body">
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<TopFooterSix></TopFooterSix>
+</template>
+<script>
+import { Head, Link } from '@inertiajs/inertia-vue3';
+import TopHeaderSix from '@/Pages/ShopPages/Theme_6/Header6.vue';
+import TopFooterSix from '@/Pages/ShopPages/Theme_6/Footer6.vue';
+export default {
+     components:{
+        Head,
+        Link,
+        TopHeaderSix,
+        TopFooterSix,
+    },
+    data(){
+        return{
+            cartItems:this.cartItems,
+        }
+    },
+    props:{
+        setting:Object,
+        category:Array,
+        timeSetting:Object,
+        cartItems:Object,
+    },
+    methods: {
+        htmlDecode(input) {
+        var doc = new DOMParser().parseFromString(input, "text/html");
+        return doc.documentElement.textContent;
+        },
+        addToCart(productId,sizeId){
+          let  pdata={'id_product':productId,'id_size':sizeId}
+               console.log(pdata)
+          this.axios.post('/addtocart',pdata).then((response) => {
+              this.cartItems=response.data;
+            }).catch(error => {
+      this.errorMessage = error.message;
+      // console.error("There was an error!", error);
+        });
+        }
+   },
+    mounted() {
+        let links=[ '/js/theme6/jquery.min.js',
+                    '/js/theme6/moment.min.js',
+                    '/js/theme6/locales.min.js',
+                    '/js/theme6/bootstrap.min.js',
+                    '/js/theme6/bootstrap-datetimepicker.min.js',
+                    '/js/theme6/wow.min.js',
+                    '/js/theme6/fancybox.umd.js',
+                    '/js/theme6/select2.min.js',
+                    '/js/theme6/swiper-bundle.min.js',
+                    '/js/theme6/app.js'
+                  ];
+  links.forEach(function(value,index){
+    let externalScript = document.createElement('script')
+      externalScript.async = true
+      externalScript.setAttribute('src', value)
+      document.body.appendChild(externalScript)
+  });
+   },
+}
+</script>
+<style>
+    
+</style>

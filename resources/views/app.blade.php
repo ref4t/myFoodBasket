@@ -11,18 +11,19 @@
      
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        <link rel="stylesheet" href="/css/mainshop/bootstrap.css">
+        {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&amp;display=swap" rel="stylesheet"/>
+        {{-- <link rel="stylesheet" href="/css/mainshop/bootstrap.css">
         <link rel="stylesheet" href="/css/mainshop/theme.css">
         <link rel="stylesheet" href="/css/mainshop/style_new.css">
         <link rel="stylesheet" href="/css/shoptheme1/stylesheet.css" />
-        <link rel="stylesheet" href="/css/shoptheme1/news.css" />   
+        <link rel="stylesheet" href="/css/shoptheme1/news.css" />    --}}
 
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
-        <script src="/js/jquery-3.6.0.min.js"></script>
-        <script src="/js/bootstrap-3.4.1.min.js"></script>
+        {{-- <script src="/js/jquery-3.6.0.min.js"></script> --}}
+        {{-- <script src="/js/bootstrap-3.4.1.min.js"></script> --}}
 
     </head>
 

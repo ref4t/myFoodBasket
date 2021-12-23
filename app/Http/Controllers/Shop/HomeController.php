@@ -63,7 +63,7 @@ class HomeController extends Controller
                 'setting' => $data
             ]);
         }else
-            return Inertia::render('ShopPages/Theme_2/Home',[
+            return Inertia::render('ShopPages/Theme_6/Home',[
                 'theme' => $theme, 
                 'reviews' => $reviews,
                 'slider' => $slider,
