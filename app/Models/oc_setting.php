@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class oc_setting extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $table = 'oc_setting';
 
     public function getTimeToday($thu = 0, $store_id = 0)
