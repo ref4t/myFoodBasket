@@ -21,6 +21,8 @@ class MenuController extends Controller
     public function index()
     {
         $url = request()->root();
+        $url = 'https://www.pizzaria.co.uk/';
+        $url =parse_url($url)['host'];
         $site = oc_store::where('url','like', '%'.$url.'%')->first();
          $delivery = oc_delivery_settings::select('name','min_spend')->where('id_store','=',$site->store_id)->get(); 
         $timeSetting=oc_setting::showtimeconfig($site->store_id); 
