@@ -39,13 +39,17 @@ class CartController extends Controller
         }
         
         $contents=Cart::content();
-        return response()->json($contents);
+        $total=Cart::total();
+        $subtotal =Cart::subtotal();
+        return response()->json(['contents'=>$contents,'total'=>$total,'subtotal'=>$subtotal]);
     }
     public function removeFromCart(Request $request){
         $product_id=$request->input('id_product');
         $rowId=$request->input('rowId');
         Cart::remove($rowId);
         $contents=Cart::content();
-        return response()->json($contents);
+        $total=Cart::total();
+        $subtotal =Cart::subtotal();
+        return response()->json(['contents'=>$contents,'total'=>$total,'subtotal'=>$subtotal]);
     }
 }

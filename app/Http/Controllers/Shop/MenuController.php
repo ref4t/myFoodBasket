@@ -41,9 +41,8 @@ class MenuController extends Controller
         $theme = 2;
         // dd($category[0]->getCategoryDescriptionWithProducts);
         $cart=Cart::content();
-        if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart]);
-        }else
-            return Inertia::render('ShopPages/Theme_6/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart]);
+        $total=Cart::total();
+        $subtotal =Cart::subtotal();
+        return Inertia::render('ShopPages/Theme_6/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
     }
 }

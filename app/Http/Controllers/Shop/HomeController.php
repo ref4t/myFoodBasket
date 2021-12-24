@@ -13,6 +13,7 @@ use App\Models\oc_gender;
 use App\Models\oc_ybc_openclosttime;
 use App\Models\oc_delivery_settings;
 use App\Models\oc_setting;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 
 class HomeController extends Controller
@@ -43,11 +44,9 @@ class HomeController extends Controller
                 }
         
 
-        $reviews = oc_store_review::where('store_id', $site->store_id)->limit(5)->get();
-        
-        $slider = oc_slider::where('store_id', $site->store_id);
-        
-        $gender = oc_gender::all();
+        $cart=Cart::content();
+        $total=Cart::total();
+        $subtotal =Cart::subtotal();
 
         $theme = 2;
         if ($theme == 1){
@@ -63,15 +62,6 @@ class HomeController extends Controller
                 'setting' => $data
             ]);
         }else
-            return Inertia::render('ShopPages/Theme_6/Home',[
-                'theme' => $theme, 
-                'reviews' => $reviews,
-                'slider' => $slider,
-                'url' => $url,
-                'site' => $site,
-                'delivery' => $delivery,
-                'timeSetting' => $timeSetting,
-                'setting' => $data
-            ]);
+            return Inertia::render('ShopPages/Theme_6/Home',['theme' => $theme,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
     }
 }

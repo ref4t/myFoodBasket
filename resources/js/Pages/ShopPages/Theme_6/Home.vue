@@ -11,7 +11,7 @@
             <link rel="stylesheet" href="/css/shoptheme6/app.css">
             <link rel="stylesheet" href="/css/shoptheme6/responsive.css">
 </Head>
-<TopHeaderSix></TopHeaderSix>
+<TopHeaderSix :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length"></TopHeaderSix>
 <section class="home-slide-v6 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="home-slide-v6-swiper">
         <div class="swiper">
@@ -408,7 +408,7 @@
       </div>
     </section>
     
-    <TopFooterSix></TopFooterSix>
+  <TopFooterSix :logo="setting.config_logo" :name="setting.config_name"></TopFooterSix>
 </template>
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';
@@ -420,6 +420,20 @@ export default {
         Link,
         TopHeaderSix,
         TopFooterSix,
+    },
+    data(){
+        return{
+            cartTest:this.cartItems,
+            cartTotal:this.cTotal,
+            cartSubtotal:this.cSubtotal,
+        }
+        
+    },
+    props:{
+        setting:Object,
+        cartItems:Object,
+        cTotal:String,
+        cSubtotal:String,
     },
     mounted() {
         let links=[ '/js/theme6/jquery.min.js',

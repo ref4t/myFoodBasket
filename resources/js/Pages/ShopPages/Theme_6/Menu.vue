@@ -11,12 +11,12 @@
             <link rel="stylesheet" href="/css/shoptheme6/app.css">
             <link rel="stylesheet" href="/css/shoptheme6/responsive.css">
 </Head>
-<TopHeaderSix></TopHeaderSix>
+<TopHeaderSix :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length"></TopHeaderSix>
 <div class="container my-5">
     <div class="row gx-5">
         <div class="col-auto d-none d-lg-block">
             <div class="list-group sticky-lg-top">
-                <a href="#" class="list-group-item list-group-item-action" v-for="category in category" :key="category" style="font-size:.8em; padding: 0.2rem 1rem;">
+                <a href="javascript:void(0)" class="list-group-item list-group-item-action" v-for="category in category" :key="category" style="font-size:.8em; padding: 0.2rem 1rem;">
                     {{category.get_category_description_with_products.name}} 
                     <span class="badge bg-secondary rounded-pill float-end">{{category.get_category_description_with_products.get_category_product.length}}</span>
                 </a>
@@ -33,7 +33,7 @@
                     <div class="card card-body">
                     <tempalte class="text-center" v-html="category.get_category_description_with_products.description" ></tempalte>
                         <div class="m-2 border border-1 rounded p-3" v-for="(product,index2) in category.get_category_description_with_products.get_category_product" :key="index2">
-                            <h5>{{htmlDecode(product.get_product_description.name)}}</h5>
+                            <h5>{{htmlDecode(product.get_product_description.name)}} <span v-if="product.get_product_description.icon_info"><img :src="'/'+product.get_product_description.icon_info.icon_url" alt=""></span></h5>
                             <!-- <div class="mb-3">
                                 <label for="specialReq" class="form-label">Add your special request?</label>
                                 <textarea class="form-control" id="specialReq" rows="3"></textarea>
@@ -87,20 +87,20 @@
                 <h5 class="card-title">My Basket  <i class="fas fa-shopping-basket align-items-end" style="color:black;"></i></h5>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item" v-for="item in cartTest" :key="item"><a href="#"><i class="fas fa-times-circle me-2" style="color:red" @click="removeFromCart(item.id,item.rowId)"></i></a>{{item.qty+' &#215; '+ (item.options.length != 0 ? item.options.size : '')+' '+item.name}}</li>
+                <li class="list-group-item" v-for="item in cartTest" :key="item"><a href="javascript:void(0)"><i class="fas fa-times-circle me-2" style="color:red" @click="removeFromCart(item.id,item.rowId)"></i></a>{{item.qty+' &#215; '+ (item.options.length != 0 ? item.options.size : '')+' '+item.name}}</li>
             </ul>
-            <div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
+            <ul class="list-group list-group-flush">
+               <li class="list-group-item"> <h6>Subtotal: {{cartSubtotal}}</h6> </li>
+               <li class="list-group-item"> <h5>Total to pay: {{cartTotal}}</h5></li>
+            </ul>
             </div>
         </div>
     </div>
 </div>
-<TopFooterSix></TopFooterSix>
+<TopFooterSix :logo="setting.config_logo" :name="setting.config_name"></TopFooterSix>
 </template>
 <script>
-import { Head, Link , usePage  } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/inertia-vue3';
 import TopHeaderSix from '@/Pages/ShopPages/Theme_6/Header6.vue';
 import TopFooterSix from '@/Pages/ShopPages/Theme_6/Footer6.vue';
 import { useToast } from "vue-toastification";
@@ -119,6 +119,8 @@ export default {
     data(){
         return{
             cartTest:this.cartItems,
+            cartTotal:this.cTotal,
+            cartSubtotal:this.cSubtotal,
         }
         
     },
@@ -127,6 +129,8 @@ export default {
         category:Array,
         timeSetting:Object,
         cartItems:Object,
+        cTotal:String,
+        cSubtotal:String,
     },
     methods: {
         htmlDecode(input) {
@@ -139,7 +143,9 @@ export default {
             //    console.log(pdata)
           this.axios.post('/addtocart',pdata).then((response) => {
               this.toast.success('Added to cart');
-               cd.cartTest=response.data;
+               cd.cartTest=response.data.contents;
+               cd.cartSubtotal=response.data.subtotal;
+               cd.cartTotal=response.data.total;
             //    console.log(response.data);
             }).catch(error => {
          this.errorMessage = error.message;
@@ -150,7 +156,9 @@ export default {
              let cd=this;
              this.axios.post('/removefromcart',pdata).then((response) => {
               this.toast.warning('Removed from cart');
-                 cd.cartTest=response.data;
+                 cd.cartTest=response.data.contents;
+                 cd.cartSubtotal=response.data.subtotal;
+               cd.cartTotal=response.data.total;
             //    console.log(response.data);
                     }).catch(error => {
                 this.errorMessage = error.message;
