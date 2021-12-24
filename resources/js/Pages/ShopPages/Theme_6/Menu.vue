@@ -64,7 +64,7 @@
                                     </div>
                                </div>
                                 <div class="col-auto">
-                                     <a type="button" class="btn btn-success btn-sm" @click="addToCart(product.get_product_description.product_id,0)">
+                                     <a type="button" class="btn btn-success btn-sm" @click="addToCart(product.get_product_description.product_id,0,cartItems)">
                                     £ {{htmlDecode(product.get_product_description.price)}} |
                                     <i class="fas fa-shopping-basket" style="color:white;"></i>
                                 </a>
@@ -87,7 +87,7 @@
                 <h5 class="card-title">My Basket  <i class="fas fa-shopping-basket align-items-end" style="color:black;"></i></h5>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item" v-for="item in cartItems" :key="item"><a href="#"><i class="fas fa-times-circle me-2" style="color:red"></i></a>An item</li>
+                <li class="list-group-item" v-for="item in cartTest" :key="item"><a href="#"><i class="fas fa-times-circle me-2" style="color:red" @click="removeFromCart(item.id,item.rowId)"></i></a>{{item.qty+' &#215; '+ (item.options.length != 0 ? item.options.size : '')+' '+item.name}}</li>
             </ul>
             <div class="card-body">
                 <a href="#" class="card-link">Card link</a>
@@ -100,9 +100,11 @@
 <TopFooterSix></TopFooterSix>
 </template>
 <script>
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link , usePage  } from '@inertiajs/inertia-vue3';
 import TopHeaderSix from '@/Pages/ShopPages/Theme_6/Header6.vue';
 import TopFooterSix from '@/Pages/ShopPages/Theme_6/Footer6.vue';
+import { useToast } from "vue-toastification";
+
 export default {
      components:{
         Head,
@@ -110,32 +112,49 @@ export default {
         TopHeaderSix,
         TopFooterSix,
     },
+    setup() {
+      const toast = useToast();
+      return { toast }
+    },
     data(){
         return{
-            cartItems:this.catItems,
+            cartTest:this.cartItems,
         }
+        
     },
     props:{
         setting:Object,
         category:Array,
         timeSetting:Object,
-        catItems:Object,
+        cartItems:Object,
     },
     methods: {
         htmlDecode(input) {
         var doc = new DOMParser().parseFromString(input, "text/html");
         return doc.documentElement.textContent;
         },
-        addToCart(productId,sizeId){
+        addToCart(productId,sizeId,cartItems){
           let  pdata={'id_product':productId,'id_size':sizeId}
-               console.log(pdata)
+          let cd=this;
+            //    console.log(pdata)
           this.axios.post('/addtocart',pdata).then((response) => {
-              this.cartItems.push(Object.keys(response.data)[0]);
-              console.log(this.cartItems);
+              this.toast.success('Added to cart');
+               cd.cartTest=response.data;
+            //    console.log(response.data);
             }).catch(error => {
-      this.errorMessage = error.message;
-      // console.error("There was an error!", error);
+         this.errorMessage = error.message;
         });
+        },
+        removeFromCart(productId,rowID){
+             let  pdata={'id_product':productId,'rowId':rowID};
+             let cd=this;
+             this.axios.post('/removefromcart',pdata).then((response) => {
+              this.toast.warning('Removed from cart');
+                 cd.cartTest=response.data;
+            //    console.log(response.data);
+                    }).catch(error => {
+                this.errorMessage = error.message;
+                });
         }
    },
     mounted() {

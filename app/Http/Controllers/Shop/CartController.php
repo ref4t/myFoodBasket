@@ -41,4 +41,11 @@ class CartController extends Controller
         $contents=Cart::content();
         return response()->json($contents);
     }
+    public function removeFromCart(Request $request){
+        $product_id=$request->input('id_product');
+        $rowId=$request->input('rowId');
+        Cart::remove($rowId);
+        $contents=Cart::content();
+        return response()->json($contents);
+    }
 }

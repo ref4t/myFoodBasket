@@ -71,6 +71,8 @@ Route::group( $domain,function () {
     Route::get('/cart',[CartController::class, 'index'])->name('shopcart');
 
     Route::post('/addtocart',[CartController::class, 'addToCart'])->name('addtocart');
+    
+    Route::post('/removefromcart',[CartController::class, 'removeFromCart'])->name('removefromcart');
 
     Route::get('/registration',[RegisterController::class, 'index'])->name('shopReg');
 

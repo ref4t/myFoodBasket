@@ -25,6 +25,7 @@ class MenuController extends Controller
          $delivery = oc_delivery_settings::select('name','min_spend')->where('id_store','=',$site->store_id)->get(); 
         $timeSetting=oc_setting::showtimeconfig($site->store_id); 
         // dd($timeSetting);
+        // Cart::destroy();
         $settings=oc_setting::where('store_id','=',$site->store_id)->where('group','=','config')->orWhere('group','=','deliverysetting')->get();
         $data['store_id']=$site->store_id;
                 foreach ($settings as $result) {
@@ -41,8 +42,8 @@ class MenuController extends Controller
         // dd($category[0]->getCategoryDescriptionWithProducts);
         $cart=Cart::content();
         if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'catItems'=>$cart]);
+            return Inertia::render('ShopPages/Theme_1/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart]);
         }else
-            return Inertia::render('ShopPages/Theme_6/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'catItems'=>$cart]);
+            return Inertia::render('ShopPages/Theme_6/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart]);
     }
 }
