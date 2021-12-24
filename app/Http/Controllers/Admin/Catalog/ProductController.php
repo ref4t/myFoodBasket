@@ -115,7 +115,7 @@ class ProductController extends Controller
         if( array_key_exists('image',  $product)){
        
             $image = $product['image'];
-            $image_name = $image->getClientOriginalName();
+            $image_name = wordwrap(strtolower($image->getClientOriginalName()), 1, '_', 0) ;
             $image->move(public_path('/image/data/shop-files/'.$store_path),$image_name);
             $image_path = "/image/data/shop-files/".$store_path . $image_name;
         }
