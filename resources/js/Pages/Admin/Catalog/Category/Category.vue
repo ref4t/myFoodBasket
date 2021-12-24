@@ -35,7 +35,7 @@
                                         <input v-if="deleteData.includes(category.category_id)" checked type="checkbox" @click="add_to_delete(category.category_id)" class="form-check">
                                         <input v-else type="checkbox"  @click="add_to_delete(category.category_id)" class="form-check" >
                                     </th>
-                                    <td> {{ category.get_category_description_with_products.name }} </td>
+                                    <td @click="forwardEdit(category.category_id)" class="text-left" style="cursor:pointer" > {{ category.get_category_description_with_products.name }} </td>
                                     <td>
                                         {{category.sort_order}}
                                     </td>
@@ -124,6 +124,10 @@ export default {
         sort(field) {
             this.params.field = field;
             this.params.direction = this.params.direction === "asc" ? "desc" : "asc";
+        },
+        forwardEdit(id){
+            console.log(id);
+            this.$inertia.get( route('admin.catalog.category.edit', [ id ]))
         },
 
     },

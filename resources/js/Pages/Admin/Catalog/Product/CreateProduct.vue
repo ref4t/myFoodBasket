@@ -305,9 +305,10 @@ export default {
       categories:Object,
       icons: Object,
       options : Object,
-        cat_group_topping: Object,
+    cat_group_topping: Object,
      
     },
+    
   data() {
       return {
           content:'',
@@ -414,6 +415,6 @@ export default {
 
 <style>
 .ql-container{
-    height: 20vh;
+    min-height: 20vh;
 }
 </style>
