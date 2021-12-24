@@ -131,6 +131,7 @@ Route::prefix('admin')->group(function(){
     Route::post('catalog/category/delete', [CategoryController::class, 'delete' ])->name('admin.catalog.category.delete');
     Route::get('catalog/category/edit/{id}', [CategoryController::class, 'edit' ])->name('admin.catalog.category.edit');
     Route::post('catalog/category/update', [CategoryController::class, 'update' ])->name('admin.catalog.category.update');
+    Route::post('catalog/category/size/update', [CategoryController::class, 'sizeUpdate' ])->name('admin.catalog.product.size.update');
 
     Route::get('catalog/product/index',[ProductController::class, 'index'])->name('admin.catalog.product.index');
     Route::get('catalog/product/create',[ProductController::class, 'create'])->name('admin.catalog.product.create');

@@ -114,7 +114,7 @@
                     </table>
 
 
-                    <table class="table table-bordered table-hover">
+                    <table v-if="options.enable_size == 1" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>Size</th>
@@ -134,9 +134,9 @@
                                 </td>
                                 <td v-else > {{ size.short_order }} </td>
                                 
-                                <td style="width: 40%"> 
-                                    <button v-if="this.editSizeData == size.id_size" @click="saveSize(size)" class="btn btn-success rounded-pill">SAVE</button>
-                                    <button v-else @click="editsize(size.id_size)" class="btn btn-warning rounded-pill">EDIT</button>
+                                <td style="width: 30%"> 
+                                    <button v-if="this.editSizeData == size.id_size" @click="saveSize(size)" class="btn btn-success rounded-pill m-2">SAVE</button>
+                                    <button v-else @click="editsize(size.id_size)" class="btn btn-warning rounded-pill m-2">EDIT</button>
                                     <button v-if="this.editSizeData == size.id_size" @click="editSizeData = ''" class="btn btn-info rounded-pill">CANCEL</button>
                                     <button v-else class="btn btn-danger rounded-pill">DELETE</button>
                                 </td>
