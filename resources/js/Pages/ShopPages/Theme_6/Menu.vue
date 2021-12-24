@@ -31,32 +31,40 @@
                 </div>
                 <div class="collapse show" :id="'collapseExample'+index">
                     <div class="card card-body">
-                    <p class="text-center" v-html="category.get_category_description_with_products.description"></p>
+                    <tempalte class="text-center" v-html="category.get_category_description_with_products.description" ></tempalte>
                         <div class="m-2 border border-1 rounded p-3" v-for="(product,index2) in category.get_category_description_with_products.get_category_product" :key="index2">
                             <h5>{{htmlDecode(product.get_product_description.name)}}</h5>
                             <!-- <div class="mb-3">
                                 <label for="specialReq" class="form-label">Add your special request?</label>
                                 <textarea class="form-control" id="specialReq" rows="3"></textarea>
                             </div> -->
-                            <div class="row" v-if="product.get_product_description.image">
-                                <div class="item">
-                                    <img class="rounded float-start" style="height:80px;width:auto;" :src="'/image/'+product.get_product_description.image" :data-fancybox="'photoGallery'+index2">
-                                </div>
-                            </div>
+                    
                             <div v-if="product.get_product_description.size_info && product.get_product_description.price == 0">
-                            <div class="row justify-content-end my-2"  v-for="sizes in product.get_product_description.size_info" :key="sizes">
-                                <div class="col-auto">
+                            <div class="row justify-content-between my-2">
+                               <div class="col-auto" >
+                                   <div class="item" v-if="product.get_product_description.image">
+                                     <img class="rounded float-start" style="height:80px;width:auto;" :src="'/image/'+product.get_product_description.image" :data-fancybox="'photoGallery'+index2">
+                                    </div>
+                               </div>
+                                <div class="col-4">
+                                    <div v-for="sizes in product.get_product_description.size_info" :key="sizes" style="float:right; margin-bottom:10px">
                                     <span class="mx-2 fw-bold">{{htmlDecode(sizes.size)}}</span>
-                                <a type="button" class="btn btn-success btn-sm" @click="addToCart(sizes.id_product,sizes.id_size)">
-                                    £{{htmlDecode(sizes.price)}} |
-                                    <i class="fas fa-shopping-basket" style="color:white;"></i>
-                                </a>
+                                    <a type="button" class="btn btn-success btn-sm" @click="addToCart(sizes.id_product,sizes.id_size)">
+                                        £{{htmlDecode(sizes.price)}} |
+                                        <i class="fas fa-shopping-basket" style="color:white;"></i>
+                                    </a>
+                                    </div>
                                 </div>
                             </div>
                             </div>
-                            <div v-else class="row justify-content-end my-2">
-                                <div class="col-auto align-self-end">
-                                <a type="button" class="btn btn-success btn-sm" @click="addToCart(sizes.id_product,sizes.id_size)">
+                            <div v-else class="row justify-content-between my-2">
+                                <div class="col-auto">
+                                   <div class="item" v-if="product.get_product_description.image">
+                                     <img class="rounded float-start" style="height:80px;width:auto;" :src="'/image/'+product.get_product_description.image" :data-fancybox="'photoGallery'+index2">
+                                    </div>
+                               </div>
+                                <div class="col-auto">
+                                     <a type="button" class="btn btn-success btn-sm" @click="addToCart(product.get_product_description.product_id,0)">
                                     £ {{htmlDecode(product.get_product_description.price)}} |
                                     <i class="fas fa-shopping-basket" style="color:white;"></i>
                                 </a>
@@ -79,7 +87,7 @@
                 <h5 class="card-title">My Basket  <i class="fas fa-shopping-basket align-items-end" style="color:black;"></i></h5>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a href="#"><i class="fas fa-times-circle me-2" style="color:red"></i></a>An item</li>
+                <li class="list-group-item" v-for="item in cartItems" :key="item"><a href="#"><i class="fas fa-times-circle me-2" style="color:red"></i></a>An item</li>
             </ul>
             <div class="card-body">
                 <a href="#" class="card-link">Card link</a>
@@ -104,14 +112,14 @@ export default {
     },
     data(){
         return{
-            cartItems:this.cartItems,
+            cartItems:this.catItems,
         }
     },
     props:{
         setting:Object,
         category:Array,
         timeSetting:Object,
-        cartItems:Object,
+        catItems:Object,
     },
     methods: {
         htmlDecode(input) {
@@ -122,7 +130,8 @@ export default {
           let  pdata={'id_product':productId,'id_size':sizeId}
                console.log(pdata)
           this.axios.post('/addtocart',pdata).then((response) => {
-              this.cartItems=response.data;
+              this.cartItems.push(Object.keys(response.data)[0]);
+              console.log(this.cartItems);
             }).catch(error => {
       this.errorMessage = error.message;
       // console.error("There was an error!", error);
