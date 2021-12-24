@@ -45,7 +45,7 @@
                                         Description:
                                     </td>
                                     <td>
-                                        <QuillEditor v-model="this.form.desc" theme="snow"></QuillEditor >
+                                        
                                     </td>
                                 </tr>
                                 <tr>
@@ -93,20 +93,18 @@ import { Head,Link } from '@inertiajs/inertia-vue3';
 import Pagination from "@/Components/Pagination";
 import useValidate from '@vuelidate/core'
 import { required, email, minLength, sameAs, numeric } from '@vuelidate/validators'
-import { QuillEditor } from '@vueup/vue-quill'
-import '@vueup/vue-quill/dist/vue-quill.snow.css';
+
 
 export default {
   components: {
     Head,
     Link,
     AdminLayout,
-    QuillEditor
   },
 
   props: {
-    'groups': Object,
-    'stores': Object,
+    groups: Object,
+    stores: Object,
   },
   data() {
       return {

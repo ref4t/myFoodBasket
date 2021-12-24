@@ -6,7 +6,10 @@
         </div>
         <div class="form-check form-check-inline  m-4">
             <select v-model="selected_catagory"  class="form-control" >
-                <option v-for="category in categories" :key="category" :value="category.category_id" selected > {{ category.get_category_description_with_products.name }} </option>
+                <template v-for="category in categories" :key="category">
+                    <option  :value="category.category_id" > {{ category.get_category_description_with_products.name }} </option>
+                </template>
+                
             </select>
         </div>
         
@@ -49,7 +52,7 @@
                                                 <template v-for="size in product.get_product_description.size_info" :key="size" >
                                                     <template v-if="size.id_product == product.product_id" >
                                                         <th>
-                                                            {{ size.size }}
+                                                            {{ decodeHtml(size.size) }}
                                                         </th>
                                                     </template>
                                                 </template>
@@ -64,12 +67,12 @@
                             <template v-if="categories" >
                                 <template v-for="category in categories" :key="category" >
                                     <template v-for=" product in category.get_category_description_with_products.get_category_product" :key="product" >
-                                        <tr class="myDIV" v-if="product.category_id == this.selected_catagory.toString()" @click="forwardEdit(product.product_id)" style="cursor:pointer" >
+                                        <tr class="myDIV" v-if="product.category_id == this.selected_catagory.toString()"  >
                                             <th>
                                                 <input v-if="deleteData.includes(product.product_id)" checked type="checkbox" @click="add_to_delete(product.product_id)" class="form-check">
                                                 <input v-else type="checkbox"  @click="add_to_delete(product.product_id)" class="form-check" >
                                             </th>
-                                            <td class="text-left" > {{ product.get_product_description.name }} </td>
+                                            <td  @click="forwardEdit(product.product_id)" class="text-left" style="cursor:pointer"> {{ decodeHtml(product.get_product_description.name) }} </td>
                                             <td> {{ product.get_product_description.price }} </td>
                                             <template v-for="size in product.get_product_description.size_info" :key="size" >
                                                 <td>
@@ -177,6 +180,11 @@ export default {
             this.params.field = field;
             this.params.direction = this.params.direction === "asc" ? "desc" : "asc";
         },
+        decodeHtml(html) {
+            var txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
+        }
 
     },
     watch: {
