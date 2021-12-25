@@ -10,6 +10,7 @@ class oc_topping_cat_option extends Model
 {
     protected $guarded = [];
     public $timestamps = false;
+    protected $primaryKey = 'id_category';
     protected $table = 'oc_topping_cat_option';
     use HasFactory;
 

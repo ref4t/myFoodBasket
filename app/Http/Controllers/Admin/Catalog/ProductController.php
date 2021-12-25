@@ -157,32 +157,42 @@ class ProductController extends Controller
         
         $toppings = oc_product_topping_option::where('product_id', $productData['product_id'])->first();
       
-        if($toppings['options_group']){
-            $toppings['options_group'] = unserialize($toppings['options_group']);
-        }
-        
-        $toppings['topping_ids'] = preg_split ("/\,/", trim($toppings['topping_ids'],''));
-
         $toppingData = [];
-        foreach($toppings['topping_ids'] as $key=>$topping){
-            $toppingData[$key] = oc_topping::where('id_topping', $topping)->first();
-           
-        }
-
-
         $group_topping = [];
 
+        if($toppings){
+            if($toppings['options_group']){
+                $toppings['options_group'] = unserialize($toppings['options_group']);
+            }
 
-        foreach( $toppings['options_group'] as $key=>$group ){
+            $toppings['topping_ids'] = preg_split ("/\,/", trim($toppings['topping_ids'],''));
+            
+            foreach($toppings['topping_ids'] as $key=>$topping){
+                $toppingData[$key] = oc_topping::where('id_topping', $topping)->first();
+            
+            }
+            foreach( $toppings['options_group'] as $key=>$group ){
 
-            $group_topping[$key] = oc_product_topping_type::where('id_group_topping', $group)
-                                                    ->where('id_product', $toppings['product_id'])
-                                                    ->first();
+                $group_topping[$key] = oc_product_topping_type::where('id_group_topping', $group)
+                                                        ->where('id_product', $toppings['product_id'])
+                                                        ->first();
+            }
+    
+            foreach($group_topping as $gtopping){
+                $gtopping['choose'] = unserialize($gtopping['choose']);
+            }
         }
+        
+        
+        
 
-        foreach($group_topping as $gtopping){
-            $gtopping['choose'] = unserialize($gtopping['choose']);
-        }
+        
+
+
+        
+
+
+        
 
         // dd($group_topping);
         // dd($productData['getProductDescription']['availibleday']);
