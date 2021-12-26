@@ -12,8 +12,8 @@ use App\Models\oc_setting;
 class SocialMediaController extends Controller
 {
     
-    public function index(){
-        $store_id = 46;
+    public function index(Request $request){
+        $store_id = $request->session()->get('store_id');
         $data = [];
         $settings=oc_setting::where('store_id','=',$store_id)->where('group','polianna')->get();
         
@@ -39,7 +39,7 @@ class SocialMediaController extends Controller
     }
 
     public function update(Request $request){
-        $store_id = 46;
+        $store_id = $request->session()->get('store_id');
         // $data = $request->toArray();
         $data = $request['data'];
         $settings = oc_setting::where('store_id','=',$store_id)->where('group','polianna')->get();

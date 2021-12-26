@@ -10,6 +10,9 @@ use App\Models\oc_product_icons;
 
 class oc_product_description extends Model
 {
+    protected $guarded = [];
+    public $timestamps = false;
+    protected $primaryKey = 'product_id';
     protected $table = 'oc_product_description';
     public function sizeInfo(){
         return $this->hasMany(oc_topping_product_price_size::class,'id_product','product_id')->leftJoin('oc_topping_size','oc_topping_size.id_size','=','oc_topping_product_price_size.id_size');

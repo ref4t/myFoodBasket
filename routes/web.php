@@ -103,6 +103,14 @@ Route::get('/login');
 
 Route::prefix('admin')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    
+    Route::post('/dashboard/store/{id}', function($id, Request $request){
+
+        $request->session()->put('store_id', $id);
+
+        return redirect()->back();
+
+        })->name('dashboard.store_select');
 
     // orders
     Route::get('/orders', [OrderController::class, 'index'])->name('admin.dashboard.orders.index');
@@ -133,6 +141,12 @@ Route::prefix('admin')->group(function(){
     Route::post('catalog/category/delete', [CategoryController::class, 'delete' ])->name('admin.catalog.category.delete');
     Route::get('catalog/category/edit/{id}', [CategoryController::class, 'edit' ])->name('admin.catalog.category.edit');
     Route::post('catalog/category/update', [CategoryController::class, 'update' ])->name('admin.catalog.category.update');
+    Route::post('catalog/category/size/store', [CategoryController::class, 'sizeStore' ])->name('admin.catalog.category.size.store');
+    Route::post('catalog/category/size/update', [CategoryController::class, 'sizeUpdate' ])->name('admin.catalog.category.size.update');
+    Route::post('catalog/category/size/delete/{id}', [CategoryController::class, 'sizeDelete' ])->name('admin.catalog.category.size.delete');
+    Route::post('catalog/category/options/delete', [CategoryController::class, 'optionDelete' ])->name('admin.catalog.category.options.delete');
+    Route::post('catalog/category/options/store', [CategoryController::class, 'optionStore' ])->name('admin.catalog.category.options.store');
+
 
     Route::get('catalog/product/index',[ProductController::class, 'index'])->name('admin.catalog.product.index');
     Route::get('catalog/product/create',[ProductController::class, 'create'])->name('admin.catalog.product.create');

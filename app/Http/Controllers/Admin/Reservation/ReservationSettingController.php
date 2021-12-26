@@ -11,9 +11,9 @@ use App\Models\oc_reservations_setting;
 
 class ReservationSettingController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
-        $store_id = 76;
+        $store_id = $request->session()->get('store_id');
 
         $settings = oc_reservations_setting::where('store_id', $store_id)->first();
 

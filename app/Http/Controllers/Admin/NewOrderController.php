@@ -17,7 +17,7 @@ use App\Models\customer_order;
 
 class NewOrderController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
 
         
 
@@ -27,7 +27,7 @@ class NewOrderController extends Controller
 
         try {
             $shop = 'Wymondham Kebabs';
-            $shop_id = 46;
+            $shop_id = $request->session()->get('store_id');
 
             if( !request('search') && !request('field' ) && !request('direction' ) && !request('record' ) && !request('order_type' ) && !request('order_no' ) && !request('order_no' )){
                 $orders = oc_order::with('getProducts','getTotal')->select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])

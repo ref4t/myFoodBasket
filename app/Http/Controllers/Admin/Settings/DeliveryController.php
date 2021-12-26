@@ -12,8 +12,8 @@ use App\Models\oc_delivery_settings;
 
 class DeliveryController extends Controller
 {
-    public function index(){
-        $store_id = 76;
+    public function index(Request $request){
+        $store_id = $request->session()->get('store_id');
         $data = [];
         $delivery_settings = oc_delivery_settings::where('id_store', $store_id)->get();
         $settings=oc_setting::where('store_id','=',$store_id)->where('group','deliverysetting')->get();

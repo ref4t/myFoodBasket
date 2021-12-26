@@ -2,7 +2,7 @@
   <admin-layout>
     <template v-slot:header>
         <div class="form-check form-check-inline m-4">
-           <h1 class="m-0 text-capitalize">Product</h1>
+           <h1 class="m-0 text-capitalize"> Edit Product</h1>
         </div>
         <div class="form-check form-check-inline  m-4">
             
@@ -167,58 +167,60 @@
                                             <th colspan="2" class="table-active"> {{ decodeHtml(topping.name_topping) }} </th>
                                         </tr>
                                         <template v-for=" group in group_topping" :key="group" >
-                                            <template v-if="group.id_group_topping == topping.id_topping">
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-check form-check-inline  ">
-                                                            <input   v-model="group.typetopping"  :value="'select'" class="form-check-input" type="radio" >
-                                                            <label class="form-check-label" for="inlineRadio2">Dropdown</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline  ">
-                                                            <input   v-model="group.typetopping"  :value="'checkbox'" class="form-check-input" type="radio" >
-                                                            <label class="form-check-label" for="inlineRadio2">Checkbox</label>
-                                                        </div>
-                                                        <br/>
-                                                        <br/>
-                                                        <br/>
-                                                        <div class="form-check form-check-inline  ">
-                                                            <input   v-model="group.enable"  :value="1" class="form-check-input" type="radio" >
-                                                            <label class="form-check-label" for="inlineRadio2">Enable</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline  ">
-                                                            <input   v-model="group.enable"  :value="0" class="form-check-input" type="radio" >
-                                                            <label class="form-check-label" for="inlineRadio2">Disaable</label>
-                                                        </div>
-                                                        <br/>
-                                                        <br/>
-                                                        <br/>
-                                                        <br/>
-                                                        <br/>
-                                                        <br/>
-                                                        <div class="form-group m2 ">
-                                                            <label class="form-check-label" for="inlineRadio2">Rename Group</label>
-                                                            <input  v-model="group.renamegroup"   class="form-control float-right" type="text" >
-                                                        </div>
-                                                        <br/>
-                                                        <div class="form-group m2 ">
-                                                            <label class="form-check-label" for="inlineRadio2">Sort Order</label>
-                                                            <input   v-model="group.topping_sort_order"   class="form-control float-right" type="text" >
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div v-if="group.typetopping == 'checkbox'" >
-                                                            <span class="text-red" >Minimum: </span> 
-                                                            <input  v-model="group.min_check"   class="form-control" type="text" >
-                                                        </div>
-                                                        <br/>
-                                                        <div v-if="group.typetopping == 'checkbox'" >
-                                                            <span class="text-red" > Maximum: </span> 
-                                                            <input   v-model="group.max_check"   class="form-control" type="text" >
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                
-                                            </template>
+                                            <temaplate v-if="group">
+                                                <template v-if="group.id_group_topping == topping.id_topping">
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-check form-check-inline  ">
+                                                                <input   v-model="group.typetopping"  :value="'select'" class="form-check-input" type="radio" >
+                                                                <label class="form-check-label" for="inlineRadio2">Dropdown</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline  ">
+                                                                <input   v-model="group.typetopping"  :value="'checkbox'" class="form-check-input" type="radio" >
+                                                                <label class="form-check-label" for="inlineRadio2">Checkbox</label>
+                                                            </div>
+                                                            <br/>
+                                                            <br/>
+                                                            <br/>
+                                                            <div class="form-check form-check-inline  ">
+                                                                <input   v-model="group.enable"  :value="1" class="form-check-input" type="radio" >
+                                                                <label class="form-check-label" for="inlineRadio2">Enable</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline  ">
+                                                                <input   v-model="group.enable"  :value="0" class="form-check-input" type="radio" >
+                                                                <label class="form-check-label" for="inlineRadio2">Disaable</label>
+                                                            </div>
+                                                            <br/>
+                                                            <br/>
+                                                            <br/>
+                                                            <br/>
+                                                            <br/>
+                                                            <br/>
+                                                            <div class="form-group m2 ">
+                                                                <label class="form-check-label" for="inlineRadio2">Rename Group</label>
+                                                                <input  v-model="group.renamegroup"   class="form-control float-right" type="text" >
+                                                            </div>
+                                                            <br/>
+                                                            <div class="form-group m2 ">
+                                                                <label class="form-check-label" for="inlineRadio2">Sort Order</label>
+                                                                <input   v-model="group.topping_sort_order"   class="form-control float-right" type="text" >
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div v-if="group.typetopping == 'checkbox'" >
+                                                                <span class="text-red" >Minimum: </span> 
+                                                                <input  v-model="group.min_check"   class="form-control" type="text" >
+                                                            </div>
+                                                            <br/>
+                                                            <div v-if="group.typetopping == 'checkbox'" >
+                                                                <span class="text-red" > Maximum: </span> 
+                                                                <input   v-model="group.max_check"   class="form-control" type="text" >
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                </template>
+                                            </temaplate>
                                         </template>
                                     </template>
                                     <template v-else class="text-center" >

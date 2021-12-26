@@ -11,6 +11,7 @@ class oc_category_description extends Model
 {
     protected $guarded = [];
     public $timestamps = false;
+    protected $primaryKey = 'category_id';
     protected $table ='oc_category_description';
     
     public function getCategoryProduct(){
