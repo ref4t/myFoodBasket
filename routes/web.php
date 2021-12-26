@@ -45,6 +45,7 @@ use App\Http\Controllers\Shop\AboutusController;
 use App\Http\Controllers\Shop\AccountController;
 use App\Http\Controllers\Shop\ForgotPasswordController;
 use App\Http\Controllers\Shop\RegistryController;
+use App\Http\Controllers\Shop\CoordianteController;
 
 
 /*
@@ -57,16 +58,20 @@ use App\Http\Controllers\Shop\RegistryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// $mainDomain = array('domain' => parse_url(env('APP_URL'))['host']);
-// Route::group( $mainDomain, function () {
-//     /* routes here */
-//     Route::get('/', [DomainController::class, 'index'])->name('Home');
-//     Route::get('/search', [ShopSearchController::class, 'search'])->name('mainshopSearch');
-//     Route::get('/restaurant/{id}',[ShopSearchController::class, 'singleShop'])->name('singleshop');
-// });
-// $domain = array('domain' => parse_url(url()->current())['host']);
+$mainDomain = array('domain' => parse_url(env('APP_URL'))['host']);
+// dd($mainDomain);
+if($mainDomain['domain'] == parse_url(url()->current())['host']){
+    Route::group( $mainDomain, function () {
+        /* routes here */
+        Route::get('/', [DomainController::class, 'index'])->name('Home');
+        Route::get('/search', [ShopSearchController::class, 'search'])->name('mainshopSearch');
+        Route::get('/restaurant/{id}',[ShopSearchController::class, 'singleShop'])->name('singleshop');
+    });
+}
+else{
+$domain = array('domain' => parse_url(url()->current())['host']);
 
-// Route::group( $domain,function () {
+Route::group( $domain,function () {
     /* routes here */
     Route::get('/', [HomeController::class, 'index'])->name('shopHome');
     Route::get('/member',[MemberController::class, 'index'])->name('shopMember');
@@ -78,6 +83,8 @@ use App\Http\Controllers\Shop\RegistryController;
     Route::get('/contactus',[AboutusController::class, 'index'])->name('shopcontactus');
     
     Route::get('/cart',[CartController::class, 'index'])->name('shopcart');
+
+    Route::get('/coordinate',[CoordianteController::class, 'index'])->name('coordinate');
 
     Route::post('/addtocart',[CartController::class, 'addToCart'])->name('addtocart');
     
@@ -94,8 +101,8 @@ use App\Http\Controllers\Shop\RegistryController;
 
     // post
     Route::post('/forgotten',[ForgotPasswordController::class, 'index'])->name('shopForgot');
-// });
-
+});
+}
 
 
 Route::get('/login');

@@ -1,17 +1,7 @@
 <template>
       <Head>
-    <!-- <link rel="stylesheet" href="/css/theme-6.css"> -->
-            <link rel="stylesheet" href="/css/shoptheme6/bootstrap.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/bootstrap-datetimepicker.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/all.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/swiper-bundle.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/fancybox.css">
-            <link rel="stylesheet" href="/css/shoptheme6/animate.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/select2.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/app.css">
-            <link rel="stylesheet" href="/css/shoptheme6/responsive.css">
 </Head>
-<TopHeaderSix :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length"></TopHeaderSix>
+<TopHeaderSix :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length" :openingTime="setting.opening_time" :timeSetting="timeSetting"></TopHeaderSix>
     <div class="container mb-5">
         <h1 class="my-5 text-uppercase">Account Login</h1>
         <div class="row">
@@ -67,6 +57,7 @@ export default {
         cartItems:Object,
         cTotal:String,
         cSubtotal:String,
+        timeSetting:Object,
     },
 }
 </script>

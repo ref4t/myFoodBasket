@@ -31,7 +31,7 @@ class MenuController extends Controller
         $settings=oc_setting::where('store_id','=',$site->store_id)->where('group','=','config')->orWhere('group','=','deliverysetting')->get();
         $data['store_id']=$site->store_id;
                 foreach ($settings as $result) {
-                    if($result['key'] == 'config_logo' || $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone' || $result['key'] == 'config_ssl' ){
+                    if($result['key'] == 'config_logo' || $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone' || $result['key'] == 'config_ssl' || $result['key'] == 'opening_time'){
                         if (!$result['serialized']) {
                             $data[$result['key']] = $result['value'];
                         } else {

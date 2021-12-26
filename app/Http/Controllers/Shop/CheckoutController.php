@@ -21,10 +21,11 @@ class CheckoutController extends Controller
         if(!$site){
             return abort(404);
         }
+        $timeSetting=oc_setting::showtimeconfig($site->store_id); 
         $settings=oc_setting::where('store_id','=',$site->store_id)->where('group','=','config')->orWhere('group','=','deliverysetting')->get();
         $data['store_id']=$site->store_id;
                 foreach ($settings as $result) {
-                    if($result['key'] == 'config_logo' || $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone' || $result['key'] == 'config_ssl' ){
+                    if($result['key'] == 'config_logo' || $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone' || $result['key'] == 'config_ssl' || $result['key'] == 'opening_time'){
                         if (!$result['serialized']) {
                             $data[$result['key']] = $result['value'];
                         } else {
@@ -35,7 +36,11 @@ class CheckoutController extends Controller
         $cart=Cart::content();
         $total=Cart::total();
         $subtotal =Cart::subtotal();
-        $theme = 2;  
-         return Inertia::render('ShopPages/Theme_6/Checkout',['theme' => $theme,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        $theme = 2;
+        if($subtotal == 0){
+         return Inertia::render('ShopPages/Theme_6/Cart',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        else
+         return Inertia::render('ShopPages/Theme_6/Checkout',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
     }
 }
