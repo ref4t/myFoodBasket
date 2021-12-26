@@ -15,7 +15,7 @@ class CheckoutController extends Controller
     public function index()
     {   
         $url = request()->root();
-        $url = 'https://www.pizzaria.co.uk/';
+        $url = 'https://www.pizzacolichfield.co.uk/';
         $url =parse_url($url)['host'];
         $site = oc_store::where('url','like', '%'.$url.'%')->first();
         if(!$site){
