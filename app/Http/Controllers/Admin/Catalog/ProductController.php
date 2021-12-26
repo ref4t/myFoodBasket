@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Redirect;
+use Carbon\Carbon;
 
 use App\Models\oc_category_to_store;
 use App\Models\oc_product_icons;
@@ -15,6 +16,10 @@ use App\Models\oc_product_topping_type;
 use App\Models\oc_store;
 use App\Models\oc_topping_cat_option;
 use App\Models\oc_topping_option;
+use App\Models\oc_product_description;
+use App\Models\oc_product_to_store;
+use App\Models\oc_product;
+use App\Models\oc_product_to_category;
 
 class ProductController extends Controller
 {
@@ -70,14 +75,80 @@ class ProductController extends Controller
 
         $store = oc_store::where('store_id', $store_id)->first();
 
-        $product = $request['product_description'];
+        $product = $request['product'];
+
+        $product_des = $request['product_description'];
 
         $toppings = $request['cat_group_topping'];
 
         $categoryId = $request['product']['category_id'];
-        
 
-        dd($product, $toppings);
+
+        $category=oc_category_to_store::join('oc_category', 'oc_category.category_id', '=', 'oc_category_to_store.category_id')
+        ->join('oc_topping_cat_option', 'oc_topping_cat_option.id_category', '=', 'oc_category_to_store.category_id')
+        ->where('oc_category_to_store.store_id','=',$store_id)
+        ->where('oc_category.category_id', $product)
+        ->first();
+
+        $groups = unserialize($category['group']);
+        
+        $toppingIds = [];
+        foreach($groups as $key=>$group){
+            $toppingIds[$key] = $group['id_group_option'];
+        }
+
+        // dd($toppingIds);
+
+        $toppingString = implode(',', $toppingIds);
+
+        $description = new oc_product_description;
+
+        $description->fill([
+            'language_id'       => 1,
+            'name'              => $product_des['name'],
+            'description'       => $product_des['description'],
+            'meta_description'  => '',
+            'meta_keyword'      => '',
+            'tag'               => ''
+        ]);
+
+        $description->save();
+
+        $product_to_store = new oc_product_to_store;
+
+        $product_to_store->fill([
+            'product_id'        => $description->product_id,
+            'store_id'          => $request->session()->get('store_id'),
+        ]);
+
+        $product_to_store->save();
+
+
+        $product_to_cat = new oc_product_to_category;
+
+        $product_to_cat->fill([
+            'product_id'        => $description->product_id,
+            'category_id'       => $categoryId,
+        ]);
+
+        $product_to_cat->save();
+
+
+        $storeTopping = new oc_product_topping_option;
+
+        $storeTopping->fill([
+            'product_id'        => $description->product_id,
+            'store_id'          => $request->session()->get('store_id'),
+            'topping_ids'       => $toppingString,
+            'enable_option'     => $category['enable_option'],
+            'enable_boxcomment' => $category['enable_boxcomment'],
+            'options_group'     => $category['group'],
+        ]);
+
+        $storeTopping->save();
+
+
+        
         $store_path = '';
         if (strcasecmp($store['name'][0],'a') == 0 || strcasecmp($store['name'][0],'b') == 0 ){
            $store_path = 'A-B';
@@ -114,11 +185,8 @@ class ProductController extends Controller
         // $store;
 
         // dd($request->all());
-        
-       
 
-        
-
+        $image_path = '';
         if( array_key_exists('image',  $product)){
        
             $image = $product['image'];
@@ -127,10 +195,42 @@ class ProductController extends Controller
             $image_path = "/image/data/shop-files/".$store_path . $image_name;
         }
 
+        $product_insert = new oc_product;
+
+        $product_insert->fill([
+
+            'product_id'        => $description->product_id,
+            'model'             => 'unknown',
+            'sku'               => ' ',
+            'upc'               => ' ',
+            'ean'               => ' ',
+            'jan'               => ' ',
+            'isbn'              => ' ',
+            'mpn'               => ' ',
+            'location'          => ' ',
+            'quantity'          => 999,
+            'stock_status_id'   => 0,
+            'image'             => $image_path,
+            'manufacturer_id'   => 0,
+            'shipping'          => 1,
+            'order_type'        => $product_des['order_type'],
+            'price'             => $product_des['price'],
+            'collection_price'  => $product_des['collection_price'],
+            'delivery_price'    => $product_des['delivery_price'],
+            'tax_class_id'      => 0,
+            'date_available'    => '',
+            'date_added'        => Carbon::now(),
+            'date_modified'     => Carbon::now(),
+            'availibleday'      => implode(',', $product_des['availibleday']),
+            'product_icons'     => $product_des['product_icons']
+        ]);
+
+        $product_insert->save();
+
+        return redirect()->route('admin.catalog.product.index');
 
 
 
-        
 
     }
 
@@ -186,7 +286,10 @@ class ProductController extends Controller
             }
     
             foreach($group_topping as $gtopping){
-                $gtopping['choose'] = unserialize($gtopping['choose']);
+                if($gtopping){
+                    $gtopping['choose'] = unserialize($gtopping['choose']);
+                }
+                
             }
         }
         

@@ -49,7 +49,7 @@
                   <p>Total Orders</p>
                 </Link>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <Link
                   
                   class="nav-link"
@@ -57,7 +57,7 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Transactions</p>
                 </Link>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <Link
                   :href="route('admin.dashboard.newOrders')"
@@ -325,7 +325,7 @@
                   <p>Shop ettings </p>
                 </Link>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <Link
                   
                   class="nav-link"
@@ -333,7 +333,7 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>App Settings </p>
                 </Link>
-              </li>
+              </li> -->
               <li class="nav-item">
                  <Link :href="route('admin.settings.openclose.index')" class="nav-link" :class="route().current('admin.settings.openclose.*') ? 'active' : ' ' ">
                   <i class="far fa-circle nav-icon"></i>

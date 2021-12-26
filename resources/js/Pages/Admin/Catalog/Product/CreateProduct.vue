@@ -14,7 +14,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <form @submit.prevent="updateProduct(this.product,this.product_description)">
+            <form @submit.prevent="updateProduct(this.product,this.product_description, cat_group_topping)">
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex flex-row bd-highlight">
@@ -179,62 +179,64 @@
                                                 
                                                 <template v-for="topping in cat_group_topping" :key="topping" >
                                                     <template v-if="topping.id_topping == group.id_group_option" >
-                                                        <tr>
-                                                            <th colspan="2">
-                                                                
-                                                                {{ decodeHtml(topping.name_topping) }}
-                                                            </th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="form-check form-check-inline  ">
-                                                                    <input   v-model="topping.typetopping"  :value="'select'" class="form-check-input" type="radio" >
-                                                                    <label class="form-check-label" for="inlineRadio2">Dropdown</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline  ">
-                                                                    <input   v-model="topping.typetopping"  :value="'checkbox'" class="form-check-input" type="radio" >
-                                                                    <label class="form-check-label" for="inlineRadio2">Checkbox</label>
-                                                                </div>
-                                                                <br/>
-                                                                <br/>
-                                                                <div class="form-check form-check-inline  ">
-                                                                    <input   v-model="topping.enable"  :value="1" class="form-check-input" type="radio" >
-                                                                    <label class="form-check-label" for="inlineRadio2">Enable</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline  ">
-                                                                    <input   v-model="topping.enable"  :value="0" class="form-check-input" type="radio" >
-                                                                    <label class="form-check-label" for="inlineRadio2">Disaable</label>
-                                                                </div>
-                                                                <br/>
-                                                                <br/>
-                                                                <br/>
-                                                                <div class="form-group m2 ">
-                                                                    <label class="form-check-label" for="inlineRadio2">Rename Group</label>
-                                                                    <input  v-model="topping.renamegroup"   class="form-control " type="text" style="width:200px" >
-                                                                </div>
-                                                                <div class="form-group m2 ">
-                                                                    <label class="form-check-label" for="inlineRadio2">Sort Order</label>
-                                                                    <input   v-model="topping.topping_sort_order"   class="form-control " type="text" style="width:200px">
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <select v-if="topping.typetopping == 'select'"  class="form-control">
-                                                                    <template v-for="option in topping.get_options" :key="option" >
-                                                                            <option  :value="option.id_group_topping"> {{ decodeHtml(option.name) }} </option>                                                                     
-                                                                    </template>
-                                                                </select>
+                                                        
+                                                            <tr>
+                                                                <th colspan="2">
+                                                                    
+                                                                    {{ decodeHtml(topping.name_topping) }}
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="form-check form-check-inline  ">
+                                                                        <input   v-model="topping.typetopping"  :value="'select'" class="form-check-input" type="radio" >
+                                                                        <label class="form-check-label" for="inlineRadio2">Dropdown</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline  ">
+                                                                        <input   v-model="topping.typetopping"  :value="'checkbox'" class="form-check-input" type="radio" >
+                                                                        <label class="form-check-label" for="inlineRadio2">Checkbox</label>
+                                                                    </div>
+                                                                    <br/>
+                                                                    <br/>
+                                                                    <div class="form-check form-check-inline  ">
+                                                                        <input   v-model="topping.enable"  :value="1" class="form-check-input" type="radio" >
+                                                                        <label class="form-check-label" for="inlineRadio2">Enable</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline  ">
+                                                                        <input   v-model="topping.enable"  :value="0" class="form-check-input" type="radio" >
+                                                                        <label class="form-check-label" for="inlineRadio2">Disaable</label>
+                                                                    </div>
+                                                                    <br/>
+                                                                    <br/>
+                                                                    <br/>
+                                                                    <div class="form-group m2 ">
+                                                                        <label class="form-check-label" for="inlineRadio2">Rename Group</label>
+                                                                        <input  v-model="topping.renamegroup"   class="form-control " type="text" style="width:200px" >
+                                                                    </div>
+                                                                    <div class="form-group m2 ">
+                                                                        <label class="form-check-label" for="inlineRadio2">Sort Order</label>
+                                                                        <input   v-model="topping.topping_sort_order"   class="form-control " type="text" style="width:200px">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <select v-if="topping.typetopping == 'select'"  class="form-control">
+                                                                        <template v-for="option in topping.get_options" :key="option" >
+                                                                                <option  :value="option.id_group_topping"> {{ decodeHtml(option.name) }} </option>                                                                     
+                                                                        </template>
+                                                                    </select>
 
-                                                                <template v-if="topping.typetopping == 'checkbox'" >
-                                                                    <template  v-for="option in topping.get_options" :key="option">
-                                                                        <div class="row form-check form-check-inline  ">
-                                                                            <input class="form-check-input" type="checkbox" >
-                                                                            <label class="form-check-label" for="inlineRadio2">{{ decodeHtml(option.name) }}</label>
-                                                                        </div>
-                                                                        <br/>
+                                                                    <template v-if="topping.typetopping == 'checkbox'" >
+                                                                        <template  v-for="option in topping.get_options" :key="option">
+                                                                            <div class="row form-check form-check-inline  ">
+                                                                                <input class="form-check-input" type="checkbox" >
+                                                                                <label class="form-check-label" for="inlineRadio2">{{ decodeHtml(option.name) }}</label>
+                                                                            </div>
+                                                                            <br/>
+                                                                        </template>
                                                                     </template>
-                                                                </template>
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                            </tr>
+                                                        
                                                     </template>
                                                 </template>
                                             </template>
@@ -397,12 +399,12 @@ export default {
             arr.push(day)
             arr.sort()
         },
-        updateProduct(product,product_description){
+        updateProduct(product,product_description,cat_group_topping){
             let con = confirm("Save new Product?");
 
             if (con){
                 product_description.description = this.content;
-                this.$inertia.post( route('admin.catalog.product.store') , {product,product_description},{
+                this.$inertia.post( route('admin.catalog.product.store') , {product,product_description,cat_group_topping},{
                 replace: true, 
                 preserveState: true})
             }
