@@ -188,21 +188,21 @@
                                                         <tr>
                                                             <td>
                                                                 <div class="form-check form-check-inline  ">
-                                                                    <input   v-model="this.toppingData.typetopping"  :value="'select'" class="form-check-input" type="radio" >
+                                                                    <input   v-model="topping.typetopping"  :value="'select'" class="form-check-input" type="radio" >
                                                                     <label class="form-check-label" for="inlineRadio2">Dropdown</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline  ">
-                                                                    <input   v-model="this.toppingData.typetopping"  :value="'checkbox'" class="form-check-input" type="radio" >
+                                                                    <input   v-model="topping.typetopping"  :value="'checkbox'" class="form-check-input" type="radio" >
                                                                     <label class="form-check-label" for="inlineRadio2">Checkbox</label>
                                                                 </div>
                                                                 <br/>
                                                                 <br/>
                                                                 <div class="form-check form-check-inline  ">
-                                                                    <input   v-model="this.toppingData.enable"  :value="1" class="form-check-input" type="radio" >
+                                                                    <input   v-model="topping.enable"  :value="1" class="form-check-input" type="radio" >
                                                                     <label class="form-check-label" for="inlineRadio2">Enable</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline  ">
-                                                                    <input   v-model="this.toppingData.enable"  :value="0" class="form-check-input" type="radio" >
+                                                                    <input   v-model="topping.enable"  :value="0" class="form-check-input" type="radio" >
                                                                     <label class="form-check-label" for="inlineRadio2">Disaable</label>
                                                                 </div>
                                                                 <br/>
@@ -210,21 +210,21 @@
                                                                 <br/>
                                                                 <div class="form-group m2 ">
                                                                     <label class="form-check-label" for="inlineRadio2">Rename Group</label>
-                                                                    <input  v-model="this.toppingData.renamegroup"   class="form-control " type="text" style="width:200px" >
+                                                                    <input  v-model="topping.renamegroup"   class="form-control " type="text" style="width:200px" >
                                                                 </div>
                                                                 <div class="form-group m2 ">
                                                                     <label class="form-check-label" for="inlineRadio2">Sort Order</label>
-                                                                    <input   v-model="this.toppingData.topping_sort_order"   class="form-control " type="text" style="width:200px">
+                                                                    <input   v-model="topping.topping_sort_order"   class="form-control " type="text" style="width:200px">
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <select v-if="this.toppingData.typetopping == 'select'"  class="form-control">
+                                                                <select v-if="topping.typetopping == 'select'"  class="form-control">
                                                                     <template v-for="option in topping.get_options" :key="option" >
                                                                             <option  :value="option.id_group_topping"> {{ decodeHtml(option.name) }} </option>                                                                     
                                                                     </template>
                                                                 </select>
 
-                                                                <template v-if="this.toppingData.typetopping == 'checkbox'" >
+                                                                <template v-if="topping.typetopping == 'checkbox'" >
                                                                     <template  v-for="option in topping.get_options" :key="option">
                                                                         <div class="row form-check form-check-inline  ">
                                                                             <input class="form-check-input" type="checkbox" >

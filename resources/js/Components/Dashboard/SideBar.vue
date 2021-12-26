@@ -125,7 +125,7 @@
                   <p>Products</p>
                 </Link>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <Link
                   
                   class="nav-link"
@@ -151,7 +151,7 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Import Products and Categories</p>
                 </Link>
-              </li>
+              </li> -->
             </ul>
           </li>
 
@@ -240,7 +240,7 @@
             </ul>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-images"></i>
               <p>
@@ -265,7 +265,7 @@
                 </Link>
               </li>
             </ul>
-          </li>
+          </li> -->
 
           <li class="nav-item">
             <Link :href="route('admin.customer.index')" class="nav-link" :class="route().current('admin.customer.*') ? 'active' : ' ' ">
@@ -285,7 +285,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <Link :href="route('admin.dashboard.orders.index')" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gallery Settings</p>
@@ -299,7 +299,7 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Upload Gallery</p>
                 </Link>
-              </li>
+              </li> -->
             </ul>
           </li>
 

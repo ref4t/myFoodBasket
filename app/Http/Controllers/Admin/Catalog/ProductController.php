@@ -71,8 +71,13 @@ class ProductController extends Controller
         $store = oc_store::where('store_id', $store_id)->first();
 
         $product = $request['product_description'];
+
+        $toppings = $request['cat_group_topping'];
+
+        $categoryId = $request['product']['category_id'];
         
-        dd($product);
+
+        dd($product, $toppings);
         $store_path = '';
         if (strcasecmp($store['name'][0],'a') == 0 || strcasecmp($store['name'][0],'b') == 0 ){
            $store_path = 'A-B';
@@ -109,9 +114,10 @@ class ProductController extends Controller
         // $store;
 
         // dd($request->all());
-        $categoryId = $request['product']['category_id'];
+        
        
-        $product = $request['product_description'];
+
+        
 
         if( array_key_exists('image',  $product)){
        
