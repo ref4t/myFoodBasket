@@ -16,8 +16,8 @@ use App\Models\oc_currency;
 
 class MapAndCategoryController extends Controller
 {
-    public function index(){
-        $store_id = 76;
+    public function index(Request $request){
+        $store_id =$request->session()->get('store_id');
         $data = [];
         $store = oc_store::where('store_id', $store_id)->first();
         $country = oc_country::all();

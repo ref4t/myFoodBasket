@@ -2,7 +2,7 @@
   <admin-layout>
     <template v-slot:header>
         <div class="form-check form-check-inline m-4">
-           <h1 class="m-0 text-capitalize">Categories</h1>
+           <h1 class="m-0 text-capitalize">Products</h1>
         </div>
         <div class="form-check form-check-inline  m-4">
             <select v-model="selected_catagory"  class="form-control" >

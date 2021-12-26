@@ -7,45 +7,18 @@
               ><i class="fas fa-bars"></i
             ></a>
           </li>
+          <!-- Navbar Search -->
+          <li class="nav-item">
+              <select v-model="this.select" class="form-control bg-dark flaot-left" style="width:30vw" @change="changeSelect(this.select)" >
+                <option v-for="store in stores" :key="store.store_id" :value="store.store_id"> {{ decodeHtml(store.name) }} </option>
+              </select>
+            
+          </li>
         </ul>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-          <!-- Navbar Search -->
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              data-widget="navbar-search"
-              href="#"
-              role="button"
-            >
-              <i class="fas fa-search"></i>
-            </a>
-            <div class="navbar-search-block">
-              <form class="form-inline">
-                <div class="input-group input-group-sm">
-                  <input
-                    class="form-control form-control-navbar"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
-                  <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                      <i class="fas fa-search"></i>
-                    </button>
-                    <button
-                      class="btn btn-navbar"
-                      type="button"
-                      data-widget="navbar-search"
-                    >
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </li>
+          
 
           <!-- Messages Dropdown Menu -->
           <li class="nav-item dropdown">
@@ -174,10 +147,37 @@
 <script>
     import { Head, Link } from "@inertiajs/inertia-vue3";
     import { Method } from "@inertiajs/inertia";
+    import { computed } from 'vue'
+    import { usePage } from '@inertiajs/inertia-vue3'
     export default {
         components: {
             Head,
             Link
+        },
+        data(){
+          return{
+            select: this.store_id
+          }
+        },
+        setup() {
+          const stores = computed(() => usePage().props.value.stores)
+          const store_id = computed(() => usePage().props.value.store_id)
+          
+          return { stores,store_id }
+        },
+        methods:{
+          decodeHtml(html) {
+              var txt = document.createElement("textarea");
+              txt.innerHTML = html;
+              return txt.value;
+          },
+          changeSelect(id){
+
+            this.$inertia.post( route('dashboard.store_select', [id]),{
+            replace: true, 
+            preserveState: true})
+
+          }
         }
     }
 </script>

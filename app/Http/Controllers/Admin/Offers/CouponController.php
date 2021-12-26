@@ -11,9 +11,9 @@ use App\Models\oc_coupon_history;
 
 class CouponController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $store = 'The Terra Pizza';
-        $store_id = 54;
+        $store_id = $request->session()->get('store_id');
 
         $coupons = oc_coupon::where('store_id',$store_id)->paginate(20);
 
@@ -22,7 +22,7 @@ class CouponController extends Controller
         ]);
     }
 
-    public function create() {
+    public function create(Request $request) {
 
         return Inertia::render('Admin/Offers/Coupon/CreateCoupon');
     }
@@ -30,7 +30,7 @@ class CouponController extends Controller
         $data = $request->toArray();
 
         $store = 'The Terra Pizza';
-        $store_id = 54;
+        $store_id = $request->session()->get('store_id');
 
         $data = $data['form'];
 
@@ -58,7 +58,7 @@ class CouponController extends Controller
         $data = $request->toArray();
 
         $store = 'The Terra Pizza';
-        $store_id = 54;
+        $store_id = $request->session()->get('store_id');
 
         $data = $data['coupon'];
 

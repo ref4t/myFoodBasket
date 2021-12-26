@@ -13,10 +13,10 @@ use App\Models\oc_voucher_history;
 
 class VoucherController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
         $store = 'The Terra Pizza';
-        $store_id = 54;
+        $store_id = $request->session()->get('store_id');
 
         $vouchers = oc_voucher::where('store_id',$store_id)->paginate(20);
 
@@ -32,7 +32,7 @@ class VoucherController extends Controller
         ]);
     }
     public function store(Request $request){
-        $store_id = 54;
+        $store_id = $request->session()->get('store_id');
         $data = $request->toArray();
 
         $voucherData = $data['voucher'];

@@ -11,10 +11,10 @@ use App\Models\oc_reservation;
 
 class ReservationController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
         $store = 'The Terra Pizza';
-        $store_id = 78;
+        $store_id = $request->session()->get('store_id');
 
         $reservations = oc_reservation::where('store_id', $store_id)->orderBy('created_date','DESC')->paginate(30);
 

@@ -101,6 +101,14 @@ Route::get('/login');
 
 Route::prefix('admin')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    
+    Route::post('/dashboard/store/{id}', function($id, Request $request){
+
+        $request->session()->put('store_id', $id);
+
+        return redirect()->back();
+
+        })->name('dashboard.store_select');
 
     // orders
     Route::get('/orders', [OrderController::class, 'index'])->name('admin.dashboard.orders.index');

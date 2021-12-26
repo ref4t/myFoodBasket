@@ -13,10 +13,10 @@ use App\Models\oc_voucher_history;
 
 class VoucherThemeController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
         $store = 'The Terra Pizza';
-        $store_id = 54;
+        $store_id = $request->session()->get('store_id');
 
         $themes = oc_voucher_theme::with('get_name')->paginate(20);
 

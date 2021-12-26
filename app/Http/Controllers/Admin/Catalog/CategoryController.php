@@ -18,9 +18,9 @@ use App\Models\oc_topping_size;
 
 class CategoryController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
-        $store_id = 77;
+        $store_id =  $request->session()->get('store_id');
 
         $category=oc_category_to_store::with('getCategoryDescriptionWithProducts')->join('oc_category', 'oc_category.category_id', '=', 'oc_category_to_store.category_id')->where('oc_category_to_store.store_id','=',$store_id)->orderBy('oc_category.sort_order','asc')->paginate(20);
     
@@ -41,7 +41,7 @@ class CategoryController extends Controller
 
     public function store(Request $request){
         
-        $store_id = 77;
+        $store_id =  $request->session()->get('store_id');
 
         $banner_path = '';
 
@@ -120,8 +120,8 @@ class CategoryController extends Controller
 
     }
 
-    public function edit($id){
-        $store_id = 77;
+    public function edit($id, Request $request){
+        $store_id =  $request->session()->get('store_id');
 
         $category=oc_category_to_store::with('getCategoryDescriptionWithProducts')
         ->join('oc_category', 'oc_category.category_id', '=', 'oc_category_to_store.category_id')

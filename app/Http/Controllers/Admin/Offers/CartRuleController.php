@@ -12,10 +12,10 @@ use App\Models\oc_free_item;
 
 class CartRuleController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
         $store = 'The Terra Pizza';
-        $store_id = 54;
+        $store_id =$request->session()->get('store_id');
 
         $rules = oc_free_rule::where('id_store', $store_id)->paginate(20);
 
@@ -24,9 +24,9 @@ class CartRuleController extends Controller
         ]);
         
     }
-    public function create(){
+    public function create(Request $request){
         $store = 'The Terra Pizza';
-        $store_id = 54;
+        $store_id =$request->session()->get('store_id');
 
         $items = oc_free_item::where('store_id', $store_id)->get();
         return Inertia::render('Admin/Offers/FreeItems/CreateCartrule',[
@@ -35,7 +35,7 @@ class CartRuleController extends Controller
     }
     public function store(Request $request){
         $store = 'The Terra Pizza';
-        $store_id = 54;
+        $store_id =$request->session()->get('store_id');
       
         $data = $request->toArray();
 
@@ -65,8 +65,8 @@ class CartRuleController extends Controller
 
         return redirect()->route('admin.offers.free.rule.index');
     }
-    public function edit($id){
-        $store_id = 54;
+    public function edit($id, Request $request){
+        $store_id =$request->session()->get('store_id');
 
         $rule = oc_free_rule::where('id_rule', $id)->first();
         $items = oc_free_item::where('store_id', $store_id)->get();
@@ -80,7 +80,7 @@ class CartRuleController extends Controller
     public function update(Request $request){
 
         $store = 'The Terra Pizza';
-        $store_id = 54;
+        $store_id =$request->session()->get('store_id');
       
         $data = $request->toArray();
 

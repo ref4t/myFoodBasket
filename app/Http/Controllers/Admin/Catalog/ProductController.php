@@ -18,9 +18,9 @@ use App\Models\oc_topping_option;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
-        $store_id = 77;
+        $store_id =  $request->session()->get('store_id');
         $category=oc_category_to_store::with('getCategoryDescriptionWithProducts')->join('oc_category', 'oc_category.category_id', '=', 'oc_category_to_store.category_id')->where('oc_category_to_store.store_id','=',$store_id)->orderBy('oc_category.sort_order','asc')->get();
        
         // dd($category);
@@ -30,8 +30,8 @@ class ProductController extends Controller
     
     }
 
-    public function create(){
-        $store_id = 77;
+    public function create(Request $request){
+        $store_id =  $request->session()->get('store_id');
 
 
         $category=oc_category_to_store::with('getCategoryDescriptionWithProducts')->join('oc_category', 'oc_category.category_id', '=', 'oc_category_to_store.category_id')
@@ -66,12 +66,13 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
-        $store_id = 77;
+        $store_id =  $request->session()->get('store_id');
+
         $store = oc_store::where('store_id', $store_id)->first();
 
         $product = $request['product_description'];
         
-        // dd($product);
+        dd($product);
         $store_path = '';
         if (strcasecmp($store['name'][0],'a') == 0 || strcasecmp($store['name'][0],'b') == 0 ){
            $store_path = 'A-B';
@@ -127,8 +128,8 @@ class ProductController extends Controller
 
     }
 
-    public function edit($id){
-        $store_id = 77;
+    public function edit($id, Request $request){
+        $store_id =  $request->session()->get('store_id');
         
         $categories=oc_category_to_store::with('getCategoryDescriptionWithProducts')
         ->join('oc_category', 'oc_category.category_id', '=', 'oc_category_to_store.category_id')
