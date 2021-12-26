@@ -4,6 +4,37 @@
             <link rel="stylesheet" href="/css/shoptheme6/responsive.css">
     </Head>
 <TopHeaderSix :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length" :openingTime="setting.opening_time" :timeSetting="timeSetting"></TopHeaderSix>
+
+<!-- Modal -->
+<div class="modal fade" id="coordinateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger text-center w-100" id="staticBackdropLabel">Please Enter Your Post Code</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+           <div class="row justify-content-center">
+               <div class="col-10">
+                   <p>To start placing delivery order, please enter your full postcode here:</p>
+               </div>
+               <div class="col-10">
+                   <input type="text" class="form-control" id="" placeholder="eg.AA1 1BB">
+               </div>
+               <div class="col-10 text-center my-3">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success" type="button">Deliver my order</button>
+                        <button class="btn btn-success" type="button">I will come and collect</button>
+                    </div>
+               </div>
+           </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+         <a href="javascript:void(0)" class="link-danger" data-bs-dismiss="modal" aria-label="Close">Cancel and go back</a>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container my-5">
     <div class="row gx-5">
         <div class="col-auto d-none d-lg-block">
@@ -23,7 +54,7 @@
                 </div>
                 <div class="collapse show" :id="'collapseExample'+index">
                     <div class="card card-body">
-                    <tempalte class="text-center" v-html="category.get_category_description_with_products.description" ></tempalte>
+                    <template class="text-center" v-html="category.get_category_description_with_products.description" ></template>
                         <div class="m-2 border border-1 rounded p-3" v-for="(product,index2) in category.get_category_description_with_products.get_category_product" :key="index2">
                             <h5>{{htmlDecode(product.get_product_description.name)}} <span v-if="product.get_product_description.icon_info"><img :src="'/'+product.get_product_description.icon_info.icon_url" alt=""></span></h5>
                             <!-- <div class="mb-3">
@@ -91,6 +122,18 @@
                <li class="list-group-item"> <h6>Subtotal: {{cartSubtotal}}</h6> </li>
                <li class="list-group-item"> <h5>Total to pay: {{cartTotal}}</h5></li>
             </ul>
+            <ul class="list-group list-group-flush">
+                <div class="form-control">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="OrderTypeOptions" id="inlineRadio1" value="delivery" v-model="orderType.type" @change="orderTypeChange">
+                    <label class="form-check-label" for="inlineRadio1">Delivery</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="OrderTypeOptions" id="inlineRadio2" value="collection" v-model="orderType.type" @change="orderTypeChange">
+                    <label class="form-check-label" for="inlineRadio2">Collection</label>
+                </div>
+                </div>
+            </ul>
             </div>
         </div>
     </div>
@@ -102,6 +145,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import TopHeaderSix from '@/Pages/ShopPages/Theme_6/Header6.vue';
 import TopFooterSix from '@/Pages/ShopPages/Theme_6/Footer6.vue';
 import { useToast } from "vue-toastification";
+import { reactive } from 'vue'
 
 export default {
      components:{
@@ -112,7 +156,10 @@ export default {
     },
     setup() {
       const toast = useToast();
-      return { toast }
+      const orderType = reactive({
+          type:null
+      })
+      return { toast,orderType }
     },
     data(){
         return{
@@ -120,6 +167,7 @@ export default {
             cartTotal:this.cTotal,
             cartSubtotal:this.cSubtotal,
             tSetting:this.timeSetting,
+            orderTypeStatus:null,
         }
         
     },
@@ -167,9 +215,14 @@ export default {
                     }).catch(error => {
                 this.errorMessage = error.message;
                 });
+        },
+        orderTypeChange(){
+            console.log(this.orderType);
         }
    },
     mounted() {
+        var myModal = new bootstrap.Modal(document.getElementById('coordinateModal'), {})
+        myModal.toggle()
         let links=[ 
                     '/js/theme6/app.js'
                   ];
