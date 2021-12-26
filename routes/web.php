@@ -58,12 +58,16 @@ use App\Http\Controllers\Shop\RegistryController;
 |
 */
 $mainDomain = array('domain' => parse_url(env('APP_URL'))['host']);
-Route::group( $mainDomain, function () {
-    /* routes here */
-    Route::get('/', [DomainController::class, 'index'])->name('Home');
-    Route::get('/search', [ShopSearchController::class, 'search'])->name('mainshopSearch');
-    Route::get('/restaurant/{id}',[ShopSearchController::class, 'singleShop'])->name('singleshop');
-});
+// dd($mainDomain);
+if($mainDomain['domain'] == parse_url(url()->current())['host']){
+    Route::group( $mainDomain, function () {
+        /* routes here */
+        Route::get('/', [DomainController::class, 'index'])->name('Home');
+        Route::get('/search', [ShopSearchController::class, 'search'])->name('mainshopSearch');
+        Route::get('/restaurant/{id}',[ShopSearchController::class, 'singleShop'])->name('singleshop');
+    });
+}
+else{
 $domain = array('domain' => parse_url(url()->current())['host']);
 
 Route::group( $domain,function () {
@@ -95,7 +99,7 @@ Route::group( $domain,function () {
     // post
     Route::post('/forgotten',[ForgotPasswordController::class, 'index'])->name('shopForgot');
 });
-
+}
 
 
 Route::get('/login');

@@ -1,17 +1,9 @@
 <template>
     <Head>
-    <!-- <link rel="stylesheet" href="/css/theme-6.css"> -->
-            <link rel="stylesheet" href="/css/shoptheme6/bootstrap.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/bootstrap-datetimepicker.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/all.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/swiper-bundle.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/fancybox.css">
-            <link rel="stylesheet" href="/css/shoptheme6/animate.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/select2.min.css">
             <link rel="stylesheet" href="/css/shoptheme6/app.css">
             <link rel="stylesheet" href="/css/shoptheme6/responsive.css">
-</Head>
-<TopHeaderSix :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length"></TopHeaderSix>
+    </Head>
+<TopHeaderSix :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length" :openingTime="setting.opening_time" :timeSetting="timeSetting"></TopHeaderSix>
 <div class="container my-5">
     <div class="row gx-5">
         <div class="col-auto d-none d-lg-block">
@@ -47,9 +39,9 @@
                                     </div>
                                </div>
                                 <div class="col-4">
-                                    <div v-for="sizes in product.get_product_description.size_info" :key="sizes" style="float:right; margin-bottom:10px">
-                                    <span class="mx-2 fw-bold">{{htmlDecode(sizes.size)}}</span>
-                                    <a type="button" class="btn btn-success btn-sm" @click="addToCart(sizes.id_product,sizes.id_size)">
+                                    <div v-for="sizes in product.get_product_description.size_info" :key="sizes"  style="float:right; margin-bottom:10px">
+                                    <span class="mx-2 fw-bold" v-if="sizes.price > 0 && sizes.size != null">{{htmlDecode(sizes.size)}}</span>
+                                    <a type="button" class="btn btn-success btn-sm" @click="addToCart(sizes.id_product,sizes.id_size)" v-if="sizes.price > 0 && sizes.size != null">
                                         £{{htmlDecode(sizes.price)}} |
                                         <i class="fas fa-shopping-basket" style="color:white;"></i>
                                     </a>
@@ -64,7 +56,7 @@
                                     </div>
                                </div>
                                 <div class="col-auto">
-                                     <a type="button" class="btn btn-success btn-sm" @click="addToCart(product.get_product_description.product_id,0,cartItems)">
+                                     <a type="button" class="btn btn-success btn-sm" @click="addToCart(product.get_product_description.product_id,0)">
                                     £ {{htmlDecode(product.get_product_description.price)}} |
                                     <i class="fas fa-shopping-basket" style="color:white;"></i>
                                 </a>
@@ -77,8 +69,11 @@
         </div>
         <div class="col-3 d-none d-lg-block">
             <div class="card sticky-lg-top">
-                <div class="alert alert-success" style="color:white; background: #01a101;font-weight:bold">
+                <div class="alert alert-success" style="color:white; background: #01a101;font-weight:bold" v-if="tSetting.open">
                          We are open now!
+                </div>
+                <div class="alert alert-danger" style="color:white; background: #ca0e16;font-weight:bold" v-else>
+                         We are closed now!
                 </div>
             <!-- <div class="card-body" style="background: #01a101;" >
                <h4 style="color:white;"></h4> 
@@ -87,7 +82,10 @@
                 <h5 class="card-title">My Basket  <i class="fas fa-shopping-basket align-items-end" style="color:black;"></i></h5>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item" v-for="item in cartTest" :key="item"><a href="javascript:void(0)"><i class="fas fa-times-circle me-2" style="color:red" @click="removeFromCart(item.id,item.rowId)"></i></a>{{item.qty+' &#215; '+ (item.options.length != 0 ? item.options.size : '')+' '+item.name}}</li>
+                <li class="list-group-item" v-for="item in cartTest" :key="item">
+                    <a href="javascript:void(0)"><i class="fas fa-times-circle me-2" style="color:red" @click="removeFromCart(item.id,item.rowId)"></i></a>
+                    {{item.qty+' &#215; '+ htmlDecode(item.options.length != 0 ? item.options.size : '')+' '+item.name+' - '+ (item.price*item.qty).toFixed(2)}}
+                </li>
             </ul>
             <ul class="list-group list-group-flush">
                <li class="list-group-item"> <h6>Subtotal: {{cartSubtotal}}</h6> </li>
@@ -121,6 +119,7 @@ export default {
             cartTest:this.cartItems,
             cartTotal:this.cTotal,
             cartSubtotal:this.cSubtotal,
+            tSetting:this.timeSetting,
         }
         
     },
@@ -137,7 +136,12 @@ export default {
         var doc = new DOMParser().parseFromString(input, "text/html");
         return doc.documentElement.textContent;
         },
-        addToCart(productId,sizeId,cartItems){
+        addToCart(productId,sizeId){
+            // this.tSetting.open=true;
+            if(!this.tSetting.open){
+                this.toast.error('We are closed now');
+                return 0;
+            }
           let  pdata={'id_product':productId,'id_size':sizeId}
           let cd=this;
             //    console.log(pdata)
@@ -166,15 +170,7 @@ export default {
         }
    },
     mounted() {
-        let links=[ '/js/theme6/jquery.min.js',
-                    '/js/theme6/moment.min.js',
-                    '/js/theme6/locales.min.js',
-                    '/js/theme6/bootstrap.min.js',
-                    '/js/theme6/bootstrap-datetimepicker.min.js',
-                    '/js/theme6/wow.min.js',
-                    '/js/theme6/fancybox.umd.js',
-                    '/js/theme6/select2.min.js',
-                    '/js/theme6/swiper-bundle.min.js',
+        let links=[ 
                     '/js/theme6/app.js'
                   ];
   links.forEach(function(value,index){

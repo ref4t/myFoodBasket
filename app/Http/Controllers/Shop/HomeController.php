@@ -20,7 +20,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // dd($domain);
+        //  dd(request()->root());
 
         // $url = 'https://www.stationkebabs.co.uk/';
         $url = request()->root();
@@ -34,7 +34,7 @@ class HomeController extends Controller
         $settings=oc_setting::where('store_id','=',$site->store_id)->where('group','=','config')->orWhere('group','=','deliverysetting')->get();
         $data['store_id']=$site->store_id;
                 foreach ($settings as $result) {
-                    if($result['key'] == 'config_logo' || $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone' || $result['key'] == 'config_ssl' ){
+                    if($result['key'] == 'config_logo' || $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone' || $result['key'] == 'config_ssl' || $result['key'] == 'opening_time' ){
                         if (!$result['serialized']) {
                             $data[$result['key']] = $result['value'];
                         } else {
@@ -62,6 +62,6 @@ class HomeController extends Controller
                 'setting' => $data
             ]);
         }else
-            return Inertia::render('ShopPages/Theme_6/Home',['theme' => $theme,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+            return Inertia::render('ShopPages/Theme_6/Home',['theme' => $theme,'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
     }
 }
