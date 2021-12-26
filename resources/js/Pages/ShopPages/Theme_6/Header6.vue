@@ -5,7 +5,7 @@
           <ul class="authentication-links">
             <li><Link href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="far fa-user"></i><span>Login</span></Link></li>
             <li><Link href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-sign-in-alt"></i><span>Register</span></Link></li>
-          </ul><Link class="menu-shopping-cart" href="">
+          </ul><Link class="menu-shopping-cart" href="/cart">
             <div class="number"><i class="fas fa-shopping-basket"></i><span>{{cartCount}}</span></div>
             <div class="price-box"><strong>Shopping Cart:</strong>
               <div class="price"><i class="fas fa-dollar-sign"></i><span class="pirce-value">{{total}}</span></div>

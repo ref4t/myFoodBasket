@@ -45,6 +45,7 @@ use App\Http\Controllers\Shop\AboutusController;
 use App\Http\Controllers\Shop\AccountController;
 use App\Http\Controllers\Shop\ForgotPasswordController;
 use App\Http\Controllers\Shop\RegistryController;
+use App\Http\Controllers\Shop\CoordianteController;
 
 
 /*
@@ -82,6 +83,8 @@ Route::group( $domain,function () {
     Route::get('/contactus',[AboutusController::class, 'index'])->name('shopcontactus');
     
     Route::get('/cart',[CartController::class, 'index'])->name('shopcart');
+
+    Route::get('/coordinate',[CoordianteController::class, 'index'])->name('coordinate');
 
     Route::post('/addtocart',[CartController::class, 'addToCart'])->name('addtocart');
     
