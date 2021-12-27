@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\Offers\FreeItemController;
 use App\Http\Controllers\Admin\Offers\CartRuleController;
 
 use App\Http\Controllers\Admin\Settings\MapAndCategoryController;
+use App\Http\Controllers\Admin\Settings\ShopController;
 use App\Http\Controllers\Admin\Settings\OpenCloseController;
 use App\Http\Controllers\Admin\Settings\DeliveryController;
 use App\Http\Controllers\Admin\Settings\SocialMediaController;
@@ -215,6 +216,21 @@ Route::prefix('admin')->group(function(){
     Route::post('settings/update', [MapAndCategoryController::class, 'update' ])->name('admin.settings.cat.update');
    
     Route::get('settings/shop/index', [MapAndCategoryController::class, 'index' ])->name('admin.settings.shop.index');
+
+
+    Route::get('settings/shop/list', [ShopController::class, 'index' ])->name('admin.settings.shop.list');
+    Route::post('settings/shop/list/delete', [ShopController::class, 'delete' ])->name('admin.settings.shop.delete');
+
+    Route::get('settings/shop/create', [ShopController::class, 'create' ])->name('admin.settings.shop.create');
+    Route::post('settings/shop/store', [ShopController::class, 'store' ])->name('admin.settings.shop.store');
+    
+    Route::get('settings/shop/edit/{id}', [ShopController::class, 'edit' ])->name('admin.settings.shop.edit');
+
+
+    
+
+
+
 
     Route::get('settings/open-close/index',[OpenCloseController::class, 'index'])->name('admin.settings.openclose.index');
     Route::post('settings/open-close/update',[OpenCloseController::class, 'update'])->name('admin.settings.openclose.update');
