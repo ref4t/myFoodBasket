@@ -1126,8 +1126,8 @@ export default {
       timesetting: Object,
   },
   setup(props){
-      let dataForm = toRefs(props).timesetting
-    //   let dataForm = reactive()
+      let dataForm = toRefs(props).timesetting;
+       
       return {dataForm}
   },
   data() {
@@ -1150,11 +1150,12 @@ export default {
             this.dataForm.delivery.from=[];
             this.dataForm.delivery.to=[];
         }
-            if(!this.dataForm.collection_same_bussiness == 0 ){
-                this.dataForm.collection.day=[];
-                this.dataForm.collection.from=[];
-                this.dataForm.collection.to=[];
-            }
+            // if(!this.dataForm.collection_same_bussiness == 0 ){
+                let collection={
+                    day:{'0':''}
+                    }
+               this.dataForm= Object.assign(collection,this.dataForm)
+            // }
         
     },
 
