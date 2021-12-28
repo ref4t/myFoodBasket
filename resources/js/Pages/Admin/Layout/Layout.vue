@@ -33,7 +33,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+                            </div>
+                        </div>
+
+
+                        <div class="col-12">
+                            <div class="card ">
                                <div class="card">
                                     <table class="table table-borderless">
                                         <tbody>
@@ -44,7 +49,6 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    
                                                     <div class="form-group row">
                                                         <label  class="col-sm-5 col-form-label">Background Color</label>
                                                         <div class="col-sm-5">
@@ -67,59 +71,12 @@
                                         </tbody>
                                     </table>
                                </div>
-                                
                             </div>
-                            
                         </div>
 
 
                         <div class="col-12">
-                            
                             <div class="card ">
-                                
-                               <div class="card">
-                                    <table class="table table-borderless">
-                                        <tbody>
-                                            <tr class="bg-info">
-                                                <th colspan="2">
-                                                    ABOUT US SECTION
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    
-                                                    <div class="form-group row">
-                                                        <label  class="col-sm-5 col-form-label">Background Color</label>
-                                                        <div class="col-sm-5">
-                                                        <input v-model="layout.about_bg" type="text" placeholder="#F0F0F0" class="form-control">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group row">
-                                                        <label  class="col-sm-5 col-form-label">Content Color</label>
-                                                        <div class="col-sm-5">
-                                                        <input v-model="layout.about_content" type="text" placeholder="#F0F0F0" class="form-control">
-                                                        </div>
-                                                    </div>
-
-                                                </td>
-                                                <td>
-                                                    <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/about-us.png'" width="600" height="750" >
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                               </div>
-                                
-                            </div>
-                            
-                        </div>
-
-
-                        <div class="col-12">
-                            
-                            <div class="card ">
-                                
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr class="bg-info">
@@ -129,7 +86,6 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                
                                                 <div class="form-group row">
                                                     <label  class="col-sm-5 col-form-label">Background Color</label>
                                                     <div class="col-sm-5">
@@ -151,14 +107,11 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
                             </div>
-
                         </div>
+
                         <div class="col-12">
-                            
                             <div class="card ">
-                                
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr class="bg-info">
@@ -168,7 +121,6 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                
                                                 <div class="form-group row">
                                                     <label  class="col-sm-5 col-form-label">Background Color</label>
                                                     <div class="col-sm-5">
@@ -182,23 +134,18 @@
                                                     <input v-model="layout.gallery_content" type="text" placeholder="#F0F0F0" class="form-control">
                                                     </div>
                                                 </div>
-                                                
                                             </td>
                                             <td>
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/gallery.png'" width="600" height="750" >
                                             </td>
-
                                         </tr>
                                     </tbody>
                                 </table>
-                                
                             </div>
-
                         </div>
+
                         <div class="col-12">
-                            
                             <div class="card ">
-                                
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr class="bg-info">
@@ -208,7 +155,6 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                
                                                 <div class="form-group row">
                                                     <label  class="col-sm-5 col-form-label">Background Color</label>
                                                     <div class="col-sm-5">
@@ -222,7 +168,6 @@
                                                     <input v-model="layout.popular_content" type="text" placeholder="#F0F0F0" class="form-control">
                                                     </div>
                                                 </div>
-                                                
                                             </td>
                                             <td>
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/popular.png'" width="600" height="750" >
@@ -230,14 +175,11 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
                             </div>
-
                         </div>
+
                         <div class="col-12">
-                            
                             <div class="card ">
-                                
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr class="bg-info">
@@ -247,7 +189,6 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                
                                                 <div class="form-group row">
                                                     <label  class="col-sm-5 col-form-label">Background Color</label>
                                                     <div class="col-sm-5">
@@ -261,7 +202,6 @@
                                                     <input v-model="layout.category_content" type="text" placeholder="#F0F0F0" class="form-control">
                                                     </div>
                                                 </div>
-                                                
                                             </td>
                                             <td>
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/category.png'" width="600" height="750" >
@@ -269,14 +209,11 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
                             </div>
-
                         </div>
+
                         <div class="col-12">
-                            
                             <div class="card ">
-                                
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr class="bg-info">
@@ -286,7 +223,6 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                
                                                 <div class="form-group row">
                                                     <label  class="col-sm-5 col-form-label">Background Color</label>
                                                     <div class="col-sm-5">
@@ -300,7 +236,6 @@
                                                     <input v-model="layout.rating_content" type="text" placeholder="#F0F0F0" class="form-control">
                                                     </div>
                                                 </div>
-                                                
                                             </td>
                                             <td>
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="rating" :src="'/image/layout/rating.png'" width="600" height="750" >
@@ -308,14 +243,10 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
                             </div>
-
                         </div>
                         <div class="col-12">
-                            
                             <div class="card ">
-                                
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr class="bg-info">
@@ -325,7 +256,6 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                
                                                 <div class="form-group row">
                                                     <label  class="col-sm-5 col-form-label">Background Color</label>
                                                     <div class="col-sm-5">
@@ -339,7 +269,6 @@
                                                     <input v-model="layout.opening_content" type="text" placeholder="#F0F0F0" class="form-control">
                                                     </div>
                                                 </div>
-                                                
                                             </td>
                                             <td>
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="opening" :src="'/image/layout/opening.png'" width="600" height="750" >

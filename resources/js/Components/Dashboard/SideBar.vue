@@ -280,7 +280,7 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link" :class="route().current('admin.layout.*') ? 'active' : ' ' " >
-              <i class="nav-icon far fa-folder"></i>
+              <i class="nav-icon fa fa-object-group"></i>
               <p>
                 Layout
                 <i class="fas fa-angle-left right"></i>
