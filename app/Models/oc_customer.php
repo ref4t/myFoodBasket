@@ -10,14 +10,17 @@ use App\Models\oc_customer_ip;
 use App\Models\oc_address;
 use App\Models\oc_store;
 use App\Models\oc_customer_group_description;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class oc_customer extends Model
-{
-    protected $guarded = [];
+class oc_customer extends Authenticatable
+{   
+    use HasApiTokens, HasFactory, Notifiable;
+    protected $guard = 'customer';
     protected $primaryKey = 'customer_id ';
     protected $table = 'oc_customer';
-    use HasFactory;
-
+    protected $hidden = ['password'];
    
     public function getAddress(){
         return $this->hasMany(oc_address::class,'customer_id','customer_id');

@@ -18,12 +18,19 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class MenuController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $url = request()->root();
-        $url = 'https://www.pizzaria.co.uk/';
-        $url =parse_url($url)['host'];
-        $site = oc_store::where('url','like', '%'.$url.'%')->first();
+        $store_id =  $request->session()->get('store_id');
+        if(!$store_id){
+
+            $url = 'https://www.pizzacolichfield.co.uk/';
+            $url =parse_url($url)['host'];
+            $site = oc_store::where('url','like', '%'.$url.'%')->first();
+        }
+        else{
+            $site = oc_store::where('store_id',$store_id)->first();
+        }
          $delivery = oc_delivery_settings::select('name','min_spend')->where('id_store','=',$site->store_id)->get(); 
         $timeSetting=oc_setting::showtimeconfig($site->store_id); 
         // dd($timeSetting);

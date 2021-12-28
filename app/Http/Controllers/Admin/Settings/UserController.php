@@ -51,7 +51,7 @@ class UserController extends Controller
         ]);
     }
     public function store(Request $request){
-
+            // dd($request->all());
         $user = new oc_user;
 
         $user->fill([
@@ -91,7 +91,7 @@ class UserController extends Controller
         if($request['password']){
             $data = $request['user'];
 
-            $data['password'] = Hash::make($data['password']);
+            $data['password'] = Hash::make($request['password']);
 
             oc_user::where('user_id', $data['user_id'])->update( $data);
 

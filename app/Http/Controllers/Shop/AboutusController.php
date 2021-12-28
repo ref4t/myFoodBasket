@@ -11,13 +11,17 @@ use App\Models\oc_store;
 
 class AboutusController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $url = request()->root();
-        $url = 'https://www.pizzacolichfield.co.uk/';
-        $url =parse_url($url)['host'];
-        $site = oc_store::where('url','like', '%'.$url.'%')->first();
-        if(!$site){
-            return abort(404);
+        $store_id =  $request->session()->get('store_id');
+        if(!$store_id){
+
+            $url = 'https://www.pizzacolichfield.co.uk/';
+            $url =parse_url($url)['host'];
+            $site = oc_store::where('url','like', '%'.$url.'%')->first();
+        }
+        else{
+            $site = oc_store::where('store_id',$store_id)->first();
         }
         $timeSetting=oc_setting::showtimeconfig($site->store_id); 
         $settings=oc_setting::where('store_id','=',$site->store_id)->where('group','=','config')->orWhere('group','=','deliverysetting')->get();

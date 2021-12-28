@@ -12,12 +12,19 @@ use App\Models\oc_store;
 
 class MemberController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {   
         $url = request()->root();
-        $url = 'https://www.pizzacolichfield.co.uk/';
-        $url =parse_url($url)['host'];
-        $site = oc_store::where('url','like', '%'.$url.'%')->first();
+        $store_id =  $request->session()->get('store_id');
+        if(!$store_id){
+
+            $url = 'https://www.pizzacolichfield.co.uk/';
+            $url =parse_url($url)['host'];
+            $site = oc_store::where('url','like', '%'.$url.'%')->first();
+        }
+        else{
+            $site = oc_store::where('store_id',$store_id)->first();
+        }
         if(!$site){
             return abort(404);
         }

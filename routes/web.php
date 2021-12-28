@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Mainshop\ShopSearchController;
 use App\Http\Controllers\Home\DomainController;
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\TransactionController;
@@ -109,6 +110,8 @@ Route::group( $domain,function () {
 Route::get('/login');
 
 
+Route::get('/admin', [AuthenticatedSessionController::class, 'create'])->middleware('web')->name('loginget');
+Route::post('/admin', [AuthenticatedSessionController::class, 'store'])->middleware('web')->name('login');
 Route::prefix('admin')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     
@@ -273,4 +276,4 @@ Route::prefix('admin')->group(function(){
 
 });
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';
