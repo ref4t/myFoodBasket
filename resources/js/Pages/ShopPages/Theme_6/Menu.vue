@@ -134,6 +134,11 @@
                 </div>
                 </div>
             </ul>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                <Link type="button" :href="cartTotal !=0 ?'/checkout':'/cart'" class="btn btn-success">Checkout</Link>
+                </div>
+            </div>
             </div>
         </div>
     </div>
@@ -221,17 +226,18 @@ export default {
         }
    },
     mounted() {
-        var myModal = new bootstrap.Modal(document.getElementById('coordinateModal'), {})
-        myModal.toggle()
+        // var myModal = new bootstrap.Modal(document.getElementById('coordinateModal'), {})
+        // myModal.toggle()
+
         let links=[ 
                     '/js/theme6/app.js'
                   ];
-  links.forEach(function(value,index){
-    let externalScript = document.createElement('script')
-      externalScript.async = true
-      externalScript.setAttribute('src', value)
-      document.body.appendChild(externalScript)
-  });
+        links.forEach(function(value,index){
+            let externalScript = document.createElement('script')
+            externalScript.async = true
+            externalScript.setAttribute('src', value)
+            document.body.appendChild(externalScript)
+        });
    },
 }
 </script>

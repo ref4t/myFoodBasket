@@ -51,7 +51,7 @@
                                     <div class="row">
                                     <div class="col-12">
                                     <div class="form-floating my-3">
-                                        <select name="gender" class="form-select" aria-label="Default select example" v-model="guestForm.gender">
+                                        <select name="gender" class="form-select" aria-label="Default select example" v-model="guestForm.gender" :class="v$.guestForm.gender.$error ? 'is-invalid' : ' ' " >
                                             <option value=null>Title</option>
                                             <option value="1">Mr.</option> 
                                             <option value="2">Mrs.</option> 
@@ -64,25 +64,25 @@
                                     </div>
                                     <div class="col-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="GueastFormFirst" placeholder="John"  v-model="guestForm.firstName">
+                                        <input type="text" class="form-control" id="GueastFormFirst" placeholder="John"  v-model="guestForm.firstName" :class="v$.guestForm.firstName.$error ? 'is-invalid' : ' ' ">
                                         <label for="GueastFormFirst">First Name</label>
                                     </div>
                                     </div>
                                     <div class="col-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="GueastFormLast" placeholder="Doe"  v-model="guestForm.lastName">
+                                        <input type="text" class="form-control" id="GueastFormLast" placeholder="Doe"  v-model="guestForm.lastName" :class="v$.guestForm.lastName.$error ? 'is-invalid' : ' ' " >
                                         <label for="GueastFormLast">Last Name</label>
                                     </div>
                                     </div>
                                     <div class="col-12">
                                     <div class="form-floating mb-3">
-                                        <input type="email" class="form-control" id="GueastFormEmail" placeholder="name@example.com"  v-model="guestForm.email">
+                                        <input type="email" class="form-control" id="GueastFormEmail" placeholder="name@example.com"  v-model="guestForm.email " :class="v$.guestForm.email.$error ? 'is-invalid' : ' ' " >
                                         <label for="GueastFormEmail">Email address</label>
                                     </div>
                                     </div>
                                     <div class="col-12">
                                     <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="GueastFormPhone" placeholder="12341234"  v-model="guestForm.phone">
+                                        <input type="number" class="form-control" id="GueastFormPhone" placeholder="12341234"  v-model="guestForm.phone" :class="v$.guestForm.phone.$error ? 'is-invalid' : ' ' " >
                                         <label for="GueastFormPhone">Phone Number</label>
                                     </div>
                                     </div>
@@ -108,7 +108,7 @@
                                     <div class="form-control mb-3">
                                     <div class="row">
                                     <div class="form-floating mb-3 ">
-                                        <select name="gender" class="form-select my-3" aria-label="Default select example" v-model="createForm.gender">
+                                        <select name="gender" class="form-select my-3" aria-label="Default select example" v-model="createForm.gender" :class="v$.createForm.gender.$error ? 'is-invalid' : ' ' " >
                                             <option value=null>Title</option>
                                             <option value="1">Mr.</option> 
                                             <option value="2">Mrs.</option> 
@@ -120,37 +120,37 @@
                                     </div>
                                     <div class="col-6">
                                     <div class="form-floating mb-3 ">
-                                        <input type="text" class="form-control" id="createFormFirstName" placeholder="John" v-model="createForm.firstName">
+                                        <input type="text" class="form-control" id="createFormFirstName" placeholder="John" v-model="createForm.firstName" :class="v$.createForm.firstName.$error ? 'is-invalid' : ' ' " >
                                         <label for="createFormFirstName">First Name</label>
                                     </div>
                                     </div>
                                     <div class="col-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="createFormLastName" placeholder="Doe" v-model="createForm.lastName">
+                                        <input type="text" class="form-control" id="createFormLastName" placeholder="Doe" v-model="createForm.lastName" :class="v$.createForm.lastName.$error ? 'is-invalid' : ' ' " >
                                         <label for="createFormLastName">Last Name</label>
                                     </div>
                                     </div>
                                     <div class="col-12">
                                     <div class="form-floating mb-3">
-                                        <input type="email" class="form-control" id="createFormEmail" placeholder="name@example.com" v-model="createForm.email">
+                                        <input type="email" class="form-control" id="createFormEmail" placeholder="name@example.com" v-model="createForm.email" :class="v$.createForm.email.$error ? 'is-invalid' : ' ' " >
                                         <label for="createFormEmail">Email address</label>
                                     </div>
                                     </div>
                                     <div class="col-12">
                                     <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="createFormPhone" placeholder="12341234" v-model="createForm.phone">
+                                        <input type="number" class="form-control" id="createFormPhone" placeholder="12341234" v-model="createForm.phone" :class="v$.createForm.phone.$error ? 'is-invalid' : ' ' " >
                                         <label for="createFormPhone">Phone Number</label>
                                     </div>
                                     </div>
                                     <div class="col-12">
                                     <div class="form-floating mb-3">
-                                        <input type="password" class="form-control" id="createFormPass" placeholder="Password" v-model="createForm.password">
+                                        <input type="password" class="form-control" id="createFormPass" placeholder="Password" v-model="createForm.password" :class="v$.createForm.password.$error ? 'is-invalid' : ' ' " >
                                         <label for="createFormPass">Password</label>
                                     </div>
                                     </div>
                                     <div class="col-12">
                                     <div class="form-floating mb-3">
-                                        <input type="password" class="form-control" id="createFormConPass" placeholder="Password" v-model="createForm.confirmPass">
+                                        <input type="password" class="form-control" id="createFormConPass" placeholder="Password" v-model="createForm.confirmPass" :class="v$.createForm.confirmPass.$error ? 'is-invalid' : ' ' ">
                                         <label for="createFormConPass">Confirm Password</label>
                                     </div>
                                     </div>
@@ -264,31 +264,31 @@
                             <div class="row">
                                 <div class=" col-12">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="addressFormLine1" placeholder="name@example.com" v-model="addressForm.line1">
+                                        <input type="text" class="form-control" id="addressFormLine1" placeholder="name@example.com" v-model="addressForm.line1" :class="v$.addressForm.line1.$error ? 'is-invalid' : ' ' " >
                                         <label for="addressFormLine1">Address Line 1</label>
                                     </div>
                                 </div>
                                 <div class=" col-12">
                                      <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="addressFormLine2" placeholder="name@example.com" v-model="addressForm.line2">
+                                        <input type="text" class="form-control" id="addressFormLine2" placeholder="name@example.com" v-model="addressForm.line2" :class="v$.addressForm.line2.$error ? 'is-invalid' : ' ' ">
                                         <label for="addressFormLine2">Address Line 2</label>
                                     </div>
                                 </div>
                                 <div class=" col-md-6 col-6">
                                      <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="addressFormCity" placeholder="name@example.com" v-model="addressForm.city">
+                                        <input type="text" class="form-control" id="addressFormCity" placeholder="name@example.com" v-model="addressForm.city" :class="v$.addressForm.city.$error ? 'is-invalid' : ' ' " >
                                         <label for="addressFormCity">City</label>
                                     </div>
                                 </div>
                                 <div class=" col-md-6 col-6">
                                      <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="addressFormPost" placeholder="name@example.com" v-model="addressForm.post">
+                                        <input type="text" class="form-control" id="addressFormPost" placeholder="name@example.com" v-model="addressForm.post" :class="v$.addressForm.post.$error ? 'is-invalid' : ' ' ">
                                         <label for="addressFormPost">Post Code</label>
                                     </div>
                                 </div>
                                 <div class=" col-12">
                                      <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="addressFormPhone" placeholder="name@example.com" v-model="addressForm.phone">
+                                        <input type="text" class="form-control" id="addressFormPhone" placeholder="name@example.com" v-model="addressForm.phone" :class="v$.addressForm.phone.$error ? 'is-invalid' : ' ' ">
                                         <label for="addressFormPhone">Phone</label>
                                     </div>
                                 </div>
@@ -329,19 +329,52 @@
                         <tbody>
                              <tr  v-for="item in cartTest" :key="item">
                                 <th scope="row">{{item.qty}}</th>
-                                <td>{{item.name}}</td>
+                                <td>{{ htmlDecode(item.options.length != 0 ? item.options.size : '')+' '+item.name}}</td>
                                 <td>{{item.price}}</td>
                                 <td><a href="javascript:void(0)"><i class="fas fa-times-circle me-2" style="color:red" @click="removeFromCart(item.id,item.rowId)"></i></a></td>
                             </tr>
+                            <tr>
+                                <td colspan="3" style="text-align-last: end; padding-right: 50px;">
+                                    Subtotal:  {{cartSubtotal}} <br/>
+                                    Total: {{cartTotal}}
+                                </td>
+                                <td></td>
+                            </tr>
                         </tbody>
                     </table>
+                    <div class="card-body">
+                        <div class="flex-end">
+                          
+                        </div>
+                    </div>
                 </div>
                 <div class="card text-center">
                     <div class="card-header fw-bold">
                         Coupons/Vouchers/Loyalty
                     </div>
                     <div class="card-body">
-
+                        <div class="form-control w-50" style="display:inline-block">  
+                            <div class="row">
+                                <div class=" col-9">
+                                    <div class="form-floating my-3">
+                                        <input type="text" class="form-control" id="voucher1"  v-model="finalForm.voucher">
+                                        <label for="voucher1">Voucher Code</label>
+                                    </div>
+                                </div>
+                                <div class="col-3 my-3">
+                                    <button class="btn btn-success" type="button">Apply</button>
+                                </div>
+                                <div class=" col-9">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="coupon1"  v-model="finalForm.coupon">
+                                        <label for="coupon1">Coupon Code</label>
+                                    </div>
+                                </div>
+                                <div class="col-3 mb-3">
+                                    <button class="btn btn-success" type="button">Apply</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card text-center">
@@ -349,7 +382,30 @@
                         Payment Options
                     </div>
                     <div class="card-body">
-
+                        <div class="form-control">
+                            <div class="col-3" style="text-align:center;display:inline-block;">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="paymentMethod1" checked v-model="finalForm.payment">
+                                    <label class="form-check-label" for="paymentMethod1">
+                                       Pay Online Through Card
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="paymentMethod2" v-model="finalForm.payment" >
+                                    <label class="form-check-label" for="paymentMethod2">
+                                        Pay Through Card on Collection
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-3 text-center">
+                    <div class="col-6 ">
+                        <button class="btn btn-light" @click="previousStep"><i class="fas fa-chevron-left"></i> Back</button>
+                    </div>
+                    <div class="col-6 ">
+                        <button class="btn btn-success" @click="checkoutSubmit">Pay £{{cartTotal}}</button>
                     </div>
                 </div>
             </div>
@@ -363,6 +419,9 @@ import TopHeaderSix from '@/Pages/ShopPages/Theme_6/Header6.vue';
 import TopFooterSix from '@/Pages/ShopPages/Theme_6/Footer6.vue';
 import { reactive } from 'vue';
 import { useToast } from "vue-toastification";
+import useValidate from '@vuelidate/core'
+import { required, email, minLength, maxLength, sameAs, numeric } from '@vuelidate/validators'
+
 export default {
      components:{
         Head,
@@ -395,17 +454,50 @@ export default {
             phone:null,
             additional:null,
         })
+        const finalForm = reactive({
+            voucher:null,
+            coupon:null,
+        })
       const toast = useToast();
-        return {guestForm, createForm, addressForm, toast}
+        return {guestForm, createForm, addressForm, toast, finalForm}
     },
     data(){
         return{
+            v$: useValidate(),
             cartTest:this.cartItems,
             cartTotal:this.cTotal,
             cartSubtotal:this.cSubtotal,
             stepCount:1,
         }
         
+    },
+    validations(){
+        return {
+            guestForm:{
+                gender: {required},
+                firstName: {required},
+                lastName: {required},
+                email: {required, email},
+                phone: {required},
+            },
+            createForm :{
+                gender:     {required},
+                firstName:  {required},
+                lastName:   {required},
+                email:      {required,email},
+                phone:      {required},
+                password:   {required},
+                confirmPass:{required, sameAs: sameAs(this.createForm.password) },
+            },
+            addressForm :{
+                line1:{required},
+                line2:{required},
+                city:{required},
+                post:{required},
+                phone:{required},
+                additional:{},
+            }
+        }
     },
     computed:{
         progressStatus: function () {
@@ -420,26 +512,59 @@ export default {
         timeSetting:Object,
     },
     methods:{
+        htmlDecode(input) {
+        var doc = new DOMParser().parseFromString(input, "text/html");
+        return doc.documentElement.textContent;
+        },
         checkboxCheck(checkId){
             document.getElementById(checkId).checked = true;
         },
         createCustomer(){
-            console.log(this.createForm);
+            this.v$.createForm.$validate()
+            
+            if(!this.v$.createForm.$error){
+                console.log("validated");
+                this.stepCount=2;
+                document.getElementById('checkoutPageHeader2').scrollIntoView();
+                console.log(this.createForm);
+                }
+            else{
+                console.log("failed")
+            }
         },
         guestCustomer(){
-            console.log(this.guestForm);
-            this.stepCount=2;
-            document.getElementById('checkoutPageHeader2').scrollIntoView();
-            console.log(this.progressStatus)
+            this.v$.guestForm.$validate()
+            
+            if(!this.v$.guestForm.$error){
+                console.log("validated");
+
+                console.log(this.guestForm);
+                this.stepCount=2;
+                document.getElementById('checkoutPageHeader2').scrollIntoView();
+                console.log(this.progressStatus)
+            }else{
+                console.log("failed")
+            }
         },
         previousStep(){
-            this.stepCount=1;
-            document.getElementById('checkoutPageHeader2').scrollIntoView();
+            if(this.stepCount != 1){
+                this.stepCount= this.stepCount-1;
+                document.getElementById('checkoutPageHeader2').scrollIntoView();
+            }
 
         },
         nextStep(){
-            this.stepCount=3;
-            document.getElementById('checkoutPageHeader2').scrollIntoView();
+
+            this.v$.addressForm.$validate()
+            
+            if(!this.v$.addressForm.$error){
+                console.log("validated");
+            
+                this.stepCount=3;
+                document.getElementById('checkoutPageHeader2').scrollIntoView();
+            }else{
+                console.log("failed")
+            }
 
         },
         removeFromCart(productId,rowID){
