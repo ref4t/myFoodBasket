@@ -29,6 +29,23 @@ class OrderController extends Controller
             $query-> where('firstname','LIKE','%'.request('search').'%');
             
         }
+        if(request('id')){ 
+            $query-> where('order_id','LIKE','%'.request('id').'%');
+            
+        }
+        if(request('status')){ 
+            $query-> where('order_status_id','LIKE','%'.request('status').'%');
+            
+        }
+        if(request('total')){ 
+            $query-> where('total','LIKE','%'.request('total').'%');
+            
+        }
+        if(request('date')){ 
+            // dd(strtok(request('date'), 'T'));
+            $query-> whereDate('date_added','=',strtok(request('date'), 'T'));
+            
+        }
 
         if(request('field') && request('direction') ){
             
@@ -36,12 +53,13 @@ class OrderController extends Controller
             
         }
         
-        
+        $status = oc_order_status::all();
        
         
         return Inertia::render('Admin/Orders',[
             'orders' => $query->paginate(),
-            'filters' => request()->all(['search','field','direction'])
+            'status' => $status,
+            'filters' => request()->all(['search','id','status','total','date','payment','field','direction'])
             ]);
 
 
