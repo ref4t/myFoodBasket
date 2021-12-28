@@ -226,6 +226,7 @@ Route::prefix('admin')->group(function(){
     // layout
 
     Route::get('/layout',[LayoutController::class,'index'])->name('admin.layout.layout.index');
+    Route::post('/layout/update',[LayoutController::class,'update'])->name('admin.layout.layout.update');
     // Route::get('/layout',[LayoutController::class,'index'])->name('admin.layout.layout.index');
      
     // settings

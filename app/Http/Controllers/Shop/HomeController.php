@@ -22,8 +22,8 @@ class HomeController extends Controller
     {
         //  dd(request()->root());
 
-        // $url = 'https://www.stationkebabs.co.uk/';
-        $url = request()->root();
+        $url = 'www.stationkebabs.co.uk/';
+        // $url = request()->root();
         $site = oc_store::where('url','like', '%'.$url.'%')->first();
         if(!$site){
             return abort(404);
