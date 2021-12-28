@@ -329,19 +329,52 @@
                         <tbody>
                              <tr  v-for="item in cartTest" :key="item">
                                 <th scope="row">{{item.qty}}</th>
-                                <td>{{item.name}}</td>
+                                <td>{{ htmlDecode(item.options.length != 0 ? item.options.size : '')+' '+item.name}}</td>
                                 <td>{{item.price}}</td>
                                 <td><a href="javascript:void(0)"><i class="fas fa-times-circle me-2" style="color:red" @click="removeFromCart(item.id,item.rowId)"></i></a></td>
                             </tr>
+                            <tr>
+                                <td colspan="3" style="text-align-last: end; padding-right: 50px;">
+                                    Subtotal:  {{cartSubtotal}} <br/>
+                                    Total: {{cartTotal}}
+                                </td>
+                                <td></td>
+                            </tr>
                         </tbody>
                     </table>
+                    <div class="card-body">
+                        <div class="flex-end">
+                          
+                        </div>
+                    </div>
                 </div>
                 <div class="card text-center">
                     <div class="card-header fw-bold">
                         Coupons/Vouchers/Loyalty
                     </div>
                     <div class="card-body">
-
+                        <div class="form-control w-50" style="display:inline-block">  
+                            <div class="row">
+                                <div class=" col-9">
+                                    <div class="form-floating my-3">
+                                        <input type="text" class="form-control" id="voucher1"  v-model="finalForm.voucher">
+                                        <label for="voucher1">Voucher Code</label>
+                                    </div>
+                                </div>
+                                <div class="col-3 my-3">
+                                    <button class="btn btn-success" type="button">Apply</button>
+                                </div>
+                                <div class=" col-9">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="coupon1"  v-model="finalForm.coupon">
+                                        <label for="coupon1">Coupon Code</label>
+                                    </div>
+                                </div>
+                                <div class="col-3 mb-3">
+                                    <button class="btn btn-success" type="button">Apply</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card text-center">
@@ -349,7 +382,30 @@
                         Payment Options
                     </div>
                     <div class="card-body">
-
+                        <div class="form-control">
+                            <div class="col-3" style="text-align:center;display:inline-block;">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="paymentMethod1" checked v-model="finalForm.payment">
+                                    <label class="form-check-label" for="paymentMethod1">
+                                       Pay Online Through Card
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="paymentMethod2" v-model="finalForm.payment" >
+                                    <label class="form-check-label" for="paymentMethod2">
+                                        Pay Through Card on Collection
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-3 text-center">
+                    <div class="col-6 ">
+                        <button class="btn btn-light" @click="previousStep"><i class="fas fa-chevron-left"></i> Back</button>
+                    </div>
+                    <div class="col-6 ">
+                        <button class="btn btn-success" @click="checkoutSubmit">Pay £{{cartTotal}}</button>
                     </div>
                 </div>
             </div>
@@ -395,15 +451,19 @@ export default {
             phone:null,
             additional:null,
         })
+        const finalForm = reactive({
+            voucher:null,
+            coupon:null,
+        })
       const toast = useToast();
-        return {guestForm, createForm, addressForm, toast}
+        return {guestForm, createForm, addressForm, toast, finalForm}
     },
     data(){
         return{
             cartTest:this.cartItems,
             cartTotal:this.cTotal,
             cartSubtotal:this.cSubtotal,
-            stepCount:1,
+            stepCount:3,
         }
         
     },
@@ -420,10 +480,16 @@ export default {
         timeSetting:Object,
     },
     methods:{
+        htmlDecode(input) {
+        var doc = new DOMParser().parseFromString(input, "text/html");
+        return doc.documentElement.textContent;
+        },
         checkboxCheck(checkId){
             document.getElementById(checkId).checked = true;
         },
         createCustomer(){
+            this.stepCount=2;
+            document.getElementById('checkoutPageHeader2').scrollIntoView();
             console.log(this.createForm);
         },
         guestCustomer(){
@@ -433,8 +499,10 @@ export default {
             console.log(this.progressStatus)
         },
         previousStep(){
-            this.stepCount=1;
-            document.getElementById('checkoutPageHeader2').scrollIntoView();
+            if(this.stepCount != 1){
+                this.stepCount= this.stepCount-1;
+                document.getElementById('checkoutPageHeader2').scrollIntoView();
+            }
 
         },
         nextStep(){

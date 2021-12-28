@@ -24,10 +24,10 @@
                                 <td><a href="javascript:void(0)"><i class="fas fa-times-circle me-2" style="color:red" @click="removeFromCart(item.id,item.rowId)"></i></a></td>
                             </tr>
                         </tbody>
-                    </table>
+                </table>
             </div>
             <div class="col-12 my-3 ">
-                <Link :href="(cartTest?'/checkout':'/menu')" class="btn btn-success" style="float:right">Continue</Link>
+                <Link :href="(cartTotal != 0?'/checkout':'/menu')" class="btn btn-success" style="float:right">Continue</Link>
             </div>
         </div>
     </div>
