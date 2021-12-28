@@ -1,17 +1,8 @@
 <template>
 <Head>
-    <!-- <link rel="stylesheet" href="/css/theme-6.css"> -->
-            <link rel="stylesheet" href="/css/shoptheme6/bootstrap.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/bootstrap-datetimepicker.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/all.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/swiper-bundle.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/fancybox.css">
-            <link rel="stylesheet" href="/css/shoptheme6/animate.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/select2.min.css">
-            <link rel="stylesheet" href="/css/shoptheme6/app.css">
-            <link rel="stylesheet" href="/css/shoptheme6/responsive.css">
+           
 </Head>
-<TopHeaderSix></TopHeaderSix>
+<TopHeaderSix :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length" :openingTime="setting.opening_time" :timeSetting="timeSetting"></TopHeaderSix>
 <section class="home-slide-v6 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="home-slide-v6-swiper">
         <div class="swiper">
@@ -408,7 +399,7 @@
       </div>
     </section>
     
-    <TopFooterSix></TopFooterSix>
+  <TopFooterSix :logo="setting.config_logo" :name="setting.config_name"></TopFooterSix>
 </template>
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';
@@ -421,21 +412,28 @@ export default {
         TopHeaderSix,
         TopFooterSix,
     },
+    data(){
+        return{
+            cartTest:this.cartItems,
+            cartTotal:this.cTotal,
+            cartSubtotal:this.cSubtotal,
+        }
+        
+    },
+    props:{
+        setting:Object,
+        cartItems:Object,
+        cTotal:String,
+        cSubtotal:String,
+        timeSetting:Object,
+    },
     mounted() {
-        let links=[ '/js/theme6/jquery.min.js',
-                    '/js/theme6/moment.min.js',
-                    '/js/theme6/locales.min.js',
-                    '/js/theme6/bootstrap.min.js',
-                    '/js/theme6/bootstrap-datetimepicker.min.js',
-                    '/js/theme6/wow.min.js',
-                    '/js/theme6/fancybox.umd.js',
-                    '/js/theme6/select2.min.js',
-                    '/js/theme6/swiper-bundle.min.js',
+        let links=[ 
                     '/js/theme6/app.js'
                   ];
   links.forEach(function(value,index){
     let externalScript = document.createElement('script')
-      externalScript.async = true
+      // externalScript.async = true
       externalScript.setAttribute('src', value)
       document.body.appendChild(externalScript)
   });

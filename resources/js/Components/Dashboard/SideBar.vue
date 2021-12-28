@@ -42,14 +42,14 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview" :style="route().current('admin.dashboard.orders.*') ? 'display: block' : '' ">
               <li class="nav-item">
                 <Link :href="route('admin.dashboard.orders.index')" class="nav-link" :class="route().current('admin.dashboard.*') ? 'active' : ' ' " >
                   <i class="far fa-circle nav-icon"></i>
                   <p>Total Orders</p>
                 </Link>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <Link
                   
                   class="nav-link"
@@ -57,7 +57,7 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Transactions</p>
                 </Link>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <Link
                   :href="route('admin.dashboard.newOrders')"
@@ -79,7 +79,7 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview" :style="route().current('admin.reservation.*') ? 'display: block' : '' ">
               <li class="nav-item">
                 <Link :href="route('admin.reservation.index')" class="nav-link" :class="route().current('admin.reservation.index') ? 'active' : ' ' " >
                   <i class="far fa-circle nav-icon"></i>
@@ -101,30 +101,31 @@
 
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" :class="route().current('admin.catalog.*') ? 'active' : ' ' " >
               <i class="nav-icon far fa-folder"></i>
               <p>
                 Category
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview" :style="route().current('admin.catalog.*') ? 'display: block' : '' ">
               <li class="nav-item">
-                <Link :href="route('admin.dashboard.orders.index')" class="nav-link">
+                <Link :href="route('admin.catalog.category.index')" class="nav-link" :class="route().current('admin.catalog.category.*') ? 'active' : ' ' ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categories</p>
                 </Link>
               </li>
               <li class="nav-item">
                 <Link
-                  
+                  :href="route('admin.catalog.product.index')"
                   class="nav-link"
+                  :class="route().current('admin.catalog.product.*') ? 'active' : ' ' "
                 >
                   <i class="far fa-circle nav-icon"></i>
                   <p>Products</p>
                 </Link>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <Link
                   
                   class="nav-link"
@@ -150,7 +151,7 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Import Products and Categories</p>
                 </Link>
-              </li>
+              </li> -->
             </ul>
           </li>
 
@@ -163,7 +164,7 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview" :style="route().current('admin.offers.*') ? 'display: block' : '' ">
               <li class="nav-item">
                 <Link :href="route('admin.offers.loyalty.index')" class="nav-link" :class="route().current('admin.offers.loyalty.*') ? 'active' : ' ' "  >
                   <i class="far fa-circle nav-icon"></i>
@@ -239,7 +240,7 @@
             </ul>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-images"></i>
               <p>
@@ -247,7 +248,7 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview" >
               <li class="nav-item">
                 <Link :href="route('admin.dashboard.orders.index')" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -264,7 +265,7 @@
                 </Link>
               </li>
             </ul>
-          </li>
+          </li> -->
 
           <li class="nav-item">
             <Link :href="route('admin.customer.index')" class="nav-link" :class="route().current('admin.customer.*') ? 'active' : ' ' ">
@@ -284,7 +285,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <Link :href="route('admin.dashboard.orders.index')" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gallery Settings</p>
@@ -298,9 +299,11 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Upload Gallery</p>
                 </Link>
-              </li>
+              </li> -->
             </ul>
           </li>
+
+
           <li class="nav-item">
             <a href="#" class="nav-link" :class="route().current('admin.settings.*') ? 'active' : ' ' " >
               <i class="nav-icon fas fa-cog"></i>
@@ -309,7 +312,7 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview" :style="route().current('admin.settings.*') ? 'display: block' : '' ">
               <li class="nav-item">
                 <Link :href="route('admin.settings.cat.index')" class="nav-link" :class="route().current('admin.settings.cat.*') ? 'active' : ' ' ">
                   <i class="far fa-circle nav-icon"></i>
@@ -322,7 +325,7 @@
                   <p>Shop ettings </p>
                 </Link>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <Link
                   
                   class="nav-link"
@@ -330,7 +333,7 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>App Settings </p>
                 </Link>
-              </li>
+              </li> -->
               <li class="nav-item">
                  <Link :href="route('admin.settings.openclose.index')" class="nav-link" :class="route().current('admin.settings.openclose.*') ? 'active' : ' ' ">
                   <i class="far fa-circle nav-icon"></i>
@@ -338,12 +341,9 @@
                 </Link>
               </li>
               <li class="nav-item">
-                <Link
-                  
-                  class="nav-link"
-                >
+                 <Link :href="route('admin.settings.delivery.index')" class="nav-link" :class="route().current('admin.settings.delivery.*') ? 'active' : ' ' ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>DElivery/Collection Option</p>
+                  <p>Delivery/Collection Option</p>
                 </Link>
               </li>
               <li class="nav-item">
@@ -357,11 +357,32 @@
               </li>
               <li class="nav-item">
                 <Link
-                  
+                  :href="route('admin.settings.social.index')"
                   class="nav-link"
+                  :class="route().current('admin.settings.social.*') ? 'active' : ' ' "
                 >
                   <i class="far fa-circle nav-icon"></i>
                   <p>Social Media Link </p>
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link
+                  :href="route('admin.settings.product_icon.index')"
+                  class="nav-link"
+                  :class="route().current('admin.settings.product_icon.*') ? 'active' : ' ' "
+                >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Product Icon </p>
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link
+                  :href="route('admin.settings.user.index')"
+                  class="nav-link"
+                  :class="route().current('admin.settings.user.*') ? 'active' : ' ' "
+                >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Users </p>
                 </Link>
               </li>
             </ul>

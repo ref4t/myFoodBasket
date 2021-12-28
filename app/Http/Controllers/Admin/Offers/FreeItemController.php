@@ -11,10 +11,10 @@ use App\Models\oc_free_item;
 
 class FreeItemController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
         $store = 'The Terra Pizza';
-        $store_id = 54;
+        $store_id = $request->session()->get('store_id');
 
         $items = oc_free_item::where('store_id', $store_id)->paginate(20);
 
@@ -31,7 +31,7 @@ class FreeItemController extends Controller
     }
     public function store(Request $request){
         $store = 'The Terra Pizza';
-        $store_id = 54;
+        $store_id = $request->session()->get('store_id');
       
         $data = $request->toArray();
         $itemData = $data['item'];

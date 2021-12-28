@@ -12,7 +12,7 @@
                     <div class="card-header">
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <button type="submit" class="btn btn-success rounded-pill m-2" > SAVE </button>
-                            <Link as="button" type="submit" class="btn btn-danger rounded-pill m-2" > CANCEL </Link>
+                            <Link :href="route('admin.settings.shop.list')" as="button" type="button" class="btn btn-danger rounded-pill m-2" > CANCEL </Link>
                         </div>
                     </div>
                     <div class="card-body table-responsive">

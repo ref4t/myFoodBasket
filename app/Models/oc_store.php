@@ -9,5 +9,6 @@ class oc_store extends Model
 {
     
     protected $guarded = [];
+    public $timestamps = false;
     protected $table = 'oc_store';
 }

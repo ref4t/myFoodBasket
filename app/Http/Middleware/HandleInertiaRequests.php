@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
+use App\Models\oc_store;
+
 class HandleInertiaRequests extends Middleware
 {
     /**
@@ -15,8 +17,12 @@ class HandleInertiaRequests extends Middleware
     //protected $rootView = 'app';
     public function rootView(Request $request): string
     {
+    //    dd(url()->current()) ;
         if ($request->route()->getPrefix() === '/admin') {
             return 'admin.app';
+        }
+        elseif(url()->current() == env('APP_URL')){
+            return 'main';
         }
         return 'app';
     }
@@ -44,6 +50,8 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'stores' => oc_store::orderby('name')->get(),
+            'store_id' => $request->session()->get('store_id'),
         ]);
     }
 }
