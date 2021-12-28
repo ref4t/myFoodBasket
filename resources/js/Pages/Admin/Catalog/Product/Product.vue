@@ -49,11 +49,13 @@
                                     <template v-for=" (product,index) in category.get_category_description_with_products.get_category_product" :key="index" >
                                         <template v-if="index < 1" >
                                             <template v-if="product.category_id == this.selected_catagory.toString()"> 
-                                                <template v-for="size in product.get_product_description.size_info" :key="size" >
-                                                    <template v-if="size.id_product == product.product_id" >
-                                                        <th>
-                                                            {{ decodeHtml(size.size) }}
-                                                        </th>
+                                                <template v-if="product.get_product_description" >
+                                                    <template v-for="size in product.get_product_description.size_info" :key="size" >
+                                                        <template v-if="size.id_product == product.product_id" >
+                                                            <th>
+                                                                {{ decodeHtml(size.size) }}
+                                                            </th>
+                                                        </template>
                                                     </template>
                                                 </template>
                                             </template>
@@ -74,11 +76,16 @@
                                             </th>
                                             <td  @click="forwardEdit(product.product_id)" class="text-left" style="cursor:pointer"> {{ decodeHtml(product.get_product_description.name) }} </td>
                                             <td> {{ product.get_product_description.price }} </td>
-                                            <template v-for="size in product.get_product_description.size_info" :key="size" >
-                                                <td>
+                                            <template v-if="product.get_product_description" >
+                                                <td v-for="size in product.get_product_description.size_info" :key="size" >
                                                     {{ size.price }}
                                                 </td>
                                             </template>
+                                            <!-- <template v-else >
+                                                <td >
+                                                   ---
+                                                </td>
+                                            </template> -->
                                             <td>
                                                 {{product.get_product_description.sort_order}}
                                                 <span class="hide" >Edit</span>
