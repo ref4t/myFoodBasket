@@ -1127,7 +1127,7 @@ export default {
   },
   setup(props){
       let dataForm = toRefs(props).timesetting
-      let dataForm = reactive()
+    //   let dataForm = reactive()
       return {dataForm}
   },
   data() {
