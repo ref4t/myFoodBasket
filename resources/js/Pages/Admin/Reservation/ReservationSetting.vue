@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <form @submit.prevent="submit(this.settings,this.from,this.to)" method="post">
+            <form @submit.prevent="submit(this.settings,this.from,this.to,this.form)" method="post">
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex flex-row-reverse bd-highlight">
@@ -96,13 +96,13 @@
                                 <tr v-if="settings.header_background_options == 'color'">
                                     <td>Background Color:</td>
                                     <td>
-                                        
+                                        <input v-model="settings.header_background_color" class="form-control" placeholder="#4287f5" type="text">
                                     </td>
                                 </tr>
                                 <tr v-if="settings.header_background_options == 'image'">
                                     <td>Background Image:</td>
                                     <td>
-                                        
+                                       <input type="file" @input="form.img = $event.target.files[0]" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -155,6 +155,7 @@ import Datepicker from 'vue3-date-time-picker';
 import 'vue3-date-time-picker/dist/main.css';
 import useValidate from '@vuelidate/core'
 import { required, email, minLength,maxLength, sameAs, numeric } from '@vuelidate/validators'
+import { useForm } from '@inertiajs/inertia-vue3'
 
 export default {
   components: {
@@ -174,7 +175,12 @@ export default {
           v$: useValidate(),
           toggleModule: 0,
           toggleCap: 0,
-          disable: false
+          disable: false,
+          
+          form:useForm({
+              img:'',
+              
+          })
         }
     },
 
@@ -217,6 +223,7 @@ export default {
         }
         
     },
+    
 
     methods:{
         enableMod(){
@@ -231,7 +238,7 @@ export default {
         disableCap(){
             this.toggleCap = 0;
         },
-        submit(settings,from,to){
+        submit(settings,from,to,image){
 
             if(this.toggleModule == 1){
                 
@@ -245,13 +252,16 @@ export default {
             }else{
                 settings.google_recapcha = 0
             }
+
+            console.log(image)
             this.v$.settings.$touch()
             if(!this.v$.settings.$error){
                 
                 let con = confirm("Save Changes?");
 
                 if(con){
-                    this.$inertia.post(this.route('admin.reservation.setting.update',{settings,from,to},{
+                    this.$inertia.post(this.route('admin.reservation.setting.update',{settings,from,to,image},{
+                            forceFormData: true,
                             replace: true, 
                             preserveState: true
                             }))

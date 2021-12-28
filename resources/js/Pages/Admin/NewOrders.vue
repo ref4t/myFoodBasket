@@ -26,7 +26,7 @@
             />
             Weekly
           </label>
-          <label class="btn btn-outline-success active">
+          <label class="btn btn-outline-success">
             <input
               @click="params.record = 3"
               type="radio"
@@ -36,7 +36,7 @@
             />
             Monthly
           </label>
-          <label class="btn btn-outline-success">
+          <label class="btn btn-outline-success" >
             <input
               @click="params.record = 4"
               type="radio"
@@ -46,6 +46,8 @@
             />
             Yearly
           </label>
+            <label class="btn btn-success" >From:</label> <Datepicker v-model="this.dateRange.date1"  />
+            <label class="btn btn-success" >To:</label> <Datepicker v-model="this.dateRange.date2" />
         </div>
       </div>
 
@@ -632,13 +634,16 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import Pagination from "@/Components/Pagination";
 import { Head, Link } from "@inertiajs/inertia-vue3";
+import Datepicker from 'vue3-date-time-picker';
+import 'vue3-date-time-picker/dist/main.css'
 
 export default {
   components: {
     AdminLayout,
     Pagination,
     Link,
-    Head
+    Head,
+    Datepicker
   },
 
   props: {
@@ -658,6 +663,10 @@ export default {
   },
   data() {
     return {
+      dateRange:{
+          date1:'',
+          date2:'',
+        },
       deleteData:[],
       selected: "",
       params: {
@@ -765,6 +774,18 @@ export default {
     },
   },
   watch: {
+    dateRange:{
+        handler(){
+
+          if(this.dateRange.date1 && this.dateRange.date2){
+            this.$inertia.get(this.route("admin.dashboard.newOrders"), this.dateRange, {
+            replace: true,
+            preserveState: true,
+          });
+          }
+        },
+        deep: true,
+      },
     params: {
       handler() {
         let params = this.params;

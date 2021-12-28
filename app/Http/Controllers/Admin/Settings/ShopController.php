@@ -172,6 +172,25 @@ class ShopController extends Controller
             $option->save();
         }
 
+        $social['polianna_facebook_id'] = '';
+        $social['polianna_twitter_username'] = '';
+        $social['polianna_gplus_id'] = '';
+        $social['polianna_linkedin_id'] = '';
+        $social['polianna_youtube_id'] = '';
+
+        foreach ($social as $key => $value) {
+
+            
+            $option = new oc_setting();
+            $option->store_id = $store->id;
+            $option->group = 'polianna';
+            $option->key = $key;
+            $option->value = $value;
+            $option->serialized = 0;
+
+            $option->save();
+        } 
+
 
         
 

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class oc_order_history extends Model
 {
     protected $guarded = [];
+    public $timestamps = false;
     protected $primaryKey = 'order_history_id';
     protected $table = 'oc_order_history';
     use HasFactory;

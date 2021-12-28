@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Carbon\Carbon;
 
 use App\Models\oc_order;
 use App\Models\oc_order_cart;
@@ -16,14 +17,33 @@ use App\Models\	myfoodba_order_transaction_id;
 
 class OrderController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
         
         
         $query = oc_order::query();
+
+        $query->where('store_id', $request->session()->get('store_id'));
         
         if(request('search')){ 
             $query-> where('firstname','LIKE','%'.request('search').'%');
+            
+        }
+        if(request('id')){ 
+            $query-> where('order_id','LIKE','%'.request('id').'%');
+            
+        }
+        if(request('status')){ 
+            $query-> where('order_status_id','LIKE','%'.request('status').'%');
+            
+        }
+        if(request('total')){ 
+            $query-> where('total','LIKE','%'.request('total').'%');
+            
+        }
+        if(request('date')){ 
+            // dd(strtok(request('date'), 'T'));
+            $query-> whereDate('date_added','=',strtok(request('date'), 'T'));
             
         }
 
@@ -33,12 +53,13 @@ class OrderController extends Controller
             
         }
         
-        
+        $status = oc_order_status::all();
        
         
         return Inertia::render('Admin/Orders',[
             'orders' => $query->paginate(),
-            'filters' => request()->all(['search','field','direction'])
+            'status' => $status,
+            'filters' => request()->all(['search','id','status','total','date','payment','field','direction'])
             ]);
 
 
@@ -89,10 +110,40 @@ class OrderController extends Controller
         ]);
 
     }
+    public function update(Request $request){
+
+        oc_order::find($request->order_id)
+            ->update($request->all());
+
+    }
 
     public function comment(Request $request){
 
-        oc_order_history::create($request->toArray());
+        $data = $request->toArray();
+        // dd($data);
+
+        $history = new oc_order_history;
+
+        $history->fill([
+            'order_id'          => $data['order_id'],
+            'order_status_id'   => $data['order_status_id'],
+            'notify'            => $data['notify'],
+            'comment'           => $data['comment'],
+            'date_added'        => Carbon::now(),
+        ]);
+
+        $history->save();
+        
+        $orders = oc_order::find($data['order_id']);
+
+        $orders->fill([
+            'order_status_id'   => $data['order_status_id'],
+            'updated_at'        => Carbon::now(),
+        ]);
+
+        $orders->save();
+
+
 
         return redirect()->route('admin.dashboard.orders.index');
     }
@@ -104,10 +155,5 @@ class OrderController extends Controller
         
     }
 
-    public function update(Request $request){
-
-        oc_order::find($request->order_id)
-            ->update($request->all());
-
-    }
+    
 }

@@ -37,7 +37,9 @@
                                         <input v-if="deleteData.includes(icon.id)" checked type="checkbox" @click="add_to_delete(icon.id)" class="form-check">
                                         <input v-else type="checkbox"  @click="add_to_delete(icon.id)" class="form-check" >
                                     </th>
-                                    <td>Icon</td>
+                                    <!-- image/food-icons -->
+                                   
+                                    <td> <img :alt="icon.icon_desc" :src="'/'+ icon.icon_url"> </td>
                                     <td> {{icon.icon_name}} </td>
                                     <td> {{icon.icon_desc}} </td>
                                     <td> {{icon.icon_url}} </td>

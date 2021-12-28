@@ -93,8 +93,11 @@ class ProductController extends Controller
         $groups = unserialize($category['group']);
         
         $toppingIds = [];
-        foreach($groups as $key=>$group){
-            $toppingIds[$key] = $group['id_group_option'];
+        
+        if($groups){
+            foreach($groups as $key=>$group){
+                $toppingIds[$key] = $group['id_group_option'];
+            }
         }
 
         // dd($toppingIds);
@@ -250,6 +253,8 @@ class ProductController extends Controller
 
               $products =  $category['getCategoryDescriptionWithProducts'];
 
+            //   dd($products);
+
               foreach($products['getCategoryProduct'] as $product){
                 
                 if($product['product_id'] == $id){
@@ -260,6 +265,8 @@ class ProductController extends Controller
             
         }
 
+        // dd($productData);
+
         $productData['getProductDescription']['availibleday'] = preg_split ("/\,/", trim($productData['getProductDescription']['availibleday'],''));
         
         $toppings = oc_product_topping_option::where('product_id', $productData['product_id'])->first();
@@ -268,6 +275,7 @@ class ProductController extends Controller
         $group_topping = [];
 
         if($toppings){
+            
             if($toppings['options_group']){
                 $toppings['options_group'] = unserialize($toppings['options_group']);
             }
@@ -294,16 +302,6 @@ class ProductController extends Controller
         }
         
         
-        
-
-        
-
-
-        
-
-
-        
-
         // dd($group_topping);
         // dd($productData['getProductDescription']['availibleday']);
         $product_icons = oc_product_icons::all();
