@@ -14,19 +14,21 @@ use App\Models\oc_store;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+
+        $store_id =  $request->session()->get('store_id');
 
         
         if(!request('field') && !request('direction') ){
                 
-            $users = oc_user::orderBy('date_added','DESC')->paginate(50);
+            $users = oc_user::where('user_shop', $store_id)->orderBy('date_added','DESC')->paginate(50);
             
         }
         
 
         if(request('field') && request('direction') ){
                 
-            $users = oc_user::orderBy(request('field'), request('direction'))->paginate(50);
+            $users = oc_user::where('user_shop', $store_id)->orderBy(request('field'), request('direction'))->paginate(50);
             
         }
 

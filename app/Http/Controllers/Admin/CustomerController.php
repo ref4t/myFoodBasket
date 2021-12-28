@@ -21,10 +21,12 @@ use App\Models\oc_customer_ban_ip;
 
 class CustomerController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+
+        $store_id =  $request->session()->get('store_id');
 
         if(!request('fname') && !request('email') &&  !request('field') && !request('direction')){
-            $customer = oc_customer::with('getGroup','getStore')->paginate(20);
+            $customer = oc_customer::with('getGroup','getStore')->where('store_id', $store_id)->paginate(20);
         }
 
         if(request('field') && request('direction') ){
@@ -38,12 +40,14 @@ class CustomerController extends Controller
         
         if(request('fname')){ 
             $customer =oc_customer::with('getGroup','getStore')
+                                ->where('store_id', $store_id)
                                 ->where('firstname','LIKE','%'.request('fname').'%')
                                 ->orWhere('lastname','LIKE','%'.request('fname').'%')
                                 ->paginate(20);
         }
         if(request('email')){ 
             $customer =oc_customer::with('getGroup','getStore')
+                                ->where('store_id', $store_id)
                                 ->where('firstname','LIKE','%'.request('email').'%')
                                 ->paginate(20);
         }

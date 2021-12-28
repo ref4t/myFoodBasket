@@ -167,7 +167,7 @@
                         ></i>
                         <i
                           v-if="order.order_status_id == 5"
-                          class="fas fa-hourglass-half"
+                          class="far fa-thumbs-up"
                           style="color: green"
                           data-toggle="tooltip"
                           data-placement="top"

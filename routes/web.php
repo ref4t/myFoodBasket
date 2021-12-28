@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\Offers\FreeItemController;
 use App\Http\Controllers\Admin\Offers\CartRuleController;
 
 use App\Http\Controllers\Admin\Settings\MapAndCategoryController;
+use App\Http\Controllers\Admin\Settings\ShopController;
 use App\Http\Controllers\Admin\Settings\OpenCloseController;
 use App\Http\Controllers\Admin\Settings\DeliveryController;
 use App\Http\Controllers\Admin\Settings\SocialMediaController;
@@ -225,10 +226,29 @@ Route::prefix('admin')->group(function(){
    
     Route::get('settings/shop/index', [MapAndCategoryController::class, 'index' ])->name('admin.settings.shop.index');
 
+
+    Route::get('settings/shop/list', [ShopController::class, 'index' ])->name('admin.settings.shop.list');
+    Route::post('settings/shop/list/delete', [ShopController::class, 'delete' ])->name('admin.settings.shop.delete');
+
+    Route::get('settings/shop/create', [ShopController::class, 'create' ])->name('admin.settings.shop.create');
+    Route::post('settings/shop/store', [ShopController::class, 'store' ])->name('admin.settings.shop.store');
+    
+    Route::get('settings/shop/edit/{id}', [ShopController::class, 'edit' ])->name('admin.settings.shop.edit');
+
+
+    
+
+
+
+
     Route::get('settings/open-close/index',[OpenCloseController::class, 'index'])->name('admin.settings.openclose.index');
     Route::post('settings/open-close/update',[OpenCloseController::class, 'update'])->name('admin.settings.openclose.update');
 
     Route::get('settings/delivery/index',[DeliveryController::class, 'index'])->name('admin.settings.delivery.index');
+    Route::post('settings/delivery/delete',[DeliveryController::class, 'delete'])->name('admin.settings.delivery.delete');
+    Route::post('settings/delivery/addPostGroup',[DeliveryController::class, 'addPostGroup'])->name('admin.settings.delivery.addPostGroup');
+    Route::post('settings/delivery/addDistGroup',[DeliveryController::class, 'addDistGroup'])->name('admin.settings.delivery.addDistGroup');
+    Route::post('settings/delivery/addAreaGroup',[DeliveryController::class, 'addAreaGroup'])->name('admin.settings.delivery.addAreaGroup');
     Route::post('settings/delivery/update',[DeliveryController::class, 'update'])->name('admin.settings.delivery.update');
 
     Route::get('settings/social-media/index',[SocialMediaController::class, 'index'])->name('admin.settings.social.index');

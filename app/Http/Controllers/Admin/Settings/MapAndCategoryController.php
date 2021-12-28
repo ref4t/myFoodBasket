@@ -84,8 +84,18 @@ class MapAndCategoryController extends Controller
     }
 
     public function update(Request $request){
-        dd($request->toArray());
-        // update
+
+
+        $store_id =$request->session()->get('store_id');
+
+        $data = $request['data'];
+
+        // dd($data);
+        foreach ($data as $key => $value) {
+
+            $option = oc_setting::where('store_id',$store_id)->where('key', $key)->update(['value' => $value]);
+            
+        }
         return redirect()->back();
     }
 }

@@ -185,6 +185,7 @@ class CategoryController extends Controller
 
         $options['group'] = serialize($options['group']);
 
+        // dd($image);
        
         if($image['image']){
 

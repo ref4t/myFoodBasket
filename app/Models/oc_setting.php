@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class oc_setting extends Model
 {
-    use HasFactory;
+    
+    
+    protected $guarded = [];
     public $timestamps = false;
+
     protected $table = 'oc_setting';
+    use HasFactory;
 
     public function getTimeToday($thu = 0, $store_id = 0)
     {   $timesetting=[];
