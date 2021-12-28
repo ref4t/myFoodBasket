@@ -110,6 +110,12 @@ class OrderController extends Controller
         ]);
 
     }
+    public function update(Request $request){
+
+        oc_order::find($request->order_id)
+            ->update($request->all());
+
+    }
 
     public function comment(Request $request){
 
@@ -127,6 +133,17 @@ class OrderController extends Controller
         ]);
 
         $history->save();
+        
+        $orders = oc_order::find($data['order_id']);
+
+        $orders->fill([
+            'order_status_id'   => $data['order_status_id'],
+            'updated_at'        => Carbon::now(),
+        ]);
+
+        $orders->save();
+
+
 
         return redirect()->route('admin.dashboard.orders.index');
     }
@@ -138,10 +155,5 @@ class OrderController extends Controller
         
     }
 
-    public function update(Request $request){
-
-        oc_order::find($request->order_id)
-            ->update($request->all());
-
-    }
+    
 }

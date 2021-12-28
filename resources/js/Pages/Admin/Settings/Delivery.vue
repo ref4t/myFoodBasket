@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <form @submit.prevent="updateDelivery(settings)">
+            <form @submit.prevent="updateDelivery(settings,delivery)">
               <div class="card">
                     <div class="card-header">
                         <div class="d-flex flex-row-reverse bd-highlight">
@@ -56,68 +56,70 @@
                                 </td>
                             </tr>
                             <template v-if="settings.delivery_option == 'post_codes'" >
-                                <tbody  class="table-active" v-for="group in delivery" :key="group" >
-                                   <tr>
-                                        <td colspan="2">
-                                            <button @click="deleteGroup(group)" class="btn btn-danger rounded-pill float-left" type="button" >
-                                                <i class="fas fa-times"></i> DELETE
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <template v-for="group in delivery" :key="group">
+                                    <tbody class="table-active" v-if="group.delivery_type == 'post_code' " >
                                     <tr>
-                                        <td>
-                                        Group Name: 
-                                        </td>
-                                        <td>
-                                            <input v-model="group.name" class="form-control" type="text">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        Minimum Spend: 
-                                        </td>
-                                        <td>
-                                            <input v-model="group.min_spend" class="form-control" type="text">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        Delivery Fees: 
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline " style="width:100px">
-                                                <input  class="form-control" type="text" >
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                UP TO
-                                                <input  class="form-control" type="text" style="width:100px" >
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        Post Codes: 
-                                        </td>
-                                        <td  >
-                                            <div class="scrollit">
-                                                <div v-for="(code,index) in group.post_codes" :key="index" class="form-check form-check-inline "  >
-                                                    <span class="bg-info p-2 m-2"> {{code}} <i @click="deletePost(group.post_codes,index)" class="fas fa-times" style="cursor:pointer" ></i> </span>
+                                            <td colspan="2">
+                                                <button @click="deleteGroup(group)" class="btn btn-danger rounded-pill float-left" type="button" >
+                                                    <i class="fas fa-times"></i> DELETE
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            Group Name: 
+                                            </td>
+                                            <td>
+                                                <input v-model="group.name" class="form-control" type="text">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            Minimum Spend: 
+                                            </td>
+                                            <td>
+                                                <input v-model="group.min_spend" class="form-control" type="text">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            Delivery Fees: 
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-check-inline " style="width:100px">
+                                                    <input  class="form-control" type="text" >
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    UP TO
+                                                    <input  class="form-control" type="text" style="width:100px" >
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            Post Codes: 
+                                            </td>
+                                            <td  >
+                                                <div class="scrollit">
+                                                    <div v-for="(code,index) in group.post_codes" :key="index" class="form-check form-check-inline "  >
+                                                        <span class="bg-info p-2 m-2"> {{code}} <i @click="deletePost(group.post_codes,index)" class="fas fa-times" style="cursor:pointer" ></i> </span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group mt-3" style="width:300px" >
+                                                <input v-model="post_code" type="text" class="form-control" placeholder="Post Code" aria-describedby="basic-addon2">
+                                                <div class="input-group-append">
+                                                    <button @click="add(group.post_codes,this.post_code)" class="btn btn-outline-secondary" type="button">Add</button>
                                                 </div>
                                             </div>
-                                            <div class="input-group mt-3" style="width:300px" >
-                                            <input v-model="post_code" type="text" class="form-control" placeholder="Post Code" aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <button @click="add(group.post_codes,this.post_code)" class="btn btn-outline-secondary" type="button">Add</button>
-                                            </div>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-white" colspan="2">
-                                            
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bg-white" colspan="2">
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </template>
 
                                 <tbody>
                                     <tr>
@@ -229,60 +231,63 @@
                                         <input  v-model="settings.google_distance_api_key" class="form-control" type="text">
                                     </td>
                                 </tr>
-                                <tbody class="table-active" v-for="group in delivery" :key="group" >
-                                    <tr>
-                                        <td colspan="2">
-                                            <button @click="deleteGroup(group)" class="btn btn-danger rounded-pill float-left" type="button" >
-                                                <i class="fas fa-times"></i> DELETE
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td>
-                                        Group Name: 
-                                        </td>
-                                        <td>
-                                            <input v-model="group.name" class="form-control" type="text">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        Minimum Spend: 
-                                        </td>
-                                        <td>
-                                            <input v-model="group.min_spend" class="form-control" type="text">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        Delivery Fees: 
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline " style="width:100px">
-                                                <input  class="form-control" type="text" >
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                UP TO
-                                                <input  class="form-control" type="text" style="width:100px" >
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr >
-                                        <td>
-                                        Distance (Miles): 
-                                        </td>
-                                        <td>
-                                            <input v-model="group.distance" class="form-control" type="text">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-white" colspan="2">
-                                            
-                                        </td>
-                                    </tr>
-                                    
-                                </tbody>
+                                <template v-for="group in delivery" :key="group" >
+                                    <tbody class="table-active" v-if="group.delivery_type == 'distance' " >
+                                        <tr>
+                                            <td colspan="2">
+                                                <button @click="deleteGroup(group)" class="btn btn-danger rounded-pill float-left" type="button" >
+                                                    <i class="fas fa-times"></i> DELETE
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>
+                                            Group Name: 
+                                            </td>
+                                            <td>
+                                                <input v-model="group.name" class="form-control" type="text">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            Minimum Spend: 
+                                            </td>
+                                            <td>
+                                                <input v-model="group.min_spend" class="form-control" type="text">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            Delivery Fees: 
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-check-inline " style="width:100px">
+                                                    <input  class="form-control" type="text" >
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    UP TO
+                                                    <input  class="form-control" type="text" style="width:100px" >
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                            <td>
+                                            Distance (Miles): 
+                                            </td>
+                                            <td>
+                                                <input v-model="group.distance" class="form-control" type="text">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bg-white" colspan="2">
+                                                
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </template>
+
                                 <tr v-if="this.disGroup == 0">
                                     <td colspan="2">
                                         <button @click="this.disGroup = 1" class="btn btn-info rounded-pill float-right" type="button">
@@ -353,68 +358,70 @@
 
 
                             <template v-if="settings.delivery_option == 'area'" >
-                                <tbody class="table-active" v-for="group in delivery" :key="group">
-                                    <tr>
-                                        <td colspan="2">
-                                            <button @click="deleteGroup(group)" class="btn btn-danger rounded-pill float-left" type="button" >
-                                                <i class="fas fa-times"></i> DELETE
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        Group Name: 
-                                        </td>
-                                        <td>
-                                            <input v-model="group.name" class="form-control" type="text">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        Minimum Spend: 
-                                        </td>
-                                        <td>
-                                            <input v-model="group.min_spend" class="form-control" type="text">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        Delivery Fees: 
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline " style="width:100px">
-                                                <input  class="form-control" type="text" >
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                UP TO
-                                                <input  class="form-control" type="text" style="width:100px" >
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr >
-                                        <td>
-                                        Areas: 
-                                        </td>
-                                        <td  >
-                                            <div class="scrollit">
-                                                <div v-for="(code,index) in group.area" :key="index" class="form-check form-check-inline "  >
-                                                    <span class="bg-info p-2 m-2"> {{code}} <i @click="deletePost(group.area,index)" class="fas fa-times" style="cursor:pointer" ></i> </span>
+                                <template v-for="group in delivery" :key="group">
+                                    <tbody class="table-active" v-if="group.delivery_type = 'area' " >
+                                        <tr>
+                                            <td colspan="2">
+                                                <button @click="deleteGroup(group)" class="btn btn-danger rounded-pill float-left" type="button" >
+                                                    <i class="fas fa-times"></i> DELETE
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            Group Name: 
+                                            </td>
+                                            <td>
+                                                <input v-model="group.name" class="form-control" type="text">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            Minimum Spend: 
+                                            </td>
+                                            <td>
+                                                <input v-model="group.min_spend" class="form-control" type="text">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            Delivery Fees: 
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-check-inline " style="width:100px">
+                                                    <input  class="form-control" type="text" >
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    UP TO
+                                                    <input  class="form-control" type="text" style="width:100px" >
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                            <td>
+                                            Areas: 
+                                            </td>
+                                            <td  >
+                                                <div class="scrollit">
+                                                    <div v-for="(code,index) in group.area" :key="index" class="form-check form-check-inline "  >
+                                                        <span class="bg-info p-2 m-2"> {{code}} <i @click="deletePost(group.area,index)" class="fas fa-times" style="cursor:pointer" ></i> </span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group mt-3" style="width:300px" >
+                                                <input v-model="this.area" type="text" class="form-control" placeholder="Post Code" aria-describedby="basic-addon2">
+                                                <div class="input-group-append">
+                                                    <button @click="add(group.area,this.area)" class="btn btn-outline-secondary" type="button">Add</button>
                                                 </div>
                                             </div>
-                                            <div class="input-group mt-3" style="width:300px" >
-                                            <input v-model="this.area" type="text" class="form-control" placeholder="Post Code" aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <button @click="add(group.area,this.area)" class="btn btn-outline-secondary" type="button">Add</button>
-                                            </div>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-white" colspan="2">
-                                            
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bg-white" colspan="2">
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </template>
                                 
                                 <tr v-if="this.areaGroup == 0">
                                     <td colspan="2">
@@ -661,7 +668,7 @@ export default {
         },
         
         
-        updateDelivery(settings){
+        updateDelivery(settings,delivery){
 
             
             // this.v$.settings.$touch()
@@ -670,7 +677,7 @@ export default {
                 let con = confirm("Save Changes?");
 
                 if(con){
-                    this.$inertia.post(this.route('admin.settings.delivery.update',{settings},{
+                    this.$inertia.post(this.route('admin.settings.delivery.update',{settings,delivery},{
                             replace: true, 
                             preserveState: true
                             }))

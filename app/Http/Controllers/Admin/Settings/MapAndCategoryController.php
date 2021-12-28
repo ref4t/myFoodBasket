@@ -86,19 +86,15 @@ class MapAndCategoryController extends Controller
     public function update(Request $request){
 
 
+        $store_id =$request->session()->get('store_id');
+
         $data = $request['data'];
 
+        // dd($data);
         foreach ($data as $key => $value) {
 
+            $option = oc_setting::where('store_id',$store_id)->where('key', $key)->update(['value' => $value]);
             
-            $option = new oc_setting();
-            $option->store_id = $data['curren_store_id'];
-            $option->group = 'config';
-            $option->key = $key;
-            $option->value = $value;
-            $option->serialized = 0;
-
-            $option->save();
         }
         return redirect()->back();
     }

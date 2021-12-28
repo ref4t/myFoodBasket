@@ -172,12 +172,31 @@ class DeliveryController extends Controller
     public function update(Request $request){
 
         $data = $request['settings'];
+        $groups = $request['delivery'];
+
+        // dd($groups);
         // dd($data);
 
         foreach ($data as $key => $value) {
 
             $option = oc_setting::where('store_id', $request->session()->get('store_id'))
             ->where('key', $key )->update(['value' => $value]);
+        }
+
+        // $upda = [];
+
+        foreach($groups as $key=>$group){
+
+            $update = oc_delivery_settings::find($group['id_delivery_settings']);
+
+            $update->name           = $group['name'];
+            $update->min_spend      = $group['min_spend'];
+            $update->post_codes     = implode(',', $group['post_codes']) ;
+            $update->distance       = $group['distance'];
+            $update->area           = implode(',', $group['area']) ;
+
+            $update->save();
+            
         }
 
         return redirect()->back();

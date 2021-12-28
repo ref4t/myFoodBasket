@@ -11,6 +11,7 @@ class oc_delivery_settings extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $primaryKey = 'id_delivery_settings';
     public $timestamps = false;
     protected $table = 'oc_delivery_settings';
     
