@@ -1,7 +1,7 @@
 <template>
   <admin-layout>
     <template v-slot:header>
-        <h1 class="m-0 text-capitalize">Coupon</h1>
+        <h1 class="m-0 text-capitalize">Stores</h1>
     </template>
     <section class="content">
       <div class="container-fluid">
@@ -38,7 +38,7 @@
                                     <td> {{ store.url }} </td>
 
                                     <td>
-                                        <Link :href="route('admin.offers.coupon.edit', { id: store.store_id })" as="button" class="btn btn-warning rounded-pill text-uppercase ml-1 float-right" style="letter-spacing: 0.1em;" >Edit</Link>
+                                        <Link :href="route('admin.settings.cat.index')" as="button" class="btn btn-warning rounded-pill text-uppercase ml-1 float-right" style="letter-spacing: 0.1em;" >Edit</Link>
                                     </td>
 
                                 </tr>

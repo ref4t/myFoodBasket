@@ -236,6 +236,10 @@ Route::prefix('admin')->group(function(){
     Route::post('settings/open-close/update',[OpenCloseController::class, 'update'])->name('admin.settings.openclose.update');
 
     Route::get('settings/delivery/index',[DeliveryController::class, 'index'])->name('admin.settings.delivery.index');
+    Route::post('settings/delivery/delete',[DeliveryController::class, 'delete'])->name('admin.settings.delivery.delete');
+    Route::post('settings/delivery/addPostGroup',[DeliveryController::class, 'addPostGroup'])->name('admin.settings.delivery.addPostGroup');
+    Route::post('settings/delivery/addDistGroup',[DeliveryController::class, 'addDistGroup'])->name('admin.settings.delivery.addDistGroup');
+    Route::post('settings/delivery/addAreaGroup',[DeliveryController::class, 'addAreaGroup'])->name('admin.settings.delivery.addAreaGroup');
     Route::post('settings/delivery/update',[DeliveryController::class, 'update'])->name('admin.settings.delivery.update');
 
     Route::get('settings/social-media/index',[SocialMediaController::class, 'index'])->name('admin.settings.social.index');

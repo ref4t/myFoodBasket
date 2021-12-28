@@ -10,7 +10,10 @@ class oc_delivery_settings extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+    public $timestamps = false;
     protected $table = 'oc_delivery_settings';
+    
     public function checkZipcode($q)
     {   
         $q = trim(str_replace(' ', '', $q));
