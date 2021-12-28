@@ -26,7 +26,6 @@ class HomeController extends Controller
         $url = request()->root();
         $store_id =  $request->session()->get('store_id');
         if(!$store_id){
-
             $url = 'https://www.pizzacolichfield.co.uk/';
             $url =parse_url($url)['host'];
             $site = oc_store::where('url','like', '%'.$url.'%')->first();
