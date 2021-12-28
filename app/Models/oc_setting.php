@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use DB;
 class oc_setting extends Model
 {
     
@@ -263,4 +263,83 @@ class oc_setting extends Model
         }
         return $weekday;
     }
+
+    public function getSetting($group, $store_id = 0) {
+		$data = array(); 
+		
+		$query = DB::select("SELECT * FROM oc_setting WHERE store_id = '" . (int)$store_id . "' AND `group` = '" . $group . "'");
+		
+		foreach ($query as $result) {
+			if (!$result['serialized']) {
+				$data[$result['key']] = $result['value'];
+			} else {
+				$data[$result['key']] = unserialize($result['value']);
+			}
+		}
+
+		return $data;
+	}
+    public function editSetting($group, $data, $store_id = 0, $deletebefore = false) {
+		
+        if($deletebefore){
+         DB::select("DELETE FROM oc_setting WHERE store_id = '" . (int)$store_id . "' AND `group` = '" . $group . "'");
+         DB::select("DELETE FROM  slider_settings WHERE store_id = '" . (int)$store_id . "' AND `group` = 'slider'");
+         DB::select("DELETE FROM  slider WHERE store_id = '" . (int)$store_id . "'");
+     }else{
+         foreach ($data as $key => $value) {
+             DB::select("DELETE FROM oc_setting WHERE `key` = '".$key."' AND store_id = '" . (int)$store_id . "' AND `group` = '" . $group . "'");
+             
+         }
+     }
+     
+     foreach ($data as $key => $value) {			
+         if($key=='curren_store_id'){
+            DB::select("INSERT INTO oc_setting SET store_id = '" . (int)$store_id . "', `group` = '" . $group . "', `key` = '" .  $key . "', `value` = '" .  $store_id . "'");
+         }elseif (!is_array($value)) {
+            //  dd($value);
+             DB::select("INSERT INTO oc_setting SET store_id = '" . (int)$store_id . "', `group` = '" . $group . "', `key` = '" .  $key . "', `value` = '" . $value . "', serialized = '0'");
+         }
+         elseif($key=='slidermodule'){
+             DB::select("INSERT INTO  slider_settings SET store_id = '" . (int)$store_id . "', `group` = 'slider', `value` = '" . serialize($data['slidermodule']) . "'");
+         }
+         elseif($key=='slider'){
+             foreach($value as $val => $sliderkey){
+                 foreach($sliderkey as $sd){
+                     if($sd[img]!=''){
+                         DB::select("INSERT INTO  slider SET store_id = '" . (int)$store_id . "',block_module_id = ".(int)$val." , image_url = '".$sd[img]."', picture_title = '".$sd[desc]."', sort_order = '10'");
+                     }
+                 }
+             }
+         }
+         elseif($key=='htmlBox_module'){		
+             //if($store_id==35){
+                 $newDD = array();
+                 //pr($value);
+                 //foreach($data as $thm_key => $mainHtmlData){
+                     foreach($value as $chldKey => $mainChldData){
+                         if(isset($mainChldData['description'])){
+                             $mainChldData['description'] = str_replace('https:','http:', $mainChldData['description']);
+                         }
+                         $mainHtmlData[$chldKey] =  $mainChldData;
+                     }
+                      
+                     $value = $mainHtmlData;
+                 //}
+                 
+            // }
+            
+            DB::select("INSERT INTO oc_setting SET store_id = '" . (int)$store_id . "', `group` = '" . $group . "', `key` = '" .  $key . "', `value` = '" . serialize($value) . "', serialized = '1'");
+         } 
+         else {			
+            DB::select("INSERT INTO oc_setting SET store_id = '" . (int)$store_id . "', `group` = '" . $group . "', `key` = '" .  $key . "', `value` = '" . serialize($value) . "', serialized = '1'");
+         }
+     }	
+ }
+ public function editSettingValue($group = '', $key = '', $value = '', $store_id = 0) {
+    if (!is_array($value)) {
+        DB::select("UPDATE oc_setting SET `value` = '" .  $value . "' WHERE `group` = '" .  $group . "' AND `key` = '" .  $key . "' AND store_id = '" . (int)$store_id . "'");
+    } else {
+        DB::select("UPDATE oc_setting SET `value` = '" .  serialize($value) . "' WHERE `group` = '" .  $group . "' AND `key` = '" .  $key . "' AND store_id = '" . (int)$store_id . "', serialized = '1'");
+    }
+}
 }
