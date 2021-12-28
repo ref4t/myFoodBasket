@@ -138,23 +138,6 @@ class ShopController extends Controller
 
         $index = 0;
 
-        // foreach( $data as $key=>$setting){
-
-        //     $setting[$index] = new oc_setting;
-
-        //     $setting[$index]->fill([
-        //         'store_id'      => $store->store_id,
-        //         'group'         => 'config',
-        //         'key'          => $key,
-        //         'value'         => $setting,
-        //         'serialized'    => 0,
-        //     ]);
-
-        //     $setting[$index]->save();
-
-        //     $index++;
-
-        // }
 
         $data['curren_store_id'] = $store->id;
         foreach ($data as $key => $value) {
@@ -169,6 +152,27 @@ class ShopController extends Controller
 
             $option->save();
         }
+
+        $default['enable_delivery'] = 'both';
+        $default['delivery_option'] = 'post_codes';
+        $default['is_distance_option'] = '1';
+        $default['road_mileage_percentage'] = '0';
+        $default['google_distance_api_key'] = '';
+
+        foreach ($default as $key => $value) {
+
+            
+            $option = new oc_setting();
+            $option->store_id = $store->id;
+            $option->group = 'deliverysetting';
+            $option->key = $key;
+            $option->value = $value;
+            $option->serialized = 0;
+
+            $option->save();
+        }
+
+
         
 
         

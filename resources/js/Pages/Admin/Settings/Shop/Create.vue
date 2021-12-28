@@ -1,7 +1,7 @@
 <template>
   <admin-layout>
     <template v-slot:header>
-        <h1 class="m-0 text-capitalize">Settings</h1>
+        <h1 class="m-0 text-capitalize">Add Store</h1>
     </template>
     <section class="content">
       <div class="container-fluid">
