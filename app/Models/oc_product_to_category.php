@@ -15,6 +15,6 @@ class oc_product_to_category extends Model
 
     
     public function getProductDescription(){
-        return $this->hasOne(oc_product_description::class,'product_id','product_id')->with('sizeInfo')->join('oc_product', 'oc_product.product_id', '=', 'oc_product_description.product_id');
+        return $this->hasOne(oc_product_description::class,'product_id','product_id')->with('sizeInfo','iconInfo')->join('oc_product', 'oc_product.product_id', '=', 'oc_product_description.product_id');
     }
 }

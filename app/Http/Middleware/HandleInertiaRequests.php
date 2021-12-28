@@ -17,8 +17,12 @@ class HandleInertiaRequests extends Middleware
     //protected $rootView = 'app';
     public function rootView(Request $request): string
     {
+    //    dd(url()->current()) ;
         if ($request->route()->getPrefix() === '/admin') {
             return 'admin.app';
+        }
+        elseif(url()->current() == env('APP_URL')){
+            return 'main';
         }
         return 'app';
     }

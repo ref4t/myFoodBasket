@@ -19,7 +19,8 @@ mix.js('resources/js/app.js', 'public/js')
         require('autoprefixer'),
     ])
     .webpackConfig(require('./webpack.config'))
-    .sass('resources/sass/fontawesome.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/sass/theme6/_variable.scss', 'public/css/shoptheme6');
 
 if (mix.inProduction()) {
     mix.version();

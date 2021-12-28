@@ -25,10 +25,11 @@ class MenuController extends Controller
          $delivery = oc_delivery_settings::select('name','min_spend')->where('id_store','=',$site->store_id)->get(); 
         $timeSetting=oc_setting::showtimeconfig($site->store_id); 
         // dd($timeSetting);
+        // Cart::destroy();
         $settings=oc_setting::where('store_id','=',$site->store_id)->where('group','=','config')->orWhere('group','=','deliverysetting')->get();
         $data['store_id']=$site->store_id;
                 foreach ($settings as $result) {
-                    if($result['key'] == 'config_logo' || $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone' || $result['key'] == 'config_ssl' ){
+                    if($result['key'] == 'config_logo' || $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone' || $result['key'] == 'config_ssl' || $result['key'] == 'opening_time'){
                         if (!$result['serialized']) {
                             $data[$result['key']] = $result['value'];
                         } else {
@@ -40,9 +41,8 @@ class MenuController extends Controller
         $theme = 2;
         // dd($category[0]->getCategoryDescriptionWithProducts);
         $cart=Cart::content();
-        if ($theme == 1){
-            return Inertia::render('ShopPages/Theme_1/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'catItems'=>$cart]);
-        }else
-            return Inertia::render('ShopPages/Theme_2/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'catItems'=>$cart]);
+        $total=Cart::total();
+        $subtotal =Cart::subtotal();
+        return Inertia::render('ShopPages/Theme_6/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
     }
 }
