@@ -14,7 +14,8 @@ class CheckoutController extends Controller
 {
     public function index()
     {   
-        $url = request()->root();
+        // $url = request()->root();
+        $url = 'www.stationkebabs.co.uk/';
         $site = oc_store::where('url','like', '%'.$url.'%')->first();
         if(!$site){
             return abort(404);

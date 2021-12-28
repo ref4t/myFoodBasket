@@ -20,7 +20,8 @@ class MenuController extends Controller
 {
     public function index()
     {
-        $url = request()->root();
+        // $url = request()->root();
+        $url = 'www.stationkebabs.co.uk/';
         $site = oc_store::where('url','like', '%'.$url.'%')->first();
          $delivery = oc_delivery_settings::select('name','min_spend')->where('id_store','=',$site->store_id)->get(); 
         $timeSetting=oc_setting::showtimeconfig($site->store_id); 
