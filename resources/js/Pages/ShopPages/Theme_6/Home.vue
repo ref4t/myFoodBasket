@@ -3,6 +3,8 @@
            
 </Head>
 <TopHeaderSix :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length" :openingTime="setting.opening_time" :timeSetting="timeSetting"></TopHeaderSix>
+
+<!-- slider -->
 <section class="home-slide-v6 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="home-slide-v6-swiper">
         <div class="swiper">
@@ -30,6 +32,8 @@
       </div>
       <div class="__btn-bottom"><i class="fas fa-arrow-down"></i></div>
     </section>
+
+<!-- ABOUT US SECTION -->
     <section class="who-are-we-v6 pt-90 pb-90 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="container">
         <div class="default-title-v6"><strong class="sub-title color-orange text-uppercase">about us</strong>
@@ -39,6 +43,8 @@
         <p>Magnam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br>At autem consequatur consequuntur dolor dolorum eligendi error excepturi facere illum, inventore laudantium, <br>libero minima mollitia nihil nobis quis quod tenetur vitae?</p><a class="btn text-uppercase" href="">read more</a>
       </div>
     </section>
+
+<!-- BOOKING SECTION -->
     <section class="reservation-v6 pt-90 pb-90 wow animate__fadeInUp" data-wow-duration="1s">
       <form class="container">
         <div class="default-title-v6"><strong class="sub-title color-orange text-uppercase">reservation</strong>
@@ -70,6 +76,9 @@
         </div>
       </form>
     </section>
+
+<!-- GALERRY SECTION -->
+
     <section class="photo-gallery-v6 pt-90 pb-90 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="default-title-v6"><strong class="sub-title color-orange text-uppercase">gallery</strong>
         <h3 class="title text-uppercase">OUR RESTAURANT AND THE FOOD THEY SERVE THEIR GUESTS</h3>
@@ -109,6 +118,8 @@
         </div>
       </div>
     </section>
+
+<!-- POPULAR SECTION -->
     <section class="popular-foods-v6 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="default-title-v6"><strong class="sub-title color-orange text-uppercase">Popular Foods</strong>
         <h3 class="title text-uppercase">CHECK OUT OUR MENU AND SELECT SOMETHING FOR EVERYONE</h3>
@@ -198,6 +209,7 @@
         </div>
       </div>
     </section>
+<!-- CATEGORY SECTION -->
     <section class="popular-categories-v6 pt-90 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="default-title-v6 text-center container"><strong class="sub-title text-uppercase">popular categories</strong>
         <h3 class="title text-capitalize">CHECK OUT OUR MENU AND SELECT SOMETHING FOR EVERYONE</h3>
@@ -341,6 +353,7 @@
         </div>
       </div>
     </section>
+<!-- RATING SECTION -->
     <section class="user-comments-v6 pt-90 pb-90">
       <div class="container pt-110 pb-110 wow animate__fadeInUp" data-wow-duration="1s">
         <div class="default-title-v6"><strong class="sub-title text-uppercase">Testimonials</strong>
@@ -373,6 +386,7 @@
         </div>
       </div>
     </section>
+<!-- OPENNING HOUR SECTION -->
     <section class="opening-hours-v6 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="default-title-v6 text-center"><strong class="sub-title text-capitalize">opening hourse</strong>
         <h3 class="title text-capitalize">open 7 days a week</h3>
