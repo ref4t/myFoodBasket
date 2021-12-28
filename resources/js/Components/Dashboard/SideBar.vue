@@ -276,32 +276,27 @@
             </Link>
           </li>
 
+          
+
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" :class="route().current('admin.layout.*') ? 'active' : ' ' " >
               <i class="nav-icon fa fa-object-group"></i>
               <p>
                 Layout
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <!-- <li class="nav-item">
-                <Link :href="route('admin.dashboard.orders.index')" class="nav-link">
+            <ul class="nav nav-treeview" :style="route().current('admin.layout.*') ? 'display: block' : '' ">
+              <li class="nav-item">
+                <Link :href="route('admin.layout.layout.index')" class="nav-link" :class="route().current('admin.layout.layout.*') ? 'active' : ' ' ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Gallery Settings</p>
+                  <p>Layout</p>
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link
-                  
-                  class="nav-link"
-                >
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Upload Gallery</p>
-                </Link>
-              </li> -->
             </ul>
           </li>
+
+          
 
 
           <li class="nav-item">

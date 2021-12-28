@@ -30,6 +30,9 @@ use App\Http\Controllers\Admin\Offers\VoucherThemeController;
 use App\Http\Controllers\Admin\Offers\FreeItemController;
 use App\Http\Controllers\Admin\Offers\CartRuleController;
 
+
+use App\Http\Controllers\Admin\Layout\LayoutController;
+
 use App\Http\Controllers\Admin\Settings\MapAndCategoryController;
 use App\Http\Controllers\Admin\Settings\ShopController;
 use App\Http\Controllers\Admin\Settings\OpenCloseController;
@@ -222,8 +225,14 @@ Route::prefix('admin')->group(function(){
     Route::post('/customer/deleteReward/{id}', [CustomerController::class, 'deleteReward'])->name('admin.customer.deleteReward');
     Route::post('/customer/banIp/{ip}', [CustomerController::class, 'banIp'])->name('admin.customer.banIp');
 
-    
+
+    // layout
+
+    Route::get('/layout',[LayoutController::class,'index'])->name('admin.layout.layout.index');
+    Route::post('/layout/update',[LayoutController::class,'update'])->name('admin.layout.layout.update');
+    // Route::get('/layout',[LayoutController::class,'index'])->name('admin.layout.layout.index');
      
+    // settings
     Route::get('settings/index', [MapAndCategoryController::class, 'index' ])->name('admin.settings.cat.index');
     Route::post('settings/update', [MapAndCategoryController::class, 'update' ])->name('admin.settings.cat.update');
    

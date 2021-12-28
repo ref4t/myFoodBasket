@@ -15,6 +15,7 @@ use App\Models\oc_country;
 use App\Models\oc_zone;
 use App\Models\oc_language;
 use App\Models\oc_currency;
+use App\Models\layout;
 
 class ShopController extends Controller
 {
@@ -190,6 +191,30 @@ class ShopController extends Controller
 
             $option->save();
         } 
+
+
+        $layout = new layout;
+
+        $layout->fill([
+            'store_id'          => $store->id,
+            'theme'             => 6,
+            'about_bg'          => '#F8F9FA',
+            'about_content'     => '#443F3F',
+            'booking_bg'        => '#EDEDED',
+            'booking_content'   => '#443F3F',
+            'gallery_bg'        => '#F8F9FA',
+            'gallery_content'   => '#443F3F',
+            'popular_bg'        => '#000000',
+            'popular_content'   => '#FFFFFF',
+            'category_bg'       => '#EDEDED',
+            'category_content'  => '#443F3F',
+            'rating_bg'         => '#D91D1D',
+            'rating_content'    => '#FFFFFF',
+            'opening_bg'        => '#EDEDED',
+            'opening_content'   => '#443F3F',
+        ]);
+
+        $layout->save();
 
 
         
