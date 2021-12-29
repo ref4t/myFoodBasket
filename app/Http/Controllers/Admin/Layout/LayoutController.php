@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 use App\Models\layout;
+use App\Models\slider;
 
 
 class LayoutController extends Controller
@@ -15,7 +16,7 @@ class LayoutController extends Controller
 
         $store_id = $request->session()->get('store_id');
 
-        $layout = layout::where('store_id', $store_id)->first();
+        $layout = layout::with('get_slider')->where('store_id', $store_id)->first();
         
         return Inertia::render('Admin/Layout/Layout',[
             'layout'    => $layout
@@ -52,5 +53,36 @@ class LayoutController extends Controller
 
         return redirect()->back();
         
+    }
+    
+    public function slider(Request $request){
+
+        // dd($request['slider']);
+
+        $image_name = wordwrap(strtolower($request['slider']->getClientOriginalName()), 1, '_', 0);
+        $request['slider']->move(public_path('/image/layout/slider/'),$image_name);
+        $path = "image/layout/slider/". $image_name;
+
+
+        $slider = new slider;
+
+        $slider->fill([
+            'store_id' => $request->session()->get('store_id'),
+            'path'     => $path,
+        ]);
+
+        $slider->save();
+
+        return redirect()->back();
+    }
+
+    public function delete($id){
+
+
+        $slider = slider::where('id', $id)->delete();
+
+
+
+        return redirect()->back();
     }
 }

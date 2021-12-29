@@ -6,7 +6,7 @@
         
         <section class="content">
             <div class="container-fluid">
-                <form @submit.prevent="submit(layout)" >
+                <form @submit.prevent="updateLayout(layout)" >
                     <div class="d-flex flex-row-reverse bd-highlight">
 
                         <button class="btn btn-success rounded-pill m-2" type="submit" >SAVE</button>
@@ -38,40 +38,103 @@
 
 
                         <div class="col-12">
-                            <div class="card ">
-                               <div class="card">
-                                    <table class="table table-borderless">
-                                        <tbody>
-                                            <tr class="bg-info">
-                                                <th colspan="2">
-                                                    ABOUT US SECTION
-                                                </th>
-                                            </tr>
-                                            <tr>
+                            
+                            <div class="card">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr class="bg-info">
+                                            <th >
+                                                SLIDEER IMAGES
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/slider.png'" w >
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Images</th>
+                                            <th>Path</th>
+                                            <th style="width:25%" >Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="slider in layout.get_slider" :key="slider.id">
+                                            <td>
+                                                <img :src="'/'+ slider.path" width="300" >
+                                            </td>
+                                            <td>
+                                                {{ slider.path }}
+                                            </td>
+                                            <td>
+                                                <button @click="deleteSlider(slider.id)" class="btn btn-danger rounded-pill" type="button">DELETE</button>
+                                            </td>
+
+                                        </tr>
+                                        
+                                        <tr>
+                                            <!-- <form  @submit.prevent="submit"> -->
                                                 <td>
-                                                    <div class="form-group row">
-                                                        <label  class="col-sm-5 col-form-label">Background Color</label>
-                                                        <div class="col-sm-5">
-                                                        <input v-model="layout.about_bg" type="text" placeholder="#F0F0F0" class="form-control">
-                                                        </div>
+                                                    <div class="custom-file float-bottom">
+                                                        <input type="file" class=""  @change="setSlide" />
                                                     </div>
-
-                                                    <div class="form-group row">
-                                                        <label  class="col-sm-5 col-form-label">Content Color</label>
-                                                        <div class="col-sm-5">
-                                                        <input v-model="layout.about_content" type="text" placeholder="#F0F0F0" class="form-control">
-                                                        </div>
-                                                    </div>
-
+                                                    <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                                                        {{ form.progress.percentage }}%
+                                                    </progress>
                                                 </td>
                                                 <td>
-                                                    <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/about-us.png'" width="600" height="750" >
+                                                    <button @click="insertSlider(this.form)" class="btn btn-success rounded-pill" type="button" >ADD IMAGE</button>
                                                 </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                               </div>
+                                            <!-- </form> -->
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
                             </div>
+                        
+                        </div>
+
+
+
+                        <div class="col-12">
+                            
+                            <div class="card">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr class="bg-info">
+                                            <th colspan="2">
+                                                ABOUT US SECTION
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group row">
+                                                    <label  class="col-sm-5 col-form-label">Background Color</label>
+                                                    <div class="col-sm-5">
+                                                    <input v-model="layout.about_bg" type="text" placeholder="#F0F0F0" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label  class="col-sm-5 col-form-label">Content Color</label>
+                                                    <div class="col-sm-5">
+                                                    <input v-model="layout.about_content" type="text" placeholder="#F0F0F0" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/about-us.png'" width="600" height="750" >
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                           
                         </div>
 
 
@@ -292,6 +355,7 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import Pagination from "@/Components/Pagination";
 import { Head, Link } from "@inertiajs/inertia-vue3";
+import { useForm } from '@inertiajs/inertia-vue3'
 
 export default {
     components: {
@@ -309,7 +373,9 @@ export default {
     },
     data(){
         return{
-            
+            form:useForm({
+                slider:''
+            })
         }
         
     },
@@ -317,8 +383,33 @@ export default {
         
     },
     methods: {
+        setSlide(e){
+            this.form.slider = e.target.files[0];
+        },
+        insertSlider(form){
+            console.log("?")
+            let con = confirm("Add New Slider Image?");
+
+            if (con){
+
+                this.$inertia.post(route('admin.layout.layout.slider'),form)
+            }
+        },
+        deleteSlider(id){
+
+            let con = confirm("Delete Slider Image?");
+
+            if (con){
+
+                this.$inertia.post(route('admin.layout.layout.slider.delete',{id}),{
+                    replace: true, 
+                    preserveState: true
+                })
+            }
+
+        },
         
-        submit(form){
+        updateLayout(form){
 
             let con = confirm("Save Layout?");
 
@@ -326,7 +417,8 @@ export default {
 
                 this.$inertia.post( route('admin.layout.layout.update') , form,{
                 replace: true, 
-                preserveState: true})
+                preserveState: true
+                })
             }
         }
             

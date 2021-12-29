@@ -227,6 +227,8 @@ Route::prefix('admin')->group(function(){
 
     Route::get('/layout',[LayoutController::class,'index'])->name('admin.layout.layout.index');
     Route::post('/layout/update',[LayoutController::class,'update'])->name('admin.layout.layout.update');
+    Route::post('/layout/slider',[LayoutController::class,'slider'])->name('admin.layout.layout.slider');
+    Route::post('/layout/slider/delete/{id}',[LayoutController::class,'delete'])->name('admin.layout.layout.slider.delete');
     // Route::get('/layout',[LayoutController::class,'index'])->name('admin.layout.layout.index');
      
     // settings
