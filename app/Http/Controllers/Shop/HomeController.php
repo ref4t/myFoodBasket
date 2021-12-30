@@ -15,13 +15,16 @@ use App\Models\oc_delivery_settings;
 use App\Models\oc_setting;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
+use App\Models\layout;
+
+
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         //  dd(request()->root());
-
+        $store_id = $request->session()->get('store_id');
         $url = 'www.stationkebabs.co.uk/';
         // $url = request()->root();
         $site = oc_store::where('url','like', '%'.$url.'%')->first();
@@ -47,6 +50,8 @@ class HomeController extends Controller
         $cart=Cart::content();
         $total=Cart::total();
         $subtotal =Cart::subtotal();
+        $layout = layout::with('get_slider','get_gallery','get_popular','get_category')->where('store_id', $store_id)->first();
+
 
         $theme = 2;
         if ($theme == 1){
@@ -62,6 +67,14 @@ class HomeController extends Controller
                 'setting' => $data
             ]);
         }else
-            return Inertia::render('ShopPages/Theme_6/Home',['theme' => $theme,'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+            return Inertia::render('ShopPages/Theme_6/Home',[
+                'theme' => $theme,
+                'timeSetting'=>$timeSetting,
+                'setting'=>$data,
+                'cartItems'=>$cart,
+                'cTotal'=>$total,
+                'cSubtotal'=>$subtotal,
+                'layout'    =>$layout
+            ]);
     }
 }

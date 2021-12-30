@@ -138,7 +138,7 @@
                         </div>
 
 
-                        <div class="col-12">
+                        <div  class="col-12">
                             <div class="card ">
                                 <table class="table table-borderless">
                                     <tbody>
@@ -149,6 +149,14 @@
                                         </tr>
                                         <tr>
                                             <td>
+                                                <div class="form-group row">
+                                                    <label  class="col-sm-5 col-form-label">SECTION</label>
+                                                    <div class="col-sm-5">
+                                                    <span as="button" @click="layout.booking = 1" v-if="layout.booking == 1" class="bg-success p-2" style="cursor: pointer" >ENABLE</span> <span as="button" v-else @click="layout.booking = 1" class="bg-secondary p-2" style="cursor: pointer" >ENABLE</span>
+                                                    <span as="button" @click="layout.booking = 0" v-if="layout.booking == 0" class="bg-danger p-2" style="cursor: pointer" >DISABLE</span> <span as="button" v-else @click="layout.booking = 0" class="bg-secondary p-2" style="cursor: pointer" >DISABLE</span>
+                                                    </div>
+                                                </div>
+
                                                 <div class="form-group row">
                                                     <label  class="col-sm-5 col-form-label">Background Color</label>
                                                     <div class="col-sm-5">
@@ -185,6 +193,14 @@
                                         <tr>
                                             <td>
                                                 <div class="form-group row">
+                                                    <label  class="col-sm-5 col-form-label">SECTION</label>
+                                                    <div class="col-sm-5">
+                                                    <span as="button" @click="layout.gallery = 1" v-if="layout.gallery == 1" class="bg-success p-2" style="cursor: pointer" >ENABLE</span> <span as="button" v-else @click="layout.gallery = 1" class="bg-secondary p-2" style="cursor: pointer" >ENABLE</span>
+                                                    <span as="button" @click="layout.gallery = 0" v-if="layout.gallery == 0" class="bg-danger p-2" style="cursor: pointer" >DISABLE</span> <span as="button" v-else @click="layout.gallery = 0" class="bg-secondary p-2" style="cursor: pointer" >DISABLE</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
                                                     <label  class="col-sm-5 col-form-label">Background Color</label>
                                                     <div class="col-sm-5">
                                                     <input v-model="layout.gallery_bg" type="text" placeholder="#F0F0F0" class="form-control">
@@ -219,6 +235,14 @@
                                         <tr>
                                             <td>
                                                 <div class="form-group row">
+                                                    <label  class="col-sm-5 col-form-label">SECTION</label>
+                                                    <div class="col-sm-5">
+                                                    <span as="button" @click="layout.popular = 1" v-if="layout.popular == 1" class="bg-success p-2" style="cursor: pointer" >ENABLE</span> <span as="button" v-else @click="layout.popular = 1" class="bg-secondary p-2" style="cursor: pointer" >ENABLE</span>
+                                                    <span as="button" @click="layout.popular = 0" v-if="layout.popular == 0" class="bg-danger p-2" style="cursor: pointer" >DISABLE</span> <span as="button" v-else @click="layout.popular = 0" class="bg-secondary p-2" style="cursor: pointer" >DISABLE</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
                                                     <label  class="col-sm-5 col-form-label">Background Color</label>
                                                     <div class="col-sm-5">
                                                     <input v-model="layout.popular_bg" type="text" placeholder="#F0F0F0" class="form-control">
@@ -252,6 +276,13 @@
                                         </tr>
                                         <tr>
                                             <td>
+                                                <div class="form-group row">
+                                                    <label  class="col-sm-5 col-form-label">SECTION</label>
+                                                    <div class="col-sm-5">
+                                                    <span as="button" @click="layout.category = 1" v-if="layout.category == 1" class="bg-success p-2" style="cursor: pointer" >ENABLE</span> <span as="button" v-else @click="layout.category = 1" class="bg-secondary p-2" style="cursor: pointer" >ENABLE</span>
+                                                    <span as="button" @click="layout.category = 0" v-if="layout.category == 0" class="bg-danger p-2" style="cursor: pointer" >DISABLE</span> <span as="button" v-else @click="layout.category = 0" class="bg-secondary p-2" style="cursor: pointer" >DISABLE</span>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group row">
                                                     <label  class="col-sm-5 col-form-label">Background Color</label>
                                                     <div class="col-sm-5">
