@@ -53,7 +53,9 @@ class HomeController extends Controller
         $layout = layout::with('get_slider','get_gallery','get_popular','get_category')->where('store_id', $store_id)->first();
 
 
-        $theme = 2;
+        $theme = $layout['theme'];
+
+
         if ($theme == 1){
             return Inertia::render('ShopPages/Theme_1/Home',[
                 'theme' => $theme, 
@@ -66,7 +68,7 @@ class HomeController extends Controller
                 'timeSetting' => $timeSetting,
                 'setting' => $data
             ]);
-        }else
+        }elseif($theme == 6){
             return Inertia::render('ShopPages/Theme_6/Home',[
                 'theme' => $theme,
                 'timeSetting'=>$timeSetting,
@@ -76,5 +78,16 @@ class HomeController extends Controller
                 'cSubtotal'=>$subtotal,
                 'layout'    =>$layout
             ]);
+        }elseif($theme == 5){
+            return Inertia::render('ShopPages/Theme_5/Home',[
+                'theme' => $theme,
+                'timeSetting'=>$timeSetting,
+                'setting'=>$data,
+                'cartItems'=>$cart,
+                'cTotal'=>$total,
+                'cSubtotal'=>$subtotal,
+                'layout'    =>$layout
+            ]);
+        }
     }
 }

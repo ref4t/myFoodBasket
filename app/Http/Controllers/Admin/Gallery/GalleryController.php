@@ -85,7 +85,7 @@ class GalleryController extends Controller
 
         // dd($id);
 
-        $gallery = popular::where('id', $id)->delete();
+        $popular = popular::where('id', $id)->delete();
 
         return redirect()->back();
     }

@@ -8,7 +8,9 @@ use Inertia\Inertia;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+
 use App\Models\oc_order;
+use App\Models\oc_store;
 use App\Models\oc_order_product;
 use App\Models\oc_order_status;
 use App\Models\oc_setting;
@@ -26,8 +28,10 @@ class NewOrderController extends Controller
         DB::beginTransaction();
 
         try {
-            $shop = 'Wymondham Kebabs';
+            // $shop = 'Wymondham Kebabs';
             $shop_id = $request->session()->get('store_id');
+
+            $shop = oc_store::select('name')->where('store_id', $shop_id)->first();
 
             $top_users = null;
             $total = null;
