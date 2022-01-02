@@ -12,7 +12,10 @@
       <div class="header-bottom wow animate__fadeInDown" data-wow-duration="1s">
         <div class="container">
           <!-- restaurant açık ise open kapalı ise closed clas'ını kullanın-->
-          <div class="restaurant-status open wow animate__bounceInDown" data-wow-duration="1s"><img class="img-fluid" :src="'/image/'+logo"/><img class="img-fluid" src="/assets/img/icon/closed.svg"/></div>
+          <div :class="'restaurant-status '+(timeSetting.open?'open':'closed')+' wow animate__bounceInDown'" data-wow-duration="1s">
+            <img class="img-fluid" :src="'/image/'+logo"/>
+            <img class="img-fluid" src="/img/icon/open.svg"/><img class="img-fluid" src="/img/icon/closed.svg"/>
+          </div>
           <ul class="menu">
             <li :class="route().current('shopHome') ? 'active' : ' ' "><Link class="text-uppercase" href="/">home</Link></li>
             <li :class="route().current('shopMember') ? 'active' : ' ' "><Link class="text-uppercase" href="/member">member</Link></li>
@@ -55,6 +58,33 @@
         </ul>
       </div>
     </sidebar>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="">
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+              </div>
+              <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>

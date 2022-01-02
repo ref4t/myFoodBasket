@@ -213,6 +213,8 @@ Route::prefix('admin')->group(function(){
     Route::get('gellary/index',[GalleryController::class, 'index'])->name('admin.gallery.index');
     Route::post('gellary/insert',[GalleryController::class, 'insert'])->name('admin.gallery.insert');
     Route::post('gellary/delete/{id}',[GalleryController::class, 'delete'])->name('admin.gallery.delete');
+    Route::post('gellary/slider/insert',[GalleryController::class, 'insertSlider'])->name('admin.gallery.slider.insert');
+    Route::post('gellary/slider/delete/{id}',[GalleryController::class, 'deleteSlider'])->name('admin.gallery.slider.delete');
     Route::post('gellary/popular/insert',[GalleryController::class, 'insertPopular'])->name('admin.gallery.popular.insert');
     Route::post('gellary/popular/delete/{id}',[GalleryController::class, 'deletePopular'])->name('admin.gallery.popular.delete');
     Route::post('gellary/category/insert',[GalleryController::class, 'insertCategory'])->name('admin.gallery.category.insert');

@@ -19,6 +19,59 @@
                         </table>
 
                         <div class="row">
+                            <div v-for=" slider in layout.get_slider" :key="slider" class="responsive">
+                                <div class="gallery">
+                                    <a>
+                                        <button @click="deleteslider(slider.id)" type="buttom" class="close" style="margin-bottom: -22px; margin-right: 5px" ><span aria-hidden="true" >&times;</span></button>
+                                        <img :src=" '/'+ slider.path" alt="Cinque Terre" width="500" height="350">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="custom-file float-bottom">
+                            
+                            </div>
+
+                            <div class="card col-12">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                Select Image
+                                            </td>
+                                            <td colspan="2">
+                                                <input type="file" class=""  @change="setGellery" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Description
+                                            </td>
+                                            <td>
+                                                <textarea class="form-control" v-model="form.description" name="" id=""></textarea>
+                                            </td>
+                                            <td>
+                                                <button @click="insertSlider(this.form)" class="btn btn-success rounded-pill" type="button" >ADD IMAGE</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <table class="table table-borderless">
+                            <thead>
+                               <tr class="bg-info">
+                                    <th colspan="2">
+                                        GALERRY SECTION
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <div class="row">
                             <div v-for=" gallery in layout.get_gallery" :key="gallery" class="responsive">
                                 <div class="gallery">
                                     <a>
@@ -236,6 +289,14 @@ export default {
         setGellery(e){
             this.form.image = e.target.files[0];
         },
+        insertSlider(form){
+            let con = confirm("Add New Image?");
+
+            if (con){
+
+                this.$inertia.post(route('admin.gallery.slider.insert'),form)
+            }
+        },
         insertGallery(form){
             let con = confirm("Add New Image?");
 
@@ -260,6 +321,19 @@ export default {
 
                 this.$inertia.post(route('admin.gallery.category.insert'),form)
             }
+        },
+        deleteslider(id){
+
+            let con = confirm("Delete Image?");
+
+            if (con){
+
+                this.$inertia.post(route('admin.gallery.slider.delete',{id}),{
+                    replace: true, 
+                    preserveState: true
+                })
+            }
+
         },
         deletegallery(id){
 

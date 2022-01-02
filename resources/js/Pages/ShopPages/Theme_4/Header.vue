@@ -4,7 +4,9 @@
         <div class="container">
           <div class="social-links"><a class="fab fa-facebook-f"></a><a class="fab fa-twitter"></a><a class="fab fa-linkedin"></a><a class="fab fa-instagram"></a></div>
           <!-- restaurant açık ise open kapalı ise closed clas'ını kullanın-->
-          <div class="restaurant-status open wow animate__bounceInDown" data-wow-duration="1s"><img class="img-fluid" src="/img/icon/open.svg"/><img class="img-fluid" src="/assets/img/icon/closed.svg"/></div>
+          <div :class="'restaurant-status '+(timeSetting.open?'open':'closed')+' wow animate__bounceInDown'" data-wow-duration="1s">
+            <img class="img-fluid" src="/img/icon/open.svg"/><img class="img-fluid" src="/img/icon/closed.svg"/>
+          </div>
           <div class="working-time"><strong class="text-uppercase">Working Time:</strong><span>{{openTime}}</span></div>
         </div>
       </div>

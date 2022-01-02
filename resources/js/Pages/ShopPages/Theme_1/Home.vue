@@ -4,7 +4,7 @@
 
 
     
-    <div class="restaurant-status open wow animate__bounceInDown" data-wow-duration="1s"><img class="img-fluid" src="/img/icon/open.svg"/><img class="img-fluid" src="/img/icon/closed.svg"/></div>
+    
     <section class="home-slide">
       <div class="swiper">
         <div class="swiper-wrapper">

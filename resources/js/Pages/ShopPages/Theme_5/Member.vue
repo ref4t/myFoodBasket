@@ -66,18 +66,18 @@ export default {
         timeSetting:Object,
         layout:Object
     },
-    mounted() {
-        let links=[ 
-                    '/js/theme6/app.js'
-                  ];
-  links.forEach(function(value,index){
-    let externalScript = document.createElement('script')
-      // externalScript.async = true
-      externalScript.setAttribute('src', value)
-      document.body.appendChild(externalScript)
-  });
+//     mounted() {
+//         let links=[ 
+//                     '/js/theme6/app.js'
+//                   ];
+//   links.forEach(function(value,index){
+//     let externalScript = document.createElement('script')
+//       // externalScript.async = true
+//       externalScript.setAttribute('src', value)
+//       document.body.appendChild(externalScript)
+//   });
       
-   },
+//    },
 }
 
 </script>

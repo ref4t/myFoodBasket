@@ -225,20 +225,20 @@ export default {
             console.log(this.orderType);
         }
    },
-    mounted() {
-        // var myModal = new bootstrap.Modal(document.getElementById('coordinateModal'), {})
-        // myModal.toggle()
+//     mounted() {
+//         // var myModal = new bootstrap.Modal(document.getElementById('coordinateModal'), {})
+//         // myModal.toggle()
 
-        let links=[ 
-                    '/js/theme6/app.js'
-                  ];
-        links.forEach(function(value,index){
-            let externalScript = document.createElement('script')
-            externalScript.async = true
-            externalScript.setAttribute('src', value)
-            document.body.appendChild(externalScript)
-        });
-   },
+//         let links=[ 
+//                     '/js/theme6/app.js'
+//                   ];
+//         links.forEach(function(value,index){
+//             let externalScript = document.createElement('script')
+//             externalScript.async = true
+//             externalScript.setAttribute('src', value)
+//             document.body.appendChild(externalScript)
+//         });
+//    },
 }
 </script>
 <style>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+use App\Models\oc_store;
 use App\Models\layout;
 use App\Models\slider;
 
@@ -64,9 +65,12 @@ class LayoutController extends Controller
 
         // dd($request['slider']);
 
+        $store = oc_store::where('store_id', $request->session()->get('store_id'))->first();
+        $store_name = wordwrap(strtolower($store['name']), 1, '-', 0);
+
         $image_name = wordwrap(strtolower($request['slider']->getClientOriginalName()), 1, '_', 0);
-        $request['slider']->move(public_path('/image/layout/slider/'),$image_name);
-        $path = "image/layout/slider/". $image_name;
+        $request['slider']->move(public_path('/image/layout/slider/'),$store_name . '_' . $image_name);
+        $path = "image/layout/slider/". $store_name . '_' . $image_name;
 
 
         $slider = new slider;

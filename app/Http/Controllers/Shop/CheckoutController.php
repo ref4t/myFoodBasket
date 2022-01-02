@@ -74,6 +74,13 @@ class CheckoutController extends Controller
                else
                 return Inertia::render('ShopPages/Theme_2/Checkout',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
         }
+        elseif($theme == 1){
+            if($subtotal == 0){
+                return Inertia::render('ShopPages/Theme_1/Cart',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+               }
+               else
+                return Inertia::render('ShopPages/Theme_1/Checkout',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
         else{
             if($subtotal == 0){
                 return Inertia::render('ShopPages/Theme_6/Cart',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);

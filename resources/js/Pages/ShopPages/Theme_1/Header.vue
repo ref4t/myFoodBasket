@@ -56,8 +56,9 @@
         </ul>
       </div>
     </sidebar>
-    <div class="restaurant-status open wow animate__bounceInDown" data-wow-duration="1s"><img class="img-fluid" src="/img/icon/open.svg"/><img class="img-fluid" src="/img/icon/closed.svg"/></div>
-
+    <div :class="'restaurant-status '+(timeSetting.open?'open':'closed')+' wow animate__bounceInDown'" data-wow-duration="1s">
+      <img class="img-fluid" src="/img/icon/open.svg"/><img class="img-fluid" src="/img/icon/closed.svg"/>
+    </div>
  <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">

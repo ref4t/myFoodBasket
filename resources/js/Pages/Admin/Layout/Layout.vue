@@ -22,13 +22,12 @@
                                         <label  class="col-sm-2 col-form-label">Select Theme</label>
                                         <div class="col-sm-5">
                                         <select v-model="layout.theme" class="form-control" name="" id="">
-                                            <option value="1"> THEME 1 </option>
+                                            <!-- <option value="1"> THEME 1 </option> -->
                                             <option value="2"> THEME 2</option>
                                             <option value="3"> THEME 3</option>
                                             <option value="4"> THEME 4</option>
                                             <option value="5"> THEME 5</option>
                                             <option value="6"> THEME 6</option>
-                                            <option value="7"> THEME 7</option>
                                         </select>
                                         </div>
                                     </div>
@@ -54,46 +53,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Images</th>
-                                            <th>Path</th>
-                                            <th style="width:25%" >Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="slider in layout.get_slider" :key="slider.id">
-                                            <td>
-                                                <img :src="'/'+ slider.path" width="300" >
-                                            </td>
-                                            <td>
-                                                {{ slider.path }}
-                                            </td>
-                                            <td>
-                                                <button @click="deleteSlider(slider.id)" class="btn btn-danger rounded-pill" type="button">DELETE</button>
-                                            </td>
-
-                                        </tr>
-                                        
-                                        <tr>
-                                            <!-- <form  @submit.prevent="submit"> -->
-                                                <td>
-                                                    <div class="custom-file float-bottom">
-                                                        <input type="file" class=""  @change="setSlide" />
-                                                    </div>
-                                                    <progress v-if="form.progress" :value="form.progress.percentage" max="100">
-                                                        {{ form.progress.percentage }}%
-                                                    </progress>
-                                                </td>
-                                                <td>
-                                                    <button @click="insertSlider(this.form)" class="btn btn-success rounded-pill" type="button" >ADD IMAGE</button>
-                                                </td>
-                                            <!-- </form> -->
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
+                                
                             </div>
                         
                         </div>
