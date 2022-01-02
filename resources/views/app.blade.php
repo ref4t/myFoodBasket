@@ -22,15 +22,28 @@
         <link rel="stylesheet" href="/css/shoptheme6/app.css">
         <link rel="stylesheet" href="/css/shoptheme6/responsive.css">
 
+        {{-- Theme 1 --}}
+        <link rel="stylesheet" href="/css/shoptheme1/app.css"/>
+        <link rel="stylesheet" href="/css/shoptheme1/responsive.css"/>
+
+        {{-- Theme 2 --}}
+        <link rel="stylesheet" href="/css/shoptheme2/app.css"/>
+        <link rel="stylesheet" href="/css/shoptheme2/responsive.css"/>
+
+        {{-- Theme 3 --}}
+        <link rel="stylesheet" href="/css/shoptheme3/app.css"/>
+        <link rel="stylesheet" href="/css/shoptheme3/responsive.css"/>
+
+        {{-- Theme 4 --}}
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&amp;family=Playfair+Display:wght@400;700&amp;display=swap" rel="stylesheet"/>
+        
+        <link rel="stylesheet" href="/css/shoptheme4/app.css"/>
+        <link rel="stylesheet" href="/css/shoptheme4/responsive.css"/>
+
+
         {{-- theme 5 --}}
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;family=Playfair+Display:wght@400;700&amp;display=swap" rel="stylesheet"/>
-        <link rel="stylesheet" href="/css/shoptheme5/bootstrap.min.css"/>
-        <link rel="stylesheet" href="/css/shoptheme5/bootstrap-datetimepicker.min.css"/>
-        <link rel="stylesheet" href="/css/shoptheme5/all.min.css"/>
-        <link rel="stylesheet" href="/css/shoptheme5/swiper-bundle.min.css"/>
-        <link rel="stylesheet" href="/css/shoptheme5/fancybox.css"/>
-        <link rel="stylesheet" href="/css/shoptheme5/animate.min.css"/>
-        <link rel="stylesheet" href="/css/shoptheme5/select2.min.css"/>
+        
         <link rel="stylesheet" href="/css/shoptheme5/app.css"/>
         <link rel="stylesheet" href="/css/shoptheme5/responsive.css"/>
 
@@ -57,16 +70,14 @@
             <script type="text/javascript" src='/js/theme6/swiper-bundle.min.js'></script>
 
 
-            <script type="text/javascript" src="/js/theme5/jquery.min.js"></script>
-            <script type="text/javascript" src="/js/theme5/moment.min.js"></script>
-            <script type="text/javascript" src="/js/theme5/locales.min.js"></script>
-            <script type="text/javascript" src="/js/theme5/bootstrap.min.js"></script>
-            <script type="text/javascript" src="/js/theme5/bootstrap-datetimepicker.min.js"></script>
-            <script type="text/javascript" src="/js/theme5/wow.min.js"></script>
-            <script type="text/javascript" src="/js/theme5/swiper-bundle.min.js"></script>
-            <script type="text/javascript" src="/js/theme5/fancybox.umd.js"></script>
-            <script type="text/javascript" src="/js/theme5/select2.min.js"></script>
-            <script type="text/javascript" src="/js/theme5/tr.js"></script>
             <script type="text/javascript" src="/js/theme5/app.js"></script>
+            <script type="text/javascript" src="/js/theme4/app.js"></script>
+            <script type="text/javascript" src="/js/theme3/app.js"></script>
+            <script type="text/javascript" src="/js/theme2/app.js"></script>
+            <script type="text/javascript" src="/js/theme1/app.js"></script>
+            {{-- <script type="text/javascript" src="/js/theme2/app.js"></script>
+            <script type="text/javascript" src="/js/theme1/app.js"></script> --}}
+
+
     </body>
 </html>

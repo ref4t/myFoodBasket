@@ -1,6 +1,6 @@
 <template>
 
-     <TopHeader5/>
+     <TopHeader5 :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length" :openingTime="setting.opening_time" :timeSetting="timeSetting"/>
 
 
     <section class="home-slide-v5 wow animate__fadeInUp" data-wow-duration="1s">

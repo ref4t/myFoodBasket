@@ -44,7 +44,7 @@
                                                 Select Image
                                             </td>
                                             <td colspan="2">
-                                                <input type="file" class=""  @change="setImage" />
+                                                <input type="file" class=""  @change="setGellery" />
                                             </td>
                                         </tr>
                                         <tr>

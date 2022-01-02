@@ -25,7 +25,7 @@ class HomeController extends Controller
     {
         //  dd(request()->root());
         $store_id = $request->session()->get('store_id');
-        $url = 'www.stationkebabs.co.uk/';
+        $url = 'www.ak-spices.co.uk/';
         // $url = request()->root();
         $site = oc_store::where('url','like', '%'.$url.'%')->first();
         if(!$site){
@@ -58,15 +58,13 @@ class HomeController extends Controller
 
         if ($theme == 1){
             return Inertia::render('ShopPages/Theme_1/Home',[
-                'theme' => $theme, 
-                'reviews' => $reviews,
-                'slider' => $slider,
-                'gender' => $gender,
-                'url' => $url,
-                'site' => $site,
-                'delivery' => $delivery,
-                'timeSetting' => $timeSetting,
-                'setting' => $data
+                'theme' => $theme,
+                'timeSetting'=>$timeSetting,
+                'setting'=>$data,
+                'cartItems'=>$cart,
+                'cTotal'=>$total,
+                'cSubtotal'=>$subtotal,
+                'layout'    =>$layout
             ]);
         }elseif($theme == 6){
             return Inertia::render('ShopPages/Theme_6/Home',[
@@ -80,6 +78,38 @@ class HomeController extends Controller
             ]);
         }elseif($theme == 5){
             return Inertia::render('ShopPages/Theme_5/Home',[
+                'theme' => $theme,
+                'timeSetting'=>$timeSetting,
+                'setting'=>$data,
+                'cartItems'=>$cart,
+                'cTotal'=>$total,
+                'cSubtotal'=>$subtotal,
+                'layout'    =>$layout
+            ]);
+        }elseif($theme == 4){
+            return Inertia::render('ShopPages/Theme_4/Home',[
+                'theme' => $theme,
+                'timeSetting'=>$timeSetting,
+                'setting'=>$data,
+                'cartItems'=>$cart,
+                'cTotal'=>$total,
+                'cSubtotal'=>$subtotal,
+                'layout'    =>$layout
+            ]);
+        
+        }elseif($theme == 3){
+            return Inertia::render('ShopPages/Theme_3/Home',[
+                'theme' => $theme,
+                'timeSetting'=>$timeSetting,
+                'setting'=>$data,
+                'cartItems'=>$cart,
+                'cTotal'=>$total,
+                'cSubtotal'=>$subtotal,
+                'layout'    =>$layout
+            ]);
+        }
+        elseif($theme == 2){
+            return Inertia::render('ShopPages/Theme_2/Home',[
                 'theme' => $theme,
                 'timeSetting'=>$timeSetting,
                 'setting'=>$data,

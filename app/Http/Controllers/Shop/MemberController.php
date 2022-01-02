@@ -45,7 +45,20 @@ class MemberController extends Controller
 
         if($theme == 5){
             return Inertia::render('ShopPages/Theme_5/Member',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
-        }else{
+        }
+        elseif($theme == 4){
+            return Inertia::render('ShopPages/Theme_4/Member',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 3){
+            return Inertia::render('ShopPages/Theme_3/Member',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 2){
+            return Inertia::render('ShopPages/Theme_2/Member',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 1){
+            return Inertia::render('ShopPages/Theme_1/Member',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        else{
             return Inertia::render('ShopPages/Theme_6/Member',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
         }
             

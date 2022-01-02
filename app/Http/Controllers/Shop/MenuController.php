@@ -25,7 +25,7 @@ class MenuController extends Controller
         // $url = 'www.stationkebabs.co.uk/';
 
         $store_id = $request->session()->get('store_id');
-        $url = 'www.stationkebabs.co.uk/';
+        $url = 'www.ak-spices.co.uk/';
 
 
         $site = oc_store::where('url','like', '%'.$url.'%')->first();
@@ -57,7 +57,20 @@ class MenuController extends Controller
 
         if($theme == 5){
             return Inertia::render('ShopPages/Theme_5/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
-        }else{
+        }
+        elseif($theme == 4){
+            return Inertia::render('ShopPages/Theme_4/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 3){
+            return Inertia::render('ShopPages/Theme_3/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 2){
+            return Inertia::render('ShopPages/Theme_2/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 1){
+            return Inertia::render('ShopPages/Theme_1/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        else{
             return Inertia::render('ShopPages/Theme_6/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
         }
         

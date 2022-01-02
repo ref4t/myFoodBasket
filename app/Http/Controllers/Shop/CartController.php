@@ -9,14 +9,16 @@ use App\Models\oc_product;
 use App\Models\oc_store;
 use App\Models\oc_setting;
 use App\Models\oc_product_description;
+use App\Models\layout;
+
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
     public function index()
     {   
-      // $url = 'https://www.stationkebabs.co.uk/';
-      $url = request()->root();
+        $url = 'www.ak-spices.co.uk/';
+    //   $url = request()->root();
       $site = oc_store::where('url','like', '%'.$url.'%')->first();
       if(!$site){
           return abort(404);
@@ -41,9 +43,31 @@ class CartController extends Controller
       $total=Cart::total();
       $subtotal =Cart::subtotal();
 
-      $theme = 2;
+      $layout = layout::with('get_slider','get_gallery','get_popular','get_category')->where('store_id', $site->store_id)->first();
+
+      $theme = $layout['theme'];
+
+      if($theme == 1){
+        return Inertia::render('ShopPages/Theme_1/Cart',['theme' => $theme,'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+      }
+      elseif($theme == 3){
+        return Inertia::render('ShopPages/Theme_3/Cart',['theme' => $theme,'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+      }
+      elseif($theme == 2){
+        return Inertia::render('ShopPages/Theme_2/Cart',['theme' => $theme,'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+      }
+      elseif($theme == 4){
+        return Inertia::render('ShopPages/Theme_4/Cart',['theme' => $theme,'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+      }
+      elseif($theme == 5){
+        return Inertia::render('ShopPages/Theme_5/Cart',['theme' => $theme,'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+      }
+      else{
+        return Inertia::render('ShopPages/Theme_6/Cart',['theme' => $theme,'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+      }
+              
     
-          return Inertia::render('ShopPages/Theme_6/Cart',['theme' => $theme,'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+          
   
     }
     public function addToCart(Request $request){

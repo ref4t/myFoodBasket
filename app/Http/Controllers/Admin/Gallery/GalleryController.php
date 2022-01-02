@@ -29,7 +29,7 @@ class GalleryController extends Controller
 
     public function insert(Request $request){
         
-        
+        // dd($request->toArray());
         $image_name = wordwrap(strtolower($request['image']->getClientOriginalName()), 1, '_', 0);
         $request['image']->move(public_path('/image/gallery/'),$image_name);
         $path = "image/gallery/". $image_name;

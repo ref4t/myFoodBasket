@@ -8,15 +8,20 @@ use Inertia\Inertia;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\oc_setting;
 use App\Models\oc_store;
+use App\Models\layout;
 
 
 class CheckoutController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {   
+        $store_id = $request->session()->get('store_id');
+        $url = 'www.ak-spices.co.uk/';
         // $url = request()->root();
-        $url = 'www.stationkebabs.co.uk/';
+        
+        // $url = 'www.stationkebabs.co.uk/';
         $site = oc_store::where('url','like', '%'.$url.'%')->first();
+        
         if(!$site){
             return abort(404);
         }
@@ -35,11 +40,48 @@ class CheckoutController extends Controller
         $cart=Cart::content();
         $total=Cart::total();
         $subtotal =Cart::subtotal();
-        $theme = 2;
-        if($subtotal == 0){
-         return Inertia::render('ShopPages/Theme_6/Cart',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        // $theme = 2;
+
+        $layout = layout::with('get_slider','get_gallery','get_popular','get_category')->where('store_id', $store_id)->first();
+
+        $theme = $layout['theme'];
+
+        if($theme == 5){
+            if($subtotal == 0){
+                return Inertia::render('ShopPages/Theme_5/Cart',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+               }
+               else
+                return Inertia::render('ShopPages/Theme_5/Checkout',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
         }
-        else
-         return Inertia::render('ShopPages/Theme_6/Checkout',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        elseif($theme == 4){
+            if($subtotal == 0){
+                return Inertia::render('ShopPages/Theme_4/Cart',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+               }
+               else
+                return Inertia::render('ShopPages/Theme_4/Checkout',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 3){
+            if($subtotal == 0){
+                return Inertia::render('ShopPages/Theme_3/Cart',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+               }
+               else
+                return Inertia::render('ShopPages/Theme_3/Checkout',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 2){
+            if($subtotal == 0){
+                return Inertia::render('ShopPages/Theme_2/Cart',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+               }
+               else
+                return Inertia::render('ShopPages/Theme_2/Checkout',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        else{
+            if($subtotal == 0){
+                return Inertia::render('ShopPages/Theme_6/Cart',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+               }
+            else
+                return Inertia::render('ShopPages/Theme_6/Checkout',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+           
+        }
+        
     }
 }
