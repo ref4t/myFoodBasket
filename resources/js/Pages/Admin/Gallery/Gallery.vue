@@ -1,7 +1,7 @@
 <template>
     <admin-layout>
         <template v-slot:header>
-            <h1 class="m-0">LAYOUT</h1>
+            <h1 class="m-0"></h1>
         </template>
         
         <section class="content">
@@ -12,7 +12,7 @@
                             <thead>
                                <tr class="bg-info">
                                     <th colspan="2">
-                                        GALERRY SECTION
+                                        SLIDER SECTION
                                     </th>
                                 </tr>
                             </thead>
@@ -65,7 +65,7 @@
                             <thead>
                                <tr class="bg-info">
                                     <th colspan="2">
-                                        GALERRY SECTION
+                                        GALLERY SECTION
                                     </th>
                                 </tr>
                             </thead>

@@ -8,7 +8,8 @@
         <div class="row">
           <div class="col-md-6 col-sm-12 col-lg-5 wow animate__fadeInLeft" data-wow-duration="1s">
             <div class="order-online-v5">
-              <h2 class="__title"><span class="color-orange">Lorem ipsum</span><span>dolar</span><span class="color-yellow">sit amet</span><span>consectetur</span><span class="color-green">elit!</span></h2><strong class="title text-uppercase">order online</strong>
+              <h2 class="__title"><span class="color-orange"> {{ layout.slider_description }} </span> </h2>
+              <strong class="title text-uppercase">order online</strong>
               <input class="form-control" placeholder="Eg. AA11AA"/>
               <p>Please enter your postcode to view our<br> menu and place an order</p>
               <div class="btn__group"><a class="btn btn-red text-uppercase">collection</a><a class="btn btn-yellow text-uppercase">delivery</a></div>
@@ -58,9 +59,8 @@
           <div class="col-sm-12 col-md-6"><img class="img-fluid" src="/image/gallery/about/about-us.png"/></div>
           <div class="col-sm-12 col-md-6">
             <div class="default-title-v5"><strong class="sub-title color-orange text-uppercase">about us</strong>
-              <h3 class="title">The Best restaurant <br> in <br> the city</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid consectetur deleniti dolorum est facilis labore maiores molestias odio officiis quam qui quisquam repellendus sapiente sequi suscipit tempora, ut.</p>
-              <p>Magnam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br>At autem consequatur consequuntur dolor dolorum eligendi error excepturi facere illum, inventore laudantium, <br>libero minima mollitia nihil nobis quis quod tenetur vitae?</p>
+              <h3 class="title">{{layout.about_title}}</h3>
+              <p> {{ layout.about_description }} </p>
             </div><a class="btn btn-orange text-uppercase" href="">read more</a>
           </div>
         </div>
@@ -71,7 +71,7 @@
     <section v-if="layout.category == 1" class="best-categories-v5 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="default-title-v5 text-center container"><strong class="sub-title text-uppercase color-green">best categories</strong>
         <h3 class="title text-capitalize">best categories</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa earum excepturi fugit, <br> maiores praesentium qui, quidem rerum sed suscipit tempora temporibus totam voluptatibus.</p>
+        <p> {{layout.category_description}} </p>
       </div>
       <div class="container">
         <div class="best-categories-v5-swiper">
@@ -106,7 +106,7 @@
     <section  v-if="layout.popular == 1" class="popular-foods-v5 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="default-title-v5 text-center container"><strong class="sub-title text-uppercase color-orange">popular foods</strong>
         <h3 class="title text-capitalize">Popular foods in restaurant</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa earum excepturi fugit, <br> maiores praesentium qui, quidem rerum sed suscipit tempora temporibus totam voluptatibus.</p>
+        <p>{{layout.popular_description}}</p>
       </div>
       <div class="container">
         <div class="popular-foods-v5-swiper">
@@ -142,7 +142,7 @@
       <div class="container pt-110 pb-110 wow animate__fadeInUp" data-wow-duration="1s">
         <div class="default-title-v5"><strong class="sub-title text-uppercase color-orange">Recent Web  Reviews</strong>
           <h3 class="title">What costumers says about best <br> food in restaurant</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+         
         </div>
         <div class="user-comments-v5-swiper position-relative">
           <div class="swiper">
@@ -238,7 +238,7 @@
           <div class="col-md-12 col-lg-3 offset-lg-1">
             <div class="default-title-v5"><strong class="sub-title color-red text-uppercase color-orange">gallery</strong>
               <h3 class="title text-capitalize mb-5">Our gallery in the restaurant and you can see them.</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br>Culpa earum excepturi fugit, maiores praesentium qui</p>
+              <p>{{layout.gallery_description}}</p>
             </div>
             <div class="user-comments-v5-swiper-info">
               <div class="number-of-slide"><span class="__text">Number of slide</span>
@@ -269,7 +269,7 @@
         <div class="row align-items-center">
           <div class="col-md-12 col-lg-5 wow animate__fadeInLeft" data-wow-duration="1s">
             <div class="default-title-v5"><strong class="sub-title color-orange text-capitalize">reservation</strong>
-              <h3 class="title text-capitalize">What costumers says about best food in restaurant</h3>
+              <h3 class="title text-capitalize">{{layout.booking_description}}</h3>
             </div>
           </div>
           <div class="col-md-12 col-lg-7 wow animate__fadeInRight" data-wow-duration="1s">

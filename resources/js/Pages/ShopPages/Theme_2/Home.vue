@@ -8,8 +8,8 @@
       <div class="swiper-wrapper">
         <div v-for="slider in layout.get_slider" :key="slider" class="swiper-slide" :style="'background-image: url(' + slider.path + ')'">
           <div class="container">
-            <h3 class="text-capitalize">star kebab & pizza 0</h3><img class="img-fluid __icon" src="assets/img/icon/slide-divider.svg"/>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in  nulla pariatur anim id est laborum sunt in dolor in reprehenderit in.</p><a class="text-uppercase" href="#">read more<span></span></a>
+            <h3 class="text-capitalize">{{layout.slider_title}}</h3><img class="img-fluid __icon" src="/img/icon/slide-divider.svg"/>
+            <p>{{layout.slider_description}}</p><a class="text-uppercase" href="#">read more<span></span></a>
           </div>
         </div>
       </div>
@@ -21,9 +21,9 @@
     <div class="about-us container wow animate__fadeInUp" data-wow-duration="1s">
       <div class="row">
         <div class="col-md-12 col-lg-6 img"><img class="img-fluid" src="/image/gallery/about/about-us.png"/></div>
-        <div class="col-md-12 col-lg-6 content"><strong class="sub-title text-capitalize">star kebab & pizza</strong>
+        <div class="col-md-12 col-lg-6 content"><strong class="sub-title text-capitalize">{{layout.about_title}}</strong>
           <h3 class="title text-uppercase">about us</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Bibendum est ultricies integer quis. Iaculis urna id volutpat lacus laoreet. Mauris vitae ultricies leo integer malesuada. Ac odio tempor orci dapibus ultrices in. Egestas diam in arcu cursus</p>
+          <p>{{layout.about_description}}</p>
           <div class="about-us-swiper swiper">
             <div class="swiper-wrapper">
               <div  v-for=" gallery in layout.get_gallery" :key="gallery" class="swiper-slide"><img class="img-fluid" :src="gallery.path"/></div>
@@ -39,7 +39,7 @@
       <div class="container">
         <div class="default-title-v2 text-center">
           <h3 class="title color-red" :style="'color:'+ layout.category_content">Best Categories</h3>
-          <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum <br> dolore eu fugiat nulla pariatur.</p>
+          <p class="text">{{layout.category_description}}</p>
         </div>
         <div class="categories-swiper-v2 position-relative">
           <div class="swiper">
@@ -62,7 +62,7 @@
       <div class="container">
         <div class="default-title-v2 text-center">
           <h3 class="title color-red" :style="'color:'+ layout.popular_content"><span>Popular &nbsp;</span>Foods</h3>
-          <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum <br> dolore eu fugiat nulla pariatur.</p>
+          <p class="text">{{layout.popular_description}}</p>
         </div>
         <div class="popular-foods-swiper-v2 position-relative">
           <div class="swiper">
@@ -83,7 +83,7 @@
       <div class="container-fluid">
         <div class="default-title-v2 text-center">
           <h3 class="title">Recent Web Reviews</h3>
-          <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum <br> dolore eu fugiat nulla pariatur.</p>
+          <!-- <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum <br> dolore eu fugiat nulla pariatur.</p> -->
         </div>
         <div class="user-comments-v2-swiper position-relative">
           <div class="swiper">
@@ -117,7 +117,7 @@
       <div class="container">
         <div class="default-title-v2 text-center">
           <h3 class="title text-capitalize" :style="'color:'+ layout.booking_content"><span>make a &nbsp;</span>reservation</h3>
-          <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum <br> dolore eu fugiat nulla pariatur.</p>
+          <p class="text">{{layout.booking_description}}</p>
         </div>
         <form class="row" method="" action="">
           <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
@@ -164,7 +164,7 @@
       <div class="container">
         <div class="default-title-v2 text-center">
           <h3 class="title text-capitalize"><span>photo &nbsp;</span>gallery</h3>
-          <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum <br> dolore eu fugiat nulla pariatur.</p>
+          <p class="text">{{layout.gallery_description}}</p>
         </div>
       </div>
       <div class="container-fluid wow animate__fadeInUp" data-wow-duration="1s">
@@ -176,12 +176,12 @@
       </div>
     </section>
     <section class="opening-hours-v2 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
-      <div class="container"><img class="img-fluid" src="assets/img/icon/opening-hours-top-divider.svg"/>
+      <div class="container"><img class="img-fluid" src="/img/icon/opening-hours-top-divider.svg"/>
         <h3 class="title text-uppercase">opening hours</h3>
         <div class="_divider"></div><a href="tel:03254769875">TEL: 03254769875</a>
         <h3 class="title text-uppercase __divider">hours</h3>
         <div class="__time"><span>MON-FRI</span><span>9.30AM-11PM</span></div>
-        <div class="__time"><span>SUN</span><span>9.30AM-11PM</span></div><img class="img-fluid" src="assets/img/icon/opening-hours-bottom-divider.svg"/>
+        <div class="__time"><span>SUN</span><span>9.30AM-11PM</span></div><img class="img-fluid" src="/img/icon/opening-hours-bottom-divider.svg"/>
       </div>
     </section>
     

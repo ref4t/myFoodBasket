@@ -9,7 +9,7 @@
           <div class="col-md-12 col-lg-7 position-relative">
             <div class="__circle">
               <div class="__thumbs-item">
-                <a v-for="slider in layout.get_slider" :key="slider" href="#" style="background-image: url({{slider.path}})" data-index="0"></a>
+                <a v-for="(slider,index) in layout.get_slider" :key="slider" href="#" :style="'background-image: url(' + slider.path + ')'" :data-index="index"></a>
                 
               </div>
             </div>
@@ -23,7 +23,7 @@
           </div>
           <div class="col-md-12 col-lg-5">
             <div class="order-online-v4">
-              <h1 class="__title">Welcome to <br><span>STAR KEBAB & PIZZA</span></h1><strong class="title text-uppercase">order online</strong>
+              <h1 class="__title">{{layout.slider_title}}</h1><strong class="title text-uppercase">order online</strong>
               <input class="form-control" placeholder="Eg. AA11AA"/>
               <p>Please enter your postcode to view our<br> menu and place an order</p>
               <div class="btn__group"><a class="btn btn-purple text-uppercase">collection</a><a class="btn btn-green text-uppercase">delivery</a></div>
@@ -38,9 +38,9 @@
         <div class="row">
           <div class="col-12 col-md-12 col-lg-6">
             <div class="default-title-v4"><strong class="sub-title color-green">About Us</strong>
-              <h3 class="title" :style="'color:'+ layout.about_content">Who are we?</h3>
+              <h3 class="title" :style="'color:'+ layout.about_content">{{layout.about_title}}</h3>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid consectetur deleniti dolorum est facilis labore maiores molestias odio officiis quam qui quisquam repellendus sapiente sequi suscipit tempora, ut. <br>Magnam. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            <p>{{layout.about_description}}</p>
           </div>
           <div class="col-12 col-md-12 col-lg-6 img"><img class="img-fluid" src="/image/gallery/about/about-us.png"/></div>
         </div>
@@ -123,7 +123,7 @@
       <div class="container">
         <div class="default-title-v4 text-center"><strong class="sub-title color-purple">Delicious Foods</strong>
           <h3 class="title text-capitalize" :style="'color:'+ layout.gallery_content">photo gallery</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br>Culpa earum excepturi fugit, maiores praesentium qui</p>
+          <p>{{layout.gallery_description}}</p>
         </div>
       </div>
       <div class="list-item-container">
@@ -185,6 +185,7 @@
         <div class="default-title-v4"><strong class="sub-title color-orange text-capitalize">Open 7 Days a Week</strong>
           <h3 class="title text-capitalize">opening hours</h3>
         </div>
+        <br/>
         <div class="__time">
           <div class="__time-item"><strong>Mon - Fri</strong>
             <div><span>09AM</span><span>23PM</span></div>

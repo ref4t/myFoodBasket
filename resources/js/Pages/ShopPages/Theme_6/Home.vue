@@ -13,8 +13,8 @@
             <div v-for="slider in layout.get_slider" :key="slider" class="swiper-slide" :style="'background-image: url(' + slider.path + ')'">
               <div class="container">
                 <div class="slide-logo"><img class="img-fluid" src="/img/logo/slider-logo.svg"/></div>
-                <h2 class="__title">Our restaurant offers amazing dishes from around the world!</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aut dolorum eius eligendi est ipsa iste, magnam nesciunt non nostrum odit, omnis quam reprehenderit vitae voluptatem. Culpa mollitia placeat rem.</p>
+                <h2 class="__title">{{layout.slider_title}}</h2>
+                <p> {{layout.slider_description}} </p>
               </div>
             </div>
 
@@ -35,8 +35,7 @@
         <div class="default-title-v6"><strong class="sub-title color-orange text-uppercase">about us</strong>
           <h3 class="title text-uppercase" :style="'color:'+ layout.about_content" >SEE WHO WE ARE AND WHAT WE OFFER!</h3>
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid consectetur deleniti dolorum est facilis labore maiores molestias odio officiis quam qui quisquam repellendus sapiente sequi suscipit tempora, ut.</p>
-        <p>Magnam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br>At autem consequatur consequuntur dolor dolorum eligendi error excepturi facere illum, inventore laudantium, <br>libero minima mollitia nihil nobis quis quod tenetur vitae?</p><a class="btn text-uppercase" href="">read more</a>
+        <p>{{ layout.about_description }}</p><a class="btn text-uppercase" href="">read more</a>
       </div>
     </section>
 

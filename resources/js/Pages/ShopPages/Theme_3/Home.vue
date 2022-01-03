@@ -8,7 +8,7 @@
         <div class="row">
           <div class="col-md-12 col-lg-6 wow animate__fadeInLeft" data-wow-duration="1s">
             <div class="order-online-v3">
-              <h1 class="__title">Welcome to <br><span>STAR KEBAB & PIZZA</span></h1><strong class="title text-uppercase">order online</strong>
+              <h1 class="__title">{{layout.slider_title}}</h1><strong class="title text-uppercase">order online</strong>
               <input class="form-control" placeholder="Eg. AA11AA"/>
               <p>Please enter your postcode to view our<br> menu and place an order</p>
               <div class="btn__group"><a class="btn btn-red text-uppercase">collection</a><a class="btn btn-orange text-uppercase">delivery</a></div>
@@ -16,9 +16,9 @@
           </div>
           <div class="col-md-12 col-lg-6 wow animate__fadeInRight position-relative" data-wow-duration="1s">
             <div class="swiper-text-content">
-              <div class="text-content"><strong class="__title">Lorem Ipsum</strong>
+              <!-- <div class="text-content"><strong class="__title">Lorem Ipsum</strong>
                 <p>Lorem Ipsum Dolar</p>
-              </div>
+              </div> -->
               <div class="swiper-buttons">
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
@@ -40,8 +40,8 @@
         <div class="default-title-v3">
           <h3 class="title color-green"  :style="'color:'+ layout.about_content">Who are we?</h3>
         </div>
-        <h4 class="__title">"Star Kebab & Pizza WANT TO BE LIMITED."</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid consectetur deleniti dolorum est facilis labore maiores molestias odio officiis quam qui quisquam repellendus sapiente sequi suscipit tempora, ut. <br>Magnam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br>At autem consequatur consequuntur dolor dolorum eligendi error excepturi facere illum, inventore laudantium, <br>libero minima mollitia nihil nobis quis quod tenetur vitae?</p>
+        <h4 class="__title">{{layout.about_title}}</h4>
+        <p>{{layout.about_description}}</p>
       </div>
     </section>
 
@@ -49,7 +49,7 @@
     <section v-if="layout.category == 1" class="best-categories-icon pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="default-title-v3 text-center container">
         <h3 class="title text-capitalize" :style="'color:'+ layout.category_content">best categories</h3>
-        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa earum excepturi fugit, <br> maiores praesentium qui, quidem rerum sed suscipit tempora temporibus totam voluptatibus.</p> -->
+        <p> {{layout.category_description}} </p>
       </div>
       <div class="container">
         <div class="row list-item">
@@ -66,7 +66,7 @@
       <div class="container">
         <div class="default-title-v3 text-center">
           <h3 class="title text-capitalize color-green" :style="'color:'+ layout.popular_content">popular foods</h3>
-          <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br>Culpa earum excepturi fugit, maiores praesentium qui</p> -->
+          <p>{{layout.popular_description}}</p>
         </div>
         <div class="row list-item">
           <div  v-for="popular in layout.get_popular" :key="popular" class="col-12 col-md-6 col-lg-4">
@@ -121,7 +121,7 @@
       <div class="container">
         <div class="default-title-v3 text-center">
           <h3 class="title text-capitalize color-red" :style="'color:'+ layout.popular_content">photo gallery</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br>Culpa earum excepturi fugit, maiores praesentium qui</p>
+          <p>{{layout.gallery_description}}</p>
         </div>
       </div>
       <div class="container-fluid">
@@ -140,7 +140,7 @@
           <div class="col-md-12 col-lg-5 wow animate__fadeInLeft" data-wow-duration="1s">
             <div class="default-title-v3">
               <h3 class="title color-green text-capitalize" :style="'color:'+ layout.booking_content">make a <br>reservation</h3>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum <br> dolore eu fugiat nulla pariatur.</p>
+              <p>{{layout.booking_description}}</p>
             </div>
             <button class="btn btn-red text-capitalize">make reservation now</button>
           </div>

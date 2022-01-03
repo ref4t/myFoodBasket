@@ -47,8 +47,29 @@
                                             </th>
                                         </tr>
                                         <tr>
-                                            <td >
+                                            <td>
+                                                <img v-if="layout.theme == 2" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/slider_theme_2.png'" w >
+                                                <img v-if="layout.theme == 3" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/slider_theme_3.png'" w >
+                                                <img v-if="layout.theme == 4" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/slider_theme_4.png'" w >
+                                                <img v-if="layout.theme == 5" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/slider_theme_5.png'" w >
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/slider.png'" w >
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group row">
+                                                    <label  class="col-sm-2 col-form-label">Slider Title</label>
+                                                    <div class="col-sm-5">
+                                                    <input v-model="layout.slider_title" type="text" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label  class="col-sm-2 col-form-label">Slider Description</label>
+                                                    <div class="col-sm-5">
+                                                    <textarea v-model="layout.slider_description" type="text" placeholder="" class="form-control"/>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -86,9 +107,28 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="form-group row">
+                                                    <label  class="col-sm-5 col-form-label">Title</label>
+                                                    <div class="col-sm-7">
+                                                    <input v-model="layout.about_title" type="text" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label  class="col-sm-5 col-form-label">Description</label>
+                                                    <div class="col-sm-7">
+                                                    <textarea v-model="layout.about_description" type="text" placeholder="" class="form-control"/>
+                                                    </div>
+                                                </div>
+
                                             </td>
                                             <td>
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/about-us.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 5" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/about_us_theme_5.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 4" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/about_us_theme_4.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 3" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/about_us_theme_3.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 2" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/about_us_theme_2.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 1" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/about_us_theme_1.png'" width="600" height="750" >
                                             </td>
                                         </tr>
                                     </tbody>
@@ -130,10 +170,22 @@
                                                     <input v-model="layout.booking_content" type="text" placeholder="#F0F0F0" class="form-control">
                                                     </div>
                                                 </div>
+
+                                                <div class="form-group row">
+                                                    <label  class="col-sm-5 col-form-label">Description</label>
+                                                    <div class="col-sm-7">
+                                                    <textarea v-model="layout.booking_description" type="text" placeholder="" class="form-control"/>
+                                                    </div>
+                                                </div>
                                                 
                                             </td>
                                             <td>
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="booking" :src="'/image/layout/booking.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 5" class="img-thumbnail rounded float-right" :alt="booking" :src="'/image/layout/booking_theme_5.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 4" class="img-thumbnail rounded float-right" :alt="booking" :src="'/image/layout/booking_theme_4.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 3" class="img-thumbnail rounded float-right" :alt="booking" :src="'/image/layout/booking_theme_3.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 2" class="img-thumbnail rounded float-right" :alt="booking" :src="'/image/layout/booking_theme_2.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 1" class="img-thumbnail rounded float-right" :alt="booking" :src="'/image/layout/booking_theme_1.png'" width="600" height="750" >
                                             </td>
                                         </tr>
                                     </tbody>
@@ -173,9 +225,21 @@
                                                     <input v-model="layout.gallery_content" type="text" placeholder="#F0F0F0" class="form-control">
                                                     </div>
                                                 </div>
+                                                <div class="form-group row">
+                                                    <label  class="col-sm-5 col-form-label">Description</label>
+                                                    <div class="col-sm-7">
+                                                    <textarea v-model="layout.gallery_description" type="text" placeholder="" class="form-control"/>
+                                                    </div>
+                                                </div>
+
                                             </td>
                                             <td>
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/gallery.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 5" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/gallery_theme_5.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 4" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/gallery_theme_4.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 3" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/gallery_theme_3.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 2" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/gallery_theme_2.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 1" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/gallery_theme_1.png'" width="600" height="750" >
                                             </td>
                                         </tr>
                                     </tbody>
@@ -215,9 +279,22 @@
                                                     <input v-model="layout.popular_content" type="text" placeholder="#F0F0F0" class="form-control">
                                                     </div>
                                                 </div>
+
+                                                <div class="form-group row">
+                                                    <label  class="col-sm-5 col-form-label">Description</label>
+                                                    <div class="col-sm-7">
+                                                    <textarea v-model="layout.popular_description" type="text" placeholder="" class="form-control"/>
+                                                    </div>
+                                                </div>
+
                                             </td>
                                             <td>
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/popular.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 5" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/popular_theme_5.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 4" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/popular_theme_4.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 3" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/popular_theme_3.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 2" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/popular_theme_2.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 1" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/popular_theme_1.png'" width="600" height="750" >
                                             </td>
                                         </tr>
                                     </tbody>
@@ -256,9 +333,21 @@
                                                     <input v-model="layout.category_content" type="text" placeholder="#F0F0F0" class="form-control">
                                                     </div>
                                                 </div>
+
+                                                <div class="form-group row">
+                                                    <label  class="col-sm-5 col-form-label">Description</label>
+                                                    <div class="col-sm-7">
+                                                    <textarea v-model="layout.category_description" type="text" placeholder="" class="form-control"/>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/category.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 5" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/category_theme_5.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 4" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/category_theme_4.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 3" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/category_theme_3.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 2" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/category_theme_2.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 1" class="img-thumbnail rounded float-right" :alt="about_us" :src="'/image/layout/category_theme_1.png'" width="600" height="750" >
                                             </td>
                                         </tr>
                                     </tbody>
@@ -293,6 +382,11 @@
                                             </td>
                                             <td>
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="rating" :src="'/image/layout/rating.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 5" class="img-thumbnail rounded float-right" :alt="rating" :src="'/image/layout/rating_theme_5.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 4" class="img-thumbnail rounded float-right" :alt="rating" :src="'/image/layout/rating_theme_4.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 3" class="img-thumbnail rounded float-right" :alt="rating" :src="'/image/layout/rating_theme_3.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 2" class="img-thumbnail rounded float-right" :alt="rating" :src="'/image/layout/rating_theme_2.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 1" class="img-thumbnail rounded float-right" :alt="rating" :src="'/image/layout/rating_theme_1.png'" width="600" height="750" >
                                             </td>
                                         </tr>
                                     </tbody>
@@ -326,6 +420,11 @@
                                             </td>
                                             <td>
                                                 <img v-if="layout.theme == 6" class="img-thumbnail rounded float-right" :alt="opening" :src="'/image/layout/opening.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 5" class="img-thumbnail rounded float-right" :alt="opening" :src="'/image/layout/opening_theme_5.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 4" class="img-thumbnail rounded float-right" :alt="opening" :src="'/image/layout/opening_theme_4.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 3" class="img-thumbnail rounded float-right" :alt="opening" :src="'/image/layout/opening_theme_3.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 2" class="img-thumbnail rounded float-right" :alt="opening" :src="'/image/layout/opening_theme_2.png'" width="600" height="750" >
+                                                <img v-if="layout.theme == 1" class="img-thumbnail rounded float-right" :alt="opening" :src="'/image/layout/opening_theme_1.png'" width="600" height="750" >
                                             </td>
                                         </tr>
                                     </tbody>

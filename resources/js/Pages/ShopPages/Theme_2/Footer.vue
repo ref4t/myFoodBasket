@@ -3,7 +3,7 @@
       <div class="footer-content">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12 col-md-4"><a class="f-logo" href="#"><img class="img-fluid" src="assets/img/logo/f-logo.svg"/></a>
+            <div class="col-sm-12 col-md-4"><a class="f-logo" href="#"><img class="img-fluid" src="/img/logo/f-logo.svg"/></a>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus illo porro similique voluptate. Accusamus amet aut beatae consequatur doloremque eius explicabo</p>
               <div class="social-links"><a class="fab fa-facebook-f" href="#" target="_blank"></a><a class="fab fa-twitter" href="#" target="_blank"></a><a class="fab fa-instagram" href="#" target="_blank"></a><a class="fab fa-linkedin" href="#" target="_blank"></a></div>
             </div>
