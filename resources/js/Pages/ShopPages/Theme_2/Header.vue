@@ -33,7 +33,7 @@
       </div>
     </header>
     <div class="mobile-menu-shadow"></div>
-    <sidebar class="mobile-menu"><a class="close far fa-times-circle" href="#"></a><a class="logo" href="#slide"><img class="img-fluid" src="/assets/img/logo/logo.svg"/></a>
+    <sidebar class="mobile-menu"><a class="close far fa-times-circle" href="#"></a><a class="logo" href="#slide"><img class="img-fluid" src="/img/logo/logo.svg"/></a>
       <div class="top">
         <ul class="menu">
             <li :class="route().current('shopHome') ? 'active' : ' ' "><Link class="text-uppercase" href="/">home</Link></li>

@@ -1,6 +1,6 @@
 <template>
 
-     <TopHeader5 :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length" :openingTime="setting.opening_time" :timeSetting="timeSetting"/>
+     <TopHeader :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length" :openingTime="setting.opening_time" :timeSetting="timeSetting"/>
 
 
     <section class="home-slide-v5 wow animate__fadeInUp" data-wow-duration="1s">
@@ -334,7 +334,7 @@
       </div>
     </section>
 
-    <TopFooter5/>
+    <TopFooter :name="setting.config_name" :logo="setting.config_logo" :address="setting.config_address" :telephone="setting.config_telephone" :email="setting.config_email" />
 
 
 </template>
@@ -342,14 +342,14 @@
 
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';
-import TopHeader5 from '@/Pages/ShopPages/Theme_5/Header5.vue';
-import TopFooter5 from '@/Pages/ShopPages/Theme_5/Footer5.vue';
+import TopHeader from '@/Pages/ShopPages/Theme_5/Header5.vue';
+import TopFooter from '@/Pages/ShopPages/Theme_5/Footer5.vue';
 export default {
     components:{
         Head,
         Link,
-        TopHeader5,
-        TopFooter5,
+        TopHeader,
+        TopFooter,
     },
     data(){
         return{

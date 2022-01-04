@@ -12,7 +12,7 @@
 </template>
 <script>
 export default {
-    props:['logo','name'],
+    props:['logo','name','address','telephone','email'],
 }
 </script>
 <style>
