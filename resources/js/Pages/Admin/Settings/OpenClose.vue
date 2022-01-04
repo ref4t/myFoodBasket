@@ -1145,17 +1145,26 @@ export default {
     },
 
     mounted(){
-        if(!this.dataForm.delivery.day){
-            this.dataForm.delivery.day=[];
-            this.dataForm.delivery.from=[];
-            this.dataForm.delivery.to=[];
-        }
-            // if(!this.dataForm.collection_same_bussiness == 0 ){
-                let collection={
-                    day:{'0':''}
+        let arr=new Array();
+         arr[0]=new Array('0');
+        let from=[''];
+        let to=[''];
+        if(!this.dataForm.delivery){
+           let delivery={
+                    day:arr,
+                    from:from,
+                    to:to,
                     }
-               this.dataForm= Object.assign(collection,this.dataForm)
-            // }
+               this.dataForm.delivery=delivery;
+        }
+            if(!this.dataForm.collection){
+                let collection={
+                    day:arr,
+                    from:from,
+                    to:to,
+                    }
+               this.dataForm.collection=collection;
+            }
         
     },
 
