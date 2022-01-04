@@ -33,6 +33,9 @@ use App\Http\Controllers\Admin\Offers\CartRuleController;
 
 use App\Http\Controllers\Admin\Layout\LayoutController;
 
+
+use App\Http\Controllers\Admin\Gallery\GalleryController;
+
 use App\Http\Controllers\Admin\Settings\MapAndCategoryController;
 use App\Http\Controllers\Admin\Settings\ShopController;
 use App\Http\Controllers\Admin\Settings\OpenCloseController;
@@ -208,6 +211,19 @@ Route::prefix('admin')->group(function(){
     Route::post('offers/free/rule/delete',[CartRuleController::class, 'delete'])->name('admin.offers.free.rule.delete');
 
 
+    // Gallery
+
+    Route::get('gellary/index',[GalleryController::class, 'index'])->name('admin.gallery.index');
+    Route::post('gellary/insert',[GalleryController::class, 'insert'])->name('admin.gallery.insert');
+    Route::post('gellary/delete/{id}',[GalleryController::class, 'delete'])->name('admin.gallery.delete');
+    Route::post('gellary/slider/insert',[GalleryController::class, 'insertSlider'])->name('admin.gallery.slider.insert');
+    Route::post('gellary/slider/delete/{id}',[GalleryController::class, 'deleteSlider'])->name('admin.gallery.slider.delete');
+    Route::post('gellary/popular/insert',[GalleryController::class, 'insertPopular'])->name('admin.gallery.popular.insert');
+    Route::post('gellary/popular/delete/{id}',[GalleryController::class, 'deletePopular'])->name('admin.gallery.popular.delete');
+    Route::post('gellary/category/insert',[GalleryController::class, 'insertCategory'])->name('admin.gallery.category.insert');
+    Route::post('gellary/category/delete/{id}',[GalleryController::class, 'deleteCategory'])->name('admin.gallery.category.delete');
+
+
     // customers
     Route::get('/customer',[CustomerController::class,'index'])->name('admin.customer.index');
     Route::get('/customer/create', [CustomerController::class, 'create'])->name('admin.customer.create');
@@ -230,6 +246,8 @@ Route::prefix('admin')->group(function(){
 
     Route::get('/layout',[LayoutController::class,'index'])->name('admin.layout.layout.index');
     Route::post('/layout/update',[LayoutController::class,'update'])->name('admin.layout.layout.update');
+    Route::post('/layout/slider',[LayoutController::class,'slider'])->name('admin.layout.layout.slider');
+    Route::post('/layout/slider/delete/{id}',[LayoutController::class,'delete'])->name('admin.layout.layout.slider.delete');
     // Route::get('/layout',[LayoutController::class,'index'])->name('admin.layout.layout.index');
      
     // settings

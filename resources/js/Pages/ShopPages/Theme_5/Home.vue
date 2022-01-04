@@ -1,0 +1,384 @@
+<template>
+
+     <TopHeader5 :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length" :openingTime="setting.opening_time" :timeSetting="timeSetting"/>
+
+
+    <section class="home-slide-v5 wow animate__fadeInUp" data-wow-duration="1s">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6 col-sm-12 col-lg-5 wow animate__fadeInLeft" data-wow-duration="1s">
+            <div class="order-online-v5">
+              <h2 class="__title"><span class="color-orange"> {{ layout.slider_description }} </span> </h2>
+              <strong class="title text-uppercase">order online</strong>
+              <input class="form-control" placeholder="Eg. AA11AA"/>
+              <p>Please enter your postcode to view our<br> menu and place an order</p>
+              <div class="btn__group"><a class="btn btn-red text-uppercase">collection</a><a class="btn btn-yellow text-uppercase">delivery</a></div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12 col-lg-7 wow animate__fadeInRight position-relative" data-wow-duration="1s">
+            <div class="home-slide-v5-swiper swiper">
+              <div class="swiper-wrapper">
+                <div  v-for="slider in layout.get_slider" :key="slider" class="swiper-slide"><img class="img-fluid" :src="slider.path"/></div>
+                <!-- <div class="swiper-slide"><img class="img-fluid" src="/assets/demo-data/slider.png"/></div>
+                <div class="swiper-slide"><img class="img-fluid" src="/assets/demo-data/slider.png"/></div> -->
+              </div>
+              <!-- <div class="happy-customers"><strong class="text-uppercase">our happy customers</strong>
+                <div class="__img-list">
+                  <div class="__img"><img class="img-fluid" src="/assets/demo-data/girl.jpeg"/></div>
+                  <div class="__img"><img class="img-fluid" src="/assets/demo-data/girl.jpeg"/></div>
+                  <div class="__img"><img class="img-fluid" src="/assets/demo-data/girl.jpeg"/></div>
+                  <div class="__count">8+</div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="home-slide-category">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="category in layout.get_category" :key="category" >
+              <div class="swiper-slide-item">
+                <div class="img"><img class="img-fluid" :src="category.path"/></div>
+                <div class="__text-content">
+                  <h4 class="text-uppercase"></h4><strong class="text-uppercase">{{category.title}}</strong>
+                </div>
+              </div>
+            </div> </div>
+        </div>
+        <div class="swiper-button-prev"><i class="fas fa-long-arrow-alt-left"></i></div>
+        <div class="swiper-button-next"><i class="fas fa-long-arrow-alt-right"></i></div>
+      </div>
+    </section>
+
+
+<!-- ABOUT US -->
+    <section class="who-are-we-v5 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-6"><img class="img-fluid" src="/image/gallery/about/about-us.png"/></div>
+          <div class="col-sm-12 col-md-6">
+            <div class="default-title-v5"><strong class="sub-title color-orange text-uppercase">about us</strong>
+              <h3 class="title">{{layout.about_title}}</h3>
+              <p> {{ layout.about_description }} </p>
+            </div><a class="btn btn-orange text-uppercase" href="">read more</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section v-if="layout.category == 1" class="best-categories-v5 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
+      <div class="default-title-v5 text-center container"><strong class="sub-title text-uppercase color-green">best categories</strong>
+        <h3 class="title text-capitalize">best categories</h3>
+        <p> {{layout.category_description}} </p>
+      </div>
+      <div class="container">
+        <div class="best-categories-v5-swiper">
+          <div class="swiper">
+            <div class="swiper-wrapper">
+              <div v-for="category in layout.get_category" :key="category" class="swiper-slide">
+                <div class="item">
+                  <div class="img"><img class="img-fluid" :src="category.path"/></div>
+                  <div class="text-content"><strong class="text-capitalize">{{category.title}}</strong>
+                    <p>{{category.description}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="best-categories-v5-swiper-control">
+            <div class="__empty"></div>
+            <div class="number-of-slide"><span class="__text">Number of slide</span>
+              <div class="swiper-scrollbar"></div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="best-categories-buttons">
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section  v-if="layout.popular == 1" class="popular-foods-v5 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
+      <div class="default-title-v5 text-center container"><strong class="sub-title text-uppercase color-orange">popular foods</strong>
+        <h3 class="title text-capitalize">Popular foods in restaurant</h3>
+        <p>{{layout.popular_description}}</p>
+      </div>
+      <div class="container">
+        <div class="popular-foods-v5-swiper">
+          <div class="swiper">
+            <div class="swiper-wrapper">
+              <div v-for="popular in layout.get_popular" :key="popular" class="swiper-slide">
+                <div class="item">
+                  <div class="img"><img class="img-fluid" :src="popular.path"/></div>
+                  <div class="text-content"><strong class="text-capitalize">{{popular.name}}</strong>
+                    <p>{{popular.description}}</p><a href="">Read more</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="popular-foods-v5-swiper-control">
+            <div class="__empty"></div>
+            <div class="number-of-slide"><span class="__text">Number of slide</span>
+              <div class="swiper-scrollbar"></div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="best-categories-buttons">
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="user-comments-v5 pt-75 pb-75">
+      <div class="container pt-110 pb-110 wow animate__fadeInUp" data-wow-duration="1s">
+        <div class="default-title-v5"><strong class="sub-title text-uppercase color-orange">Recent Web  Reviews</strong>
+          <h3 class="title">What costumers says about best <br> food in restaurant</h3>
+         
+        </div>
+        <div class="user-comments-v5-swiper position-relative">
+          <div class="swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"><strong>Selçuk Aker 0</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 0</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 1</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 1</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 2</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 2</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 3</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 3</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 4</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 4</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 5</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 5</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 6</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 6</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 7</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 7</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 8</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 8</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 9</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 9</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 10</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 10</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 11</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 11</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 12</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 12</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 13</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 13</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 14</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 14</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 15</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 15</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 16</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 16</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 17</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 17</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 18</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 18</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 19</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 19</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 20</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 20</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 21</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 21</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 22</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 22</p><span>UX Designer</span>
+              </div>
+              <div class="swiper-slide"><strong>Selçuk Aker 23</strong>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 23</p><span>UX Designer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="user-comments-v5-swiper-control">
+          <div class="number-of-slide"><span class="__text">Number of slide</span>
+            <div class="swiper-scrollbar"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="photo-gallery-v5 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12 col-lg-3 offset-lg-1">
+            <div class="default-title-v5"><strong class="sub-title color-red text-uppercase color-orange">gallery</strong>
+              <h3 class="title text-capitalize mb-5">Our gallery in the restaurant and you can see them.</h3>
+              <p>{{layout.gallery_description}}</p>
+            </div>
+            <div class="user-comments-v5-swiper-info">
+              <div class="number-of-slide"><span class="__text">Number of slide</span>
+                <div class="swiper-scrollbar"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-8">
+            <div class="swiper">
+              <div class="swiper-wrapper">
+                <div v-for=" gallery in layout.get_gallery" :key="gallery" class="swiper-slide">
+                  <div class="item"><a class="fas fa-search-plus" :href="gallery.path" data-fancybox="photoGallery"></a><img class="img-fluid" :src="gallery.path"/></div>
+                </div></div>
+            </div>
+            <div class="photo-gallery-v5-swiper-control">
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <section class="reservation-v5 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
+      <form class="container">
+        <div class="row align-items-center">
+          <div class="col-md-12 col-lg-5 wow animate__fadeInLeft" data-wow-duration="1s">
+            <div class="default-title-v5"><strong class="sub-title color-orange text-capitalize">reservation</strong>
+              <h3 class="title text-capitalize">{{layout.booking_description}}</h3>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-7 wow animate__fadeInRight" data-wow-duration="1s">
+            <div class="row">
+              <div class="col-12 col-sm-6 mb-4">
+                <input class="form-control" placeholder="Full Name" type="text"/>
+              </div>
+              <div class="col-12 col-sm-6 mb-4">
+                <input class="form-control" placeholder="Phone Number" type="text"/>
+              </div>
+              <div class="col-12 col-sm-6 mb-4">
+                <div class="icon"><i class="fas fa-chevron-down"></i>
+                  <select class="form-control select2">
+                    <option value="" selected="selected">Person</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 mb-4">
+                <div class="icon"><i class="fas fa-chevron-down"></i>
+                  <input class="form-control icon" placeholder="Date" id="date" type="text"/>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 mb-4">
+                <div class="icon"><i class="fas fa-chevron-down"></i>
+                  <input class="form-control icon" placeholder="Time" id="time" type="text"/>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <button class="btn btn-orange text-capitalize">make reservation now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+
+    <section class="opening-hours-v5 pt-75 wow animate__fadeInUp" data-wow-duration="1s">
+      <div class="default-title-v5 text-center"><strong class="sub-title color-orange text-capitalize">opening hourse</strong>
+        <h3 class="title text-capitalize">open 7 days a week</h3>
+      </div>
+      <div class="__info">
+        <div class="__container"><img class="img-fluid mb-3" src="/assets/img/icon/time-top-flower.svg"/><strong class="__time-title">OPEN NOW</strong>
+          <div class="__time"><strong>MONDAY-<br>SATURDAY</strong>
+            <div class="__time-box">
+              <div class="__left-time"><span>9</span><span>A<br>M</span></div>
+              <div class="__time-divier"></div>
+              <div class="__right-time"><span>11</span><span>P<br>M</span></div>
+            </div>
+          </div>
+          <div class="__time"><span>SUNDAY 9:30 AM to 11AM</span></div><img class="img-fluid mt-3" src="/assets/img/icon/time-bottom-flower.svg"/>
+        </div>
+      </div>
+    </section>
+
+    <TopFooter5/>
+
+
+</template>
+
+
+<script>
+import { Head, Link } from '@inertiajs/inertia-vue3';
+import TopHeader5 from '@/Pages/ShopPages/Theme_5/Header5.vue';
+import TopFooter5 from '@/Pages/ShopPages/Theme_5/Footer5.vue';
+export default {
+    components:{
+        Head,
+        Link,
+        TopHeader5,
+        TopFooter5,
+    },
+    data(){
+        return{
+            cartTest:this.cartItems,
+            cartTotal:this.cTotal,
+            cartSubtotal:this.cSubtotal,
+        }
+        
+    },
+    props:{
+        setting:Object,
+        cartItems:Object,
+        cTotal:String,
+        cSubtotal:String,
+        timeSetting:Object,
+        layout:Object
+    },
+  //   mounted() {
+  //       let links=[ 
+  //                   '/js/theme6/app.js'
+  //                 ];
+  // links.forEach(function(value,index){
+  //   let externalScript = document.createElement('script')
+  //     // externalScript.async = true
+  //     externalScript.setAttribute('src', value)
+  //     document.body.appendChild(externalScript)
+  // });
+      
+  //  },
+}
+
+</script>

@@ -240,32 +240,15 @@
             </ul>
           </li>
 
-          <!-- <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <Link :href="route('admin.gallery.index')" class="nav-link" :class="route().current('admin.gallery.*') ? 'active' : ' ' ">
               <i class="nav-icon fas fa-images"></i>
               <p>
                 Gallery
                 <i class="fas fa-angle-left right"></i>
               </p>
-            </a>
-            <ul class="nav nav-treeview" >
-              <li class="nav-item">
-                <Link :href="route('admin.dashboard.orders.index')" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Gallery Settings</p>
-                </Link>
-              </li>
-              <li class="nav-item">
-                <Link
-                  
-                  class="nav-link"
-                >
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Upload Gallery</p>
-                </Link>
-              </li>
-            </ul>
-          </li> -->
+            </Link>
+          </li>
 
           <li class="nav-item">
             <Link :href="route('admin.customer.index')" class="nav-link" :class="route().current('admin.customer.*') ? 'active' : ' ' ">

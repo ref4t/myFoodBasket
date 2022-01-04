@@ -14,6 +14,7 @@ use App\Models\oc_product;
 use App\Models\oc_topping_product_price_size;
 use App\Models\oc_product_description;
 use App\Models\oc_topping_size;
+use App\Models\layout;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class MenuController extends Controller
@@ -52,6 +53,30 @@ class MenuController extends Controller
         $cart=Cart::content();
         $total=Cart::total();
         $subtotal =Cart::subtotal();
-        return Inertia::render('ShopPages/Theme_6/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+
+        $layout = layout::with('get_slider','get_gallery','get_popular','get_category')->where('store_id', $store_id)->first();
+
+        $theme = $layout['theme'];
+
+        if($theme == 5){
+            return Inertia::render('ShopPages/Theme_5/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 4){
+            return Inertia::render('ShopPages/Theme_4/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 3){
+            return Inertia::render('ShopPages/Theme_3/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 2){
+            return Inertia::render('ShopPages/Theme_2/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 1){
+            return Inertia::render('ShopPages/Theme_1/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        else{
+            return Inertia::render('ShopPages/Theme_6/Menu',['theme' => $theme,'setting'=>$data,'category'=>$category,'timeSetting'=>$timeSetting,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        
+        
     }
 }

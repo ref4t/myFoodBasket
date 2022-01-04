@@ -9,19 +9,15 @@
       <div class="home-slide-v6-swiper">
         <div class="swiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide" style="background-image: url(/demo-data/slider.jpg)">
+
+            <div v-for="slider in layout.get_slider" :key="slider" class="swiper-slide" :style="'background-image: url(' + slider.path + ')'">
               <div class="container">
                 <div class="slide-logo"><img class="img-fluid" src="/img/logo/slider-logo.svg"/></div>
-                <h2 class="__title">Our restaurant offers amazing dishes from around the world!</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aut dolorum eius eligendi est ipsa iste, magnam nesciunt non nostrum odit, omnis quam reprehenderit vitae voluptatem. Culpa mollitia placeat rem.</p>
+                <h2 class="__title">{{layout.slider_title}}</h2>
+                <p> {{layout.slider_description}} </p>
               </div>
             </div>
-            <div class="swiper-slide" style="background-image: url(/demo-data/slider.jpg)">
-              <div class="container">
-                <h2 class="__title">Our restaurant offers amazing dishes from around the world!</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aut dolorum eius eligendi est ipsa iste, magnam nesciunt non nostrum odit, omnis quam reprehenderit vitae voluptatem. Culpa mollitia placeat rem.</p>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
@@ -34,21 +30,20 @@
     </section>
 
 <!-- ABOUT US SECTION -->
-    <section class="who-are-we-v6 pt-90 pb-90 wow animate__fadeInUp" data-wow-duration="1s">
+    <section class="who-are-we-v6 pt-90 pb-90 wow animate__fadeInUp" data-wow-duration="1s" :style="'background-color:'+ layout.about_bg" >
       <div class="container">
         <div class="default-title-v6"><strong class="sub-title color-orange text-uppercase">about us</strong>
-          <h3 class="title text-uppercase">SEE WHO WE ARE AND WHAT WE OFFER!</h3>
+          <h3 class="title text-uppercase" :style="'color:'+ layout.about_content" >SEE WHO WE ARE AND WHAT WE OFFER!</h3>
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid consectetur deleniti dolorum est facilis labore maiores molestias odio officiis quam qui quisquam repellendus sapiente sequi suscipit tempora, ut.</p>
-        <p>Magnam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br>At autem consequatur consequuntur dolor dolorum eligendi error excepturi facere illum, inventore laudantium, <br>libero minima mollitia nihil nobis quis quod tenetur vitae?</p><a class="btn text-uppercase" href="">read more</a>
+        <p>{{ layout.about_description }}</p><a class="btn text-uppercase" href="">read more</a>
       </div>
     </section>
 
 <!-- BOOKING SECTION -->
-    <section class="reservation-v6 pt-90 pb-90 wow animate__fadeInUp" data-wow-duration="1s">
+    <section v-if="layout.booking == 1" class="reservation-v6 pt-90 pb-90 wow animate__fadeInUp" data-wow-duration="1s" :style="'background-color:'+ layout.booking_bg">
       <form class="container">
         <div class="default-title-v6"><strong class="sub-title color-orange text-uppercase">reservation</strong>
-          <h3 class="title text-uppercase">BOOK A TABLE NOW!</h3>
+          <h3 class="title text-uppercase" :style="'color:'+ layout.booking_content" >BOOK A TABLE NOW!</h3>
         </div>
         <div class="row">
           <div class="col">
@@ -79,271 +74,54 @@
 
 <!-- GALERRY SECTION -->
 
-    <section class="photo-gallery-v6 pt-90 pb-90 wow animate__fadeInUp" data-wow-duration="1s">
+    <section v-if="layout.gallery == 1" class="photo-gallery-v6 pt-90 pb-90 wow animate__fadeInUp" data-wow-duration="1s" :style="'background-color:'+ layout.gallery_bg">
       <div class="default-title-v6"><strong class="sub-title color-orange text-uppercase">gallery</strong>
-        <h3 class="title text-uppercase">OUR RESTAURANT AND THE FOOD THEY SERVE THEIR GUESTS</h3>
+        <h3 class="title text-uppercase" :style="'color:'+ layout.gallery_content" >OUR RESTAURANT AND THE FOOD THEY SERVE THEIR GUESTS</h3>
       </div>
       <div class="container-fluid">
         <div class="row">
-          <div class="col">
-            <div class="item"><a class="fas fa-search-plus" href="/demo-data/photo-gallery/placehold 1.jpg" data-fancybox="photoGallery"></a><img class="img-fluid" src="/demo-data/photo-gallery/placehold 1.jpg"/></div>
-          </div>
-          <div class="col">
-            <div class="item"><a class="fas fa-search-plus" href="/demo-data/photo-gallery/placehold 2.jpg" data-fancybox="photoGallery"></a><img class="img-fluid" src="/demo-data/photo-gallery/placehold 2.jpg"/></div>
-          </div>
-          <div class="col">
-            <div class="item"><a class="fas fa-search-plus" href="/demo-data/photo-gallery/placehold 3.jpg" data-fancybox="photoGallery"></a><img class="img-fluid" src="/demo-data/photo-gallery/placehold 3.jpg"/></div>
-          </div>
-          <div class="col">
-            <div class="item"><a class="fas fa-search-plus" href="/demo-data/photo-gallery/placehold 4.jpg" data-fancybox="photoGallery"></a><img class="img-fluid" src="/demo-data/photo-gallery/placehold 4.jpg"/></div>
-          </div>
-          <div class="col">
-            <div class="item"><a class="fas fa-search-plus" href="/demo-data/photo-gallery/placehold 5.jpg" data-fancybox="photoGallery"></a><img class="img-fluid" src="/demo-data/photo-gallery/placehold 5.jpg"/></div>
-          </div>
-          <div class="col">
-            <div class="item"><a class="fas fa-search-plus" href="/demo-data/photo-gallery/placehold 6.jpg" data-fancybox="photoGallery"></a><img class="img-fluid" src="/demo-data/photo-gallery/placehold 6.jpg"/></div>
-          </div>
-          <div class="col">
-            <div class="item"><a class="fas fa-search-plus" href="/demo-data/photo-gallery/placehold 7.jpg" data-fancybox="photoGallery"></a><img class="img-fluid" src="/demo-data/photo-gallery/placehold 7.jpg"/></div>
-          </div>
-          <div class="col">
-            <div class="item"><a class="fas fa-search-plus" href="/demo-data/photo-gallery/placehold 8.jpg" data-fancybox="photoGallery"></a><img class="img-fluid" src="/demo-data/photo-gallery/placehold 8.jpg"/></div>
-          </div>
-          <div class="col">
-            <div class="item"><a class="fas fa-search-plus" href="/demo-data/photo-gallery/placehold 9.jpg" data-fancybox="photoGallery"></a><img class="img-fluid" src="/demo-data/photo-gallery/placehold 9.jpg"/></div>
-          </div>
-          <div class="col">
-            <div class="item"><a class="fas fa-search-plus" href="/demo-data/photo-gallery/placehold 10.jpg" data-fancybox="photoGallery"></a><img class="img-fluid" src="/demo-data/photo-gallery/placehold 10.jpg"/></div>
+
+          <div v-for=" gallery in layout.get_gallery" :key="gallery" class="col">
+            <div class="item"><a class="fas fa-search-plus" :href="gallery.path" data-fancybox="photoGallery"></a><img class="img-fluid" :src="gallery.path"/></div>
           </div>
         </div>
       </div>
     </section>
 
 <!-- POPULAR SECTION -->
-    <section class="popular-foods-v6 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
+    <section v-if="layout.popular == 1" class="popular-foods-v6 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s" :style="'background-color:'+ layout.popular_bg">
       <div class="default-title-v6"><strong class="sub-title color-orange text-uppercase">Popular Foods</strong>
-        <h3 class="title text-uppercase">CHECK OUT OUR MENU AND SELECT SOMETHING FOR EVERYONE</h3>
+        <h3 class="title text-uppercase" :style="'color:'+ layout.popular_content" >CHECK OUT OUR MENU AND SELECT SOMETHING FOR EVERYONE</h3>
       </div>
       <div class="container">
         <div class="row list-item">
-          <div class="col-12 col-sm-12 col-md-6">
+          <div v-for="popular in layout.get_popular" :key="popular" class="col-12 col-sm-12 col-md-6">
             <div class="item">
-              <div class="img"><img class="img-fluid" src="/demo-data/photo-gallery/placehold 2.jpg"/></div>
-              <div class="text-content"><strong class="text-capitalize">Alvarado</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+              <div class="img"><img class="img-fluid" :src="popular.path"/></div>
+              <div class="text-content"><strong class="text-capitalize">{{popular.name}}</strong>
+                <p>{{popular.description}}</p>
               </div>
             </div>
           </div>
-          <div class="col-12 col-sm-12 col-md-6">
-            <div class="item">
-              <div class="img"><img class="img-fluid" src="/demo-data/photo-gallery/placehold 2.jpg"/></div>
-              <div class="text-content"><strong class="text-capitalize">Alvarado</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6">
-            <div class="item">
-              <div class="img"><img class="img-fluid" src="/demo-data/photo-gallery/placehold 2.jpg"/></div>
-              <div class="text-content"><strong class="text-capitalize">Alvarado</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6">
-            <div class="item">
-              <div class="img"><img class="img-fluid" src="/demo-data/photo-gallery/placehold 2.jpg"/></div>
-              <div class="text-content"><strong class="text-capitalize">Alvarado</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6">
-            <div class="item">
-              <div class="img"><img class="img-fluid" src="/demo-data/photo-gallery/placehold 2.jpg"/></div>
-              <div class="text-content"><strong class="text-capitalize">Alvarado</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6">
-            <div class="item">
-              <div class="img"><img class="img-fluid" src="/demo-data/photo-gallery/placehold 2.jpg"/></div>
-              <div class="text-content"><strong class="text-capitalize">Alvarado</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6">
-            <div class="item">
-              <div class="img"><img class="img-fluid" src="/demo-data/photo-gallery/placehold 2.jpg"/></div>
-              <div class="text-content"><strong class="text-capitalize">Alvarado</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6">
-            <div class="item">
-              <div class="img"><img class="img-fluid" src="/demo-data/photo-gallery/placehold 2.jpg"/></div>
-              <div class="text-content"><strong class="text-capitalize">Alvarado</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6">
-            <div class="item">
-              <div class="img"><img class="img-fluid" src="/demo-data/photo-gallery/placehold 2.jpg"/></div>
-              <div class="text-content"><strong class="text-capitalize">Alvarado</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6">
-            <div class="item">
-              <div class="img"><img class="img-fluid" src="/demo-data/photo-gallery/placehold 2.jpg"/></div>
-              <div class="text-content"><strong class="text-capitalize">Alvarado</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              </div>
-            </div>
-          </div>
+        
         </div>
       </div>
     </section>
 <!-- CATEGORY SECTION -->
-    <section class="popular-categories-v6 pt-90 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
+    <section v-if="layout.category == 1" class="popular-categories-v6 pt-90 pb-75 wow animate__fadeInUp" data-wow-duration="1s" :style="'background-color:'+ layout.category_bg">
       <div class="default-title-v6 text-center container"><strong class="sub-title text-uppercase">popular categories</strong>
-        <h3 class="title text-capitalize">CHECK OUT OUR MENU AND SELECT SOMETHING FOR EVERYONE</h3>
+        <h3 class="title text-capitalize" :style="'color:'+ layout.category_content">CHECK OUT OUR MENU AND SELECT SOMETHING FOR EVERYONE</h3>
       </div>
       <div class="container">
         <div class="popular-categories-v6-swiper">
           <div class="__btn-list"><a class="text-uppercase active" href="" data-filter="all">all</a><a class="text-uppercase" href="" data-filter="breakfast">breakfast</a><a class="text-uppercase" href="" data-filter="soup">soup</a></div>
           <div class="swiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" data-slide-filter="breakfast">
+              <div v-for="category in layout.get_category" :key="category" class="swiper-slide" data-slide-filter="breakfast">
                 <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/0.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">breakfast</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="soup">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/1.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">soup</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="breakfast">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/0.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">breakfast</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="soup">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/1.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">soup</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="breakfast">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/0.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">breakfast</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="soup">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/1.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">soup</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="breakfast">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/0.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">breakfast</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="soup">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/1.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">soup</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="breakfast">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/0.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">breakfast</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="soup">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/1.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">soup</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="breakfast">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/0.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">breakfast</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="soup">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/1.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">soup</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="breakfast">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/0.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">breakfast</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="soup">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/1.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">soup</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="breakfast">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/0.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">breakfast</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide" data-slide-filter="soup">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" src="/demo-data/best-categories/1.jpg"/></div>
-                  <div class="text-content"><strong class="text-capitalize">soup</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                  <div class="img"><img class="img-fluid" :src="category.path"/></div>
+                  <div class="text-content"><strong class="text-capitalize">{{category.title}}</strong>
+                    <p>{{category.description}}</p>
                   </div>
                 </div>
               </div>
@@ -354,10 +132,10 @@
       </div>
     </section>
 <!-- RATING SECTION -->
-    <section class="user-comments-v6 pt-90 pb-90">
+    <section class="user-comments-v6 pt-90 pb-90" :style="'background-color:'+ layout.rating_bg"  >
       <div class="container pt-110 pb-110 wow animate__fadeInUp" data-wow-duration="1s">
         <div class="default-title-v6"><strong class="sub-title text-uppercase">Testimonials</strong>
-          <h3 class="title">WHAT OUR CUSTOMERS SAY</h3>
+          <h3 class="title" :style="'color:'+ layout.rating_content" >WHAT OUR CUSTOMERS SAY</h3>
         </div>
         <div class="user-comments-v6-swiper position-relative">
           <div class="swiper">
@@ -387,9 +165,9 @@
       </div>
     </section>
 <!-- OPENNING HOUR SECTION -->
-    <section class="opening-hours-v6 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
+    <section class="opening-hours-v6 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s" :style="'background-color:'+ layout.opening_bg">
       <div class="default-title-v6 text-center"><strong class="sub-title text-capitalize">opening hourse</strong>
-        <h3 class="title text-capitalize">open 7 days a week</h3>
+        <h3 class="title text-capitalize" :style="'color:'+ layout.opening_content" >open 7 days a week</h3>
       </div>
       <div class="__info">
         <div class="__container"><img class="img-fluid mb-3" src="/img/icon/time-clock.svg"/>
@@ -440,19 +218,20 @@ export default {
         cTotal:String,
         cSubtotal:String,
         timeSetting:Object,
+        layout:Object
     },
-    mounted() {
-        let links=[ 
-                    '/js/theme6/app.js'
-                  ];
-  links.forEach(function(value,index){
-    let externalScript = document.createElement('script')
-      // externalScript.async = true
-      externalScript.setAttribute('src', value)
-      document.body.appendChild(externalScript)
-  });
+  //   mounted() {
+  //       let links=[ 
+  //                   '/js/theme6/app.js'
+  //                 ];
+  // links.forEach(function(value,index){
+  //   let externalScript = document.createElement('script')
+  //     // externalScript.async = true
+  //     externalScript.setAttribute('src', value)
+  //     document.body.appendChild(externalScript)
+  // });
       
-   },
+  //  },
 }
 
 </script>

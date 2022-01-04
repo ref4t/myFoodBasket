@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\oc_setting;
 use App\Models\oc_store;
+use App\Models\layout;
 
 
 class MemberController extends Controller
@@ -43,8 +44,30 @@ class MemberController extends Controller
         $cart=Cart::content();
         $total=Cart::total();
         $subtotal =Cart::subtotal();
-        $theme = 2;
-        
+        // $theme = 2;
+
+        $layout = layout::with('get_slider','get_gallery','get_popular','get_category')->where('store_id', $store_id)->first();
+
+        $theme = $layout['theme'];
+
+        if($theme == 5){
+            return Inertia::render('ShopPages/Theme_5/Member',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 4){
+            return Inertia::render('ShopPages/Theme_4/Member',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 3){
+            return Inertia::render('ShopPages/Theme_3/Member',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 2){
+            return Inertia::render('ShopPages/Theme_2/Member',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        elseif($theme == 1){
+            return Inertia::render('ShopPages/Theme_1/Member',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+        else{
             return Inertia::render('ShopPages/Theme_6/Member',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
+        }
+            
     }
 }
