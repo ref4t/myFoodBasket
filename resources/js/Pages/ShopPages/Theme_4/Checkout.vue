@@ -411,7 +411,7 @@
             </div>
         </div>
     </div>
-<TopFooter :logo="setting.config_logo" :name="setting.config_name"></TopFooter>
+ <TopFooter :name="setting.config_name" :logo="setting.config_logo" :address="setting.config_address" :telephone="setting.config_telephone" :email="setting.config_email" />
 </template>
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';

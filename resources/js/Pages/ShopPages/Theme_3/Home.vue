@@ -201,7 +201,7 @@
     
     
 
-    <TopFooter/>
+    <TopFooter :name="setting.config_name" :logo="setting.config_logo" :address="setting.config_address" :telephone="setting.config_telephone" :email="setting.config_email" />
 
 
 </template>

@@ -4,8 +4,8 @@
         <div class="container">
           <div class="row">
             <div class="col-12 col-sm-12 col-md-4 col-lg-4">
-              <div class="footer-about mb-4"><a class="f-logo" href="#"><img class="img-fluid" src="/assets/img/logo/f-logo.svg"/></a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Bibendum est ultricies integer quis. Iaculis urna id</p>
+              <div class="footer-about mb-4"><a class="f-logo" href="#"> <img class="img-fluid" :src="'/image/'+logo"/></a>
+               
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-8 col-lg-6 offset-lg-2">
@@ -13,16 +13,11 @@
               <div class="row">
                 <div class="col-12 col-sm-12 col-md-8">
                   <ul class="__footer-menu row mb-4">
-                    <li class="col-6"><a class="text-uppercase" href="">home</a></li>
-                    <li class="col-6"><a class="text-uppercase" href="">gallery</a></li>
-                    <li class="col-6"><a class="text-uppercase" href="">home</a></li>
-                    <li class="col-6"><a class="text-uppercase" href="">gallery</a></li>
-                    <li class="col-6"><a class="text-uppercase" href="">home</a></li>
-                    <li class="col-6"><a class="text-uppercase" href="">gallery</a></li>
-                    <li class="col-6"><a class="text-uppercase" href="">home</a></li>
-                    <li class="col-6"><a class="text-uppercase" href="">gallery</a></li>
-                    <li class="col-6"><a class="text-uppercase" href="">home</a></li>
-                    <li class="col-6"><a class="text-uppercase" href="">gallery</a></li>
+                    <li class="col-6"><a class="text-uppercase" href="/"          >home</a></li>
+                    <li class="col-6"><a class="text-uppercase" href="/member"    >member</a></li>
+                    <li class="col-6"><a class="text-uppercase" href="/menu"      >menu</a></li>
+                    <li class="col-6"><a class="text-uppercase" href="/checkout"  >check out</a></li>
+                    <li class="col-6"><a class="text-uppercase" href="/contactus" >contact us</a></li>
                   </ul>
                 </div>
                 <div class="col-12 col-sm-12 col-md-4">
@@ -34,14 +29,14 @@
         </div>
       </div>
       <div class="copyright">
-        <p>Copyright © 2021 Star Kebab Tenterden</p>
+        <p>Copyright © 2021 {{name}}</p>
       </div>
     </footer><a id="go-up" href="javascript:void(0)"><i class="fas fa-angle-up"></i></a>
 
 </template>
 <script>
 export default {
-    props:['logo','name'],
+    props:['logo','name','address','telephone','email'],
 }
 </script>
 <style>

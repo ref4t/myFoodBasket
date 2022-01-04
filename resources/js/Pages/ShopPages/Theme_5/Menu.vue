@@ -143,12 +143,12 @@
         </div>
     </div>
 </div>
-<TopFooterSix :logo="setting.config_logo" :name="setting.config_name"></TopFooterSix>
+<TopFooter :name="setting.config_name" :logo="setting.config_logo" :address="setting.config_address" :telephone="setting.config_telephone" :email="setting.config_email" />
 </template>
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import TopHeader from '@/Pages/ShopPages/Theme_5/Header5.vue';
-import TopFooterSix from '@/Pages/ShopPages/Theme_5/Footer5.vue';
+import TopFooter from '@/Pages/ShopPages/Theme_5/Footer5.vue';
 import { useToast } from "vue-toastification";
 import { reactive } from 'vue'
 
@@ -157,7 +157,7 @@ export default {
         Head,
         Link,
         TopHeader,
-        TopFooterSix,
+        TopFooter,
     },
     setup() {
       const toast = useToast();
