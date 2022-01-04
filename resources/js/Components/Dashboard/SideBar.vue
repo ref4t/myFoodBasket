@@ -300,7 +300,7 @@
               <li class="nav-item">
                  <Link :href="route('admin.settings.shop.index')" class="nav-link" :class="route().current('admin.settings.shop.*') ? 'active' : ' ' ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Shop ettings </p>
+                  <p>Shop Settings </p>
                 </Link>
               </li>
               <!-- <li class="nav-item">
@@ -330,7 +330,7 @@
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>
-                  <p>payment Setting </p>
+                  <p>Payment Setting </p>
                 </Link>
               </li>
               <li class="nav-item">

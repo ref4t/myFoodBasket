@@ -190,11 +190,11 @@
       <div class="container">
         <div class="default-title-v3 text-center">
           <h3 class="title text-capitalize">opening hours</h3>
-          <p>Open 7 Days a Week</p>
+          <p>Open {{openTime.length}} Days a Week</p>
         </div>
-        <div class="__time">
-          <div class="__time-item"><strong>Monday - Friday</strong><span>09:00 - 23:00</span></div>
-          <div class="__time-item"><strong>Sunday</strong><span>12:00 - 23:00</span></div>
+        <div class="__time" style="max-width: none;">
+          <div class="__time-item" v-for="day in openTime"><strong>{{day[0]}}</strong><span>{{day[1]}}</span></div>
+          <!-- <div class="__time-item"><strong>Sunday</strong><span>12:00 - 23:00</span></div> -->
         </div>
       </div>
     </section>
@@ -226,6 +226,33 @@ export default {
         }
         
     },
+    computed:{
+      openTime:function(){
+         let days=this.setting.opening_time.split(" ")
+      let finalDays=[];
+      days.forEach((val,ind) => {
+        finalDays[ind]=val.split(',');
+      });
+      const d = new Date();
+      console.log(finalDays);
+      return finalDays;
+      // let todayDay = d.toLocaleString('en-GB', { weekday: 'long' });
+      // let timeToday=null;
+      // finalDays.forEach(element => {
+      //   if(element[0] === todayDay){
+          
+      //     timeToday= element[1];
+      //   }
+        
+      // });
+      // if(!timeToday){
+      //     return "Closed Today";
+      //   }
+      //   else{
+      //     return timeToday;
+      //   }
+      }
+    },
     props:{
         setting:Object,
         cartItems:Object,
@@ -236,11 +263,11 @@ export default {
     },
   //   mounted() {
   //       let links=[ 
-  //                   '/js/theme6/app.js'
+  //                   '/js/theme3/app.js'
   //                 ];
   // links.forEach(function(value,index){
   //   let externalScript = document.createElement('script')
-  //     // externalScript.async = true
+  //     externalScript.async = true
   //     externalScript.setAttribute('src', value)
   //     document.body.appendChild(externalScript)
   // });
