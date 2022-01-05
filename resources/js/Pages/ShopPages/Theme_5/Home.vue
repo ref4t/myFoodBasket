@@ -19,14 +19,14 @@
             <div class="home-slide-v5-swiper swiper">
               <div class="swiper-wrapper">
                 <div  v-for="slider in layout.get_slider" :key="slider" class="swiper-slide"><img class="img-fluid" :src="slider.path"/></div>
-                <!-- <div class="swiper-slide"><img class="img-fluid" src="/assets/demo-data/slider.png"/></div>
-                <div class="swiper-slide"><img class="img-fluid" src="/assets/demo-data/slider.png"/></div> -->
+                <!-- <div class="swiper-slide"><img class="img-fluid" src="/demo-data/slider.png"/></div>
+                <div class="swiper-slide"><img class="img-fluid" src="/demo-data/slider.png"/></div> -->
               </div>
               <!-- <div class="happy-customers"><strong class="text-uppercase">our happy customers</strong>
                 <div class="__img-list">
-                  <div class="__img"><img class="img-fluid" src="/assets/demo-data/girl.jpeg"/></div>
-                  <div class="__img"><img class="img-fluid" src="/assets/demo-data/girl.jpeg"/></div>
-                  <div class="__img"><img class="img-fluid" src="/assets/demo-data/girl.jpeg"/></div>
+                  <div class="__img"><img class="img-fluid" src="/demo-data/girl.jpeg"/></div>
+                  <div class="__img"><img class="img-fluid" src="/demo-data/girl.jpeg"/></div>
+                  <div class="__img"><img class="img-fluid" src="/demo-data/girl.jpeg"/></div>
                   <div class="__count">8+</div>
                 </div>
               </div> -->
@@ -146,78 +146,9 @@
         </div>
         <div class="user-comments-v5-swiper position-relative">
           <div class="swiper">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide"><strong>Selçuk Aker 0</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 0</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 1</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 1</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 2</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 2</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 3</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 3</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 4</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 4</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 5</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 5</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 6</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 6</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 7</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 7</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 8</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 8</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 9</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 9</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 10</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 10</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 11</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 11</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 12</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 12</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 13</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 13</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 14</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 14</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 15</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 15</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 16</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 16</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 17</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 17</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 18</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 18</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 19</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 19</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 20</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 20</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 21</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 21</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 22</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 22</p><span>UX Designer</span>
-              </div>
-              <div class="swiper-slide"><strong>Selçuk Aker 23</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 23</p><span>UX Designer</span>
+            <div class="swiper-wrapper" v-for="review in reviews" :key="review">
+              <div class="swiper-slide"><strong>{{review.get_customer.firstname}} {{review.get_customer.lastname}}</strong>
+                <p>{{review.message}}</p>
               </div>
             </div>
           </div>
@@ -318,18 +249,17 @@
 
     <section class="opening-hours-v5 pt-75 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="default-title-v5 text-center"><strong class="sub-title color-orange text-capitalize">opening hourse</strong>
-        <h3 class="title text-capitalize">open 7 days a week</h3>
+        <h3 class="title text-capitalize">open {{openTime.length}} days a week</h3>
       </div>
       <div class="__info">
-        <div class="__container"><img class="img-fluid mb-3" src="/assets/img/icon/time-top-flower.svg"/><strong class="__time-title">OPEN NOW</strong>
-          <div class="__time"><strong>MONDAY-<br>SATURDAY</strong>
+        <div class="__container"><img class="img-fluid mb-3" src="/img/icon/time-top-flower.svg"/><strong class="__time-title">OPEN NOW</strong>
+          <div class="__time" v-for="day in openTime" :key="day" style="max-width:none" ><span>{{day[0]}}</span><span>{{day[1]}}</span></div>
+          <!-- <div class="__time" v-for="day in openTime" :key="day"><strong>{{day[0]}}</strong>
             <div class="__time-box">
-              <div class="__left-time"><span>9</span><span>A<br>M</span></div>
-              <div class="__time-divier"></div>
-              <div class="__right-time"><span>11</span><span>P<br>M</span></div>
+              <div class="__left-time"><span>{{day[1]}}</span></div>
             </div>
-          </div>
-          <div class="__time"><span>SUNDAY 9:30 AM to 11AM</span></div><img class="img-fluid mt-3" src="/assets/img/icon/time-bottom-flower.svg"/>
+          </div> -->
+          <img class="img-fluid mt-3" src="/img/icon/time-bottom-flower.svg"/>
         </div>
       </div>
     </section>
@@ -365,7 +295,20 @@ export default {
         cTotal:String,
         cSubtotal:String,
         timeSetting:Object,
-        layout:Object
+        layout:Object,
+        reviews:Object,
+    },
+    computed:{
+      openTime:function(){
+         let days=this.setting.opening_time.split(" ")
+      let finalDays=[];
+      days.forEach((val,ind) => {
+        finalDays[ind]=val.split(',');
+      });
+      const d = new Date();
+      console.log(finalDays);
+      return finalDays;
+      }
     },
   //   mounted() {
   //       let links=[ 

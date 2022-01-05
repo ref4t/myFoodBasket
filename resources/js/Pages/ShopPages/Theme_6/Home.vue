@@ -5,16 +5,16 @@
 <TopHeaderSix :logo="setting.config_logo" :total="cartTotal" :cartCount="Object.keys(cartTest).length" :openingTime="setting.opening_time" :timeSetting="timeSetting"></TopHeaderSix>
 
 <!-- slider -->
-<section class="home-slide-v6 wow animate__fadeInUp" data-wow-duration="1s">
+    <section class="home-slide-v6 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="home-slide-v6-swiper">
         <div class="swiper">
           <div class="swiper-wrapper">
 
             <div v-for="slider in layout.get_slider" :key="slider" class="swiper-slide" :style="'background-image: url(' + slider.path + ')'">
               <div class="container">
-                <div class="slide-logo"><img class="img-fluid" src="/img/logo/slider-logo.svg"/></div>
-                <h2 class="__title">{{layout.slider_title}}</h2>
-                <p> {{layout.slider_description}} </p>
+                <!-- <div class="slide-logo"><img class="img-fluid" :src="'/image/'+setting.config_logo"/></div> -->
+                <h2 class="__title" > {{slider.title}} </h2>
+                <p v-html="slider.description" >  </p>
               </div>
             </div>
 
@@ -140,23 +140,9 @@
         <div class="user-comments-v6-swiper position-relative">
           <div class="swiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <p>Aliquam auctor, elit id imperdiet sollicitudin, diam dui viverra lorem, in maximus eros mauris in lacus. Phasellus malesuada posuere urna, ut imperdiet quam.Duis finibus mi ac velit posuere venenatis.</p><strong>Selçuk Aker 0</strong>
-              </div>
-              <div class="swiper-slide">
-                <p>Aliquam auctor, elit id imperdiet sollicitudin, diam dui viverra lorem, in maximus eros mauris in lacus. Phasellus malesuada posuere urna, ut imperdiet quam.Duis finibus mi ac velit posuere venenatis.</p><strong>Selçuk Aker 1</strong>
-              </div>
-              <div class="swiper-slide">
-                <p>Aliquam auctor, elit id imperdiet sollicitudin, diam dui viverra lorem, in maximus eros mauris in lacus. Phasellus malesuada posuere urna, ut imperdiet quam.Duis finibus mi ac velit posuere venenatis.</p><strong>Selçuk Aker 2</strong>
-              </div>
-              <div class="swiper-slide">
-                <p>Aliquam auctor, elit id imperdiet sollicitudin, diam dui viverra lorem, in maximus eros mauris in lacus. Phasellus malesuada posuere urna, ut imperdiet quam.Duis finibus mi ac velit posuere venenatis.</p><strong>Selçuk Aker 3</strong>
-              </div>
-              <div class="swiper-slide">
-                <p>Aliquam auctor, elit id imperdiet sollicitudin, diam dui viverra lorem, in maximus eros mauris in lacus. Phasellus malesuada posuere urna, ut imperdiet quam.Duis finibus mi ac velit posuere venenatis.</p><strong>Selçuk Aker 4</strong>
-              </div>
-              <div class="swiper-slide">
-                <p>Aliquam auctor, elit id imperdiet sollicitudin, diam dui viverra lorem, in maximus eros mauris in lacus. Phasellus malesuada posuere urna, ut imperdiet quam.Duis finibus mi ac velit posuere venenatis.</p><strong>Selçuk Aker 5</strong>
+              <div class="swiper-slide" v-for="review in reviews" :key="review">
+                <p>{{review.message}}</p>
+                <strong>{{review.get_customer.firstname}} {{review.get_customer.lastname}}</strong>
               </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -167,26 +153,26 @@
 <!-- OPENNING HOUR SECTION -->
     <section class="opening-hours-v6 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s" :style="'background-color:'+ layout.opening_bg">
       <div class="default-title-v6 text-center"><strong class="sub-title text-capitalize">opening hourse</strong>
-        <h3 class="title text-capitalize" :style="'color:'+ layout.opening_content" >open 7 days a week</h3>
+        <h3 class="title text-capitalize" :style="'color:'+ layout.opening_content" >open {{openTime.length}} days a week</h3>
       </div>
       <div class="__info">
         <div class="__container"><img class="img-fluid mb-3" src="/img/icon/time-clock.svg"/>
           <div class="__divider"></div><strong class="__time-title">OPEN NOW</strong>
           <div class="__divider"></div>
-          <div class="__time"><strong>Monday - Friday</strong>
+          
+          <div class="__time" v-for="day in openTime" :key="day"><strong>{{day[0]}}</strong>
             <div class="__time-box">
-              <div class="__left-time"><span>09:00</span><span>AM</span></div>
-              <div class="__time-divier"></div>
-              <div class="__right-time"><span>11:00</span><span>PM</span></div>
+              <div class="__left-time"><span>{{day[1]}}</span></div>
+              
             </div>
           </div>
-          <div class="__time"><strong>Sunday</strong>
+          <!-- <div class="__time"><strong>Sunday</strong>
             <div class="__time-box">
               <div class="__left-time"><span>12:00</span><span>AM</span></div>
               <div class="__time-divier"></div>
               <div class="__right-time"><span>11:30</span><span>PM</span></div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
@@ -218,7 +204,20 @@ export default {
         cTotal:String,
         cSubtotal:String,
         timeSetting:Object,
-        layout:Object
+        layout:Object,
+        reviews:Object
+    },
+    computed:{
+      openTime:function(){
+         let days=this.setting.opening_time.split(" ")
+      let finalDays=[];
+      days.forEach((val,ind) => {
+        finalDays[ind]=val.split(',');
+      });
+      const d = new Date();
+      console.log(finalDays);
+      return finalDays;
+      }
     },
   //   mounted() {
   //       let links=[ 

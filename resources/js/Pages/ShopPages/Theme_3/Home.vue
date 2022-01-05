@@ -89,23 +89,11 @@
         <div class="user-comments-v3-swiper position-relative">
           <div class="swiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <div class="message-text"><strong>THAT’S AN AWESOME RESTAURANT & FOOD 0</strong>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad <br>minim veniam, quis nostrud exercitation 0</p>
+              <div class="swiper-slide" v-for="review in reviews" :key="review">
+                <div class="message-text"><strong>{{review.title}}</strong>
+                  <p>{{review.message}}</p>
                 </div>
-                <div class="message-info"><strong>Selçuk Aker</strong><span>UX Designer</span></div>
-              </div>
-              <div class="swiper-slide">
-                <div class="message-text"><strong>THAT’S AN AWESOME RESTAURANT & FOOD 1</strong>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad <br>minim veniam, quis nostrud exercitation 1</p>
-                </div>
-                <div class="message-info"><strong>Selçuk Aker</strong><span>UX Designer</span></div>
-              </div>
-              <div class="swiper-slide">
-                <div class="message-text"><strong>THAT’S AN AWESOME RESTAURANT & FOOD 2</strong>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad <br>minim veniam, quis nostrud exercitation 2</p>
-                </div>
-                <div class="message-info"><strong>Selçuk Aker</strong><span>UX Designer</span></div>
+                <div class="message-info"><strong>{{review.get_customer.firstname}} {{review.get_customer.lastname}}</strong></div>
               </div>
             </div>
           </div>
@@ -193,7 +181,7 @@
           <p>Open {{openTime.length}} Days a Week</p>
         </div>
         <div class="__time" style="max-width: none;">
-          <div class="__time-item" v-for="day in openTime"><strong>{{day[0]}}</strong><span>{{day[1]}}</span></div>
+          <div class="__time-item" v-for="day in openTime" :key="day"><strong>{{day[0]}}</strong><span>{{day[1]}}</span></div>
           <!-- <div class="__time-item"><strong>Sunday</strong><span>12:00 - 23:00</span></div> -->
         </div>
       </div>
@@ -259,7 +247,8 @@ export default {
         cTotal:String,
         cSubtotal:String,
         timeSetting:Object,
-        layout:Object
+        layout:Object,
+        reviews:Object,
     },
   //   mounted() {
   //       let links=[ 

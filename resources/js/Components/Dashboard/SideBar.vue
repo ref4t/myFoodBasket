@@ -276,6 +276,24 @@
                   <p>Layout</p>
                 </Link>
               </li>
+              <li class="nav-item">
+                <Link :href="route('admin.layout.slider.index')" class="nav-link" :class="route().current('admin.layout.slider.*') ? 'active' : ' ' ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Slider</p>
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link :href="route('admin.layout.category.index')" class="nav-link" :class="route().current('admin.layout.category.*') ? 'active' : ' ' ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Category</p>
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link :href="route('admin.layout.item.index')" class="nav-link" :class="route().current('admin.layout.item.*') ? 'active' : ' ' ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Items</p>
+                </Link>
+              </li>
             </ul>
           </li>
 

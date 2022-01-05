@@ -27,8 +27,9 @@
         <div class="container">
           <div class="working-time"><i class="far fa-clock"></i>
             <div><strong class="text-uppercase">Working Time:</strong><span>{{openTime}}</span></div>
-          </div><Link class="logo" href="#slide"><img class="img-fluid" :src="'/image/'+logo" style="max-height:100px"/></Link>
-          <!-- restaurant açık ise open kapalı ise closed clas'ını kullanın-->
+          </div>
+          <Link class="logo" href="#slide"><img class="img-fluid" :src="'/image/'+logo" style="max-height:100px"/></Link>
+          
           <div :class="'restaurant-status '+(timeSetting.open?'open':'closed')+' wow animate__bounceInDown'" data-wow-duration="1s">
             <img class="img-fluid" src="/img/icon/open.svg"/><img class="img-fluid" src="/img/icon/closed.svg"/>
           </div>

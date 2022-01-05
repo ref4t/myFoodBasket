@@ -57,7 +57,7 @@ class ShopController extends Controller
 
         
 
-        dd($data, $image);
+        // dd($data, $image);
 
         
 

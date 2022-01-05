@@ -88,28 +88,16 @@
     <section class="user-comments-v4 pt-75 pb-75">
       <div class="container pt-110 pb-110 wow animate__fadeInUp" data-wow-duration="1s">
         <div class="default-title-v4 text-center mb-0"><strong class="sub-title color-green">Reviews</strong>
-          <h3 class="title">Recent Web Reviews</h3><img class="img-fluid" src="/assets/img/icon/commit-icon.svg"/>
+          <h3 class="title">Recent Web Reviews</h3><img class="img-fluid" src="/img/icon/commit-icon.svg"/>
         </div>
         <div class="user-comments-v4-swiper position-relative">
           <div class="swiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide">
+              <div class="swiper-slide" v-for="review in reviews" :key="review">
                 <div class="message-text">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad <br>minim veniam, quis nostrud exercitation 0</p>
+                  <p>{{review.message}}</p>
                 </div>
-                <div class="message-info"><strong>Selçuk Aker</strong><span>UX Designer</span></div>
-              </div>
-              <div class="swiper-slide">
-                <div class="message-text">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad <br>minim veniam, quis nostrud exercitation 1</p>
-                </div>
-                <div class="message-info"><strong>Selçuk Aker</strong><span>UX Designer</span></div>
-              </div>
-              <div class="swiper-slide">
-                <div class="message-text">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad <br>minim veniam, quis nostrud exercitation 2</p>
-                </div>
-                <div class="message-info"><strong>Selçuk Aker</strong><span>UX Designer</span></div>
+                <div class="message-info"><strong>{{review.get_customer.firstname}} {{review.get_customer.lastname}}</strong></div>
               </div>
             </div>
           </div>
@@ -182,16 +170,15 @@
     
     <section class="opening-hours-v4 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="container">
-        <div class="default-title-v4"><strong class="sub-title color-orange text-capitalize">Open 7 Days a Week</strong>
+        <div class="default-title-v4"><strong class="sub-title color-orange text-capitalize">Open {{openTime.length}} Days a Week</strong>
           <h3 class="title text-capitalize">opening hours</h3>
         </div>
         <br/>
-        <div class="__time">
-          <div class="__time-item"><strong>Mon - Fri</strong>
-            <div><span>09AM</span><span>23PM</span></div>
-          </div>
-          <div class="__time-item"><strong>Sunday</strong>
-            <div><span>12AM</span><span>23PM</span></div>
+        <br/>
+        <!-- <div class="__time" v-for="day in openTime" :key="day" style="max-width:none" ><span>{{day[0]}}</span><span>{{day[1]}}</span></div> -->
+        <div class="__time" >
+          <div class="__time-item"  v-for="day in openTime" :key="day"><strong>{{day[0]}}</strong>
+            <div>{{day[1]}}</div>
           </div>
         </div>
       </div>
@@ -228,7 +215,20 @@ export default {
         cTotal:String,
         cSubtotal:String,
         timeSetting:Object,
-        layout:Object
+        layout:Object,
+        reviews:Object
+    },
+    computed:{
+      openTime:function(){
+         let days=this.setting.opening_time.split(" ")
+      let finalDays=[];
+      days.forEach((val,ind) => {
+        finalDays[ind]=val.split(',');
+      });
+      const d = new Date();
+      console.log(finalDays);
+      return finalDays;
+      }
     },
   //   mounted() {
   //       let links=[ 

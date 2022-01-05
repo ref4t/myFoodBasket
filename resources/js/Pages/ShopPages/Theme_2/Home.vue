@@ -8,8 +8,8 @@
       <div class="swiper-wrapper">
         <div v-for="slider in layout.get_slider" :key="slider" class="swiper-slide" :style="'background-image: url(' + slider.path + ')'">
           <div class="container">
-            <h3 class="text-capitalize">{{layout.slider_title}}</h3><img class="img-fluid __icon" src="/img/icon/slide-divider.svg"/>
-            <p>{{layout.slider_description}}</p><a class="text-uppercase" href="#">read more<span></span></a>
+            <h3 class="text-capitalize" v-html="slider.title"></h3><img class="img-fluid __icon" src="/img/icon/slide-divider.svg"/>
+            <p v-html="slider.description"></p>
           </div>
         </div>
       </div>
@@ -88,13 +88,13 @@
         <div class="user-comments-v2-swiper position-relative">
           <div class="swiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <div class="message-text"><strong>THAT’S AN AWESOME RESTAURANT & FOOD 0</strong>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad <br>minim veniam, quis nostrud exercitation 0</p>
+              <div class="swiper-slide" v-for="review in reviews" :key="review">
+                <div class="message-text"><strong>{{review.title}}</strong>
+                  <p>{{review.message}}</p>
                 </div>
-                <div class="message-info"><strong>Selçuk Aker</strong><span>UX Designer</span></div>
+                <div class="message-info"><strong>{{review.get_customer.firstname}} {{review.get_customer.lastname}}</strong></div>
               </div>
-              <div class="swiper-slide">
+              <!-- <div class="swiper-slide">
                 <div class="message-text"><strong>THAT’S AN AWESOME RESTAURANT & FOOD 1</strong>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad <br>minim veniam, quis nostrud exercitation 1</p>
                 </div>
@@ -105,7 +105,7 @@
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad <br>minim veniam, quis nostrud exercitation 2</p>
                 </div>
                 <div class="message-info"><strong>Selçuk Aker</strong><span>UX Designer</span></div>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="swiper-pagination"></div>
@@ -175,13 +175,16 @@
         </div>
       </div>
     </section>
+    
     <section class="opening-hours-v2 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="container"><img class="img-fluid" src="/img/icon/opening-hours-top-divider.svg"/>
         <h3 class="title text-uppercase">opening hours</h3>
         <div class="_divider"></div><a href="tel:03254769875">TEL: 03254769875</a>
         <h3 class="title text-uppercase __divider">hours</h3>
-        <div class="__time"><span>MON-FRI</span><span>9.30AM-11PM</span></div>
-        <div class="__time"><span>SUN</span><span>9.30AM-11PM</span></div><img class="img-fluid" src="/img/icon/opening-hours-bottom-divider.svg"/>
+         
+        <div class="__time" v-for="day in openTime" :key="day" style="max-width:none" ><span>{{day[0]}}</span><span>{{day[1]}}</span></div>
+        <img class="img-fluid" src="/img/icon/opening-hours-bottom-divider.svg"/>
+        <!-- <div class="__time"><span>SUN</span><span>9.30AM-11PM</span></div> -->
       </div>
     </section>
     
@@ -218,7 +221,20 @@ export default {
         cTotal:String,
         cSubtotal:String,
         timeSetting:Object,
-        layout:Object
+        layout:Object,
+        reviews:Object
+    },
+    computed:{
+      openTime:function(){
+         let days=this.setting.opening_time.split(" ")
+      let finalDays=[];
+      days.forEach((val,ind) => {
+        finalDays[ind]=val.split(',');
+      });
+      const d = new Date();
+      console.log(finalDays);
+      return finalDays;
+      }
     },
   //   mounted() {
   //       let links=[ 

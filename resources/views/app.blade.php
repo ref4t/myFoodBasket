@@ -70,6 +70,7 @@
             <script type="text/javascript" src='/js/theme6/swiper-bundle.min.js'></script>
 
 
+            <script type="text/javascript" src="/js/theme6/app.js"></script>
             <script type="text/javascript" src="/js/theme5/app.js"></script>
             <script type="text/javascript" src="/js/theme4/app.js"></script>
             <script type="text/javascript" src="/js/theme3/app.js"></script>

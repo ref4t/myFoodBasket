@@ -32,6 +32,9 @@ use App\Http\Controllers\Admin\Offers\CartRuleController;
 
 
 use App\Http\Controllers\Admin\Layout\LayoutController;
+use App\Http\Controllers\Admin\Layout\LayoutSliderController;
+use App\Http\Controllers\Admin\Layout\LayoutCategoryController;
+use App\Http\Controllers\Admin\Layout\LayoutItemController;
 
 
 use App\Http\Controllers\Admin\Gallery\GalleryController;
@@ -54,6 +57,9 @@ use App\Http\Controllers\Shop\AccountController;
 use App\Http\Controllers\Shop\ForgotPasswordController;
 use App\Http\Controllers\Shop\RegistryController;
 use App\Http\Controllers\Shop\CoordianteController;
+
+use App\Models\oc_store;
+use App\Models\layout;
 
 
 /*
@@ -128,6 +134,37 @@ Route::prefix('admin')->group(function(){
         return redirect()->back();
 
         })->name('dashboard.store_select');
+
+    // Route::get('/fill-theme', function(){
+    //     $stores = oc_store::select('store_id')->get();
+
+    //     foreach($stores as $store){
+    //         $layout = new layout();
+
+            
+    //         $layout->store_id         = $store['store_id'];
+    //         $layout->theme            = 2;
+    //         $layout->about_bg         = '#F8F9FA';
+    //         $layout->about_content    = '#443F3F';
+    //         $layout->booking_bg       = '#EDEDED';
+    //         $layout->booking_content  = '#443F3F';
+    //         $layout->gallery_bg       = '#F8F9FA';
+    //         $layout->gallery_content  = '#443F3F';
+    //         $layout->popular_bg       = '#000000';
+    //         $layout->popular_content  = '#FFFFFF';
+    //         $layout->category_bg      = '#EDEDED';
+    //         $layout->category_content = '#443F3F';
+    //         $layout->rating_bg        = '#D91D1D';
+    //         $layout->rating_content   = '#FFFFFF';
+    //         $layout->opening_bg       = '#EDEDED';
+    //         $layout->opening_content  = '#443F3F';
+            
+    
+    //         $layout->save();
+    //     }
+        
+    //     dd("success");
+    // });
 
     // orders
     Route::get('/orders', [OrderController::class, 'index'])->name('admin.dashboard.orders.index');
@@ -248,7 +285,23 @@ Route::prefix('admin')->group(function(){
     Route::post('/layout/update',[LayoutController::class,'update'])->name('admin.layout.layout.update');
     Route::post('/layout/slider',[LayoutController::class,'slider'])->name('admin.layout.layout.slider');
     Route::post('/layout/slider/delete/{id}',[LayoutController::class,'delete'])->name('admin.layout.layout.slider.delete');
-    // Route::get('/layout',[LayoutController::class,'index'])->name('admin.layout.layout.index');
+
+
+    Route::get('/layout/slider',[LayoutSliderController::class,'index'])->name('admin.layout.slider.index');
+    Route::post('/layout/slider/insert',[LayoutSliderController::class,'insert'])->name('admin.layout.slider.insert');
+    Route::post('/layout/slider/delete/{id}',[LayoutSliderController::class,'delete'])->name('admin.layout.slider.delete');
+
+
+    Route::get('/layout/category',[LayoutCategoryController::class,'index'])->name('admin.layout.category.index');
+    Route::post('/layout/category/insert',[LayoutCategoryController::class,'insert'])->name('admin.layout.category.insert');
+    Route::post('/layout/category/delete/{id}',[LayoutCategoryController::class,'delete'])->name('admin.layout.category.delete');
+    
+    Route::get('/layout/item',[LayoutItemController::class,'index'])->name('admin.layout.item.index');
+
+
+
+
+
      
     // settings
     Route::get('settings/index', [MapAndCategoryController::class, 'index' ])->name('admin.settings.cat.index');

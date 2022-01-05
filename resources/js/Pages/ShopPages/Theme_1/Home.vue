@@ -11,6 +11,14 @@
           <div class="swiper-slide"><strong class="title text-uppercase">welcome to</strong><strong class="sub-title text-capitalize">kebab & pizza</strong><img class="img-fluid" style="background-image: url('/demo-data/home-slider.jpg')"/></div>
           <div class="swiper-slide"><strong class="title text-uppercase">welcome to</strong><strong class="sub-title text-capitalize">star kebab & pizza</strong><img class="img-fluid" style="background-image: url('/demo-data/home-slider.jpg')"/></div>
         </div>
+        <!-- <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="slider in layout.get_slider" :key="slider">
+            <strong class="title text-uppercase"> {{slider.title}} </strong>
+            <strong class="sub-title text-capitalize" v-html="slider.description"></strong>
+            <img class="img-fluid" :style="'background-image: url(' + slider.path + ')'"/>
+          </div>
+          
+        </div> -->
         <div class="swiper-button-next"><i class="fas fa-arrow-right"></i></div>
         <div class="swiper-button-prev"><i class="fas fa-arrow-left"></i></div>
       </div>
@@ -339,7 +347,7 @@
     
     
 
-    <TopFooter/>
+    <TopFooter :name="setting.config_name" :logo="setting.config_logo" :address="setting.config_address" :telephone="setting.config_telephone" :email="setting.config_email" />
 
 
 </template>
