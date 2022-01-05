@@ -15,15 +15,15 @@
             </div>
           </div>
           <div class="col-md-12 col-lg-6 wow animate__fadeInRight position-relative" data-wow-duration="1s">
-            <div class="swiper-text-content">
-              <!-- <div class="text-content"><strong class="__title">Lorem Ipsum</strong>
+            <!-- <div class="swiper-text-content">
+              <div class="text-content"><strong class="__title">Lorem Ipsum</strong>
                 <p>Lorem Ipsum Dolar</p>
-              </div> -->
+              </div>
               <div class="swiper-buttons">
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
               </div>
-            </div>
+            </div> -->
             <div class="swiper">
               <div class="swiper-wrapper">
                 <div v-for="slider in layout.get_slider" :key="slider" class="swiper-slide" :style="'background-image: url(' + slider.path + ')'"></div>
@@ -54,8 +54,13 @@
       <div class="container">
         <div class="row list-item">
           <div v-for="category in layout.get_category" :key="category" class="col-6 col-md-4 col-lg-2">
-            <div class="item">
-              <div class="img"><img class="img-fluid" :src="category.path"/></div><strong class="text-capitalize">{{category.title}}</strong>
+            <div v-if="category.path" class="item">
+              <div class="img"><img class="img-fluid" :src="category.path"/></div>
+              <strong class="text-capitalize">{{category.title}}</strong>
+            </div>
+            <div v-else class="item">
+              <div class="img"><img class="img-fluid" :src="'/image/demo_img.png'"/></div>
+              <strong class="text-capitalize">{{category.title}}</strong>
             </div>
           </div>
         </div>
@@ -70,10 +75,16 @@
         </div>
         <div class="row list-item">
           <div  v-for="popular in layout.get_popular" :key="popular" class="col-12 col-md-6 col-lg-4">
-            <div class="item">
-              <div class="img"><img class="img-fluid" :src="popular.path"/></div>
+            <div v-if="popular.path" class="item">
+              <div class="img"><img class="img-fluid" :src="'/image/' + popular.path"/></div>
               <div class="text-content"><strong class="text-capitalize">{{popular.name}}</strong>
-                <p>{{popular.description}}</p>
+                <p v-html="decodeHtml(popular.description)" ></p>
+              </div>
+            </div>
+            <div v-else class="item">
+              <div class="img"><img class="img-fluid" :src="'/image/demo_img.png'"/></div>
+              <div class="text-content"><strong class="text-capitalize">{{popular.name}}</strong>
+                <p v-html="decodeHtml(popular.description)" ></p>
               </div>
             </div>
           </div>
@@ -108,14 +119,14 @@
     <div v-if="layout.gallery == 1" class="photo-gallery-v3 pt-75 pb-75"  :style="'background-color:'+ layout.gallery_bg">
       <div class="container">
         <div class="default-title-v3 text-center">
-          <h3 class="title text-capitalize color-red" :style="'color:'+ layout.popular_content">photo gallery</h3>
+          <h3 class="title text-capitalize color-red" :style="'color:'+ layout.gallery_content">photo gallery</h3>
           <p>{{layout.gallery_description}}</p>
         </div>
       </div>
       <div class="container-fluid">
         <div class="row list-item">
-          <div class="col-12 col-md-6 col-lg-3" v-for="popular in layout.get_popular" :key="popular">
-            <div class="item"><a class="fas fa-search-plus" :href="popular.path" data-fancybox="photoGallery"></a><img class="img-fluid" :src="popular.path"/></div>
+          <div class="col-12 col-md-6 col-lg-3" v-for="gallery in layout.get_gallery" :key="gallery">
+            <div class="item"><a class="fas fa-search-plus" :href="gallery.path" data-fancybox="photoGallery"></a><img class="img-fluid" :src="gallery.path"/></div>
           </div>
         </div>
       </div>
@@ -174,6 +185,7 @@
         </div>
       </form>
     </section>
+    
     <section class="opening-hours-v3 pt-75 pb-75 wow animate__fadeInUp" data-wow-duration="1s">
       <div class="container">
         <div class="default-title-v3 text-center">
@@ -250,18 +262,13 @@ export default {
         layout:Object,
         reviews:Object,
     },
-  //   mounted() {
-  //       let links=[ 
-  //                   '/js/theme3/app.js'
-  //                 ];
-  // links.forEach(function(value,index){
-  //   let externalScript = document.createElement('script')
-  //     externalScript.async = true
-  //     externalScript.setAttribute('src', value)
-  //     document.body.appendChild(externalScript)
-  // });
-      
-  //  },
+    methods:{
+      decodeHtml(html) {
+            var txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
+      }
+    }
 }
 
 </script>

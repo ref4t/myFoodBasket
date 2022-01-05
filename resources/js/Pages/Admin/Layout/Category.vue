@@ -25,49 +25,43 @@
                                 <div class="gallery">
                                     <a>
                                         <button @click="deleteCategory(category.id)" type="buttom" class="close" style="margin-bottom: -22px; margin-right: 5px" ><span aria-hidden="true" >&times;</span></button>
-                                        <img :src=" '/'+ category.path" alt="Cinque Terre" width="500" height="350">
+                                        <img :src="category.path" :alt="category.title" width="500" height="350" :title='category.title'>
                                     </a>
                                 </div>
                             </div>
                             
 
-                         <div class="custom-file float-bottom">
-                        
-                        </div>
+                            <div class="custom-file float-bottom">
+                            
+                            </div>
 
                         <div class="card col-12">
-                            <table class="table table-borderless">
+                            <!-- <table class="table table-borderless">
                                 <tbody>
                                     <tr>
                                         <td>
-                                            Select Image
+                                            Categories
                                         </td>
                                         <td colspan="2">
-                                            <input type="file" class=""  @change="setGellery" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Item Name:
-                                        </td>
-                                        <td colspan="2">
-                                            <input type="text" v-model="this.form.name" class="form-control" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Description:
-                                        </td>
-                                        <td>
-                                            <textarea class="form-control" v-model="form.description" name="" id=""></textarea>
-                                        </td>
-                                        <td>
-                                            <button @click="insertCategory(this.form)" class="btn btn-success rounded-pill" type="button" >ADD IMAGE</button>
+                                            
+                                             <button @click="insertCategory(this.form)" class="btn btn-success rounded-pill" type="button" >ADD IMAGE</button>
                                         </td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table> -->
+                            <form @submit.prevent="addCategory(this.form)" class="form-inline m-4">
+                                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Categories</label>
+                                <select class="custom-select col-5" v-model="form.category"  name="category" id="">
+                                    <option v-for="category in categories" :key="category" :value="category.category_id"> {{ category.get_description.name }} </option>
+                                </select>
+
+                                
+
+                                <button type="submit" class="btn btn-info rounded-pill col-1 ml-2">ADD</button>
+                            </form>
                         </div>
+                        
+
                         </div>
                     </div>
                 </div>
@@ -93,6 +87,7 @@ export default {
     },
     props:{
         layout: Object,
+        categories: Object
     },
     created(){
         
@@ -100,9 +95,10 @@ export default {
     data(){
         return{
             form:useForm({
-                image:'',
-                description:'',
-                name:''
+                // image:'',
+                // description:'',
+                // name:''
+                category: '',
             })
         }
         
@@ -111,20 +107,21 @@ export default {
         
     },
     methods: {
-        setGellery(e){
-            this.form.image = e.target.files[0];
-        },
+        // setGellery(e){
+        //     this.form.image = e.target.files[0];
+        // },
         
         
 
-        insertCategory(form){
-            let con = confirm("Add New Image?");
+        addCategory(form){
+            let con = confirm("Add Category to Home-page?");
 
             if (con){
 
                 this.$inertia.post(route('admin.layout.category.insert'),form)
             }
         },
+        
         
         deleteCategory(id){
 

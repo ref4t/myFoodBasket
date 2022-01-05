@@ -9,6 +9,8 @@ use Inertia\Inertia;
 use App\Models\oc_store;
 use App\Models\layout;
 use App\Models\popular;
+use App\Models\oc_product;
+use App\Models\oc_product_to_store;
 
 class LayoutItemController extends Controller
 {
@@ -17,42 +19,39 @@ class LayoutItemController extends Controller
         $store_id = $request->session()->get('store_id');
 
         $layout = layout::with('get_popular')->where('store_id', $store_id)->first();
+
+        $items = oc_product::with('get_description')->join('oc_product_to_store','oc_product.product_id','=','oc_product_to_store.product_id')->where('oc_product_to_store.store_id', $store_id)->get();
         
         return Inertia::render('Admin/Layout/Item',[
-            'layout'    => $layout
+            'layout'    => $layout,
+            'items'      => $items
         ]);
     }
     
-    public function insertPopular(Request $request){
+    public function insert(Request $request){
         
         // dd($request->toArray());
-        $store = oc_store::where('store_id', $request->session()->get('store_id'))->first();
-        $store_name = wordwrap(strtolower($store['name']), 1, '-', 0);
 
-        $image_name = wordwrap(strtolower($request['image']->getClientOriginalName()), 1, '_', 0);
-        $request['image']->move(public_path('/image/gallery/popular/'), $store_name . '_' .$image_name);
-        $path = "image/gallery/popular/".  $store_name . '_' . $image_name;
-        
-        // $image_name = wordwrap(strtolower($request['image']->getClientOriginalName()), 1, '_', 0);
-        // $request['image']->move(public_path('/image/gallery/popular/'),$image_name);
-        // $path = "image/gallery/popular/". $image_name;
+        $item = $request['item'];
+        // $store = oc_store::where('store_id', $request->session()->get('store_id'))->first();
+       
 
 
-        $gallery = new popular;
+        $popular = new popular;
 
-        $gallery->fill([
+        $popular->fill([
             'store_id'      => $request->session()->get('store_id'),
-            'name'          => $request['name'],
-            'description'   => $request['description'],
-            'path'     => $path,
+            'name'          => $item['get_description']['name'],
+            'description'   => $item['get_description']['description'],
+            'path'          => $item['image'],
         ]);
 
-        $gallery->save();
+        $popular->save();
 
         return redirect()->back();
     }
 
-    public function deletePopular($id){
+    public function delete($id){
 
         // dd($id);
 

@@ -56,7 +56,8 @@
                                                 Description
                                             </td>
                                             <td>
-                                                <quill-editor
+                                                <textarea  class="form-control" v-model="this.form.description" name="description" id="description"  rows="10"></textarea>
+                                                <!-- <quill-editor
                                                 v-model:value="this.form.description"
                                                 :options="state.editorOption"
                                                 :disabled="state.disabled"
@@ -64,7 +65,7 @@
                                                 @focus="onEditorFocus($event)"
                                                 @ready="onEditorReady($event)"
                                                 @change="onEditorChange($event)"
-                                            />
+                                            /> -->
                                             </td>
                                             <td>
                                                 

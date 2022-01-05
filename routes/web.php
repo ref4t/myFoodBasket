@@ -296,13 +296,12 @@ Route::prefix('admin')->group(function(){
     Route::post('/layout/category/insert',[LayoutCategoryController::class,'insert'])->name('admin.layout.category.insert');
     Route::post('/layout/category/delete/{id}',[LayoutCategoryController::class,'delete'])->name('admin.layout.category.delete');
     
+
     Route::get('/layout/item',[LayoutItemController::class,'index'])->name('admin.layout.item.index');
+    Route::post('/layout/item/insert',[LayoutItemController::class,'insert'])->name('admin.layout.item.insert');
+    Route::post('/layout/item/delete/{id}',[LayoutItemController::class,'delete'])->name('admin.layout.item.delete');
 
-
-
-
-
-     
+    
     // settings
     Route::get('settings/index', [MapAndCategoryController::class, 'index' ])->name('admin.settings.cat.index');
     Route::post('settings/update', [MapAndCategoryController::class, 'update' ])->name('admin.settings.cat.update');

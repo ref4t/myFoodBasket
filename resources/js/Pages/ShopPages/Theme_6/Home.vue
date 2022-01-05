@@ -14,7 +14,7 @@
               <div class="container">
                 <!-- <div class="slide-logo"><img class="img-fluid" :src="'/image/'+setting.config_logo"/></div> -->
                 <h2 class="__title" > {{slider.title}} </h2>
-                <p v-html="slider.description" >  </p>
+                <p> {{slider.description}} </p>
               </div>
             </div>
 
@@ -96,10 +96,16 @@
       <div class="container">
         <div class="row list-item">
           <div v-for="popular in layout.get_popular" :key="popular" class="col-12 col-sm-12 col-md-6">
-            <div class="item">
-              <div class="img"><img class="img-fluid" :src="popular.path"/></div>
+            <div v-if="popular.path" class="item">
+              <div class="img"><img class="img-fluid" :src="'/image/' + popular.path"/></div>
               <div class="text-content"><strong class="text-capitalize">{{popular.name}}</strong>
-                <p>{{popular.description}}</p>
+                <p v-html="decodeHtml(popular.description)" ></p>
+              </div>
+            </div>
+            <div v-else class="item">
+              <div class="img"><img class="img-fluid" :src="'/image/demo_img.png'"/></div>
+              <div class="text-content"><strong class="text-capitalize">{{popular.name}}</strong>
+                <p v-html="decodeHtml(popular.description)" ></p>
               </div>
             </div>
           </div>
@@ -118,10 +124,16 @@
           <div class="swiper">
             <div class="swiper-wrapper">
               <div v-for="category in layout.get_category" :key="category" class="swiper-slide" data-slide-filter="breakfast">
-                <div class="item">
+                <div v-if="category.path" class="item">
                   <div class="img"><img class="img-fluid" :src="category.path"/></div>
                   <div class="text-content"><strong class="text-capitalize">{{category.title}}</strong>
-                    <p>{{category.description}}</p>
+                    <p v-html="decodeHtml(category.description)" ></p>
+                  </div>
+                </div>
+                <div v-else class="item">
+                  <div class="img"><img class="img-fluid" :src="'/image/demo_img.png'"/></div>
+                  <div class="text-content"><strong class="text-capitalize">{{category.title}}</strong>
+                    <p v-html="decodeHtml(category.description)" ></p>
                   </div>
                 </div>
               </div>
@@ -219,18 +231,13 @@ export default {
       return finalDays;
       }
     },
-  //   mounted() {
-  //       let links=[ 
-  //                   '/js/theme6/app.js'
-  //                 ];
-  // links.forEach(function(value,index){
-  //   let externalScript = document.createElement('script')
-  //     // externalScript.async = true
-  //     externalScript.setAttribute('src', value)
-  //     document.body.appendChild(externalScript)
-  // });
-      
-  //  },
+    methods:{
+      decodeHtml(html) {
+            var txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
+        },
+    }
 }
 
 </script>

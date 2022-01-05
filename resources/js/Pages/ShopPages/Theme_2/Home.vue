@@ -8,8 +8,8 @@
       <div class="swiper-wrapper">
         <div v-for="slider in layout.get_slider" :key="slider" class="swiper-slide" :style="'background-image: url(' + slider.path + ')'">
           <div class="container">
-            <h3 class="text-capitalize" v-html="slider.title"></h3><img class="img-fluid __icon" src="/img/icon/slide-divider.svg"/>
-            <p v-html="slider.description"></p>
+            <h3 class="text-capitalize">{{slider.title}}</h3><img class="img-fluid __icon" src="/img/icon/slide-divider.svg"/>
+            <p> {{slider.description}} </p>
           </div>
         </div>
       </div>
@@ -45,8 +45,14 @@
           <div class="swiper">
             <div class="swiper-wrapper">
               <a v-for="category in layout.get_category" :key="category" class="swiper-slide" href="#">
-                <div class="img"><img class="img-fluid" :src="category.path"/></div><strong>{{category.title}}</strong>
-                <p>{{category.description}}</p>
+                <div v-if="category.path" class="img">
+                  <img class="img-fluid" :src="category.path"/>
+                </div>
+                <div v-else class="img">
+                  <img class="img-fluid" :src="'/image/demo_img.png'"/>
+                </div>
+                <strong>{{category.title}}</strong>
+                <p v-html="decodeHtml(category.description)" ></p>
               </a>
                 
                 
@@ -68,8 +74,14 @@
           <div class="swiper">
             <div class="swiper-wrapper">
               <a v-for="popular in layout.get_popular" :key="popular" class="swiper-slide" href="#">
-                <div class="img"><img class="img-fluid" :src="popular.path"/></div><strong>{{popular.name}}</strong>
-                <p>{{popular.description}}</p>
+                <div v-if="popular.path" class="img">
+                  <img class="img-fluid" :src="'/image/' + popular.path"/>
+                </div>
+                <div v-else class="img">
+                  <img class="img-fluid" :src="'/image/demo_img.png'"/>
+                </div>
+                <strong>{{popular.name}}</strong>
+                <p v-html="decodeHtml(popular.description)" ></p>
               </a>
                 
             </div>
@@ -236,6 +248,13 @@ export default {
       return finalDays;
       }
     },
+    methods:{
+      decodeHtml(html) {
+            var txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
+      }
+    }
   //   mounted() {
   //       let links=[ 
   //                   '/js/theme6/app.js'

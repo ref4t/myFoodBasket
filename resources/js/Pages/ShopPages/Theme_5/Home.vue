@@ -78,8 +78,14 @@
           <div class="swiper">
             <div class="swiper-wrapper">
               <div v-for="category in layout.get_category" :key="category" class="swiper-slide">
-                <div class="item">
+                <div v-if="category.path" class="item">
                   <div class="img"><img class="img-fluid" :src="category.path"/></div>
+                  <div class="text-content"><strong class="text-capitalize">{{category.title}}</strong>
+                    <p>{{category.description}}</p>
+                  </div>
+                </div>
+                <div v-else class="item">
+                  <div class="img"><img class="img-fluid" :src="'/image/demo_img.png'"/></div>
                   <div class="text-content"><strong class="text-capitalize">{{category.title}}</strong>
                     <p>{{category.description}}</p>
                   </div>
@@ -113,10 +119,18 @@
           <div class="swiper">
             <div class="swiper-wrapper">
               <div v-for="popular in layout.get_popular" :key="popular" class="swiper-slide">
-                <div class="item">
-                  <div class="img"><img class="img-fluid" :src="popular.path"/></div>
+                <div v-if="popular.path" class="item">
+                  <div class="img"><img class="img-fluid"  :src="'/image/' + popular.path"/></div>
                   <div class="text-content"><strong class="text-capitalize">{{popular.name}}</strong>
-                    <p>{{popular.description}}</p><a href="">Read more</a>
+                    <p v-html="decodeHtml(popular.description)" ></p>
+                    <!-- <a href="">Read more</a> -->
+                  </div>
+                </div>
+                <div v-else class="item">
+                  <div class="img"><img class="img-fluid"   :src="'/image/demo_img.png'"/></div>
+                  <div class="text-content"><strong class="text-capitalize">{{popular.name}}</strong>
+                    <p>{{popular.description}}</p>
+                    <p v-html="decodeHtml(popular.description)" ></p>
                   </div>
                 </div>
               </div>
@@ -310,6 +324,13 @@ export default {
       return finalDays;
       }
     },
+    methods:{
+      decodeHtml(html) {
+            var txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
+      }
+    }
   //   mounted() {
   //       let links=[ 
   //                   '/js/theme6/app.js'
