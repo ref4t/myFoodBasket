@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Mainshop\ShopSearchController;
 use App\Http\Controllers\Home\DomainController;
@@ -119,21 +120,27 @@ Route::group( $domain,function () {
 }
 
 
-Route::get('/login');
+// Route::get('/login');
 
 
-Route::get('/admin', [AuthenticatedSessionController::class, 'create'])->middleware('web')->name('loginget');
-Route::post('/admin', [AuthenticatedSessionController::class, 'store'])->middleware('web')->name('login');
-Route::prefix('admin')->group(function(){
+Route::get('authcheck', function () {
+    // dump(session()->all());
+    dump(Auth::guard('admin')->user());
+})->name('authcheck');
+
+
+Route::get('/admin', [AuthenticatedSessionController::class, 'create'])->middleware('guest:admin')->name('login');
+Route::post('/admin', [AuthenticatedSessionController::class, 'store']);
+Route::get('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:admin')->name('admin.logout');
+
+Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     
     Route::post('/dashboard/store/{id}', function($id, Request $request){
 
         $request->session()->put('store_id', $id);
-
         return redirect()->back();
-
-        })->name('dashboard.store_select');
+    })->name('dashboard.store_select');
 
     // Route::get('/fill-theme', function(){
     //     $stores = oc_store::select('store_id')->get();
@@ -278,9 +285,7 @@ Route::prefix('admin')->group(function(){
     Route::post('/customer/deleteReward/{id}', [CustomerController::class, 'deleteReward'])->name('admin.customer.deleteReward');
     Route::post('/customer/banIp/{ip}', [CustomerController::class, 'banIp'])->name('admin.customer.banIp');
 
-
     // layout
-
     Route::get('/layout',[LayoutController::class,'index'])->name('admin.layout.layout.index');
     Route::post('/layout/update',[LayoutController::class,'update'])->name('admin.layout.layout.update');
     Route::post('/layout/slider',[LayoutController::class,'slider'])->name('admin.layout.layout.slider');
@@ -305,7 +310,7 @@ Route::prefix('admin')->group(function(){
     // settings
     Route::get('settings/index', [MapAndCategoryController::class, 'index' ])->name('admin.settings.cat.index');
     Route::post('settings/update', [MapAndCategoryController::class, 'update' ])->name('admin.settings.cat.update');
-   
+
     Route::get('settings/shop/index', [MapAndCategoryController::class, 'index' ])->name('admin.settings.shop.index');
 
 
@@ -316,12 +321,6 @@ Route::prefix('admin')->group(function(){
     Route::post('settings/shop/store', [ShopController::class, 'store' ])->name('admin.settings.shop.store');
     
     Route::get('settings/shop/edit/{id}', [ShopController::class, 'edit' ])->name('admin.settings.shop.edit');
-
-
-    
-
-
-
 
     Route::get('settings/open-close/index',[OpenCloseController::class, 'index'])->name('admin.settings.openclose.index');
     Route::post('settings/open-close/update',[OpenCloseController::class, 'update'])->name('admin.settings.openclose.update');
@@ -336,7 +335,6 @@ Route::prefix('admin')->group(function(){
     Route::get('settings/social-media/index',[SocialMediaController::class, 'index'])->name('admin.settings.social.index');
     Route::post('settings/social-media/update',[SocialMediaController::class, 'update'])->name('admin.settings.social.update');
 
-
     Route::get('settings/product-icon/index',[ProductIconController::class, 'index'])->name('admin.settings.product_icon.index');
     Route::get('settings/product-icon/create',[ProductIconController::class, 'create'])->name('admin.settings.product_icon.create');
     Route::post('settings/product-icon/store',[ProductIconController::class, 'store'])->name('admin.settings.product_icon.store');
@@ -344,15 +342,12 @@ Route::prefix('admin')->group(function(){
     Route::post('settings/product-icon/update',[ProductIconController::class, 'update'])->name('admin.settings.product_icon.update');
     Route::post('settings/product-icon/delete',[ProductIconController::class, 'delete'])->name('admin.settings.product_icon.delete');
 
-
     Route::get('settings/user/index',[UserController::class, 'index'])->name('admin.settings.user.index');
     Route::get('settings/user/create',[UserController::class, 'create'])->name('admin.settings.user.create');
     Route::post('settings/user/store',[UserController::class, 'store'])->name('admin.settings.user.store');
     Route::get('settings/user/edit/{id}',[UserController::class, 'edit'])->name('admin.settings.user.edit');
     Route::post('settings/user/update',[UserController::class, 'update'])->name('admin.settings.user.update');
     Route::post('settings/user/delete',[UserController::class, 'delete'])->name('admin.settings.user.delete');
-
-
 });
 
 // require __DIR__.'/auth.php';
