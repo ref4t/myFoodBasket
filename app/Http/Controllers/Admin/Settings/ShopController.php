@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use Carbon\Carbon;
 use Redirect;
 use DB;
+use Auth;
 
 use App\Models\oc_store;
 use App\Models\oc_setting;
@@ -21,6 +22,11 @@ class ShopController extends Controller
 {
     public function index(Request $request){
 
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
         // $store_id =$request->session()->get('store_id');
 
         $stores = oc_store::paginate(20);
@@ -33,6 +39,12 @@ class ShopController extends Controller
     }
 
     public function create(){
+
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
 
         $country = oc_country::all();
         $zone = oc_zone::all();
@@ -50,6 +62,12 @@ class ShopController extends Controller
     }
 
     public function store(Request $request){
+
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
 
         $data = $request['data'];
 
@@ -198,36 +216,35 @@ class ShopController extends Controller
         $layout->fill([
             'store_id'          => $store->id,
             'theme'             => 6,
-            'about_bg'          => '#F8F9FA',
-            'about_content'     => '#443F3F',
-            'booking_bg'        => '#EDEDED',
-            'booking_content'   => '#443F3F',
-            'gallery_bg'        => '#F8F9FA',
-            'gallery_content'   => '#443F3F',
-            'popular_bg'        => '#000000',
-            'popular_content'   => '#FFFFFF',
-            'category_bg'       => '#EDEDED',
-            'category_content'  => '#443F3F',
-            'rating_bg'         => '#D91D1D',
-            'rating_content'    => '#FFFFFF',
-            'opening_bg'        => '#EDEDED',
-            'opening_content'   => '#443F3F',
+            'about_bg'          => '',
+            'about_content'     => '',
+            'booking_bg'        => '',
+            'booking_content'   => '',
+            'gallery_bg'        => '',
+            'gallery_content'   => '',
+            'popular_bg'        => '',
+            'popular_content'   => '',
+            'category_bg'       => '',
+            'category_content'  => '',
+            'rating_bg'         => '',
+            'rating_content'    => '',
+            'opening_bg'        => '',
+            'opening_content'   => '',
         ]);
 
         $layout->save();
-
-
-        
-
-        
-
-
 
         return redirect()->route('admin.settings.shop.list');
 
     }
 
     public function delete(Request $request){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+
         oc_store::whereIn('store_id', $request)->delete();
         return redirect()->back();
     }

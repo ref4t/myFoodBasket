@@ -13,7 +13,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{auth.firstname}} {{auth.lastname}}</a>
         </div>
       </div>
 
@@ -249,7 +249,7 @@
             </Link>
           </li>
 
-          <li class="nav-item">
+          <li v-if="auth.user_group_id == 1" class="nav-item">
             <Link :href="route('admin.customer.index')" class="nav-link" :class="route().current('admin.customer.*') ? 'active' : ' ' ">
               <i class="nav-icon fas fa-users"></i>
               <p>
@@ -392,11 +392,17 @@
 <script>
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import { Method } from "@inertiajs/inertia";
+ import { usePage } from '@inertiajs/inertia-vue3'
+import { computed } from 'vue'
 export default {
   components: {
     Head,
     Link,
   },
+  setup() {
+          const auth = computed(() => usePage().props.value.auth)
+          return { auth }
+        },
   methods: {
     logout() {
       // this.$inertia.post(route('logout'));

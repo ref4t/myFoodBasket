@@ -12,7 +12,7 @@
                     <div class="card-header">
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <button class="btn btn-info rounded-pill m-2" type="submit" > SAVE</button>
-                            <Link :href="route('admin.settings.product_icon.index')" as="button" class="btn btn-danger rounded-pill m-2" > CANCEL</Link>
+                            <Link :href="route('admin.settings.user.index')" as="button" class="btn btn-danger rounded-pill m-2" > CANCEL</Link>
                         </div>
                     </div>
                     <div class="card-body table-responsive p-0">
@@ -55,8 +55,15 @@
                                        User Group:
                                     </td>
                                     <td>
-                                        <select class="form-control" v-model="this.form.user_group_id" :class="v$.form.user_group_id.$error ? 'is-invalid' : ' ' ">
-                                            <option v-for="group in groups" :key="group" :value="group.user_group_id"> {{ group.name }} </option>
+                                        <select v-if="auth.user_group_id == 1" class="form-control" v-model="this.form.user_group_id" :class="v$.form.user_group_id.$error ? 'is-invalid' : ' ' ">
+                                            <option v-for="group in groups" :key="group"  :value="group.user_group_id"> {{ group.name }} </option>
+                                        </select>
+
+                                        <select v-else class="form-control" v-model="this.form.user_group_id" :class="v$.form.user_group_id.$error ? 'is-invalid' : ' ' ">
+                                            <template v-for="group in groups" :key="group">
+                                                <option v-if="group.user_group_id == auth.user_group_id"  :value="group.user_group_id"> {{ group.name }} </option>
+                                            </template>
+                                            
                                         </select>
                                     </td>
                                 </tr>
@@ -65,8 +72,14 @@
                                        Store:
                                     </td>
                                     <td>
-                                       <select class="form-control" v-model="this.form.user_shop" :class="v$.form.user_shop.$error ? 'is-invalid' : ' ' ">
-                                            <option v-for="shop in stores" :key="shop" :value="shop.store_id"> {{ shop.name }} </option>
+                                       <select v-if="auth.user_group_id == 1" class="form-control" v-model="this.form.user_shop" :class="v$.form.user_shop.$error ? 'is-invalid' : ' ' ">
+                                            <option v-for="shop in stores" :key="shop" :value="shop.store_id"> {{ decodeHtml(shop.name) }} </option>
+                                        </select>
+                                       <select v-else class="form-control" v-model="this.form.user_shop" :class="v$.form.user_shop.$error ? 'is-invalid' : ' ' ">
+                                           <template v-for="shop in stores" :key="shop">
+                                               <option v-if="shop.store_id == auth.user_shop"  :value="shop.store_id" selected> {{ decodeHtml(shop.name) }} </option  >
+                                           </template>
+                                            
                                         </select>
                                     </td>
                                 </tr>
@@ -75,7 +88,7 @@
                                       Password:
                                     </td>
                                     <td>
-                                        <input v-model="this.form.password" class="form-control " type="password" 
+                                        <input v-model="this.form.password" class="form-control " type="password"  name="userPassword"
                                         :class="v$.form.password.$error ? 'is-invalid' : ' ' ">
                                     </td>
                                 </tr>
@@ -117,6 +130,9 @@ import { Head,Link } from '@inertiajs/inertia-vue3';
 import Pagination from "@/Components/Pagination";
 import useValidate from '@vuelidate/core'
 import { required, email, minLength, sameAs, numeric } from '@vuelidate/validators'
+import { usePage } from '@inertiajs/inertia-vue3'
+import { computed } from 'vue'
+
 
 export default {
   components: {
@@ -129,6 +145,10 @@ export default {
     'groups': Object,
     'stores': Object,
   },
+  setup() {
+        const auth = computed(() => usePage().props.value.auth)
+        return { auth }
+    },
   data() {
       return {
           v$: useValidate(),
@@ -163,6 +183,11 @@ export default {
   },
 
     methods:{
+        decodeHtml(html) {
+            var txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
+        },
         submit(form){
             this.v$.$validate()
             console.log('here')

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
 use Redirect;
+use Auth;
 
 use App\Models\oc_customer;
 use App\Models\oc_address;
@@ -22,6 +23,12 @@ use App\Models\oc_customer_ban_ip;
 class CustomerController extends Controller
 {
     public function index(Request $request){
+
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
 
         $store_id =  $request->session()->get('store_id');
 
@@ -61,6 +68,12 @@ class CustomerController extends Controller
     }
 
     public function create(){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+
         $country = oc_country::all();
         $zone = oc_zone::all();
         return Inertia::render('Admin/CreateCustomer',[
@@ -70,16 +83,28 @@ class CustomerController extends Controller
     }
 
     public function store(Request $request){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+
         $data = $request->toArray();
         $customer = $data['customer'];
         $customer['password'] = Hash::make($customer['password']);
         $address = $data['address'];
         $id = oc_customer::store($customer,$address);
 
-        return Redirect::route('admin.customer');
+        return Redirect::route('admin.customer.index');
     }
 
     public function edit($id){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+
         $customer = oc_customer::with('getAddress','getStore')->where('customer_id', $id)->first();
         $country = oc_country::all();
         $zone = oc_zone::all();
@@ -105,7 +130,11 @@ class CustomerController extends Controller
     }
     
     public function update(Request $request){
-        
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
 
         $Data = $request['customerData'];
         $pass = Hash::make($request['password']);
@@ -119,10 +148,22 @@ class CustomerController extends Controller
     
 
     public function destroy(Request $request){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+
         oc_customer::whereIn('customer_id', $request)->delete();
         return redirect()->back();
     }
+
     public function addAddress(Request $request){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
         $data = $request->toArray();
         $address = $data['formData'];
         $id = $data['id'];
@@ -130,44 +171,93 @@ class CustomerController extends Controller
         return redirect()->back();
 
     }
+
     public function deleteAddress($id){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+
         oc_address::find($id)->delete($id);
         return redirect()->back();
     }
 
     public function addHistory(Request $request){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+
         $data = $request->toArray();
         $sql = oc_customer_history::addHistory($data['id'],$data['form']);
         return redirect()->back();
     }
 
     public function deleteHistory($id){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+
         oc_customer_history::where('customer_history_id', $id)->delete();
         
         return redirect()->back();
     }
 
     public function addTransaction(Request $request){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+
         $data = $request->toArray();
         $sql = oc_customer_transaction::addTransaction($data['id'],$data['form']);
         return redirect()->back();
     }
 
     public function deleteTransaction($id){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+
         oc_customer_transaction::where('customer_transaction_id', $id)->delete();
         return redirect()->back();
     }
 
     public function addReward(Request $request){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+
         $data = $request->toArray();
         $sql = oc_customer_reward::addReward($data['id'],$data['form']);
         return redirect()->back();
     }
     public function deleteReward($id){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+
         oc_customer_reward::where('customer_reward_id', $id)->delete();
         return redirect()->back();
     }
     public function banIp($ip){
+        $data = Auth::guard()->user();
+
+        if($data['user_group_id'] == 10){
+            return redirect()->route('admin.dashboard');
+        }
+        
         oc_customer_ban_ip::insert($ip);
         return redirect()->back();
     }

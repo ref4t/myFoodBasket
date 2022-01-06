@@ -12,7 +12,7 @@
                 <div class="card-header">
                     <div class="text-right"  >
                         <button @click.prevent="createCustomer(this.customer,this.form)"  class="btn btn-success rounded-pill" style="margin-right:1%" type="button">Save</button>
-                        <Link :href="route('admin.customer')" as="button" class="btn btn-secondary rounded-pill" type="button">Cancel</Link>
+                        <Link :href="route('admin.customer.index')" as="button" class="btn btn-secondary rounded-pill" type="button">Cancel</Link>
                     </div>
                 </div>
                 <div class="card-body">

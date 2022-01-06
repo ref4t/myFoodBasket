@@ -12,6 +12,7 @@ class oc_user extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     // protected $guard = 'admin';
+    protected $guarded = [];
     public $timestamps = false;
     public $primaryKey='user_id';
     protected $table = 'oc_user';

@@ -213,7 +213,7 @@ export default {
         shops:Object,
     },
     created(){
-        console.log(this.customers.data[0].get_store.name)
+        // console.log(this.customers.data[0].get_store.name)
     },
     data(){
         return{
@@ -239,7 +239,7 @@ export default {
             });
 
 
-            this.$inertia.get(this.route("admin.customer"), params, {
+            this.$inertia.get(this.route("admin.customer.index"), params, {
             replace: true,
             preserveState: true,
             });

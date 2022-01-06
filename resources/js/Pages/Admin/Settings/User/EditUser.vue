@@ -12,7 +12,7 @@
                     <div class="card-header">
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <button class="btn btn-info rounded-pill m-2" type="submit" > SAVE</button>
-                            <Link :href="route('admin.settings.product_icon.index')" as="button" class="btn btn-danger rounded-pill m-2" > CANCEL</Link>
+                            <Link :href="route('admin.settings.user.index')" as="button" class="btn btn-danger rounded-pill m-2" > CANCEL</Link>
                         </div>
                     </div>
                     <div class="card-body table-responsive p-0">
@@ -75,7 +75,7 @@
                                       Password:
                                     </td>
                                     <td>
-                                        <input v-model="form.password" class="form-control " type="password" 
+                                        <input v-model="form.password" class="form-control " type="password" name="userPassword" 
                                         :class="v$.form.password.$error ? 'is-invalid' : ' ' ">
                                     </td>
                                 </tr>

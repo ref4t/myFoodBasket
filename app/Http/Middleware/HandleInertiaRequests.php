@@ -18,7 +18,9 @@ class HandleInertiaRequests extends Middleware
     public function rootView(Request $request): string
     {
     //    dd(url()->current()) ;
-        if ($request->route()->getPrefix() === '/admin') {
+        // dd($request->route()->getPrefix());
+        $url = parse_url(url()->current());
+        if ($request->route()->getPrefix() === '/admin' || isset($url['path']) == '/admin' ) {
             return 'admin.app';
         }
         elseif(url()->current() == env('APP_URL')){
@@ -46,12 +48,21 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
+        $data = Auth::guard()->user();
+        // dd($data);
+        if($data){
+            if($data['user_group_id'] == 10){
+                $request->session()->put('store_id', $data['user_shop']);
+            }
+        }
         return array_merge(parent::share($request), [
-            'auth' => [
-                'user' => Auth::guard('customer')->user(),
-            ],
-            'stores' => oc_store::orderby('name')->get(),
-            'store_id' => $request->session()->get('store_id'),
+            
+            'auth'          => Auth::guard('customer')->user(),
+            'auth'          => Auth::guard('admin')->user(),
+            
+            'stores'        => oc_store::orderby('name')->get(),
+            'store_id'      => $request->session()->get('store_id'),
+            'store_name'    => oc_store::select('name')->where('store_id', $request->session()->get('store_id'))->first(),
         ]);
     }
 }

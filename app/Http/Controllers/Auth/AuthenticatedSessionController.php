@@ -33,9 +33,18 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        
         $request->authenticate();
         $request->session()->regenerate();
         // dd(Auth::guard('admin'));
+
+        // if(Auth::guard('customer')){
+        //     $data =  Auth::guard('customer')->user();
+        //     $request->session()->put('store_id', $data->user_shop );
+        //     // exit;
+
+        // }
+        
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

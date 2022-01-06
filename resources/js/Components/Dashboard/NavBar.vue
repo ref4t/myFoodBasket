@@ -8,11 +8,15 @@
             ></a>
           </li>
           <!-- Navbar Search -->
-          <li class="nav-item">
+          <li v-if="auth.user_group_id == 1" class="nav-item">
               <select v-model="this.select" class="form-control bg-dark flaot-left" style="width:30vw" @change="changeSelect(this.select)" >
                 <option v-for="store in stores" :key="store.store_id" :value="store.store_id"> {{ decodeHtml(store.name) }} </option>
               </select>
             
+          </li>
+          <li v-else class="nav-item">
+                <input class="form-control bg-dark flaot-left" style="width:30vw" type="text" :value="decodeHtml(store_name)" readonly >
+              
           </li>
         </ul>
 
@@ -20,106 +24,22 @@
         <ul class="navbar-nav ml-auto">
           
 
-          <!-- Messages Dropdown Menu -->
-          <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-              <i class="far fa-comments"></i>
-              <span class="badge badge-danger navbar-badge">3</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <a href="#" class="dropdown-item">
-                <!-- Message Start -->
-                <div class="media">
-                  <img
-                    src="dist/img/user1-128x128.jpg"
-                    alt="User Avatar"
-                    class="img-size-50 mr-3 img-circle"
-                  />
-                  <div class="media-body">
-                    <h3 class="dropdown-item-title">
-                      Brad Diesel
-                      <span class="float-right text-sm text-danger"
-                        ><i class="fas fa-star"></i
-                      ></span>
-                    </h3>
-                    <p class="text-sm">Call me whenever you can...</p>
-                    <p class="text-sm text-muted">
-                      <i class="far fa-clock mr-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!-- Message End -->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <!-- Message Start -->
-                <div class="media">
-                  <img
-                    src="dist/img/user8-128x128.jpg"
-                    alt="User Avatar"
-                    class="img-size-50 img-circle mr-3"
-                  />
-                  <div class="media-body">
-                    <h3 class="dropdown-item-title">
-                      John Pierce
-                      <span class="float-right text-sm text-muted"
-                        ><i class="fas fa-star"></i
-                      ></span>
-                    </h3>
-                    <p class="text-sm">I got your message bro</p>
-                    <p class="text-sm text-muted">
-                      <i class="far fa-clock mr-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!-- Message End -->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <!-- Message Start -->
-                <div class="media">
-                  <img
-                    src="dist/img/user3-128x128.jpg"
-                    alt="User Avatar"
-                    class="img-size-50 img-circle mr-3"
-                  />
-                  <div class="media-body">
-                    <h3 class="dropdown-item-title">
-                      Nora Silvester
-                      <span class="float-right text-sm text-warning"
-                        ><i class="fas fa-star"></i
-                      ></span>
-                    </h3>
-                    <p class="text-sm">The subject goes here</p>
-                    <p class="text-sm text-muted">
-                      <i class="far fa-clock mr-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!-- Message End -->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item dropdown-footer"
-                >See All Messages</a
-              >
-            </div>
-          </li>
           <!-- Notifications Dropdown Menu -->
           <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-              <i class="far fa-bell"></i>
-              <span class="badge badge-warning navbar-badge">15</span>
+              <i class="fas fa-user m-2" ></i>
+              <i class="fas fa-sort-down"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <span class="dropdown-item dropdown-header"
-                >15 Notifications</span
+                > {{auth.firstname}} {{auth.lastname}} </span
               >
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fas fa-envelope mr-2"></i> 4 new messages
-                <span class="float-right text-muted text-sm">3 mins</span>
-              </a>
-              <div class="dropdown-divider"></div>
+              <Link :href="route('admin.logout')" class="dropdown-item">
+                <i class="fas fa-sign-out-alt m-2"></i> Logout ( <b>{{ auth.username }}</b> )
+                <!-- <span class="float-right"></span> -->
+              </Link>
+              <!-- <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item">
                 <i class="fas fa-users mr-2"></i> 8 friend requests
                 <span class="float-right text-muted text-sm">12 hours</span>
@@ -132,7 +52,7 @@
               <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item dropdown-footer"
                 >See All Notifications</a
-              >
+              > -->
             </div>
           </li>
           <li class="nav-item">
@@ -154,6 +74,9 @@
             Head,
             Link
         },
+        props:{
+          
+        },
         data(){
           return{
             select: this.store_id
@@ -162,8 +85,9 @@
         setup() {
           const stores = computed(() => usePage().props.value.stores)
           const store_id = computed(() => usePage().props.value.store_id)
-          
-          return { stores,store_id }
+          const store_name = computed(() => usePage().props.value.store_name.name)
+          const auth = computed(() => usePage().props.value.auth)
+          return { stores,store_id,auth ,store_name}
         },
         methods:{
           decodeHtml(html) {

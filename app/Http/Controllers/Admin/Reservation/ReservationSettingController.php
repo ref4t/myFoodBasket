@@ -17,9 +17,16 @@ class ReservationSettingController extends Controller
 
         $settings = oc_reservations_setting::where('store_id', $store_id)->first();
 
-        $tempDisable = unserialize($settings['temporary_disable']);
-        $from = $tempDisable['from'];
-        $to = $tempDisable['to'];
+        if(!$settings){
+            return redirect()->route('admin.settings.shop.index');
+        }
+        $from = '';
+        $to = '';
+        if(isset($settings['temporary_disable'])){
+            $tempDisable = unserialize($settings['temporary_disable']);
+            $from = $tempDisable['from'];
+            $to = $tempDisable['to'];
+        }
         return Inertia::render('Admin/Reservation/ReservationSetting',[
             'settings' => $settings,
             'from' => $from,
