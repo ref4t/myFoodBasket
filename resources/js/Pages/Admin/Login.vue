@@ -1,27 +1,33 @@
 <template lang="">
-<div class="conatciner">
-   <div class="card card-container">
+    <div class="conatciner">
+        <div class="card card-container">
             <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
             <form class="form-signin" @submit.prevent="submit">
                 <span id="reauth-email" class="reauth-email"></span>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus v-model="form.email">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required v-model="form.password" >
-                <div id="remember" class="checkbox">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" 
+                    required autofocus v-model="form.email">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" 
+                    required v-model="form.password" >
+                
+                <span v-if="error.status" class="text-danger">{{ error.message }}</span>
+
+                <div id="remember" class="checkbox mt-3">
                     <label>
                         <input type="checkbox" value="remember-me" v-model="form.remember"> Remember me
                     </label>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                <button class="btn btn-lg btn-primary btn-block btn-signin mt-1" type="submit">Sign in</button>
             </form><!-- /form -->
             <a href="#" class="forgot-password">
                 Forgot the password?
             </a>
         </div><!-- /card-container -->
-        </div>
+    </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -29,16 +35,42 @@ export default {
                 email: '',
                 password: '',
                 remember: true
-            })
+            }),
+            error: {
+                status: false,
+                message: ''
+            },
         }
     },
 
     methods: {
         submit() {
-            this.form.post(this.route('login'), {
-                onFinish: () => this.form.reset('password'),
+            axios.post(this.route('login'), this.form)
+            .then((response) => {
+                window.location.href = this.route('admin.dashboard');
             })
+            .catch((error) => {
+                this.error.status = true;
+                this.error.message = 'Email or password is incorrect...';
+            });
+        },
+        hideError() {
+            this.error.status = false;
         }
+    },
+    watch: {
+        'form.email': {
+            deep: true,
+            handler: function () {
+                this.hideError();
+            }
+        },
+        'form.password': {
+            deep: true,
+            handler: function () {
+                this.hideError();
+            }
+        },
     }
 }
 </script>
