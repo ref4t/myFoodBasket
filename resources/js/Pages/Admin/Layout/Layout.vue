@@ -22,7 +22,7 @@
                                         <label  class="col-sm-2 col-form-label">Select Theme</label>
                                         <div class="col-sm-5">
                                         <select v-model="layout.theme" class="form-control" name="" id="">
-                                            <!-- <option value="1"> THEME 1 </option> -->
+                                            <option value="1"> THEME 1 </option>
                                             <option value="2"> THEME 2</option>
                                             <option value="3"> THEME 3</option>
                                             <option value="4"> THEME 4</option>

@@ -50,6 +50,31 @@
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script type="text/javascript" src='/js/theme6/jquery.min.js'></script>
+        <script type="text/javascript" src='/js/theme6/moment.min.js'></script>
+        <script type="text/javascript" src='/js/theme6/locales.min.js'></script>
+        <script type="text/javascript" src='/js/theme6/bootstrap.min.js'></script>
+        <script type="text/javascript" src='/js/theme6/bootstrap-datetimepicker.min.js'></script>
+        <script type="text/javascript" src='/js/theme6/wow.min.js'></script>
+        <script type="text/javascript" src='/js/theme6/fancybox.umd.js'></script>
+        <script type="text/javascript" src='/js/theme6/select2.min.js'></script>
+        <script type="text/javascript" src='/js/theme6/swiper-bundle.min.js'></script>
+
+
+            {{-- <script type="text/javascript" src="/js/theme/app.js"></script> --}}
+        @if ($theme == 1)
+            <script type="text/javascript" src="/js/theme1/app.js"></script>
+        @elseif ($theme == 2)
+            <script type="text/javascript" src="/js/theme2/app.js"></script>
+        @elseif ($theme == 3)
+            <script type="text/javascript" src="/js/theme3/app.js"></script>
+        @elseif ($theme == 4)
+            <script type="text/javascript" src="/js/theme4/app.js"></script>
+        @elseif ($theme == 5)
+            <script type="text/javascript" src="/js/theme5/app.js"></script>
+        @elseif ($theme == 6)
+            <script type="text/javascript" src="/js/theme6/app.js"></script>
+        @endif
     </head>
 
     <body class="bg-light hold-transition layout-fixed layout-footer-fixed">
@@ -59,25 +84,7 @@
         @env ('local')
             {{-- <script src="http://localhost:8080/js/bundle.js"></script> --}}
         @endenv
-            <script type="text/javascript" src='/js/theme6/jquery.min.js'></script>
-            <script type="text/javascript" src='/js/theme6/moment.min.js'></script>
-            <script type="text/javascript" src='/js/theme6/locales.min.js'></script>
-            <script type="text/javascript" src='/js/theme6/bootstrap.min.js'></script>
-            <script type="text/javascript" src='/js/theme6/bootstrap-datetimepicker.min.js'></script>
-            <script type="text/javascript" src='/js/theme6/wow.min.js'></script>
-            <script type="text/javascript" src='/js/theme6/fancybox.umd.js'></script>
-            <script type="text/javascript" src='/js/theme6/select2.min.js'></script>
-            <script type="text/javascript" src='/js/theme6/swiper-bundle.min.js'></script>
-
-
-            <script type="text/javascript" src="/js/theme6/app.js"></script>
-            <script type="text/javascript" src="/js/theme5/app.js"></script>
-            <script type="text/javascript" src="/js/theme4/app.js"></script>
-            <script type="text/javascript" src="/js/theme3/app.js"></script>
-            <script type="text/javascript" src="/js/theme2/app.js"></script>
-            <script type="text/javascript" src="/js/theme1/app.js"></script>
-            {{-- <script type="text/javascript" src="/js/theme2/app.js"></script>
-            <script type="text/javascript" src="/js/theme1/app.js"></script> --}}
+            
 
 
     </body>

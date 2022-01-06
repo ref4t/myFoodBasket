@@ -245,7 +245,6 @@
               <i class="nav-icon fas fa-images"></i>
               <p>
                 Gallery
-                <i class="fas fa-angle-left right"></i>
               </p>
             </Link>
           </li>
@@ -265,7 +264,7 @@
             <a href="#" class="nav-link" :class="route().current('admin.layout.*') ? 'active' : ' ' " >
               <i class="nav-icon fa fa-object-group"></i>
               <p>
-                Layout
+                Layout Settings
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>

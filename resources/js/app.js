@@ -10,7 +10,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
-
+// import "../../public/js/theme/app.js";
 
 library.add(faPhone);
 

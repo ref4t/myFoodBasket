@@ -134,6 +134,10 @@ class HomeController extends Controller
                 'cSubtotal'     =>$subtotal,
                 'layout'        =>$layout,
                 'reviews'       =>$reviews
+            ])->withViewData([
+                'theme'       => $theme,
+                'description' => 'Contact us with your comments, questions, and suggestions',
+                'meta'        => 'Some other SEO meta'
             ]);
         }
     }
