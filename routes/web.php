@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\Settings\MapAndCategoryController;
 use App\Http\Controllers\Admin\Settings\ShopController;
 use App\Http\Controllers\Admin\Settings\OpenCloseController;
 use App\Http\Controllers\Admin\Settings\DeliveryController;
+use App\Http\Controllers\Admin\Settings\PaymentController;
 use App\Http\Controllers\Admin\Settings\SocialMediaController;
 use App\Http\Controllers\Admin\Settings\ProductIconController;
 use App\Http\Controllers\Admin\Settings\UserController;
@@ -331,6 +332,11 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::post('settings/delivery/addDistGroup',[DeliveryController::class, 'addDistGroup'])->name('admin.settings.delivery.addDistGroup');
     Route::post('settings/delivery/addAreaGroup',[DeliveryController::class, 'addAreaGroup'])->name('admin.settings.delivery.addAreaGroup');
     Route::post('settings/delivery/update',[DeliveryController::class, 'update'])->name('admin.settings.delivery.update');
+
+    Route::get('settings/payment/index',[PaymentController::class, 'index'])->name('admin.settings.payment.index');
+    Route::get('settings/payment/update',[PaymentController::class, 'update'])->name('admin.settings.payment.update');
+    Route::get('settings/payment/myfb',[PaymentController::class, 'myfb'])->name('admin.settings.payment.myfb');
+    Route::post('settings/payment/myfb/update',[PaymentController::class, 'myfbUpdate'])->name('admin.settings.payment.myfb.update');
 
     Route::get('settings/social-media/index',[SocialMediaController::class, 'index'])->name('admin.settings.social.index');
     Route::post('settings/social-media/update',[SocialMediaController::class, 'update'])->name('admin.settings.social.update');

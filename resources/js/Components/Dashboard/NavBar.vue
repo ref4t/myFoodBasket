@@ -10,6 +10,7 @@
           <!-- Navbar Search -->
           <li v-if="auth.user_group_id == 1" class="nav-item">
               <select v-model="this.select" class="form-control bg-dark flaot-left" style="width:30vw" @change="changeSelect(this.select)" >
+                <option value="0">Store Front</option>
                 <option v-for="store in stores" :key="store.store_id" :value="store.store_id"> {{ decodeHtml(store.name) }} </option>
               </select>
             

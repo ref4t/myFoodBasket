@@ -343,8 +343,9 @@
               </li>
               <li class="nav-item">
                 <Link
-                  
+                  :href="route('admin.settings.payment.index')"
                   class="nav-link"
+                  :class="route().current('admin.settings.payment.*') ? 'active' : ' ' "
                 >
                   <i class="far fa-circle nav-icon"></i>
                   <p>Payment Setting </p>
