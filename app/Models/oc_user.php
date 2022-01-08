@@ -14,9 +14,8 @@ class oc_user extends Authenticatable
     // protected $guard = 'admin';
     protected $guarded = [];
     public $timestamps = false;
-    public $primaryKey='user_id';
+    protected $primaryKey='user_id';
     protected $table = 'oc_user';
     protected $hidden =['password'];
     // protected $fillable= ['user_group_id'];
-  
 }

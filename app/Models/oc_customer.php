@@ -17,11 +17,13 @@ use Laravel\Sanctum\HasApiTokens;
 class oc_customer extends Authenticatable
 {   
     use HasApiTokens, HasFactory, Notifiable;
-    protected $guard = 'customer';
-    protected $primaryKey = 'customer_id ';
+    // protected $guard = 'customer';
+    protected $primaryKey = 'customer_id';
     protected $table = 'oc_customer';
     protected $hidden = ['password'];
-   
+    protected $guarded = ['customer_id'];
+    public $timestamps = false;
+
     public function getAddress(){
         return $this->hasMany(oc_address::class,'customer_id','customer_id');
     }
