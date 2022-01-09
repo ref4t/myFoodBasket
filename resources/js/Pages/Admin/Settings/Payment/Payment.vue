@@ -12,7 +12,7 @@
                     <div class="card-body table-responsive">
                         <table class="table" >
                             <tr>
-                                <td class="text-bold">
+                                <td @click="cash" class="text-bold" style="cursor: pointer">
                                     CASH
                                 </td>
                                 <td class="text-right">
@@ -21,7 +21,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-bold">
+                                <td @click="payment" class="text-bold" style="cursor: pointer">
                                     PAYMENT BY CARD ON DELIVERY
                                 </td>
                                 <td class="text-right">
@@ -30,7 +30,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-bold">
+                                <td @click="paypal" class="text-bold" style="cursor: pointer">
                                     PAYPAL
                                 </td>
                                 <td class="text-right">
@@ -39,7 +39,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-bold">
+                                <td @click="worldpay" class="text-bold" style="cursor: pointer">
                                     WORLDPAY
                                 </td>
                                 <td class="text-right">
@@ -48,7 +48,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-bold">
+                                <td @click="takePayment" class="text-bold" style="cursor: pointer">
                                     TAKE PAYMENTS
                                 </td>
                                 <td class="text-right">
@@ -115,6 +115,22 @@ export default {
     },
 
     methods:{
+        
+        cash(){
+            this.$inertia.get(this.route('admin.settings.payment.cash'))
+        },
+        payment(){
+            this.$inertia.get(this.route('admin.settings.payment.payment'))
+        },
+        paypal(){
+            this.$inertia.get(this.route('admin.settings.payment.paypal'))
+        },
+        worldpay(){
+            this.$inertia.get(this.route('admin.settings.payment.worldpay'))
+        },
+        takePayment(){
+            this.$inertia.get(this.route('admin.settings.payment.takePayment'))
+        },
         myfb(){
             this.$inertia.get(this.route('admin.settings.payment.myfb'))
         }

@@ -87,4 +87,118 @@ class PaymentController extends Controller
 
         return redirect()->back();
     }
+
+    public function cash(Request $request){
+
+
+        $store_id =$request->session()->get('store_id');
+        $data = [];
+        $settings=oc_setting::where('store_id','=',$store_id)->where('group','=','cod')->get();
+        
+
+        foreach ($settings as $result) {
+            
+            
+            if (!$result['serialized']) {
+                $data[$result['key']] = $result['value'];
+            } else {
+                $data[$result['key']] = unserialize($result['value']);
+            }
+            
+            
+        }
+
+        return Inertia::render('Admin/Settings/Payment/Cash',[
+            'data'      => $data
+        ]);
+    }
+
+    public function cashUpdate(Request $request){
+        $data = $request['data'];
+        $store_id =$request->session()->get('store_id');
+
+        foreach ($data as $key => $value) {
+
+            $option = oc_setting::where('store_id',$store_id)->where('group','=','cod')->where('key', $key)->update(['value' => $value]);
+            
+        }
+
+        return redirect()->back();
+    }
+
+    public function payment(Request $request){
+
+
+        $store_id =$request->session()->get('store_id');
+        $data = [];
+        $settings=oc_setting::where('store_id','=',$store_id)->where('group','=','ccod')->get();
+        
+
+        foreach ($settings as $result) {
+            
+            
+            if (!$result['serialized']) {
+                $data[$result['key']] = $result['value'];
+            } else {
+                $data[$result['key']] = unserialize($result['value']);
+            }
+            
+            
+        }
+
+        return Inertia::render('Admin/Settings/Payment/CPayment',[
+            'data'      => $data
+        ]);
+    }
+
+    public function paymentUpdate(Request $request){
+        $data = $request['data'];
+        $store_id =$request->session()->get('store_id');
+        // dd($data);
+        foreach ($data as $key => $value) {
+
+            $option = oc_setting::where('store_id',$store_id)->where('group','=','ccod')->where('key', $key)->update(['value' => $value]);
+            
+        }
+
+        return redirect()->back();
+    }
+
+    public function paypal(Request $request){
+
+
+        $store_id =$request->session()->get('store_id');
+        $data = [];
+        $settings=oc_setting::where('store_id','=',$store_id)->where('group','=','ccod')->get();
+        
+
+        foreach ($settings as $result) {
+            
+            
+            if (!$result['serialized']) {
+                $data[$result['key']] = $result['value'];
+            } else {
+                $data[$result['key']] = unserialize($result['value']);
+            }
+            
+            
+        }
+
+        return Inertia::render('Admin/Settings/Payment/Paypal',[
+            'data'      => $data
+        ]);
+    }
+
+    public function paypalUpdate(Request $request){
+        $data = $request['data'];
+        $store_id =$request->session()->get('store_id');
+        // dd($data);
+        foreach ($data as $key => $value) {
+
+            $option = oc_setting::where('store_id',$store_id)->where('group','=','ccod')->where('key', $key)->update(['value' => $value]);
+            
+        }
+
+        return redirect()->back();
+    }
 }

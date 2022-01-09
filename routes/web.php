@@ -333,10 +333,26 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::post('settings/delivery/addAreaGroup',[DeliveryController::class, 'addAreaGroup'])->name('admin.settings.delivery.addAreaGroup');
     Route::post('settings/delivery/update',[DeliveryController::class, 'update'])->name('admin.settings.delivery.update');
 
+
     Route::get('settings/payment/index',[PaymentController::class, 'index'])->name('admin.settings.payment.index');
     Route::get('settings/payment/update',[PaymentController::class, 'update'])->name('admin.settings.payment.update');
     Route::get('settings/payment/myfb',[PaymentController::class, 'myfb'])->name('admin.settings.payment.myfb');
     Route::post('settings/payment/myfb/update',[PaymentController::class, 'myfbUpdate'])->name('admin.settings.payment.myfb.update');
+    Route::get('settings/payment/cash',[PaymentController::class, 'cash'])->name('admin.settings.payment.cash');
+    Route::post('settings/payment/cash/update',[PaymentController::class, 'cashUpdate'])->name('admin.settings.payment.cash.update');
+
+    Route::get('settings/payment/payment',[PaymentController::class, 'payment'])->name('admin.settings.payment.payment');
+    Route::post('settings/payment/payment/update',[PaymentController::class, 'paymentUpdate'])->name('admin.settings.payment.payment.update');
+    
+    Route::get('settings/payment/paypal',[PaymentController::class, 'paypal'])->name('admin.settings.payment.paypal');
+    Route::post('settings/payment/paypal/update',[PaymentController::class, 'paypalUpdate'])->name('admin.settings.payment.paypal.update');
+   
+    Route::get('settings/payment/worldpay',[PaymentController::class, 'worldpay'])->name('admin.settings.payment.worldpay');
+    Route::post('settings/payment/worldpay/update',[PaymentController::class, 'worldpayUpdate'])->name('admin.settings.payment.worldpay.update');
+    
+    Route::get('settings/payment/takePayment',[PaymentController::class, 'takePayment'])->name('admin.settings.payment.takePayment');
+    Route::post('settings/payment/takePayment/update',[PaymentController::class, 'takePaymentUpdate'])->name('admin.settings.payment.takePayment.update');
+
 
     Route::get('settings/social-media/index',[SocialMediaController::class, 'index'])->name('admin.settings.social.index');
     Route::post('settings/social-media/update',[SocialMediaController::class, 'update'])->name('admin.settings.social.update');
