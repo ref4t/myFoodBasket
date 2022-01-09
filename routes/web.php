@@ -74,6 +74,7 @@ use App\Models\layout;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 $mainDomain = array('domain' => parse_url(env('APP_URL'))['host']);
 // dd($mainDomain);
 if($mainDomain['domain'] == parse_url(url()->current())['host']){
@@ -85,40 +86,41 @@ if($mainDomain['domain'] == parse_url(url()->current())['host']){
     });
 }
 else{
-$domain = array('domain' => parse_url(url()->current())['host']);
+    $domain = array('domain' => parse_url(url()->current())['host']);
 
-Route::group( $domain,function () {
-    /* routes here */
-    Route::get('/', [HomeController::class, 'index'])->name('shopHome');
-    Route::get('/member',[MemberController::class, 'index'])->name('shopMember');
+    Route::group( $domain,function () {
+        /* routes here */
+        Route::get('/', [HomeController::class, 'index'])->name('shopHome');
+        Route::get('/member',[MemberController::class, 'index'])->name('shopMember');
 
-    Route::get('/menu',[MenuController::class, 'index'])->name('shopMenu');
-    
-    Route::get('/checkout',[CheckoutController::class, 'index'])->name('shopcheckout');
+        Route::get('/menu',[MenuController::class, 'index'])->name('shopMenu');
+        
+        Route::get('/checkout',[CheckoutController::class, 'index'])->name('shopcheckout');
 
-    Route::get('/contactus',[AboutusController::class, 'index'])->name('shopcontactus');
-    
-    Route::get('/cart',[CartController::class, 'index'])->name('shopcart');
+        Route::get('/contactus',[AboutusController::class, 'index'])->name('shopcontactus');
+        
+        Route::get('/cart',[CartController::class, 'index'])->name('shopcart');
 
-    Route::get('/coordinate',[CoordianteController::class, 'index'])->name('coordinate');
+        Route::get('/coordinate',[CoordianteController::class, 'index'])->name('coordinate');
 
-    Route::post('/addtocart',[CartController::class, 'addToCart'])->name('addtocart');
-    
-    Route::post('/removefromcart',[CartController::class, 'removeFromCart'])->name('removefromcart');
+        Route::post('/addtocart',[CartController::class, 'addToCart'])->name('addtocart');
+        
+        Route::post('/removefromcart',[CartController::class, 'removeFromCart'])->name('removefromcart');
 
-    Route::get('/registration',[RegisterController::class, 'index'])->name('shopReg');
+        // Route::get('/registration',[RegistryController::class, 'index'])->name('shopReg');
 
-    Route::get('/account',[AccountController::class, 'index'])->name('shopAcc');
-    
-    // post
-    Route::post('/account',[AccountController::class, 'index'])->name('shopAcc');
+        Route::get('/account',[AccountController::class, 'index'])->name('shopAcc');
+        
+        // post
+        Route::post('/account',[AccountController::class, 'index'])->name('shopAcc');
 
-    Route::get('/forgotten',[ForgotPasswordController::class, 'index'])->name('shopForgot');
+        Route::get('/forgotten',[ForgotPasswordController::class, 'index'])->name('shopForgot');
 
-    // post
-    Route::post('/forgotten',[ForgotPasswordController::class, 'index'])->name('shopForgot');
-});
+        // post
+        Route::post('/forgotten',[ForgotPasswordController::class, 'index'])->name('shopForgot');
+    });
 }
+
 
 
 // Route::get('/login');
@@ -126,7 +128,11 @@ Route::group( $domain,function () {
 
 Route::get('authcheck', function () {
     // dump(session()->all());
+    dump('--- Admin ---');
     dump(Auth::guard('admin')->user());
+
+    dump('--- Customer ---');
+    dump(Auth::guard('customer')->user());
 })->name('authcheck');
 
 
@@ -373,3 +379,4 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 });
 
 // require __DIR__.'/auth.php';
+require __DIR__.'/authCustomer.php';

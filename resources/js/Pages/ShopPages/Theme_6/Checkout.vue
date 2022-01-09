@@ -23,15 +23,15 @@
                                <p class="m-3">OR</p>
                                <form @submit.prevent="submit" style="width:50%;display: inline-block;">
                                     <div class="form-floating mb-3">
-                                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="loginForm.email" :class="v$.loginForm.email.$error ? 'is-invalid' : ' ' ">
                                         <label for="floatingInput">Email address</label>
                                     </div>
                                     <div class="form-floating">
-                                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="loginForm.password" :class="v$.loginForm.password.$error ? 'is-invalid' : ' ' ">
                                         <label for="floatingPassword">Password</label>
                                     </div>
                                     <div class="my-3">
-                                    <button type="submit" class="btn btn-success">Log in</button>
+                                        <button type="submit" class="btn btn-success" @click="customerLogin()">Log in</button>
                                     </div>
                                 </form>
                             </div>
@@ -105,62 +105,62 @@
                         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body" style="text-align:center">
                             <form @submit.prevent="submit" style="width:50%; display: inline-block;">
-                                    <div class="form-control mb-3">
+                                <div class="form-control mb-3">
                                     <div class="row">
-                                    <div class="form-floating mb-3 ">
-                                        <select name="gender" class="form-select my-3" aria-label="Default select example" v-model="createForm.gender" :class="v$.createForm.gender.$error ? 'is-invalid' : ' ' " >
-                                            <option value=null>Title</option>
-                                            <option value="1">Mr.</option> 
-                                            <option value="2">Mrs.</option> 
-                                            <option value="3">Ms.</option> 
-                                            <option value="4">Miss.</option> 
-                                            <option value="5">Dr.</option> 
-                                            <option value="6">Prof.</option> 
-                                        </select>
-                                    </div>
-                                    <div class="col-6">
-                                    <div class="form-floating mb-3 ">
-                                        <input type="text" class="form-control" id="createFormFirstName" placeholder="John" v-model="createForm.firstName" :class="v$.createForm.firstName.$error ? 'is-invalid' : ' ' " >
-                                        <label for="createFormFirstName">First Name</label>
-                                    </div>
-                                    </div>
-                                    <div class="col-6">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="createFormLastName" placeholder="Doe" v-model="createForm.lastName" :class="v$.createForm.lastName.$error ? 'is-invalid' : ' ' " >
-                                        <label for="createFormLastName">Last Name</label>
-                                    </div>
-                                    </div>
-                                    <div class="col-12">
-                                    <div class="form-floating mb-3">
-                                        <input type="email" class="form-control" id="createFormEmail" placeholder="name@example.com" v-model="createForm.email" :class="v$.createForm.email.$error ? 'is-invalid' : ' ' " >
-                                        <label for="createFormEmail">Email address</label>
-                                    </div>
-                                    </div>
-                                    <div class="col-12">
-                                    <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="createFormPhone" placeholder="12341234" v-model="createForm.phone" :class="v$.createForm.phone.$error ? 'is-invalid' : ' ' " >
-                                        <label for="createFormPhone">Phone Number</label>
-                                    </div>
-                                    </div>
-                                    <div class="col-12">
-                                    <div class="form-floating mb-3">
-                                        <input type="password" class="form-control" id="createFormPass" placeholder="Password" v-model="createForm.password" :class="v$.createForm.password.$error ? 'is-invalid' : ' ' " >
-                                        <label for="createFormPass">Password</label>
-                                    </div>
-                                    </div>
-                                    <div class="col-12">
-                                    <div class="form-floating mb-3">
-                                        <input type="password" class="form-control" id="createFormConPass" placeholder="Password" v-model="createForm.confirmPass" :class="v$.createForm.confirmPass.$error ? 'is-invalid' : ' ' ">
-                                        <label for="createFormConPass">Confirm Password</label>
-                                    </div>
-                                    </div>
+                                        <div class="form-floating mb-3 ">
+                                            <select name="gender" class="form-select my-3" aria-label="Default select example" v-model="createForm.gender" :class="v$.createForm.gender.$error ? 'is-invalid' : ' ' " >
+                                                <option value=null>Title</option>
+                                                <option value="1">Mr.</option> 
+                                                <option value="2">Mrs.</option> 
+                                                <option value="3">Ms.</option> 
+                                                <option value="4">Miss.</option> 
+                                                <option value="5">Dr.</option> 
+                                                <option value="6">Prof.</option> 
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-floating mb-3 ">
+                                                <input type="text" class="form-control" id="createFormFirstName" placeholder="John" v-model="createForm.firstName" :class="v$.createForm.firstName.$error ? 'is-invalid' : ' ' " >
+                                                <label for="createFormFirstName">First Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="createFormLastName" placeholder="Doe" v-model="createForm.lastName" :class="v$.createForm.lastName.$error ? 'is-invalid' : ' ' " >
+                                                <label for="createFormLastName">Last Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <input type="email" class="form-control" id="createFormEmail" placeholder="name@example.com" v-model="createForm.email" :class="v$.createForm.email.$error ? 'is-invalid' : ' ' " >
+                                                <label for="createFormEmail">Email address</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <input type="number" class="form-control" id="createFormPhone" placeholder="12341234" v-model="createForm.phone" :class="v$.createForm.phone.$error ? 'is-invalid' : ' ' " >
+                                                <label for="createFormPhone">Phone Number</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <input type="password" class="form-control" id="createFormPass" placeholder="Password" v-model="createForm.password" :class="v$.createForm.password.$error ? 'is-invalid' : ' ' " >
+                                                <label for="createFormPass">Password</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <input type="password" class="form-control" id="createFormConPass" placeholder="Password" v-model="createForm.password_confirmation" :class="v$.createForm.password_confirmation.$error ? 'is-invalid' : ' ' ">
+                                                <label for="createFormConPass">Confirm Password</label>
+                                            </div>
+                                        </div>
 
-                                    <div class="my-3">
-                                    <button type="submit" class="btn btn-success" @click="createCustomer()">Create</button>
+                                        <div class="my-3">
+                                            <button type="submit" class="btn btn-success" @click="createCustomer()">Create</button>
+                                        </div>
                                     </div>
-                                    </div>
-                                    </div>
-                                </form>
+                                </div>
+                            </form>
                         </div>
                         </div>
                     </div>
@@ -430,6 +430,10 @@ export default {
         TopFooterSix,
     },
     setup(){
+        const loginForm = reactive({
+            email: null,
+            password: null,
+        })
         const guestForm = reactive({
                     gender: null,
                     firstName: null,
@@ -438,14 +442,14 @@ export default {
                     phone: null,
                     })
         const createForm = reactive({
-                    gender: null,
-                    firstName: null,
-                    lastName: null,
-                    email: null,
-                    phone: null,
-                    password:null,
-                    confirmPass:null,
-                    })
+            gender: null,
+            firstName: null,
+            lastName: null,
+            email: null,
+            phone: null,
+            password:null,
+            password_confirmation:null,
+        })
         const addressForm = reactive({
             line1:null,
             line2:null,
@@ -458,8 +462,8 @@ export default {
             voucher:null,
             coupon:null,
         })
-      const toast = useToast();
-        return {guestForm, createForm, addressForm, toast, finalForm}
+        const toast = useToast();
+        return {loginForm, guestForm, createForm, addressForm, toast, finalForm}
     },
     data(){
         return{
@@ -473,6 +477,10 @@ export default {
     },
     validations(){
         return {
+            loginForm:{
+                email: {required,email},
+                password: {required},
+            },
             guestForm:{
                 gender: {required},
                 firstName: {required},
@@ -487,7 +495,7 @@ export default {
                 email:      {required,email},
                 phone:      {required},
                 password:   {required},
-                confirmPass:{required, sameAs: sameAs(this.createForm.password) },
+                password_confirmation:{required, sameAs: sameAs(this.createForm.password) },
             },
             addressForm :{
                 line1:{required},
@@ -501,8 +509,8 @@ export default {
     },
     computed:{
         progressStatus: function () {
-      return this.stepCount*(100/3);
-    }
+            return this.stepCount*(100/3);
+        }
     },
     props:{
         setting:Object,
@@ -519,15 +527,54 @@ export default {
         checkboxCheck(checkId){
             document.getElementById(checkId).checked = true;
         },
+        customerLogin(){
+            this.v$.loginForm.$validate()
+            
+            if(!this.v$.loginForm.$error){
+                console.log("validated login");
+                console.log(this.loginForm);
+
+                axios.post(this.route('customer.login'), this.loginForm)
+                .then((response) => {
+                    console.log(response);
+                    // window.location.href = this.route('admin.dashboard');
+                })
+                .catch((error) => {
+                    console.log(error);
+                    // this.error.status = true;
+                    // this.error.message = 'Email or password is incorrect...';
+                });
+            }
+            else{
+                console.log("failed customer")
+            }
+        },
         createCustomer(){
             this.v$.createForm.$validate()
             
             if(!this.v$.createForm.$error){
                 console.log("validated");
-                this.stepCount=2;
-                document.getElementById('checkoutPageHeader2').scrollIntoView();
                 console.log(this.createForm);
-                }
+
+                axios.post(this.route('customer.register'), this.createForm)
+                .then((response) => {
+                    console.log(response);
+                    // window.location.href = this.route('admin.dashboard');
+
+                    if (response.headers.status) { //if there is server side error
+                        console.log(response.data); //error messages
+                    } else {
+                        
+                        // this.stepCount=2;
+                        // document.getElementById('checkoutPageHeader2').scrollIntoView();
+                    }
+                })
+                .catch((error) => {
+                    console.log(error.headers);
+                    // this.error.status = true;
+                    // this.error.message = 'Email or password is incorrect...';
+                });
+            }
             else{
                 console.log("failed")
             }
