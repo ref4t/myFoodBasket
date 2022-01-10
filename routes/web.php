@@ -53,6 +53,8 @@ use App\Http\Controllers\Shop\ForgotPasswordController;
 use App\Http\Controllers\Shop\RegistryController;
 use App\Http\Controllers\Shop\CoordianteController;
 
+use App\Http\Controllers\PayPalController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -129,6 +131,17 @@ Route::get('authcheck', function () {
 Route::get('/admin', [AuthenticatedSessionController::class, 'create'])->middleware('guest:admin')->name('login');
 Route::post('/admin', [AuthenticatedSessionController::class, 'store']);
 Route::get('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:admin')->name('admin.logout');
+
+/**
+ * These are taken from url: https://hackthestuff.com/article/paypal-payment-gateway-integration-in-laravel-8
+ * Tested with a paypal account and it is working
+ */
+Route::get('create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
+Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
+
+
 
 Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

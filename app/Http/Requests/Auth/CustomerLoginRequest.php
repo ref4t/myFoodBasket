@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use App\Models\oc_customer;
 
-class CustomerLoginRequest extends FormRequest
+class CustomerLoginRequest extends FormRequest implements CanResetPasswordContract
 {
+    use CanResetPassword; // This is needed for password reset
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -88,5 +92,18 @@ class CustomerLoginRequest extends FormRequest
     public function throttleKey()
     {
         return Str::lower($this->input('email')).'|'.$this->ip();
+    }
+    
+    /**
+     * Check if customer's password ned to be reset so that 
+     * it can be used in laravel system
+     * password_reset column from oc_customer table will be used as flag to send 
+     * the password reset link for the first time
+     * @return boolean
+     */
+    public function needToResetPassword()
+    {
+        return oc_customer::where('email', $this->input('email'))
+                ->where('password_reset', 0)->exists();
     }
 }

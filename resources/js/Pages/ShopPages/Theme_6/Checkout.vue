@@ -534,7 +534,11 @@ export default {
                 console.log("validated login");
                 console.log(this.loginForm);
 
-                axios.post(this.route('customer.login'), this.loginForm)
+                // to get password reset token
+                // axios.post(this.route('customer.login'), this.loginForm)
+
+                // to send email with password reset link
+                axios.post(this.route('customer.password.email'), this.loginForm)
                 .then((response) => {
                     console.log(response);
                     // window.location.href = this.route('admin.dashboard');

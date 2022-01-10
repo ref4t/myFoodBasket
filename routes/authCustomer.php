@@ -21,6 +21,10 @@ Route::prefix('/customer')->name('customer.')->group(function(){
         ->middleware('guest:customer')
         ->name('login');
     
+    Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->middleware('auth:customer')
+        ->name('logout');
+    
     Route::get('/register', [RegisteredUserController::class, 'create'])
         ->middleware('guest:customer')
         ->name('register');
@@ -28,13 +32,24 @@ Route::prefix('/customer')->name('customer.')->group(function(){
     Route::post('/register', [RegisteredUserController::class, 'store'])
         ->middleware('guest:customer')
         ->name('register');
+
+    Route::post('/reset-password', [NewPasswordController::class, 'store'])
+        ->middleware('guest:customer')
+        ->name('password.update');
+
+    Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+            ->middleware('guest:customer')
+            ->name('password.email');
 });
 
 
-
-
-
-
+/**
+ * To send password reset link to email 
+ * Do not change the route name system send a static email with this route
+ */
+Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+    ->middleware('guest')
+    ->name('password.reset'); 
 
 
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
@@ -44,14 +59,6 @@ Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
                 ->middleware('guest')
                 ->name('password.email');
-
-Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
-                ->middleware('guest')
-                ->name('password.reset');
-
-Route::post('/reset-password', [NewPasswordController::class, 'store'])
-                ->middleware('guest')
-                ->name('password.update');
 
 Route::get('/verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->middleware('auth')
