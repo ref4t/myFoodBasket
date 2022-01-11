@@ -13,7 +13,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" @click="checkboxCheck('flexRadioDefault1')">
-                          <input type="radio" class="form-check-input me-3" name="checkoutAs" id="flexRadioDefault1" checked> 
+                          <input v-model="this.checkoutType" :value="1" type="radio" class="form-check-input me-3" name="checkoutAs" id="flexRadioDefault1" checked> 
                           <label class="form-check-label" for="flexRadioDefault1"> Log in </label>
                         </button>
                         </h2>
@@ -40,7 +40,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" @click="checkboxCheck('flexRadioDefault2')">
-                          <input type="radio" class="form-check-input me-3" name="checkoutAs" id="flexRadioDefault2"> 
+                          <input v-model="this.checkoutType" :value="2" type="radio" class="form-check-input me-3" name="checkoutAs" id="flexRadioDefault2"> 
                           <label class="form-check-label" for="flexRadioDefault2"> Guest checkout </label>
                         </button>
                         </h2>
@@ -98,7 +98,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree" @click="checkboxCheck('flexRadioDefault3')">
-                          <input type="radio" class="form-check-input me-3" name="checkoutAs" id="flexRadioDefault3"> 
+                          <input v-model="this.checkoutType" :value="3" type="radio" class="form-check-input me-3" name="checkoutAs" id="flexRadioDefault3"> 
                           <label class="form-check-label" for="flexRadioDefault3"> Create an account </label>
                         </button>
                         </h2>
@@ -132,8 +132,9 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-floating mb-3">
-                                                <input type="email" class="form-control" id="createFormEmail" placeholder="name@example.com" v-model="createForm.email" :class="v$.createForm.email.$error ? 'is-invalid' : ' ' " >
+                                                <input type="email" class="form-control" id="createFormEmail" placeholder="name@example.com" v-model="createForm.email" :class="v$.createForm.email.$error || this.emailCheck ? 'is-invalid' : ' ' " >
                                                 <label for="createFormEmail">Email address</label>
+                                                <span class="text-danger" v-if="this.emailCheck">The email has already been taken.</span>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -175,13 +176,13 @@
                         <div class="row justify-content-center">
                             <div class="col-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioOrderType" id="flexRadioOrderType1">
+                                    <input v-model="this.deliverymethod" :value="'collection'" class="form-check-input" type="radio" name="flexRadioOrderType" id="flexRadioOrderType1">
                                     <label class="form-check-label" for="flexRadioOrderType1">
                                         I will collect my order
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioOrderType" id="flexRadioOrderType2" checked>
+                                    <input v-model="this.deliverymethod" :value="'delivery'" class="form-check-input" type="radio" name="flexRadioOrderType" id="flexRadioOrderType2" checked>
                                     <label class="form-check-label" for="flexRadioOrderType2">
                                         Deliver to my address
                                     </label>
@@ -197,7 +198,7 @@
                     <div class="card-body">
                         <div class="row justify-content-center">
                             <div class="col-2">
-                               <select class="form-select" aria-label="Default select example">
+                               <select v-model="this.deliverytime" class="form-select" aria-label="Default select example">
                                     <option selected="selected" value="ASAP">ASAP</option>
                                     <option value="11:30-11:45">11:30-11:45</option>
                                     <option value="11:15-11:30">11:15-11:30</option>
@@ -385,13 +386,13 @@
                         <div class="form-control">
                             <div class="col-3" style="text-align:center;display:inline-block;">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="paymentMethod1" checked v-model="finalForm.payment">
+                                    <input class="form-check-input" value="Pay Online" type="radio" name="flexRadioDefault" id="paymentMethod1" checked v-model="finalForm.payment">
                                     <label class="form-check-label" for="paymentMethod1">
                                        Pay Online Through Card
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="paymentMethod2" v-model="finalForm.payment" >
+                                    <input class="form-check-input" value="Pay by Card on Delivery" type="radio" name="flexRadioDefault" id="paymentMethod2" v-model="finalForm.payment" >
                                     <label class="form-check-label" for="paymentMethod2">
                                         Pay Through Card on Collection
                                     </label>
@@ -405,7 +406,7 @@
                         <button class="btn btn-light" @click="previousStep"><i class="fas fa-chevron-left"></i> Back</button>
                     </div>
                     <div class="col-6 ">
-                        <button class="btn btn-success" @click="checkoutSubmit">Pay £{{cartTotal}}</button>
+                        <button class="btn btn-success" type="button" @click="checkoutSubmit(this.guestForm, this.auth, this.addressForm, this.createForm, this.cartTest, this.cartTotal, this.cartSubtotal,this.deliverytime, this.checkoutType, this.deliverymethod,finalForm.payment)">Pay £{{cartTotal}}</button>
                     </div>
                 </div>
             </div>
@@ -418,9 +419,11 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import TopHeaderSix from '@/Pages/ShopPages/Theme_6/Header6.vue';
 import TopFooterSix from '@/Pages/ShopPages/Theme_6/Footer6.vue';
 import { reactive } from 'vue';
+import { computed } from 'vue'
 import { useToast } from "vue-toastification";
 import useValidate from '@vuelidate/core'
 import { required, email, minLength, maxLength, sameAs, numeric } from '@vuelidate/validators'
+import { usePage } from '@inertiajs/inertia-vue3'
 
 export default {
      components:{
@@ -462,8 +465,10 @@ export default {
             voucher:null,
             coupon:null,
         })
+        
         const toast = useToast();
-        return {loginForm, guestForm, createForm, addressForm, toast, finalForm}
+        const auth = computed(() => usePage().props.value.auth_customer)
+        return {loginForm, guestForm, createForm, addressForm, toast, finalForm,auth}
     },
     data(){
         return{
@@ -472,6 +477,10 @@ export default {
             cartTotal:this.cTotal,
             cartSubtotal:this.cSubtotal,
             stepCount:1,
+            deliverytime:'ASAP',
+            checkoutType:1,
+            deliverymethod:'delivery',
+            emailCheck:'',
         }
         
     },
@@ -537,6 +546,7 @@ export default {
                 axios.post(this.route('customer.login'), this.loginForm)
                 .then((response) => {
                     console.log(response);
+                    this.stepCount= this.stepCount+1;
                     // window.location.href = this.route('admin.dashboard');
                 })
                 .catch((error) => {
@@ -554,18 +564,22 @@ export default {
             
             if(!this.v$.createForm.$error){
                 console.log("validated");
-                console.log(this.createForm);
+                // console.log(this.createForm);
 
                 axios.post(this.route('customer.register'), this.createForm)
                 .then((response) => {
-                    console.log(response);
+                    // console.log(response);
+                    // this.stepCount= this.stepCount+1;
                     // window.location.href = this.route('admin.dashboard');
 
                     if (response.headers.status) { //if there is server side error
                         console.log(response.data); //error messages
+                        this.emailCheck = response.data;
+                        console.log('errors');
+                        console.log(response);
                     } else {
                         
-                        // this.stepCount=2;
+                        this.stepCount=2;
                         // document.getElementById('checkoutPageHeader2').scrollIntoView();
                     }
                 })
@@ -627,6 +641,10 @@ export default {
                 this.errorMessage = error.message;
                 });
         },
+        checkoutSubmit(guestForm,auth, deliveryData, createData, cartTest, cartTotal, cartSubtotal,deliverytime,checkoutType,deliverymethod,payment){
+            
+            this.$inertia.post(this.route('shopcheckout.checkout',{guestForm,auth,deliveryData, createData, cartTest, cartTotal, cartSubtotal, deliverytime,checkoutType,deliverymethod,payment}))
+        }
     }
 }
 </script>

@@ -191,10 +191,10 @@ export default {
         },
         addToCart(productId,sizeId){
             // this.tSetting.open=true;
-            if(!this.tSetting.open){
-                this.toast.error('We are closed now');
-                return 0;
-            }
+            // if(!this.tSetting.open){
+            //     this.toast.error('We are closed now');
+            //     return 0;
+            // }
           let  pdata={'id_product':productId,'id_size':sizeId}
           let cd=this;
             //    console.log(pdata)

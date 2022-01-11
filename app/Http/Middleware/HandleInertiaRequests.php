@@ -57,7 +57,7 @@ class HandleInertiaRequests extends Middleware
         }
         return array_merge(parent::share($request), [
             
-            'auth'          => Auth::guard('customer')->user(),
+            'auth_customer'          => Auth::guard('customer')->user(),
             'auth'          => Auth::guard('admin')->user(),
             
             'stores'        => oc_store::orderby('name')->get(),

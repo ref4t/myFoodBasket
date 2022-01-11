@@ -48,14 +48,15 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        $store_id =$request->session()->get('store_id');
         $validator = Validator::make($request->all(), $this->rules());
 
         if ($validator->fails()) { // to get errors in json format
             return response()->json($validator->messages(), 200, ['status' => 'error']);
         }
-
+        
         $customer = oc_customer::create([
-            'store_id' => 11111,
+            'store_id' => $store_id,
             'firstname' => $request->firstName,
             'lastname' => $request->lastName,
             'email' => $request->email,
@@ -75,6 +76,8 @@ class RegisteredUserController extends Controller
             'date_added' => date("Y-m-d H:i:s"),
             'gender_id' => $request->gender
         ]);
+
+          
 
         return response()
             ->json(['status' => 'success', 'message' => 'Customer created successfully.'], 200);

@@ -62,19 +62,19 @@
 
 
             {{-- <script type="text/javascript" src="/js/theme/app.js"></script> --}}
-        @if ($theme == 1)
+        
             <script type="text/javascript" src="/js/theme1/app.js"></script>
-        @elseif ($theme == 2)
+        
             <script type="text/javascript" src="/js/theme2/app.js"></script>
-        @elseif ($theme == 3)
+        
             <script type="text/javascript" src="/js/theme3/app.js"></script>
-        @elseif ($theme == 4)
+        
             <script type="text/javascript" src="/js/theme4/app.js"></script>
-        @elseif ($theme == 5)
+        
             <script type="text/javascript" src="/js/theme5/app.js"></script>
-        @elseif ($theme == 6)
+        
             <script type="text/javascript" src="/js/theme6/app.js"></script>
-        @endif
+        
     </head>
 
     <body class="bg-light hold-transition layout-fixed layout-footer-fixed">

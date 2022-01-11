@@ -9,7 +9,10 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\oc_setting;
 use App\Models\oc_store;
 use App\Models\layout;
-
+use App\Models\oc_order;
+use App\Models\oc_customer;
+use App\Models\oc_address;
+use Carbon\Carbon;
 
 class CheckoutController extends Controller
 {
@@ -92,6 +95,242 @@ class CheckoutController extends Controller
             else
                 return Inertia::render('ShopPages/Theme_6/Checkout',['theme' => $theme, 'timeSetting'=>$timeSetting,'setting'=>$data,'cartItems'=>$cart,'cTotal'=>$total,'cSubtotal'=>$subtotal]);
            
+        }
+        
+    }
+
+    public function checkout(Request $request){
+
+        dd($request->all());
+        $store_id =$request->session()->get('store_id');
+        $store = oc_store::where('store_id', $store_id)->first();
+        
+        $auth = $request['customer'];
+        $guest = $request['guestForm'];
+        $createData = $request['createData'];
+        $delivery = $request['deliveryData'];
+        $commition = oc_setting::where('store_id', $store_id)->where('key','myfoodbasketpayments_commision_rate')->first();
+        
+        if(isset($auth)){
+            
+            $order = new oc_order;
+
+            $order->fill([
+                'invoice_no'                => 0,
+                'invoice_prefix'            => 0,
+                'store_id'                  => $store['store_id'],
+                'store_name'                => $store['name'],
+                'store_url'                 => $store['url'],
+                'customer_id'               => $auth['user_id'],
+                'customer_group_id'         => $auth['user_group_id'],
+                'firstname'                 => $auth['firstname'],
+                'lastname'                  => $auth['lastname'],
+                'email'                     => $auth['email'],
+                'telephone'                 => 0,
+                'fax'                       => 0,
+                'payment_firstname'         => $auth['firstname'],
+                'payment_lastname'          => $auth['lastname'],
+                'payment_company'           => 0,
+                'payment_company_id'        => 0,
+                'payment_tax_id'            => 0,
+                'payment_address_1'         => $delivery['line1'],
+                'payment_address_2'         => $delivery['line2'],
+                'payment_city'              => $delivery['city'],
+                'payment_postcode'          => $delivery['post'],
+                'payment_country'           => 0,
+                'payment_country_id'        => 0,
+                'payment_zone'              => 0,
+                'payment_zone_id'           => 0,
+                'payment_address_format'    => 0,
+                'payment_method'            => $request['payment'],
+                'payment_code'              => 'ccod',
+                'shipping_firstname'        => $auth['firstname'],
+                'shipping_lastname'         => $auth['lastname'],
+                'shipping_company'          => 0,
+                'shipping_address_1'        => $delivery['line1'],
+                'shipping_address_2'        => $delivery['line2'],
+                'shipping_city'             => $delivery['city'],
+                'shipping_postcode'         => $delivery['post'],
+                'shipping_country'          => 0,
+                'shipping_country_id'       => 0,
+                'shipping_zone'             => 0,
+                'shipping_zone_id'          => 0,
+                'shipping_address_format'   => 0,
+                'shipping_method'           => $request['deliverymethod'],
+                'comment'                   => $delivery['addtional'],
+                'total'                     => $request['cartTotal'],
+                'order_status_id'           => 2,
+                'message'                   => $delivery['addtional'],
+                'accepted_time'             => 'NULL' ,
+                'affiliate_id'              => 0,
+                'commission'                => $commition['value'],
+                'language_id'               => 0,
+                'currency_id'               => 0,
+                'currency_code'             => 0,
+                'currency_value'            => 0,
+                'ip'                        => 0,
+                'forwarded_ip'              => 0,
+                'user_agent'                => 0,
+                'accept_language'           => 0,
+                'date_added'               => Carbon::now(),
+                'date_modified'            => Carbon::now(),
+                'flag_post_code'           => $request['deliverymethod'],
+                'free_item'                => 0,
+                'timedelivery'             => $request['deliverytime'],
+                'gender_id'                => 0,
+                'clear_history'            => 0,
+            ]);
+        $order->save();
+
+        dd("done");
+
+        }
+        elseif(isset($createData)){
+            
+            $order = new oc_order;
+
+            $order->fill([
+                'invoice_no'                => 0,
+                'invoice_prefix'            => 0,
+                'store_id'                  => $store['store_id'],
+                'store_name'                => $store['name'],
+                'store_url'                 => $store['url'],
+                'customer_id'               => $auth['user_id'],
+                'customer_group_id'         => $auth['user_group_id'],
+                'firstname'                 => $auth['firstname'],
+                'lastname'                  => $auth['lastname'],
+                'email'                     => $auth['email'],
+                'telephone'                 => 0,
+                'fax'                       => 0,
+                'payment_firstname'         => $auth['firstname'],
+                'payment_lastname'          => $auth['lastname'],
+                'payment_company'           => 0,
+                'payment_company_id'        => 0,
+                'payment_tax_id'            => 0,
+                'payment_address_1'         => $delivery['line1'],
+                'payment_address_2'         => $delivery['line2'],
+                'payment_city'              => $delivery['city'],
+                'payment_postcode'          => $delivery['post'],
+                'payment_country'           => 0,
+                'payment_country_id'        => 0,
+                'payment_zone'              => 0,
+                'payment_zone_id'           => 0,
+                'payment_address_format'    => 0,
+                'payment_method'            => $request['payment'],
+                'payment_code'              => 'ccod',
+                'shipping_firstname'        => $auth['firstname'],
+                'shipping_lastname'         => $auth['lastname'],
+                'shipping_company'          => 0,
+                'shipping_address_1'        => $delivery['line1'],
+                'shipping_address_2'        => $delivery['line2'],
+                'shipping_city'             => $delivery['city'],
+                'shipping_postcode'         => $delivery['post'],
+                'shipping_country'          => 0,
+                'shipping_country_id'       => 0,
+                'shipping_zone'             => 0,
+                'shipping_zone_id'          => 0,
+                'shipping_address_format'   => 0,
+                'shipping_method'           => $request['deliverymethod'],
+                'comment'                   => $delivery['addtional'],
+                'total'                     => $request['cartTotal'],
+                'order_status_id'           => 2,
+                'message'                   => $delivery['addtional'],
+                'accepted_time'             => 'NULL' ,
+                'affiliate_id'              => 0,
+                'commission'                => $commition['value'],
+                'language_id'               => 0,
+                'currency_id'               => 0,
+                'currency_code'             => 0,
+                'currency_value'            => 0,
+                'ip'                        => 0,
+                'forwarded_ip'              => 0,
+                'user_agent'                => 0,
+                'accept_language'           => 0,
+                'date_added'               => Carbon::now(),
+                'date_modified'            => Carbon::now(),
+                'flag_post_code'           => $request['deliverymethod'],
+                'free_item'                => 0,
+                'timedelivery'             => $request['deliverytime'],
+                'gender_id'                => 0,
+                'clear_history'            => 0,
+            ]);
+        $order->save();
+
+        dd("done");
+
+        }
+        
+        else{
+            $order = new oc_order;
+
+            $order->fill([
+                'invoice_no'                => 0,
+                'invoice_prefix'            => 0,
+                'store_id'                  => $store['store_id'],
+                'store_name'                => $store['name'],
+                'store_url'                 => $store['url'],
+                'customer_id'               => 0,
+                'customer_group_id'         => 0,
+                'firstname'                 => $guest['firstName'],
+                'lastname'                  => $guest['lastName'],
+                'email'                     => $guest['email'],
+                'telephone'                 => 0,
+                'fax'                       => 0,
+                'payment_firstname'         => $guest['firstName'],
+                'payment_lastname'          => $guest['lastName'],
+                'payment_company'           => 0,
+                'payment_company_id'        => 0,
+                'payment_tax_id'            => 0,
+                'payment_address_1'         => $delivery['line1'],
+                'payment_address_2'         => $delivery['line2'],
+                'payment_city'              => $delivery['city'],
+                'payment_postcode'          => $delivery['post'],
+                'payment_country'           => 0,
+                'payment_country_id'        => 0,
+                'payment_zone'              => 0,
+                'payment_zone_id'           => 0,
+                'payment_address_format'    => 0,
+                'payment_method'            => $request['payment'],
+                'payment_code'              => 'ccod',
+                'shipping_firstname'        => $guest['firstName'],
+                'shipping_lastname'         => $guest['lastName'],
+                'shipping_company'          => 0,
+                'shipping_address_1'        => $delivery['line1'],
+                'shipping_address_2'        => $delivery['line2'],
+                'shipping_city'             => $delivery['city'],
+                'shipping_postcode'         => $delivery['post'],
+                'shipping_country'          => 0,
+                'shipping_country_id'       => 0,
+                'shipping_zone'             => 0,
+                'shipping_zone_id'          => 0,
+                'shipping_address_format'   => 0,
+                'shipping_method'           => $request['deliverymethod'],
+                'comment'                   => $delivery['addtional'],
+                'total'                     => $request['cartTotal'],
+                'order_status_id'           => 2,
+                'message'                   => $delivery['addtional'],
+                'accepted_time'             => 'NULL' ,
+                'affiliate_id'              => 0,
+                'commission'                => $commition['value'],
+                'language_id'               => 0,
+                'currency_id'               => 0,
+                'currency_code'             => 0,
+                'currency_value'            => 0,
+                'ip'                        => 0,
+                'forwarded_ip'              => 0,
+                'user_agent'                => 0,
+                'accept_language'           => 0,
+                'date_added'               => Carbon::now(),
+                'date_modified'            => Carbon::now(),
+                'flag_post_code'           => $request['deliverymethod'],
+                'free_item'                => 0,
+                'timedelivery'             => $request['deliverytime'],
+                'gender_id'                => 0,
+                'clear_history'            => 0,
+            ]);
+
+            $order->save();
+            dd("guest");
         }
         
     }

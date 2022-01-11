@@ -96,6 +96,7 @@ else{
         Route::get('/menu',[MenuController::class, 'index'])->name('shopMenu');
         
         Route::get('/checkout',[CheckoutController::class, 'index'])->name('shopcheckout');
+        Route::post('/checkout/checkout',[CheckoutController::class, 'checkout'])->name('shopcheckout.checkout');
 
         Route::get('/contactus',[AboutusController::class, 'index'])->name('shopcontactus');
         
