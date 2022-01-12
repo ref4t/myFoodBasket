@@ -117,12 +117,13 @@ class CheckoutController extends Controller
                     "amount" => [
                         "currency_code" => "USD",
                         "value" => $request->cartTotal
-                    ]
+                    ],
+                    
                 ]
             ]
         ]);
 
-        dump($response);
+        dd($response);
 
         if (isset($response['id']) && $response['id'] != null) {
 
@@ -160,7 +161,7 @@ class CheckoutController extends Controller
 
             $order->fill([
                 'invoice_no'                => 0,
-                'invoice_prefix'            => 0,
+                'invoice_prefix'            => 'INV-2013-00',
                 'store_id'                  => $store['store_id'],
                 'store_name'                => $store['name'],
                 'store_url'                 => $store['url'],

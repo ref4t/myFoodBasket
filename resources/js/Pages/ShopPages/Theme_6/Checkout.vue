@@ -547,6 +547,7 @@ export default {
                 .then((response) => {
                     console.log(response);
                     this.stepCount= this.stepCount+1;
+                    console.log(this.stepCount)
                     // window.location.href = this.route('admin.dashboard');
                 })
                 .catch((error) => {
