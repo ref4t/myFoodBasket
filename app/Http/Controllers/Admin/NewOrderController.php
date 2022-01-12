@@ -33,6 +33,7 @@ class NewOrderController extends Controller
 
             $shop = oc_store::select('name')->where('store_id', $shop_id)->first();
 
+            $shop = $shop['name'];
             $top_users = null;
             $total = null;
             $delivery = null;
@@ -50,39 +51,33 @@ class NewOrderController extends Controller
                 ->orderBy('date_added','DESC')
                 ->paginate(20);
 
-            $top_users = oc_order::where('store_name', $shop )->select('customer_id', 'firstname','lastname',DB::raw('SUM(total) AS sumtotal'))
-            ->groupBy('customer_id','firstname','lastname')
-            ->orderByRaw('COUNT(*) DESC')
-            ->take(5)
-            ->get();
+                $top_users = oc_order::where('store_name', $shop )->select('customer_id', 'firstname','lastname',DB::raw('SUM(total) AS sumtotal'))
+                ->groupBy('customer_id','firstname','lastname')
+                ->orderByRaw('COUNT(*) DESC')
+                ->take(5)
+                ->get();
 
 
 
-            $total =  oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->get();
+                $total =  oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->get();
 
-            $delivery = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->where('flag_post_code','=' , 'delivery')->get();
+                $delivery = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->where('flag_post_code','=' , 'delivery')->get();
 
-            $collection = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->where('flag_post_code','=' , 'collection')->get();
+                $collection = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->where('flag_post_code','=' , 'collection')->get();
 
-            $card = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->where('payment_method','=' , 'CARD')->get();
+                $card = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->where('payment_method','=' , 'CARD')->get();
 
-            $cash = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->where('payment_method','=' , 'Cash on Delivery')->get();
+                $cash = oc_order::select(DB::raw("COUNT(*) as count"), DB::raw("SUM(total) as total"))->where('store_name', '=', $shop)->where('payment_method','=' , 'Cash on Delivery')->get();
 
 
 
-            // total ordered products
-            $total_products = oc_order_product::join('oc_order','oc_order_product.order_id', '=', 'oc_order.order_id')
-            ->where('oc_order.store_name', '=', $shop)
-            ->whereDate('oc_order.date_added','>=', $now->subYear())
-            ->count();
-           
-        }
-
-           
-
+                // total ordered products
+                $total_products = oc_order_product::join('oc_order','oc_order_product.order_id', '=', 'oc_order.order_id')
+                ->where('oc_order.store_name', '=', $shop)
+                ->whereDate('oc_order.date_added','>=', $now->subYear())
+                ->count();
             
-
-            
+            }
 
             if(request('search')){ 
                 $orders = oc_order::select([ 'order_id', 'store_name','customer_group_id', 'firstname', 'lastname','email','telephone','payment_method','payment_address_1','payment_address_2','payment_city','payment_postcode','payment_company','date_added', 'order_status_id','timedelivery','flag_post_code' ,'total'])
@@ -360,16 +355,16 @@ class NewOrderController extends Controller
 
             
 
-                foreach ($settings as $result) {
-                    if( $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone'  || $result['key'] == 'map_post_code' ){
-                        if (!$result['serialized']) {
-                            $data[$result['key']] = $result['value'];
-                        } else {
-                            $data[$result['key']] = unserialize($result['value']);
-                        }
+            foreach ($settings as $result) {
+                if( $result['key'] == 'config_name' || $result['key'] == 'config_address' || $result['key'] == 'config_telephone'  || $result['key'] == 'map_post_code' ){
+                    if (!$result['serialized']) {
+                        $data[$result['key']] = $result['value'];
+                    } else {
+                        $data[$result['key']] = unserialize($result['value']);
                     }
-                   
                 }
+                
+            }
 
             
             // all good
