@@ -12,6 +12,8 @@ use App\Models\layout;
 use App\Models\oc_order;
 use App\Models\oc_customer;
 use App\Models\oc_address;
+use App\Models\oc_paypal_order_transaction;
+use App\Models\oc_paypal_order;
 use Carbon\Carbon;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
@@ -102,59 +104,20 @@ class CheckoutController extends Controller
 
     public function checkout(Request $request){
 
-        $provider = new PayPalClient;
-        $provider->setApiCredentials(config('paypal'));
-        $paypalToken = $provider->getAccessToken();
+        
 
-        $response = $provider->createOrder([
-            "intent" => "CAPTURE",
-            "application_context" => [
-                "return_url" => route('successTransaction'),
-                "cancel_url" => route('cancelTransaction'),
-            ],
-            "purchase_units" => [
-                0 => [
-                    "amount" => [
-                        "currency_code" => "USD",
-                        "value" => $request->cartTotal
-                    ],
-                    
-                ]
-            ]
-        ]);
-
-        dd($response);
-
-        if (isset($response['id']) && $response['id'] != null) {
-
-            // redirect to approve href
-            foreach ($response['links'] as $links) {
-                if ($links['rel'] == 'approve') {
-                    return redirect()->away($links['href']);
-                }
-            }
-
-            return redirect()
-                ->route('createTransaction')
-                ->with('error', 'Something went wrong.');
-
-        } else {
-            return redirect()
-                ->route('createTransaction')
-                ->with('error', $response['message'] ?? 'Something went wrong.');
-        }
-
-        dd($request->all());
-
+        // dd($request->toArray());
         $store_id =$request->session()->get('store_id');
         $store = oc_store::where('store_id', $store_id)->first();
         
-        $auth = $request['customer'];
+        $auth = $request['auth'];
         $guest = $request['guestForm'];
         $createData = $request['createData'];
         $delivery = $request['deliveryData'];
         $commition = oc_setting::where('store_id', $store_id)->where('key','myfoodbasketpayments_commision_rate')->first();
         
+        // dd($auth);
+        $order = '';
         if(isset($auth)){
             
             $order = new oc_order;
@@ -165,8 +128,8 @@ class CheckoutController extends Controller
                 'store_id'                  => $store['store_id'],
                 'store_name'                => $store['name'],
                 'store_url'                 => $store['url'],
-                'customer_id'               => $auth['user_id'],
-                'customer_group_id'         => $auth['user_group_id'],
+                'customer_id'               => $auth['customer_id'],
+                'customer_group_id'         => $auth['customer_group_id'],
                 'firstname'                 => $auth['firstname'],
                 'lastname'                  => $auth['lastname'],
                 'email'                     => $auth['email'],
@@ -226,7 +189,8 @@ class CheckoutController extends Controller
             ]);
         $order->save();
 
-        dd("done");
+        
+
 
         }
         
@@ -300,8 +264,95 @@ class CheckoutController extends Controller
             ]);
 
             $order->save();
-            dd("guest");
         }
+
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $paypalToken = $provider->getAccessToken();
+
+        $response = $provider->createOrder([
+            "intent" => "CAPTURE",
+            "application_context" => [
+                "return_url" => route('successTransaction'),
+                "cancel_url" => route('cancelTransaction'),
+            ],
+            "purchase_units" => [
+                0 => [
+                    "amount" => [
+                        "currency_code" => "USD",
+                        "value" => $request->cartTotal
+                    ]
+                ]
+            ]
+        ]);
+
+        dump($response);
+       
+    
+        $pporder = new oc_paypal_order;
+
+        $pporder->fill([
+            'order_id'          => $order->order_id,
+            'created'           => Carbon::now(),
+            'modified'          => Carbon::now(),
+            'capture_status'    => 'NotComplete',
+            'currency_code'     => 'GBP',
+            'authorization_id'  => $response['id'],
+            'total'             => $request['cartTotal'],
+        ]);
+        $pporder->save();
+
+        // dd($pporder);
+
+        $paypal = new oc_paypal_order_transaction;
+
+        $paypal->fill([
+            'paypal_order_id'           => $pporder->paypal_order_id,
+            'transaction_id'            => $response['id'],
+            'parent_transaction_id'     => '',
+            'created'                   => Carbon::now(),
+            'note'                      => '',
+            'msgsubid'                  => '',
+            'receipt_id'                => '',
+            'payment_type'              => 'instant',
+            'payment_status'            => 'pending',
+            'pending_reason'            => 'none',
+            'transaction_entity'        => 'payment',
+            'amount'                    => $request['cartTotal'],
+            'debug_data'                => '',
+            'call_data'                 => ''
+        ]);
+
+        $paypal->save();
+
+       
+
+        if (isset($response['id']) && $response['id'] != null) {
+
+            // redirect to approve href
+            foreach ($response['links'] as $links) {
+                if ($links['rel'] == 'approve') {
+                    return redirect()->away($links['href']);
+                }
+            }
+
+            return Redirect::route('createTransaction')->with('error', 'Something went wrong.');
+            // return redirect()
+            //     ->route('createTransaction')
+            //     ->with('error', 'Something went wrong.');
+
+        } else {
+            return Redirect::route('createTransaction')->with('error', $response['message'] ?? 'Something went wrong.');
+            // return redirect()
+            //     ->route('createTransaction')
+            //     ->with('error', $response['message'] ?? 'Something went wrong.');
+        }
+
+
+
+
+        
+
         
     }
 
@@ -317,16 +368,24 @@ class CheckoutController extends Controller
         $provider->getAccessToken();
         $response = $provider->capturePaymentOrder($request['token']);
 
-        dump('successTransaction');
-        dd($response);
+        // dump('successTransaction');
+        // dd($response['id']);
+
+
 
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+
+            
+            $paypal = oc_paypal_order_transaction::where('transaction_id', $response['id'])->update(['payment_status' => 'Completed']);
+            $paypal = oc_paypal_order::where('authorization_id', $response['id'])->update(['capture_status' => 'Complete']);
+
+            
             return redirect()
-                ->route('createTransaction')
+                ->route('shopMenu')
                 ->with('success', 'Transaction complete.');
         } else {
             return redirect()
-                ->route('createTransaction')
+                ->route('shopMenu')
                 ->with('error', $response['message'] ?? 'Something went wrong.');
         }
     }
@@ -339,7 +398,7 @@ class CheckoutController extends Controller
     public function cancelTransaction(Request $request)
     {
         return redirect()
-            ->route('createTransaction')
+            ->route('shopMenu')
             ->with('error', $response['message'] ?? 'You have canceled the transaction.');
     }
 }

@@ -644,6 +644,8 @@ export default {
         },
         checkoutSubmit(guestForm,auth, deliveryData, createData, cartTest, cartTotal, cartSubtotal,deliverytime,checkoutType,deliverymethod,payment){
             
+            console.log(auth);
+            console.log("auth");
             this.$inertia.post(this.route('shopcheckout.checkout',{guestForm,auth,deliveryData, createData, cartTest, cartTotal, cartSubtotal, deliverytime,checkoutType,deliverymethod,payment}))
         }
     }
