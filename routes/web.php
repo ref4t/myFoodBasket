@@ -98,6 +98,9 @@ else{
         Route::get('/checkout',[CheckoutController::class, 'index'])->name('shopcheckout');
         Route::post('/checkout/checkout',[CheckoutController::class, 'checkout'])->name('shopcheckout.checkout');
 
+        Route::get('success-transaction', [CheckoutController::class, 'successTransaction'])->name('successTransaction');
+        Route::get('cancel-transaction', [CheckoutController::class, 'cancelTransaction'])->name('cancelTransaction');
+
         Route::get('/contactus',[AboutusController::class, 'index'])->name('shopcontactus');
         
         Route::get('/cart',[CartController::class, 'index'])->name('shopcart');

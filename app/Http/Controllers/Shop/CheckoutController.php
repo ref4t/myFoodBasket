@@ -13,6 +13,7 @@ use App\Models\oc_order;
 use App\Models\oc_customer;
 use App\Models\oc_address;
 use Carbon\Carbon;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class CheckoutController extends Controller
 {
@@ -101,7 +102,49 @@ class CheckoutController extends Controller
 
     public function checkout(Request $request){
 
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $paypalToken = $provider->getAccessToken();
+
+        $response = $provider->createOrder([
+            "intent" => "CAPTURE",
+            "application_context" => [
+                "return_url" => route('successTransaction'),
+                "cancel_url" => route('cancelTransaction'),
+            ],
+            "purchase_units" => [
+                0 => [
+                    "amount" => [
+                        "currency_code" => "USD",
+                        "value" => $request->cartTotal
+                    ]
+                ]
+            ]
+        ]);
+
+        dump($response);
+
+        if (isset($response['id']) && $response['id'] != null) {
+
+            // redirect to approve href
+            foreach ($response['links'] as $links) {
+                if ($links['rel'] == 'approve') {
+                    return redirect()->away($links['href']);
+                }
+            }
+
+            return redirect()
+                ->route('createTransaction')
+                ->with('error', 'Something went wrong.');
+
+        } else {
+            return redirect()
+                ->route('createTransaction')
+                ->with('error', $response['message'] ?? 'Something went wrong.');
+        }
+
         dd($request->all());
+
         $store_id =$request->session()->get('store_id');
         $store = oc_store::where('store_id', $store_id)->first();
         
@@ -259,5 +302,43 @@ class CheckoutController extends Controller
             dd("guest");
         }
         
+    }
+
+    /**
+     * success transaction.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function successTransaction(Request $request)
+    {
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $provider->getAccessToken();
+        $response = $provider->capturePaymentOrder($request['token']);
+
+        dump('successTransaction');
+        dd($response);
+
+        if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+            return redirect()
+                ->route('createTransaction')
+                ->with('success', 'Transaction complete.');
+        } else {
+            return redirect()
+                ->route('createTransaction')
+                ->with('error', $response['message'] ?? 'Something went wrong.');
+        }
+    }
+
+    /**
+     * cancel transaction.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cancelTransaction(Request $request)
+    {
+        return redirect()
+            ->route('createTransaction')
+            ->with('error', $response['message'] ?? 'You have canceled the transaction.');
     }
 }
