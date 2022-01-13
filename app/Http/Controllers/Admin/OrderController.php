@@ -149,7 +149,7 @@ class OrderController extends Controller
 
 
 
-        return redirect()->route('admin.dashboard.orders.index');
+        return redirect()->back();
     }
 
     public function delete($id){
