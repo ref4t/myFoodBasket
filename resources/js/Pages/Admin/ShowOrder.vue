@@ -9,11 +9,11 @@
                 <h2>Order</h2>
                 <div class="text-right"  >
                     <Link as="button" class="btn btn-secondary rounded-pill" style="margin-right:1%" type="button">PRINT INVOICE <i class="fas fa-print"></i></Link>
-                    <Link :href="route('admin.dashboard.orders.index')" as="button" class="btn btn-secondary rounded-pill" type="button">CANCEL <i class="far fa-times-circle"></i></Link>
+                    <Link @click="$router.go(-1)" as="button" class="btn btn-secondary rounded-pill" type="button">CANCEL <i class="far fa-times-circle"></i></Link>
                 </div>
               </div>
               <div class="card-body">
-                <div class="container">
+                
                   <br />
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs">
@@ -44,7 +44,7 @@
                     
                     class="tab-content"
                   >
-                    <div id="menu" class="container tab-pane active">
+                    <div id="menu" class=" tab-pane active">
                       <br />
 
                       <div class="card">
@@ -128,7 +128,7 @@
                         </table>
                       </div>
                     </div>
-                    <div id="menu1" class="container tab-pane fade">
+                    <div id="menu1" class=" tab-pane fade">
                       <br />
                       <div class="card">
                         <table
@@ -173,7 +173,7 @@
                       </div>
                     </div>
 
-                    <div id="menu2" class="container tab-pane fade">
+                    <div id="menu2" class=" tab-pane fade">
                       <br />
 
                       <div class="card">
@@ -216,7 +216,7 @@
                       </div>
                     </div>
 
-                    <div id="menu3" class="container tab-pane fade">
+                    <div id="menu3" class=" tab-pane fade">
                       <br />
 
                       <div class="card">
@@ -279,7 +279,7 @@
 
 
                   </div>
-                </div>
+                
               </div>
             </div>
             <div class="card-footer clearfix"></div>
