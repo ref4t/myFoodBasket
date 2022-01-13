@@ -68,9 +68,13 @@ class OrderController extends Controller
 
     public function view($id){
 
-        $orders = oc_order::join('oc_currency','oc_order.currency_id' , '=', 'oc_currency.currency_id')
-        ->where('oc_order.order_id', '=', $id)
-        ->get();
+        // $orders = oc_order::join('oc_currency','oc_order.currency_id' , '=', 'oc_currency.currency_id')
+        // ->where('oc_order.order_id', '=', $id)
+        // ->get();
+
+        $orders = oc_order::where('order_id', '=', $id)->first();
+
+        // dd($orders, $id);
 
         $cart = oc_order_product::where('order_id', $id)->get();
         

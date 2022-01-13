@@ -41,8 +41,7 @@
 
                   <!-- Tab panes -->
                   <div
-                    v-for="order in orders"
-                    :key="order.order_id"
+                    
                     class="tab-content"
                   >
                     <div id="menu" class="container tab-pane active">
@@ -53,7 +52,7 @@
                           <tbody>
                             <tr>
                               <td style="width: 15%">Order ID:</td>
-                              <td>{{ order.order_id }}</td>
+                              <td>{{ orders.order_id }}</td>
                             </tr>
                             <tr>
                               <td>Invoice No:</td>
@@ -61,69 +60,69 @@
                             </tr>
                             <tr>
                               <td>Store Name:</td>
-                              <td>{{ order.store_name }}</td>
+                              <td>{{ orders.store_name }}</td>
                             </tr>
                             <tr>
                               <td>Store Url:</td>
-                              <td>{{ order.store_url }}</td>
+                              <td>{{ orders.store_url }}</td>
                             </tr>
                             <tr>
                               <td>Customer:</td>
                               <td>
-                                {{ order.firstname }} {{ order.lastname }}
+                                {{ orders.firstname }} {{ orders.lastname }}
                               </td>
                             </tr>
                             <tr>
                               <td>Customer Group:</td>
-                              <td>{{ order.customer_group_id }}</td>
+                              <td>{{ orders.customer_group_id }}</td>
                             </tr>
                             <tr>
                               <td>E-Mail:</td>
-                              <td>{{ order.email }}</td>
+                              <td>{{ orders.email }}</td>
                             </tr>
                             <tr>
                               <td>Telephone:</td>
-                              <td>{{ order.telephone }}</td>
+                              <td>{{ orders.telephone }}</td>
                             </tr>
                             <tr>
                               <td>Total:</td>
-                              <td>{{ order.total }}</td>
+                              <td>{{ orders.total }}</td>
                             </tr>
                             <tr>
                               <td>Order Status:</td>
-                              <td>{{ order.order_status_id }}</td>
+                              <td>{{ orders.order_status_id }}</td>
                             </tr>
                             <tr>
                               <td>IP Address:</td>
-                              <td>{{ order.ip }}</td>
+                              <td>{{ orders.ip }}</td>
                             </tr>
                             <tr>
                               <td>User Agent:</td>
-                              <td>{{ order.user_agent }}</td>
+                              <td>{{ orders.user_agent }}</td>
                             </tr>
                             <tr>
                               <td>Accept Language:</td>
-                              <td>{{ order.language_id }}</td>
+                              <td>{{ orders.language_id }}</td>
                             </tr>
                             <tr>
                               <td>Date Added:</td>
-                              <td>{{ order.date_added }}</td>
+                              <td>{{ orders.date_added }}</td>
                             </tr>
                             <tr>
                               <td>Date Modified:</td>
-                              <td>{{ order.date_modified }}</td>
+                              <td>{{ orders.date_modified }}</td>
                             </tr>
                             <tr>
                               <td>Shipping Method:</td>
-                              <td>{{ order.flag_post_code }}</td>
+                              <td>{{ orders.flag_post_code }}</td>
                             </tr>
                             <tr>
                               <td>Free item:</td>
-                              <td>{{ order.free_item }}</td>
+                              <td>{{ orders.free_item }}</td>
                             </tr>
                             <tr>
                               <td>Time delivery:</td>
-                              <td>{{ order.timedelivery }}</td>
+                              <td>{{ orders.timedelivery }}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -133,30 +132,29 @@
                       <br />
                       <div class="card">
                         <table
-                          v-for="order in orders"
-                          :key="order.order_id"
+                          
                           class="table table-borderless table-hover"
                         >
                           <tbody>
                             <tr>
                               <td style="width: 15%">First Name:</td>
-                              <td>{{ order.firstname }}</td>
+                              <td>{{ orders.firstname }}</td>
                             </tr>
                             <tr>
                               <td>Last Name:</td>
-                              <td>{{ order.lastname }}</td>
+                              <td>{{ orders.lastname }}</td>
                             </tr>
                             <tr>
                               <td>Address 1:</td>
-                              <td>{{ order.payment_address_1 }}</td>
+                              <td>{{ orders.payment_address_1 }}</td>
                             </tr>
                             <tr>
                               <td>City:</td>
-                              <td>{{ order.payment_city }}</td>
+                              <td>{{ orders.payment_city }}</td>
                             </tr>
                             <tr>
                               <td>Postcode:</td>
-                              <td>{{ order.payment_postcode }}</td>
+                              <td>{{ orders.payment_postcode }}</td>
                             </tr>
                             <tr>
                               <td>Region / State:</td>
@@ -164,11 +162,11 @@
                             </tr>
                             <tr>
                               <td>Country:</td>
-                              <td>{{ order.country }}</td>
+                              <td>{{ orders.country }}</td>
                             </tr>
                             <tr>
                               <td>Payment Method:</td>
-                              <td>{{ order.flag_post_code }}</td>
+                              <td>{{ orders.flag_post_code }}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -195,10 +193,10 @@
                               <td>{{ item.model }}</td>
                               <td>{{ item.quantity }}</td>
                               <td style="text-align: right">
-                                {{ order.symbol_left }}{{ format(item.price) }}
+                                {{ orders.symbol_left }}{{ format(item.price) }}
                               </td>
                               <td style="text-align: right">
-                                {{ order.symbol_left }}{{ format(item.total) }}
+                                {{ orders.symbol_left }}{{ format(item.total) }}
                               </td>
                             </tr>
                             <tr
@@ -210,7 +208,7 @@
                               <td></td>
                               <td></td>
                               <td style="text-align: right">
-                                {{ order.symbol_left }}{{ format(total.value) }}
+                                {{ orders.symbol_left }}{{ format(total.value) }}
                               </td>
                             </tr>
                           </tbody>
