@@ -10,6 +10,7 @@ use App\Models\oc_setting;
 use App\Models\oc_store;
 use App\Models\layout;
 use App\Models\oc_order;
+use App\Models\oc_order_product;
 use App\Models\oc_customer;
 use App\Models\oc_address;
 use App\Models\oc_paypal_order_transaction;
@@ -109,7 +110,7 @@ class CheckoutController extends Controller
         // dd($request->toArray());
         $store_id =$request->session()->get('store_id');
         $store = oc_store::where('store_id', $store_id)->first();
-        
+        $cartTest = $request['cartTest'];
         $auth = $request['auth'];
         $guest = $request['guestForm'];
         $createData = $request['createData'];
@@ -189,6 +190,24 @@ class CheckoutController extends Controller
             ]);
         $order->save();
 
+        foreach($cartTest as $products){
+            $items = new oc_order_product();
+
+            $items->order_id = $order->order_id;
+            $items->product_id = $products['id'];
+            $items->name = $products['name'];
+            $items->model = '';
+            $items->quantity = $products['qty'];
+            $items->price = $products['price'];
+            $items->total = $products['subtotal'];
+            $items->tax = $products['tax'];
+            $items->reward = $products['discount'];
+            $items->name_size_base = '';
+            $items->toppings = '';
+            $items->request = '';
+
+            $items->save();
+        }
         
 
 
@@ -264,6 +283,26 @@ class CheckoutController extends Controller
             ]);
 
             $order->save();
+
+            foreach($cartTest as $products){
+                $items = new oc_order_product();
+    
+                $items->order_id = $order->order_id;
+                $items->product_id = $products['id'];
+                $items->name = $products['name'];
+                $items->model = '';
+                $items->quantity = $products['qty'];
+                $items->price = $products['price'];
+                $items->total = $products['subtotal'];
+                $items->tax = $products['tax'];
+                $items->reward = $products['discount'];
+                $items->name_size_base = '';
+                $items->toppings = '';
+                $items->request = '';
+    
+                $items->save();
+            }
+
         }
 
         $provider = new PayPalClient;
